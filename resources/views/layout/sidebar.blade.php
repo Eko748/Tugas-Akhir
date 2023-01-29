@@ -38,7 +38,7 @@
               ><i class="fa fa-angle-right ps-2" aria-hidden="true"> </i>
             </div>
           </li>
-          @if (Auth::user()->id_role == '1')
+          @if (Auth::user()->role_id == '1')
           <li class="sidebar-list">
             {{-- <label class="badge badge-light-primary">2</label --}}
             <a class="sidebar-link" href="{{ route('dashboard.admin.index') }}">

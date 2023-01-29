@@ -32,14 +32,10 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        if (Auth::user()->id_role == '0') {
+        if (Auth::user()->role_id == '0') {
             return redirect()->intended(RouteServiceProvider::HOME);
-        } else if (Auth::user()->id_role == '1') {
-            return redirect()->intended(RouteServiceProvider::ADMIN);
-        } else if (Auth::user()->id_role == '2') {
-            return redirect()->intended(RouteServiceProvider::EMPLOYEE);
-        } else if (Auth::user()->id_role == '3') {
-            return redirect()->intended(RouteServiceProvider::AGENT);
+        } else if (Auth::user()->role_id == '1') {
+            return redirect()->intended(RouteServiceProvider::MEMBER);
         } else {
             return abort(403);
         }
@@ -68,14 +64,10 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        if (Auth::user()->id_role == '0') {
+        if (Auth::user()->role_id == '1') {
             return redirect()->intended(RouteServiceProvider::HOME);
-        } else if (Auth::user()->id_role == '1') {
-            return redirect()->intended(RouteServiceProvider::ADMIN);
-        } else if (Auth::user()->id_role == '2') {
-            return redirect()->intended(RouteServiceProvider::EMPLOYEE);
-        } else if (Auth::user()->id_role == '3') {
-            return redirect()->intended(RouteServiceProvider::AGENT);
+        } else if (Auth::user()->role_id == '2') {
+            return redirect()->intended(RouteServiceProvider::MEMBER);
         } else {
             return abort(403);
         }

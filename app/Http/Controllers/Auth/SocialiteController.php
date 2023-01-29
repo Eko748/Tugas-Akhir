@@ -56,7 +56,7 @@ class SocialiteController extends Controller
             if (!$user) {
                 // Create user baru
                 $user = User::create([
-                    'id_role' => 1,
+                    'role_id' => 1,
                     'name'  => $socialUser->getName(),
                     'email' => $socialUser->getEmail(),
                     'password'          => Hash::make(0),
