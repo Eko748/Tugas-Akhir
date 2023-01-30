@@ -5,18 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Leader extends Model
+class Institute extends Model
 {
     use HasFactory;
-    protected $guarded = [];
+
+    protected $guarded = [''];
 
     public function getUser()
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
-    }
-
-    public function getRole()
-    {
-        return $this->belongsTo(Role::class, 'role_id', 'id');
     }
 }

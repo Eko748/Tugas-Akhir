@@ -13,7 +13,7 @@ class ManagementController extends Controller
     public function indexEmployee()
     {
         $data = ["parent" => "Management", "child" => "Karyawan"];
-        return view('admin.pages.management.employee.index', $data);
+        return view('pages.management.employee.index', $data);
     }
 
     public function registration()

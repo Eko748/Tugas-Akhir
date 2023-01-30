@@ -32,7 +32,7 @@ class SocialiteController extends Controller
         Auth()->login($authUser, true);
 
         // setelah login redirect ke dashboard
-        return redirect()->route('dashboard.admin.index');
+        return redirect()->route('dashboard.index');
     }
 
     public function findOrCreateUser($socialUser, $provider)

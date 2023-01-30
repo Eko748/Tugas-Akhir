@@ -25,7 +25,11 @@ class UserActivity
             Cache::put('user-is-online-' . Auth::user()->id, true, $expiresAt);
 
             /* last seen */
-            User::where('id', Auth::user()->id)->update(['last_seen' => now()]);
+            User::where('id', Auth::user()->id)
+            ->update([
+                'last_seen' => now(), 
+                'last_seen_ip' => $request->getClientIp()
+            ]);
         }
 
         return $next($request);

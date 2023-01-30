@@ -33,6 +33,7 @@ class User extends Authenticatable
         'avatar',
         'remember_token',
         'last_seen',
+        'last_seen_ip',
         'is_email_verified'
     ];
 
@@ -60,14 +61,29 @@ class User extends Authenticatable
         return $this->hasMany(SocialAccount::class);
     }
 
-    public function userStores()
+    public function getRole()
     {
-        return $this->hasOne(UserStore::class, 'user_id');
+        return $this->belongsTo(Role::class, 'role_id', 'id');
+    }
+
+    public function hasInstitute()
+    {
+        return $this->hasOne(Institute::class, 'user_id');
     }
 
     public function hasAdmin()
     {
         return $this->hasOne(Admin::class, 'user_id');
+    }
+
+    public function hasLeader()
+    {
+        return $this->hasMany(Leader::class, 'user_id');
+    }
+
+    public function hasMember()
+    {
+        return $this->hasMany(Member::class, 'user_id');
     }
 
     public function getFullNameAttribute() {

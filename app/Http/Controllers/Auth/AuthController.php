@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\UserVerify;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
@@ -14,6 +15,15 @@ use Illuminate\Support\Facades\Session;
 
 class AuthController extends Controller
 {
+    public function getTimeLogging()
+    {
+        $from = Carbon::createFromFormat('Y-m-d H:i:s', Auth::user()->last_seen);
+        $to = Carbon::createFromFormat('Y-m-d H:i:s', Carbon::now());
+        $diff = $to->diffInMinutes($from);
+
+        return response()->json(['time' => $diff]);
+    }
+
     public function index()
     {
         return view('auth.pages.login.index');

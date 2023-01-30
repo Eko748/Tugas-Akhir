@@ -17,12 +17,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [LandingController::class, 'index'])->name('home');
 
-// Route::get('/', function () {
-//     return view('main');
-// });
-
 Route::get('/auth/{provider}', [SocialiteController::class, 'redirectToProvider']);
 Route::get('/auth/{provider}/callback', [SocialiteController::class, 'handleProvideCallback']);
 
 require __DIR__.'/auth.php';
-require __DIR__ . '/admin.php';
+require __DIR__ . '/leader.php';
