@@ -49,12 +49,21 @@
                             </div>
                         </div> --}}
                         {{-- <option value='0'>- Search User -</option> --}}
+
+
                         <div id="user_data">
                             @include('pages.management.product.components.pagination_data')
                         </div>
-                        @foreach ($companies as $company => $c)
-                            {{ $c['html'] }}
-                        @endforeach
+                        {{-- <h3>
+                            {{ $title }}
+                        </h3>
+                        <h5>
+                            {{ $abstract }}
+                        </h5> --}}
+                        <div id="publisher-data"></div>
+
+                        <div>
+                        </div>
                     </div>
                 </div>
             </div>

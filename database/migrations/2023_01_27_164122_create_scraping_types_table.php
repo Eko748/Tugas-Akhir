@@ -19,9 +19,9 @@ return new class extends Migration
             $table->string('type_name', 50);
             $table->integer('created_by');
             $table->timestamp('created_at')->nullable();
-            $table->integer('updated_by');
+            $table->integer('updated_by')->nullable();
             $table->timestamp('updated_at')->nullable();
-            $table->integer('deleted_by');
+            $table->integer('deleted_by')->nullable();
             $table->timestamp('deleted_at')->nullable();
         });
     }

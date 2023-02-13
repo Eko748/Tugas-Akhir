@@ -78,9 +78,9 @@
             <!-- Page Sidebar Ends-->
 
             <!-- page body starts from breadcrumbs -->
-            <div id="app">
+            {{-- <div id="app">
                 
-            </div>
+            </div> --}}
             @yield('content')
             @vite('resources/js/app.js')
 

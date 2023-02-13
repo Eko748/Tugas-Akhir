@@ -1,0 +1,271 @@
+{
+    "userInfo": {
+        "institute": false,
+        "member": false,
+        "individual": false,
+        "guest": false,
+        "subscribedContent": false,
+        "fileCabinetContent": false,
+        "fileCabinetUser": false,
+        "institutionalFileCabinetUser": false,
+        "showPatentCitations": true,
+        "showGet802Link": false,
+        "showOpenUrlLink": false,
+        "tracked": false,
+        "desktop": false,
+        "delegatedAdmin": false,
+        "isInstitutionDashboardEnabled": false,
+        "isInstitutionProfileEnabled": false,
+        "isRoamingEnabled": false,
+        "isDelegatedAdmin": false,
+        "isMdl": false,
+        "isCwg": false,
+        "isIel": false,
+        "isAcademic": false
+    },
+    "authors": [
+        {
+            "name": "Noor Bolbol",
+            "affiliation": [
+                "Information Technology Islamic University, Gaza, Palestine"
+            ],
+            "firstName": "Noor",
+            "lastName": "Bolbol",
+            "id": "37088652060"
+        },
+        {
+            "name": "Tawfiq Barhoom",
+            "affiliation": [
+                "Information Technology Islamic University, Gaza, Palestine"
+            ],
+            "firstName": "Tawfiq",
+            "lastName": "Barhoom",
+            "id": "38354308000"
+        }
+    ],
+    "isbn": [
+        {
+            "format": "Electronic ISBN",
+            "value": "978-1-6654-3651-9",
+            "isbnType": ""
+        },
+        {
+            "format": "Print on Demand(PoD) ISBN",
+            "value": "978-1-6654-3652-6",
+            "isbnType": ""
+        }
+    ],
+    "articleNumber": "9636915",
+    "dbTime": "2 ms",
+    "metrics": {
+        "citationCountPaper": 0,
+        "citationCountPatent": 0,
+        "totalDownloads": 53
+    },
+    "purchaseOptions": {
+        "showOtherFormatPricingTab": false,
+        "showPdfFormatPricingTab": true,
+        "pdfPricingInfoAvailable": true,
+        "otherPricingInfoAvailable": false,
+        "mandatoryBundle": false,
+        "optionalBundle": false,
+        "displayTextWhenOtherFormatPricingNotAvailable": "The purchase and pricing options for this item are unavailable. Select items are only available as part of a subscription package. You may try again later or <a href='https://ieeexplore.ieee.org/xpl/contact' target='_blank'>contact us for more information.",
+        "pdfPricingInfo": [
+            {
+                "memberPrice": "$14.95",
+                "nonMemberPrice": "$33.00",
+                "partNumber": "9636915",
+                "type": "PDF/HTML"
+            }
+        ]
+    },
+    "getProgramTermsAccepted": false,
+    "sections": {
+        "abstract": "true",
+        "authors": "true",
+        "figures": "true",
+        "multimedia": "false",
+        "references": "true",
+        "citedby": "false",
+        "keywords": "true",
+        "definitions": "false",
+        "algorithm": "false",
+        "dataset": "false",
+        "cadmore": "false",
+        "footnotes": "false",
+        "disclaimer": "false",
+        "relatedContent": "false",
+        "metrics": "true"
+    },
+    "allowComments": false,
+    "articleCopyRight": "2021 IEEE",
+    "displayPublicationDate": "28-29 September 2021",
+    "pubLink": "/xpl/conhome/9636880/proceeding",
+    "pdfUrl": "/stamp/stamp.jsp?tp=&arnumber=9636915",
+    "keywords": [
+        {
+            "type": "IEEE Keywords",
+            "kwd": [
+                "Machine learning algorithms",
+                "Blogs",
+                "Crawlers",
+                "Information and communication technology",
+                "Security",
+                "Data mining",
+                "Middleware"
+            ]
+        },
+        {
+            "type": "INSPEC: Controlled Indexing",
+            "kwd": [
+                "Internet",
+                "middleware",
+                "mobile computing",
+                "text analysis",
+                "Web sites"
+            ]
+        },
+        {
+            "type": "INSPEC: Non-Controlled Indexing",
+            "kwd": [
+                "local project",
+                "PHP language",
+                "Laravel framework",
+                "file size",
+                "HTML-similarity tool",
+                "bit changes",
+                "scraper bot",
+                "expected results",
+                "programmed middleware",
+                "blogs content",
+                "mitigating web scrapers",
+                "markup randomization",
+                "Web Scraping",
+                "desired data",
+                "internal links",
+                "website",
+                "systematically programmed bots",
+                "blog content",
+                "theft",
+                "destinations",
+                "scraping bots",
+                "main blog page level",
+                "crawler bots",
+                "article page level",
+                "random number",
+                "hidden spans",
+                "randomly generated text"
+            ]
+        },
+        {
+            "type": "Author Keywords ",
+            "kwd": [
+                "Web scraping",
+                "web crawler",
+                "randomization",
+                "markup HTML",
+                "content security"
+            ]
+        }
+    ],
+    "abstract": "Web Scraping is the technique of extracting desired data in an automated way by scanning the internal links and content of a website, this activity usually performed by systematically programmed bots. This paper explains our proposed solution to protect the blog content from theft and from being copied to other destinations by mitigating the scraping bots. To achieve our purpose we applied two steps in two levels, the first one, on the main blog page level, mitigated the work of crawler bots by adding extra empty articles anchors among real articles, and the next step, on the article page level, we add a random number of empty and hidden spans with randomly generated text among the article's body. To assess this solution we apply it to a local project developed using PHP language in Laravel framework, and put four criteria that measure the effectiveness. The results show that the changes in the file size before and after the application do not affect it, also, the processing time increased by few milliseconds which still in the acceptable range. And by using the HTML-similarity tool we get very good results that show the symmetric over style, with a few bit changes over the structure. Finally, to assess the effects on the bots, scraper bot reused and get the expected results from the programmed middleware. These results show that the solution is feasible to be adopted and use to protect blogs content.",
+    "publicationYear": "2021",
+    "doi": "10.1109/PICICT53635.2021.00038",
+    "publicationTitle": "2021 Palestinian International Conference on Information and Communication Technology (PICICT)",
+    "displayPublicationTitle": "2021 Palestinian International Conference on Information and Communication Technology (PICICT)",
+    "pdfPath": "/iel7/9636880/9636883/09636915.pdf",
+    "startPage": "157",
+    "endPage": "162",
+    "publicationDate": "September 2021",
+    "rightsLink": "http://s100.copyright.com/AppDispatchServlet?publisherName=ieee&publication=proceedings&title=Mitigating+Web+Scrapers+using+Markup+Randomization&isbn=978-1-6654-3651-9&publicationDate=September+2021&author=Noor+Bolbol&ContentID=10.1109/PICICT53635.2021.00038&orderBeanReset=true&startPage=157&endPage=162&proceedingName=2021+Palestinian+International+Conference+on+Information+and+Communication+Technology+%28PICICT%29",
+    "dateOfInsertion": "20 December 2021",
+    "issueLink": "/xpl/tocresult.jsp?isnumber=9636883&punumber=9636880",
+    "doiLink": "https://doi.org/10.1109/PICICT53635.2021.00038",
+    "formulaStrippedArticleTitle": "Mitigating Web Scrapers using Markup Randomization",
+    "isReadingRoomArticle": false,
+    "isGetArticle": false,
+    "isGetAddressInfoCaptured": false,
+    "isMarketingOptIn": false,
+    "pubTopics": [
+        {
+            "name": "Computing and Processing"
+        }
+    ],
+    "publisher": "IEEE",
+    "isOUP": false,
+    "isCustomDenial": false,
+    "isSAE": false,
+    "htmlAbstractLink": "/document/9636915/",
+    "isPromo": false,
+    "isSMPTE": false,
+    "isNow": false,
+    "isNotDynamicOrStatic": false,
+    "isFreeDocument": false,
+    "isDynamicHtml": true,
+    "displayDocTitle": "Mitigating Web Scrapers using Markup Randomization",
+    "isStandard": false,
+    "isConference": true,
+    "isProduct": false,
+    "isSpringer": false,
+    "isEarlyAccess": false,
+    "isJournal": false,
+    "isBook": false,
+    "isChapter": false,
+    "isStaticHtml": false,
+    "accessionNumber": "21475357",
+    "isBookWithoutChapters": false,
+    "isOpenAccess": false,
+    "isEphemera": false,
+    "htmlLink": "/document/9636915/",
+    "persistentLink": "https://ieeexplore.ieee.org/servlet/opac?punumber=9636880",
+    "xploreDocumentType": "Conference Publication",
+    "startPage": "157",
+    "articleCopyRight": "2021 IEEE",
+    "openAccessFlag": "F",
+    "insertDate": "20 December 2021",
+    "ephemeraFlag": "false",
+    "title": "Mitigating Web Scrapers using Markup Randomization",
+    "confLoc": "Gaza, Palestine, State of",
+    "accessionNumber": "21475357",
+    "html_flag": "false",
+    "ml_html_flag": "true",
+    "sourcePdf": "365100a157.pdf",
+    "displayPublicationDate": "28-29 September 2021",
+    "mlTime": "PT0.026025S",
+    "xplore-pub-id": "9636880",
+    "pdfPath": "/iel7/9636880/9636883/09636915.pdf",
+    "isNumber": "9636883",
+    "rightsLinkFlag": "1",
+    "contentType": "conferences",
+    "publicationDate": "September 2021",
+    "publicationNumber": "9636880",
+    "xplore-issue": "9636883",
+    "articleId": "9636915",
+    "publicationTitle": "2021 Palestinian International Conference on Information and Communication Technology (PICICT)",
+    "sections": {
+        "abstract": "true",
+        "authors": "true",
+        "figures": "true",
+        "multimedia": "false",
+        "references": "true",
+        "citedby": "false",
+        "keywords": "true",
+        "definitions": "false",
+        "algorithm": "false",
+        "dataset": "false",
+        "cadmore": "false",
+        "footnotes": "false",
+        "disclaimer": "false",
+        "relatedContent": "false",
+        "metrics": "true"
+    },
+    "contentTypeDisplay": "Conferences",
+    "publicationYear": "2021",
+    "subType": "IEEE Conference",
+    "_value": "IEEE",
+    "lastupdate": "2023-01-15",
+    "mediaPath": "/mediastore_new/IEEE/content/media/9636880/9636883/9636915",
+    "endPage": "162",
+    "displayPublicationTitle": "2021 Palestinian International Conference on Information and Communication Technology (PICICT)",
+    "doi": "10.1109/PICICT53635.2021.00038"
+};

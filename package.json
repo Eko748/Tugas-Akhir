@@ -31,6 +31,7 @@
     },
     "dependencies": {
         "@loadingio/loading.css": "^3.1.0",
+        "osmosis": "^1.1.10",
         "vue-loader": "^17.0.1",
         "webpack-cli": "^4.10.0"
     }

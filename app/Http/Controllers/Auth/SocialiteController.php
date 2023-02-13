@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Auth\Exception;
+use App\Models\Leader;
 use App\Models\SocialAccount;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
@@ -63,6 +64,13 @@ class SocialiteController extends Controller
                     'status' => 1,
                     'email_verified_at' => now()
                 ]);
+
+                $leader = Leader::create(
+                    [
+                        'user_id' => $user->id,
+                        'role_id' => $user->role_id,
+                    ]
+                );
             }
 
             // Buat Social Account baru

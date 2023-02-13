@@ -98,7 +98,7 @@
                               </svg><span class="">Scraping</span></a>
                           <ul class="sidebar-submenu">
                               <li><a href="{{ route('scraping.index') }}">Document</a></li>
-                              <li><a href="{{ route('management.product.index') }}">Product</a></li>
+                              <li><a href="{{ route('scraping.review.index') }}">Review</a></li>
                               <li>
                                   <a class="submenu-title" href="#">Journal Detail<span class="sub-arrow"><i
                                               class="fa fa-angle-right"></i></span></a>
@@ -146,7 +146,7 @@
                         {{-- <a class="txt" href="https://pixelstrap.freshdesk.com/support/home">Raise ticket at
                             "support@pixelstrap.com"</a> --}}
                             <a class="btn btn-secondary"
-                            href="/logout">Log Out</a>
+                            href="{{ route('logout') }}">Log Out</a>
                     </div>
                 </div>
             </div>

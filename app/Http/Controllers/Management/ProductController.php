@@ -4,13 +4,21 @@ namespace App\Http\Controllers\Management;
 
 use App\Http\Controllers\Controller;
 use App\Constants\GlobalConstants;
-
+use App\Http\Controllers\Scraping\XPLORE;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\UserStore;
+use App\Spiders\Job;
+use DOMDocument;
+use DOMXPath;
+use Exception;
 use Illuminate\Http\Request;
+use RoachPHP\Roach;
+
 use Goutte\Client;
+use Sunra\PhpSimple\HtmlDomParser;
 use GuzzleHttp\Client as GuzzleClient;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
@@ -19,9 +27,14 @@ use Illuminate\Validation\Rules;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\Console\Input\Input;
+use Symfony\Component\DomCrawler\Crawler;
 
 class ProductController extends Controller
 {
+    public function member()
+    {
+        return view('home');
+    }
     // public function index(Request $request)
     // {
     //     $users = User::orderBy('created_at', 'desc')->paginate(6);
@@ -54,34 +67,170 @@ class ProductController extends Controller
     //     ];
     //     return view('admin.pages.management.product.index', $data);
     // }
-    public function index()
+    public function index(Request $request)
     {
+        // $url = 'https://ieeexplore.ieee.org/document/9837910';
+        // $html = HtmlDomParser::file_get_html($url);
+        // // $pilihan= parse_url($url, PHP_URL_HOST);
+        // $judul = $html->find('img .ieee-logo', 0)->plaintext;
+        // $a = 'a';
+        // $data = Roach::collectSpider(Job::class);
+        // dd($data);
         $users = User::getUsers('', '', GlobalConstants::ALL, GlobalConstants::ALL, GlobalConstants::ALL);
         $search = User::all();
+        // $client = new Client();
+        // $dom = new DOMDocument();
+
+        // $item = [];
+        // $website = $client->request('GET', 'https://ieeexplore.ieee.org/document/9636915');
+        // $title = $website->evaluate('/html/head/meta[5]')->attr('content');
+        // $abstract = $website->evaluate('/html/head/meta[7]')->attr('content');
+        // $path = $website->filterXPath('//*[@id="LayoutWrapper"]/div/div/div/script[6]')->extract(['_text']);
         $client = new Client();
+        
+        // $dom = new DOMDocument;
+        // $response = $client->request('GET', 'http://ieeexploreapi.ieee.org/api/v1/search/articles?apikey=6gt3qk5zbgegvb9zb7epynjy&format=xml&max_records=25&start_record=1&sort_order=asc&sort_field=article_number&querytext=Artificial');
+        // $p = $response->filterXPath('/html/body/div[2]/span/text()');
+        // dd($p);
+        // $html = $response->html();
+        // $crawler = new Crawler($html);
+        // $xpath = new \DOMXPath(@\DOMDocument::loadHTML($html));
+        // $nodes = $xpath->query('//*[@id="abstract"]');
+        // $client = new Client();
+        // $crawler = $client->request('GET', 'https://ieeexplore.ieee.org/document/9837910');
+
+        // $p = $crawler->filterXPath('//*[@id="LayoutWrapper"]/div/div/div/script[6]/text()')->text();
+
+        // $b = array('authors":', ':')[0];
+        // $randomArray = explode($b, $p);
+        // $i = explode("}],", $randomArray[1])[0];
+
+        // // dd($randomArray)
+        // $u = "],";
+        // $array = array($i, $u);
+        // $a = implode('}', $array);
+
+        // $c = explode('name":', $a);
+
+        // foreach ($c as $key => $value) {
+        //     $value;
+        // }
+        // $c = $p;
+
+
+        // $data = [];
+        // foreach ($nodes as $node) {
+        //     $data[] = $node->nodeValue;
+        // }
+        // evaluate('//*[@id="LayoutWrapper"]/div/div/div/script[6]/text()')->text();
+        // $paths = array(['test', 'layout', 'tit']);
+        // $json = json_encode($xPath);
+        // $item = [];
+        // $json2 = explode(':', $json, 2);
+
+        // $path = $this->filterWords($paths, 'title');
+        $query = new XPLORE('6gt3qk5zbgegvb9zb7epynjy');
+        $query->articleTitle('Artificial');
+        $results = $query->callAPI();
+        // dd($results);
         $item = [];
-        $website = $client->request('GET', 'https://ieeexplore.ieee.org/document/9837910');
-        $companies = $website->filter('title')->each(function ($node) {
-            return $item[] = array(
-                'nodeName' => $node->nodeName(),
-                'attributes' => [
-                    'class' => $node->attr('class'),
-                    'id' => $node->attr('id'),
-                ],
-                'html' => $node->html(),
-                'outerHTML' => $node->outerHtml()
-            );
-        });
+        $item[] = $results;
+        $cek = [];
+        // dd($results['articles']);
+        foreach ($results['articles'] as $article) {
+            // $item[] = $article;
+            $cek[] = $article;
+            // dd($article);
+            // foreach($article['authors'] as $author) {
+            //     foreach($author as $a) {
+            //         $cek[] = $a;
+            //     }
+            // }
+            
+        }
+        // dd($cek);
         $data = [
             "parent" => "Management",
             "child" => "Product",
             "users" => $users,
             "search" => $search,
-            "companies" => $companies,
+            // "title" => $title,
+            // "abstract" => $abstract,
+            "path" => $cek,
         ];
         return view('pages.management.product.index', $data);
+        // $c = $companies->text();
+
+        // $i = $c->json();
+        // $response = $companies->send(); // Send created request to server
+        // $data = $companies->json();
+        // $html_string = file_get_contents('https://ieeexplore.ieee.org/document/9636915');
+        // $dom = new DOMDocument();
+        // libxml_use_internal_errors(true);
+        // $dom->loadHTML($html_string);
+        // libxml_clear_errors();
+        // $xpath = new DOMXpath($dom);
+        // $values = array();
+        // $row = $xpath->query('//*[@id="LayoutWrapper"]/div/div/div/script[6]');
+
+        // // $a = $values->text();
+        // foreach($row as $value) {
+        //     $values[] = trim($value->textContent);
+        // }
+
+        // $item = $c->html();
+        // return $item[] = array(
+        //     'nodeName' => $node->nodeName(),
+        //     'attributes' => [
+        //         'class' => $node->attr('class'),
+        //         'id' => $node->attr('id'),
+        //     ],
+        //     'html' => $node->html(),
+        //     'outerHTML' => $node->outerHtml()
+        // );
+        // $url = $request->get('url');
+
+        // //Init Guzzle
+        // $client = new Client();
+
+        //Get request
+        // $response = $client->request(
+        //     'GET',
+
+        // );
+
+        //     $response_status_code = $response->getStatusCode();
+        //     $html = $response->getBody()->getContents();
+
+        //     if($response_status_code==200){
+        //         $dom = HtmlDomParser::str_get_html( $html );
+
+        //         $song_items = $dom->find('div[class="chart-list-item"]');
+
+        //         $count = 1;
+        //         foreach ($song_items as $song_item){
+        //             if($count==1){
+        //                 $song_title = trim($song_item->find('span[class="chart-list-item__title-text"]',0)->text());
+        //                 $song_artist = trim($song_item->find('div[class="chart-list-item__artist"]',0)->text());
+
+        //                 $song_lyrics_parent = $song_item->find('div[class="chart-list-item__lyrics"]',0)->find('a',0);
+        //                 $song_lyrics_href = $song_lyrics_parent->attr['href'];
+
+        //                 //Store in database
+        //             }
+        //             $count++;
+        //         }
+        //     }
+        // dd($companies);
+
     }
 
+    public function filterWords($words, $filter)
+    {
+        return array_filter($words, function ($word) use ($filter) {
+            return strpos(strtolower($word), strtolower($filter)) !== false;
+        });
+    }
     public function getMoreUsers(Request $request)
     {
         $query = $request->search_query;

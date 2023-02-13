@@ -91,7 +91,7 @@ class MemberController extends Controller
 
     public function getUser(Request $req)
     {
-        $users = [];
+        $users = []; 
 
         if ($req->has('q')) {
             $search = $req->q;

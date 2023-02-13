@@ -1,7 +1,7 @@
 @extends('main')
 
 @section('title')
-    Management Member
+    {{ $parent }} {{ $child }}
 @endsection
 
 @section('content')
@@ -43,10 +43,10 @@
 
     {{-- <script src="{{ asset('assets/js/tooltip-init.js') }}"></script> --}}
 
-    @include('pages.management.member.js.table-js')
-    {{-- @include('pages.management.member.js.searchTable-js') --}}
-    @include('pages.management.member.js.crud-js')
-    @include('pages.management.member.js.validate-js')
-    @include('pages.management.member.js.getUser-js')
+    @include('pages.management.member.content.js.table-js')
+    {{-- @include('pages.management.member.content.js.searchTable-js') --}}
+    @include('pages.management.member.content.js.crud-js')
+    @include('pages.management.member.content.js.validate-js')
+    @include('pages.management.member.content.js.getUser-js')
 @endpush
 @endsection
