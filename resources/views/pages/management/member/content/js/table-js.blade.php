@@ -28,7 +28,7 @@
                             );
                             let title = $(cell).text();
                             $(cell).html(
-                                '<input id="" type="search" class="user form-control form-control-sm" placeholder="' +
+                                '<input type="search" class="user form-control form-control-sm" placeholder="' +
                                 title + '">');
                             $('input', $('.filters th').eq($(api.column(colIdx).header())
                                 .index()))
@@ -66,7 +66,7 @@
                             );
                             let title = $(cell).text();
                             $(cell).html(
-                                '<small><input id="" class="user form-control" placeholder="' +
+                                '<small><input class="user form-control" placeholder="' +
                                 title + '"></small>'
                                 // '<select class="form-control" id="exampleDataList"> <datalist id="datalistOptions"><option value=""></datalist>'
                                 // '<select id="data-employee" class="form-select"><datalist id="datalistOptions"><option value="h">yakin</option><option value="">a</option></datalist></select>'

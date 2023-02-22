@@ -32,7 +32,7 @@
                             </div>
                             <h6>
                                 @php
-                                $cek = [];
+                                    $cek = [];
                                     foreach ($key['authors'] as $author) {
                                         foreach ($author as $a) {
                                             // dd($a);

@@ -7,6 +7,12 @@
 
 @section('css')
     <style>
+        @media only screen and (max-width: 767px) {
+            .scrap-data {
+                display: none;
+            }
+        }
+
         .loading-container {
             position: relative;
             display: inline-block;

@@ -86,6 +86,11 @@ class User extends Authenticatable
         return $this->hasMany(Member::class, 'user_id');
     }
 
+    public function hasProject()
+    {
+        return $this->hasMany(Project::class, 'created_by');
+    }
+
     public function sentMessages()
     {
         return $this->hasMany(Message::class, 'sender_id');

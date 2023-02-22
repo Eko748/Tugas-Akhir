@@ -55,7 +55,7 @@
             this.drops = 'up';
 
         this.buttonClasses = 'btn btn-sm';
-        this.applyClass = 'btn-primary';
+        this.applyClass = 'btn-success';
         this.cancelClass = 'btn-light';
 
         this.locale = {
@@ -88,7 +88,8 @@
 
         //html template for the picker UI
         if (typeof options.template !== 'string' && !(options.template instanceof $))
-            options.template = '<div class="daterangepicker dropdown-menu">' +
+            options.template = 
+            '<div class="daterangepicker dropdown-menu">' +
                 '<div class="calendar left">' +
                     '<div class="daterangepicker_input">' +
                       '<input class="input-mini form-control" type="text" name="daterangepicker_start" value="" />' +
@@ -110,11 +111,11 @@
                       '</div>' +
                     '</div>' +
                     '<div class="calendar-table"></div>' +
-                '</div>' +
-                '<div class="ranges">' +
+                '</div>' + '<br>' +
+                '<div class="ranges mb-3">' +
                     '<div class="range_inputs">' +
-                        '<button class="applyBtn" disabled="disabled" type="button"></button> ' +
-                        '<button class="cancelBtn" type="button"></button>' +
+                    '<button class="applyBtn mx-3 btn-outline-dark" disabled="disabled" type="button"></button> ' +
+                    '<button class="cancelBtn btn-outline-dark" type="button"></button>' +
                     '</div>' +
                 '</div>' +
             '</div>';

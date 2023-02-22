@@ -31,7 +31,9 @@
 @push('js')
 <script src="{{ asset('assets/js/sidebar-menu.js') }}"></script>
 <!-- Plugins JS start-->
-@include('pages.chat.content.js.message-js')
+ 
+@include('pages.chat.content.js.firebase-js')
+{{-- @include('pages.chat.content.js.message-js') --}}
 <!-- Plugins JS Ends-->
 @endpush
 

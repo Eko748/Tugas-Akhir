@@ -215,7 +215,7 @@
             </div>
           </div>
         </li>
-        <li class="onhover-dropdown">
+        {{-- <li class="onhover-dropdown">
           <div class="notification-box">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <g>
@@ -282,7 +282,7 @@
               <li class="p-0"><a class="btn btn-primary" href="#">Check all</a></li>
             </ul>
           </div>
-        </li>
+        </li> --}}
         <li class="maximize"><a class="text-dark" href="#!" onclick="javascript:toggleFullScreen()">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <g>

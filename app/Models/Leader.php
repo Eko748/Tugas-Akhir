@@ -19,4 +19,9 @@ class Leader extends Model
     {
         return $this->belongsTo(Role::class, 'role_id', 'id');
     }
+
+    public function hasProject()
+    {
+        return $this->hasMany(Project::class, 'leader_id');
+    }
 }

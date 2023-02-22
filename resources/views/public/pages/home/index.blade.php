@@ -1,7 +1,7 @@
 @extends('public.public');
 
 @section('title')
-  TokoHam
+  Systematic Literature Review
 @endsection
 
 @section('content')

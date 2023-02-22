@@ -7,8 +7,10 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Chat\MessageController;
 use App\Http\Controllers\Management\InstituteController;
 use App\Http\Controllers\Management\MemberController;
+use App\Http\Controllers\Management\ProjectController;
 use App\Http\Controllers\Scraping\CategoryController;
 use App\Http\Controllers\Scraping\ReviewController;
+use App\Http\Controllers\Scraping\ScopusController;
 use App\Http\Controllers\Scraping\ScrapingController;
 use App\Http\Controllers\Scraping\TemplateController;
 
@@ -17,11 +19,11 @@ Route::middleware('auth')->group(function () {
     Route::middleware(['2'])->group(function () {
         Route::get('/member', [ProductController::class, 'member'])->name('dashboard');
     });
-    Route::middleware(['1'])->group(function () {
+    Route::middleware(['1', 'auth'])->group(function () {
         // Dashboard
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
-        // Management | Employee
+        // Management | Member
         Route::prefix("management")->group(function () {
             Route::controller(MemberController::class)->group(function () {
                 Route::get('/member', 'index')->name('management.member.index');
@@ -33,12 +35,26 @@ Route::middleware('auth')->group(function () {
                 Route::post('/member-delete/{id}', 'delete')->name('management.member.delete');
             });
 
+            Route::controller(ProjectController::class)->group(function () {
+                Route::get('/project', 'index')->name('management.project.index');
+                Route::post('/project-create', 'create')->name('management.project.create');
+                // Route::get('/project-data', 'getTable')->name('management.project.table');
+                // Route::get('/project-data-user', 'getUser')->name('management.project.getUsers');
+                // Route::get('/project-edit', 'edit')->name('management.project.edit');
+                // Route::put('/project-update', 'update')->name('management.project.update');
+                // Route::post('/project-delete/{id}', 'delete')->name('management.project.delete');
+            });
+
             Route::controller(InstituteController::class)->group(function () {
                 Route::post('/institute-create', 'create')->name('management.institute.create');
             });
 
             Route::controller(ScrapingController::class)->group(function () {
                 Route::get('/scraping', 'index')->name('scraping.index');
+            });
+
+            Route::controller(ScopusController::class)->group(function () {
+                Route::get('/hehe', 'search')->name('hehe.index');
             });
 
             Route::controller(CategoryController::class)->group(function () {
@@ -66,7 +82,7 @@ Route::middleware('auth')->group(function () {
 
         Route::prefix("chat")->group(function () {
             Route::controller(MessageController::class)->group(function () {
-                Route::get('/messages/{id}', 'index');
+                Route::get('/messages', 'index');
                 Route::get('/ajax-message', 'getAjax')->name('message.ajax');
                 Route::post('/send-message', 'store')->name('message.post');
             });

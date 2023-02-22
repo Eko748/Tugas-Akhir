@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Management;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin;
+use App\Models\Leader;
 use App\Models\Member;
 use Carbon\Carbon;
 use App\Models\User;
@@ -139,9 +141,13 @@ class MemberController extends Controller
             ]
         );
 
+        $last_member = Member::with('getUser')->where('created_by', Auth::user()->id)->orderBy('code_member', 'desc')
+        ->latest()->first();
+        $code = $last_member ? $last_member->code_member + 1 : 1;
         $memberCreate = Member::create(
             [
                 'user_id' => $userCreate->id,
+                'code_member' => $code,
                 'role_id' => 2,
                 'created_by' => $auth,
             ]
@@ -151,7 +157,7 @@ class MemberController extends Controller
             "user" => $userCreate,
             "member" => $memberCreate,
         ];
-        return response()->json($data);
+        return response()->json(['success' => 'Karyawan berhasil ditambahkan']);
     }
 
     public function edit(Request $request)

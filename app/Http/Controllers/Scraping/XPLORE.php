@@ -191,7 +191,7 @@ class XPLORE
      *   @param string $order   Sort order for results (ascending or descending)
      *   @return void
      */
-    public function resultsSorting($field='author', $order='asc') {
+    public function resultsSorting($field='author', $order='desc') {
 
       $field = strtolower(trim($field));
       $order = strtolower(trim($order));

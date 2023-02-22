@@ -15,10 +15,11 @@
                         @endforeach
                     </div> --}}
                     <div class="card-body">
+                        @include('pages.chat.content.components.firebase')
                         <!-- messages.blade.php -->
-                        <div id="data-chat">
+                        {{-- <div id="data-chat">
                             @include('pages.chat.content.components.data')
-                        </div>     
+                        </div>      --}}
                     </div>
                 </div>
             </div>

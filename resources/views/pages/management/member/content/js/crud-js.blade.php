@@ -1,50 +1,30 @@
 <script type="text/javascript">
-    // Create
-    // "use strict";
-
-    // function testAnim(x) {
-    //     $('.modal .modal-dialog').attr('class', 'modal-dialog  fadeInLeft  animated');
-    // };
-    // var modal_animate_custom = {
-    //     init: function() {
-    //         $('#member').on('show', function(e) {
-    //             var anim = $('fadeInLeft').val();
-    //             testAnim(anim);
-    //         })
-    //         $('#member').on('hide.bs.modal', function(e) {
-    //             var anim = $('').val();
-    //             testAnim(anim);
-    //         })
-
-    //     }
-    // };
-    // (function($) {
-    //     "use strict";
-    //     modal_animate_custom.init()
-    // })(jQuery);
-
     function addMember() {
-        $('#modalHeadingMember').html("Create Member");
+        $('#modalHeadingCreateMember').html("Create Member");
         $('#member').modal('show');
 
         $('.modal .modal-dialog').attr('class', 'modal-dialog  fadeInLeft  animated');
         $("body").on("submit", "#formCreateMember", function(e) {
             e.preventDefault();
+            let formData = new FormData(this);
+            let CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             let url = "{{ route('management.member.create') }}"
             $.ajax({
                 url: url,
                 dataType: "JSON",
                 type: "POST",
-                data: new FormData(this),
+                data: formData,
                 cache: false,
                 processData: false,
                 contentType: false,
                 success: function(result) {
-                    swal("Done!", "Karyawan berhasil ditambahkan", "success");
-                    $("#formCreateMember").trigger("reset");
-                    $("#member").modal("hide");
-                    $("#table-member").DataTable().ajax.reload();
-                    location.reload(true);
+                    swal("Done!", "Karyawan berhasil ditambahkan", "success")
+                    .then((value) => {
+                        $("#formCreateMember").trigger("reset");
+                        $("#member").modal("hide");
+                        $("#table-member").DataTable().ajax.reload();
+                        location.reload();
+                    });
                 },
                 error: function(result) {
                     swal("Error!", "Data sudah ada atau yang lainnya", "error");

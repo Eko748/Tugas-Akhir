@@ -25,6 +25,7 @@ class ReviewController extends Controller
             $results = $query->callAPI();
         }
 
+        // dd($results['articles']);
         if (isset($results['articles'])) {
             if (!isset($data)) {
                 $data = [
@@ -46,29 +47,10 @@ class ReviewController extends Controller
         }
 
         if ($request->ajax()) {
-            return view('pages.scraping.review.content.components.data', $data)->render();
+            return view('pages.scraping.review.content.components.2-data', $data)->render();
         }
-
         return view('pages.scraping.review.index', $data);
     }
-
-
-
-    // } catch (\Exception $e) {
-    //     // Handle the exception here
-    //     Log::error('Error while processing data: ' . $e->getMessage());
-    //     return response()->json(['error' => 'Failed to process data'], 500);
-    // }
-
-    // }
-    // dd($data);
-    // } else {
-    //     echo "No articles found";
-    // }
-    // }
-    // dd($query);
-
-
 
     public function getData(Request $request)
     {

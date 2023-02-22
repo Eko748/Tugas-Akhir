@@ -41,7 +41,7 @@
     <script src="{{ asset('assets/css/vendors/select2/dist/js/select2.min.js') }}"></script>
     <script src="../assets/js/modal-animated.js"></script>
 
-    {{-- <script src="{{ asset('assets/js/tooltip-init.js') }}"></script> --}}
+    <script src="{{ asset('assets/js/tooltip-init.js') }}"></script>
 
     @include('pages.management.member.content.js.table-js')
     {{-- @include('pages.management.member.content.js.searchTable-js') --}}
