@@ -17,18 +17,17 @@
                                                     @php
                                                         $priority = $key->priority;
                                                         
-                                                        if ($priority == 1) {
-                                                            $priority = '<span class="text-info">Low Priority</span>';
-                                                        } elseif ($priority == 2) {
-                                                            $priority = '<span class="text-success">Medium Priority</span>';
-                                                        } elseif ($priority == 3) {
-                                                            $priority = '<span class="text-warning">High Priority</span>';
-                                                        } elseif ($priority == 4) {
-                                                            $priority = '<span class="text-danger">Urgent Priority</span>';
+                                                        if ($priority == "P1") {
+                                                            $priority = '<span class="text-info"><b>Low Priority</b></span>';
+                                                        } elseif ($priority == "P2") {
+                                                            $priority = '<span class="text-success"><b>Medium Priority</b></span>';
+                                                        } elseif ($priority == "P3") {
+                                                            $priority = '<span class="text-warning"><b>High Priority</b></span>';
+                                                        } elseif ($priority == "P4") {
+                                                            $priority = '<span class="text-danger"><b>Urgent Priority</b></span>';
                                                         } else {
                                                             $priority = '<span class="text-dark">Not Defined</span>';
                                                         }
-                                                        
                                                     @endphp
                                                     {!! $priority !!}
                                                 </p>
@@ -81,7 +80,11 @@
                                     src="{{ asset('images/Search-Scraping.png') }}" style="width:300px" alt="">
                             </center>
                         @endif
-                        <h3 class="mb-4">{!! $project->links() !!}</h3>
+                        @if ($project == !null)
+                        <h5 class="mb-4">{!! $project->links() !!}</h5>
+                        @else
+                        <p>tidak ada</p>
+                        @endif
                     </div>
                 </div>
             </div>

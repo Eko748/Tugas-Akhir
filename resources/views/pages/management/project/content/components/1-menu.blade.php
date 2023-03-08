@@ -1,7 +1,7 @@
 <div class="col-md-12 project-list">
     <div class="card">
         <div class="row">
-            <div class="col-md-6 p-0 text-center">
+            <div class="col-md-6 p-0 ps-3 text-center mt-2 mb-3">
                 <ul class="nav nav-tabs border-tab" id="top-tab" role="tablist">
                     <li class="nav-item">
                         <a class="nav-link active" id="top-home-tab" data-bs-toggle="tab" href="#top-home" role="tab"
@@ -26,9 +26,9 @@
                     </li>
                 </ul>
             </div>
-            <div class="col-md-6 p-0">
-                <button title="Create Project" class="btn btn-primary btn-sm hovering shadow-sm" onclick="addProject()"
-                    data-bs-toggle="modal" data-bs-target="#project" id="createProject">
+            <div class="col-md-6 d-flex justify-content-center justify-content-md-end mt-2 mb-3">
+                <button title="Create Project" class="btn btn-primary btn-sm ml-auto"
+                    onclick="addProject()" data-bs-toggle="modal" data-bs-target="#project" id="createProject">
                     <i data-feather="plus-square"></i>
                     Create Project
                 </button>

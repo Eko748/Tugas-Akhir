@@ -28,7 +28,7 @@ Route::middleware('auth')->group(function () {
             Route::controller(MemberController::class)->group(function () {
                 Route::get('/member', 'index')->name('management.member.index');
                 Route::get('/member-data', 'getTable')->name('management.member.table');
-                Route::get('/member-data-user', 'getUser')->name('management.member.getUsers');
+                Route::get('/member-list-data', 'getUser')->name('management.member.getUsers');
                 Route::post('/member-create', 'create')->name('management.member.create');
                 Route::get('/member-edit', 'edit')->name('management.member.edit');
                 Route::put('/member-update', 'update')->name('management.member.update');
@@ -38,6 +38,7 @@ Route::middleware('auth')->group(function () {
             Route::controller(ProjectController::class)->group(function () {
                 Route::get('/project', 'index')->name('management.project.index');
                 Route::post('/project-create', 'create')->name('management.project.create');
+                Route::get('/project-list-data', 'getProject')->name('management.project.getProject');
                 // Route::get('/project-data', 'getTable')->name('management.project.table');
                 // Route::get('/project-data-user', 'getUser')->name('management.project.getUsers');
                 // Route::get('/project-edit', 'edit')->name('management.project.edit');
@@ -51,6 +52,7 @@ Route::middleware('auth')->group(function () {
 
             Route::controller(ScrapingController::class)->group(function () {
                 Route::get('/scraping', 'index')->name('scraping.index');
+                Route::get('/getScrap', 'getScraping')->name('scraping.get');
             });
 
             Route::controller(ScopusController::class)->group(function () {
@@ -59,6 +61,7 @@ Route::middleware('auth')->group(function () {
 
             Route::controller(CategoryController::class)->group(function () {
                 Route::post('/scraping-category-create', 'create')->name('scraping.category.create');
+                Route::get('/scraping-list-data', 'getCategory')->name('scraping.category.getCategory');
             });
 
             Route::controller(TemplateController::class)->group(function () {
@@ -77,6 +80,7 @@ Route::middleware('auth')->group(function () {
             Route::controller(ReviewController::class)->group(function () {
                 Route::get('/review', 'index')->name('scraping.review.index');
                 Route::get('/review/fetch-data', 'getData')->name('scraping.data.fetch');
+                Route::post('/review/post-data', 'create')->name('scraping.review.create');
             });
         });
 

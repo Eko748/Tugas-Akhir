@@ -35,7 +35,6 @@ class TemplateController extends Controller
             "cited" => $request->cited,
             "citing" => $request->citing,
             "created_by" => Auth::user()->id,
-
         ]);
 
         return ($template==true)?redirect()->back()->with('message','Data berhasil disimpan!'):redirect()->back()->with('error','Nampaknya terjadi kesalahan');

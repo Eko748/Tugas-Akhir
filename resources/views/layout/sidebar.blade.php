@@ -65,7 +65,7 @@
                                 <li><a href="{{ route('management.member.index') }}">Member</a></li>
                                 <li><a href="{{ route('management.product.index') }}">Product</a></li>
                                 <li>
-                                    <a class="submenu-title" href="#">Journal Detail<span class="sub-arrow"><i
+                                    <a class="submenu-title" href="#">Project<span class="sub-arrow"><i
                                                 class="fa fa-angle-right"></i></span></a>
                                     <ul class="nav-sub-childmenu submenu-content">
                                         <li><a href="{{ route('management.project.index') }}">Project Master</a>

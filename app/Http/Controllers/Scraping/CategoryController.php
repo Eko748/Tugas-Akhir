@@ -30,4 +30,25 @@ class CategoryController extends Controller
             ($category) ? ['message' => 'Data berhasil disimpan!'] : ['error' => 'Nampaknya terjadi kesalahan']
         );
     }
+
+    public function getCategory(Request $req)
+    {
+        $search = $req->q;
+        $categories = ScrapingCategory::where('code', 'LIKE', '%' . $search . '%')
+            ->orWhere('category_name', 'LIKE', '%' . $search . '%')
+            ->orderBy('code', 'asc')
+            ->get();
+
+        $response = [];
+        foreach ($categories as $category) {
+            $response[] = [
+                // 'no' => encrypt($category->id),
+                'id' => $category->id,
+                'code' => $category->code,
+                'text' => $category->code . '/' . $category->category_name
+            ];
+        }
+
+        return response()->json($response);
+    }
 }

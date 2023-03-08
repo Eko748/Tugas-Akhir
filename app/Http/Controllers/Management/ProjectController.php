@@ -8,12 +8,19 @@ use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use \Illuminate\Support\Str;
+use Defuse\Crypto\Crypto;
+use Defuse\Crypto\Key;
 
 class ProjectController extends Controller
 {
     public function index(Request $request)
     {
-        $project = Project::where('created_by', Auth::user()->id)->first()->paginate(2);
+        $null = "NULL";
+        $project = Project::where('created_by', Auth::user()->id)->paginate(2);
+        if ($project == !null) {
+        } else {
+            $null;
+        }
 
         $data = [
             "parent" => "Management",
@@ -54,6 +61,26 @@ class ProjectController extends Controller
             ]
         );
 
-        return response()->json(['success' => 'Karyawan berhasil ditambahkan']);
+        return response()->json(['success' => 'Project berhasil ditambahkan']);
+    }
+
+    public function getProject(Request $req)
+    {
+        $search = $req->q;
+        $projects = Project::where('title', 'LIKE', '%' . $search . '%')
+            ->orWhere('priority', 'LIKE', '%' . $search . '%')
+            ->orderBy('priority', 'asc')
+            ->get();
+
+        $response = [];
+        foreach ($projects as $project) {
+            $response[] = [
+                'no' => $project->uuid,
+                'id' => $project->id,
+                'text' => $project->priority . '/' . $project->title
+            ];
+        }
+
+        return response()->json($response);
     }
 }

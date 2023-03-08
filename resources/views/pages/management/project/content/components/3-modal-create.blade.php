@@ -12,55 +12,53 @@
                         <div class="modal-body">
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <div class="form theme-form projectcreate">
-                                                <div class="row">
-                                                    <div class="col">
-                                                        <div class="mb-3">
-                                                            <label>Project Title</label>
-                                                            <input name="title" class="form-control" type="text"
-                                                                placeholder="Input Title..">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-sm-4">
-                                                    <div class="mb-3">
-                                                        <label>Priority</label>
-                                                        <select name="priority" class="form-select">
-                                                            <option value="1">Low</option>
-                                                            <option value="2">Medium</option>
-                                                            <option value="3">High</option>
-                                                            <option value="4">Urgent</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-8">
-                                                    <div class="mb-3">
-                                                        <label>Deadline</label>
-                                                        <div class="input-group">
-                                                            <input class="form-control digits" type="text"
-                                                                name="date_range" value=""
-                                                                data-position="top left">
-                                                            <input type="hidden" name="start_date">
-                                                            <input type="hidden" name="end_date">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col">
-                                                    <div class="mb-3">
-                                                        <label>Description</label>
-                                                        <textarea name="description" placeholder="Input Detail Project.." class="form-control" id="exampleFormControlTextarea4"
-                                                            rows="3"></textarea>
-                                                    </div>
+                                    <div class="form theme-form projectcreate">
+                                        <div class="row mb-3">
+                                            <div class="col">
+                                                <div class="mb-3">
+                                                    <label>Project Title</label>
+                                                    <input name="title" class="form-control" type="text"
+                                                        placeholder="Input Title..">
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="row mb-3">
+                                        <div class="col">
+                                            <div class="mb-3">
+                                                <label>Description</label>
+                                                <textarea name="description" placeholder="Input Detail Project.." class="form-control" id="exampleFormControlTextarea4"
+                                                    rows="3"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-sm-4">
+                                            <div class="mb-3">
+                                                <label>Priority</label>
+                                                <select name="priority" class="form-select">
+                                                    <option value="P1">P1/Low</option>
+                                                    <option value="P2">P2/Medium</option>
+                                                    <option value="P3">P3/High</option>
+                                                    <option value="P4">P4/Urgent</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <div class="mb-3">
+                                                <label>Deadline</label>
+                                                <div class="input-group">
+                                                    <input class="form-control digits" type="text" name="date_range"
+                                                        value="" data-position="top left">
+                                                    <input type="hidden" name="start_date">
+                                                    <input type="hidden" name="end_date">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
                                 </div>
                             </div>
                         </div>

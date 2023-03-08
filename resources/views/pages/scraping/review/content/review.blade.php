@@ -14,7 +14,7 @@
     </div>
     <div class="container-fluid">
         <div class="row">
-            @include('pages.scraping.review.content.components.3-load')
+            @include('pages.scraping.review.content.components.5-load')
         </div>
     </div>
 

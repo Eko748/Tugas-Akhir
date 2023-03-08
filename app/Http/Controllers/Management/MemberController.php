@@ -143,7 +143,7 @@ class MemberController extends Controller
 
         $last_member = Member::with('getUser')->where('created_by', Auth::user()->id)->orderBy('code_member', 'desc')
         ->latest()->first();
-        $code = $last_member ? $last_member->code_member + 1 : 1;
+        $code = $last_member ? $last_member->code_member + 1 : 2;
         $memberCreate = Member::create(
             [
                 'user_id' => $userCreate->id,

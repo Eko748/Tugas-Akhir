@@ -11,6 +11,7 @@
 <link rel="stylesheet" type="text/css" href="../assets/css/vendors/date-picker.css">
 <link rel="stylesheet" type="text/css" href="../assets/css/vendors/dropzone.css">
 <link rel="stylesheet" type="text/css" href="../assets/css/vendors/daterange-picker.css">
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/select2/dist/css/select2.min.css') }}">
 
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/datatables.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/sweetalert2/dist/sweetalert2.min.css') }}">
