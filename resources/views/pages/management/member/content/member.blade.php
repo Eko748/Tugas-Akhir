@@ -16,7 +16,7 @@
                         @else
                             <a href="{{ route('management.member.export') }}" title="Export Member"
                                 class="mt-4 ms-2 btn btn-secondary btn-sm pull-right btn-outline-dark hovering shadow-sm">
-                                <i class="fa fa-save"></i></a>
+                                <i class="fa fa-file-excel-o"></i></a>
                             <button title="Create Member"
                                 class="mt-4 me-2 btn btn-primary btn-sm pull-right btn-outline-dark hovering shadow-sm"
                                 onclick="addMember()" data-bs-toggle="modal" data-bs-target="#member"

@@ -18,7 +18,7 @@ class ProjectSLR extends Model
 
     public function getCategory()
     {
-        return $this->belongsTo(Category::class, 'project_id', 'id');
+        return $this->belongsTo(Category::class, 'category_id', 'id');
     }
 
     public function getUser()

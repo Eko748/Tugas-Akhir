@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Management;
 
+use App\Exports\ProjectsExport;
 use App\Http\Controllers\Controller;
+use App\Models\Institute;
 use App\Models\Leader;
 use App\Models\Project;
 use App\Models\ProjectSLR;
@@ -12,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Defuse\Crypto\Crypto;
 use Defuse\Crypto\Key;
+use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\Facades\DataTables;
 
 class ProjectController extends Controller
@@ -30,11 +33,6 @@ class ProjectController extends Controller
             return view('pages.management.project.content.components.2-data', $data)->render();
         }
 
-        // if ($projects->isEmpty()) {
-        //     // handle jika data tidak ditemukan
-        //     abort(404);
-        // }
-
         return view('pages.management.project.index', $data);
     }
 
@@ -42,14 +40,16 @@ class ProjectController extends Controller
     {
         $project = Project::with('hasProject')->where('uuid_project', $uuid_project)
             ->where('created_by', Auth::user()->id)->firstOrFail();
+
         if (!$project) {
-            // handle jika data tidak ditemukan
             abort(404);
         }
+
         $data = [
             "parent" => "Project",
             "child" => "Detail",
             "project" => $project,
+            "uuid_project" => $project->uuid_project
         ];
 
         return view('pages.management.project-slr.index', $data);
@@ -142,5 +142,17 @@ class ProjectController extends Controller
         }
 
         return response()->json($response);
+    }
+
+    public function export($uuid_project)
+    {
+        $project = Project::where('uuid_project', $uuid_project)
+            ->where('created_by', Auth::user()->id)
+            ->firstOrFail();
+
+        $institute = Institute::with('getUser')->where('user_id', Auth::user()->id)->first();
+        $fileName = '-project.xlsx';
+        $print = Excel::download(new ProjectsExport($project), $fileName);
+        return $print;
     }
 }

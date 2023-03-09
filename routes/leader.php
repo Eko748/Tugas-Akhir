@@ -44,6 +44,7 @@ Route::middleware('auth')->group(function () {
                 Route::get('/project-list-data', 'getProject')->name('management.project.getProject');
                 Route::get('/project/{uuid_project}', 'detail')->name('management.project.detail');
                 Route::get('/project-fetch-data/{uuid_project}', 'getTable')->name('management.project.getTable');
+                Route::get('/project-export/{uuid_project}', 'export')->name('management.project.export');
             });
 
             Route::controller(SLRController::class)->group(function () {

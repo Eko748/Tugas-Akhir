@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\UsersExport;
+use App\Models\Institute;
 use Yajra\DataTables\Facades\DataTables;
 
 class MemberController extends Controller
@@ -213,7 +214,6 @@ class MemberController extends Controller
     {
         $delete = User::where('id', $id)->delete();
 
-        // check data deleted or not
         if ($delete == 1) {
             $success = true;
             $message = "Member Berhasil dihapus";
@@ -231,7 +231,11 @@ class MemberController extends Controller
 
     public function export()
     {
-        return Excel::download(new UsersExport(), 'users.xlsx');
+        $institute = Institute::with('getUser')->where('user_id', Auth::user()->id)->first();
+        $member = Member::where('created_by', Auth::user()->id)->count();
+        $slug = $institute->institute_slug;
+        $fileName = $slug.'-'.$member.'-member.xlsx';
+        return Excel::download(new UsersExport(), $fileName);
     }
 
 }
