@@ -8,11 +8,11 @@ use App\Http\Controllers\Chat\MessageController;
 use App\Http\Controllers\Management\InstituteController;
 use App\Http\Controllers\Management\MemberController;
 use App\Http\Controllers\Management\ProjectController;
+use App\Http\Controllers\Management\SLRController;
 use App\Http\Controllers\Scraping\CategoryController;
 use App\Http\Controllers\Scraping\ReviewController;
 use App\Http\Controllers\Scraping\ScopusController;
 use App\Http\Controllers\Scraping\ScrapingController;
-use App\Http\Controllers\Scraping\TemplateController;
 
 Route::middleware('auth')->group(function () {
     Route::post('/gettimelogin', [AuthController::class, 'getTimeLogging']);
@@ -39,11 +39,14 @@ Route::middleware('auth')->group(function () {
                 Route::get('/project', 'index')->name('management.project.index');
                 Route::post('/project-create', 'create')->name('management.project.create');
                 Route::get('/project-list-data', 'getProject')->name('management.project.getProject');
-                // Route::get('/project-data', 'getTable')->name('management.project.table');
-                // Route::get('/project-data-user', 'getUser')->name('management.project.getUsers');
-                // Route::get('/project-edit', 'edit')->name('management.project.edit');
-                // Route::put('/project-update', 'update')->name('management.project.update');
-                // Route::post('/project-delete/{id}', 'delete')->name('management.project.delete');
+                Route::get('/project/{uuid_project}', 'detail')->name('management.project.detail');
+            });
+
+            Route::controller(SLRController::class)->group(function () {
+                Route::get('/slr', 'index')->name('slr.index');
+                Route::post('/slr-print', 'print')->name('slr.print');
+                Route::get('/slr-fetch', 'getMoreProjects')->name('slr.get');
+
             });
 
             Route::controller(InstituteController::class)->group(function () {
@@ -62,10 +65,6 @@ Route::middleware('auth')->group(function () {
             Route::controller(CategoryController::class)->group(function () {
                 Route::post('/scraping-category-create', 'create')->name('scraping.category.create');
                 Route::get('/scraping-list-data', 'getCategory')->name('scraping.category.getCategory');
-            });
-
-            Route::controller(TemplateController::class)->group(function () {
-                Route::post('/scraping-template-create', 'create')->name('scraping.template.create');
             });
 
             Route::controller(ProductController::class)->group(function () {

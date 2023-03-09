@@ -17,6 +17,7 @@ class InstituteController extends Controller
         ]);
 
         Institute::create([
+            "uuid_institute" => Str::uuid(),
             "user_id" => Auth::user()->id,
             "institute_name" => $request->institute_name,
             "institute_slug" => Str::of($request->institute_name)->slug(""),

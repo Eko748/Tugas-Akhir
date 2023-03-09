@@ -25,7 +25,11 @@
                                 <b class="f-w-600">Abstract:</b>
                             </span>
                             <p class="mb-0">
+                                @if ($key['abstract'] == null)
+                                Tidak Dicantumnkan
+                                @else
                                 {{ $key['abstract'] }}
+                                @endif
                             </p>
                         </div>
                         @php
@@ -34,7 +38,6 @@
                                 $a = $keyword['terms'];
                             }
                         @endphp
-                        {{-- {{dd($a)}} --}}
                         <div class="col-xl-4 col-sm-4 xl-4 mb-1">
                             <b>
                                 <span>Keywords:</span>

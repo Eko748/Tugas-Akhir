@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('institutes', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid_institute');
             $table->integer('user_id');
             $table->string('institute_name', 100);
             $table->string('institute_slug', 100)->unique();

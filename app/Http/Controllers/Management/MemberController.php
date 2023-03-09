@@ -3,8 +3,6 @@
 namespace App\Http\Controllers\Management;
 
 use App\Http\Controllers\Controller;
-use App\Models\Admin;
-use App\Models\Leader;
 use App\Models\Member;
 use Carbon\Carbon;
 use App\Models\User;
@@ -129,9 +127,15 @@ class MemberController extends Controller
             'status' => ['required', 'integer'],
         ]);
 
+        $last_member = User::where('created_by', Auth::user()->id)->orderBy('code', 'desc')
+        ->latest()->first();
+        $code = $last_member ? $last_member->code + 1 : 2;
+
         $userCreate = User::create(
             [
+                'uuid_user' => Str::uuid(),
                 'role_id' => 2,
+                'code' => $code,
                 'name' => $request->name,
                 'email' => $string,
                 'password' => Hash::make($request->password),
@@ -141,13 +145,9 @@ class MemberController extends Controller
             ]
         );
 
-        $last_member = Member::with('getUser')->where('created_by', Auth::user()->id)->orderBy('code_member', 'desc')
-        ->latest()->first();
-        $code = $last_member ? $last_member->code_member + 1 : 2;
         $memberCreate = Member::create(
             [
                 'user_id' => $userCreate->id,
-                'code_member' => $code,
                 'role_id' => 2,
                 'created_by' => $auth,
             ]
@@ -157,7 +157,7 @@ class MemberController extends Controller
             "user" => $userCreate,
             "member" => $memberCreate,
         ];
-        return response()->json(['success' => 'Karyawan berhasil ditambahkan']);
+        return response()->json(['success' => 'Anggota berhasil ditambahkan']);
     }
 
     public function edit(Request $request)
@@ -170,7 +170,7 @@ class MemberController extends Controller
             "string" => $string,
         ];
 
-        return view("pages.management.member.components.edit", $data);
+        return view("pages.management.member.content.components.edit", $data);
     }
 
     public function update(Request $request)

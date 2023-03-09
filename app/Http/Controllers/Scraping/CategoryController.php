@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Scraping;
 
 use App\Http\Controllers\Controller;
-use App\Models\ScrapingCategory;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -19,7 +19,8 @@ class CategoryController extends Controller
             "category_name" => "required"
         ]);
 
-        $category = ScrapingCategory::create([
+        $category = Category::create([
+            "uuid_category" => Str::uuid(),
             "code" => $request->code,
             "category_name" => $request->category_name,
             "category_slug" => Str::slug($request->category_name),
@@ -34,7 +35,7 @@ class CategoryController extends Controller
     public function getCategory(Request $req)
     {
         $search = $req->q;
-        $categories = ScrapingCategory::where('code', 'LIKE', '%' . $search . '%')
+        $categories = Category::where('code', 'LIKE', '%' . $search . '%')
             ->orWhere('category_name', 'LIKE', '%' . $search . '%')
             ->orderBy('code', 'asc')
             ->get();
@@ -42,7 +43,6 @@ class CategoryController extends Controller
         $response = [];
         foreach ($categories as $category) {
             $response[] = [
-                // 'no' => encrypt($category->id),
                 'id' => $category->id,
                 'code' => $category->code,
                 'text' => $category->code . '/' . $category->category_name

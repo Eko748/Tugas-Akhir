@@ -13,10 +13,22 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('scraping_types', function (Blueprint $table) {
+        Schema::create('project_slr', function (Blueprint $table) {
             $table->id();
-            $table->string('type_code', 7);
-            $table->string('type_name', 50);
+            $table->uuid('uuid_project_slr');
+            $table->integer('project_id');
+            $table->integer('category_id');
+            $table->string('code', 5);
+            $table->text('title'); 
+            $table->string('publisher', 50);
+            $table->text('publication');
+            $table->string('year', 10);
+            $table->string('type', 20);
+            $table->integer('cited');
+            $table->text('authors', 50);
+            $table->text('abstracts');
+            $table->text('keywords');
+            $table->text('references')->nullable();
             $table->integer('created_by');
             $table->timestamp('created_at')->nullable();
             $table->integer('updated_by')->nullable();
@@ -33,6 +45,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('scraping_types');
+        Schema::dropIfExists('project_slr');
     }
 };

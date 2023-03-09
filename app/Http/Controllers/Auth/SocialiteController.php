@@ -7,8 +7,7 @@ use App\Http\Controllers\Auth\Exception;
 use App\Models\Leader;
 use App\Models\SocialAccount;
 use App\Models\User;
-use App\Providers\RouteServiceProvider;
-use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Socialite\Facades\Socialite;
 
@@ -57,6 +56,8 @@ class SocialiteController extends Controller
             if (!$user) {
                 // Create user baru
                 $user = User::create([
+                    'uuid_user' => Str::uuid(),
+                    'code' => 1,
                     'role_id' => 1,
                     'name'  => $socialUser->getName(),
                     'email' => $socialUser->getEmail(),

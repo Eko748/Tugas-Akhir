@@ -19,4 +19,9 @@ class Member extends Model
     {
         return $this->belongsTo(Role::class, 'role_id', 'id');
     }
+
+    public function hasProjectSLR()
+    {
+        return $this->hasMany(ProjectSLR::class, 'project_id');
+    }
 }

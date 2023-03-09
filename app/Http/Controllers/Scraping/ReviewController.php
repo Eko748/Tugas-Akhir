@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Scraping;
 use App\Http\Controllers\Controller;
 use App\Models\Leader;
 use App\Models\ProjectData;
+use App\Models\ProjectSLR;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -87,12 +88,12 @@ class ReviewController extends Controller
             // 'category_id' => ['required', 'integer'],
         ]);
 
-        $project = ProjectData::create(
+        $project = ProjectSLR::create(
             [
-                'uuid' => Str::uuid(),
+                'uuid_project_slr' => Str::uuid(),
                 'project_id' => $request->project_id,
                 'category_id' => $request->category_id,
-                'code' => $request->code . Auth::user()->id,
+                'code' => $request->code . Auth::user()->code,
                 'title' => $request->title,
                 'publisher' => $request->publisher,
                 'publication' => $request->publication,

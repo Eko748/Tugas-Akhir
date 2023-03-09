@@ -4,18 +4,18 @@
             <div class="tab-content" id="top-tabContent">
                 <div class="tab-pane fade show active" id="top-home" role="tabpanel" aria-labelledby="top-home-tab">
                     <div id="load" class="row">
-                        @if ($projects != null)
-                            @foreach ($projects as $project)
+                        @if ($project != null)
+                            @foreach ($project as $key)
                                 <div class="col-xxl-4 box-col-6 col-lg-6">
                                     <div class="project-box"><span class="badge badge-primary">Doing</span>
-                                        <h6>{{ $project['title'] }}</h6>
+                                        <h6>{{ $key['title'] }}</h6>
                                         <div class="media"><img class="img-20 me-2 rounded-circle"
                                                 src="../assets/images/user/3.jpg" alt="" data-original-title=""
                                                 title="">
                                             <div class="media-body">
                                                 <p>
                                                     @php
-                                                        $priority = $project->priority;
+                                                        $priority = $key['priority'];
                                                         
                                                         if ($priority == "P1") {
                                                             $priority = '<span class="text-info"><b>Low Priority</b></span>';
@@ -34,7 +34,7 @@
                                             </div>
                                         </div>
                                         <p>
-                                            {{ $project['description'] }}
+                                            {{ $key['description'] }}
                                         </p>
                                         <div class="row details">
                                             <div class="col-6"><span>Issues </span></div>
@@ -71,7 +71,6 @@
                                                     aria-valuemin="0" aria-valuemax="100"></div>
                                             </div>
                                         </div>
-                                        <a href="{{ route('management.project.detail', ['uuid_project' => $project->uuid_project]) }}" class="mt-3 btn btn-secondary btn-sm">Detail</a>
                                     </div>
                                 </div>
                             @endforeach
@@ -81,8 +80,8 @@
                                     src="{{ asset('images/Search-Scraping.png') }}" style="width:300px" alt="">
                             </center>
                         @endif
-                        @if ($projects == !null)
-                        <h5 class="mb-4">{!! $projects->links() !!}</h5>
+                        @if ($project == !null)
+                        {{-- <h5 class="mb-4">{!! $project->links() !!}</h5> --}}
                         @else
                         <h1>Tidak ada Project</h1>
                         @endif

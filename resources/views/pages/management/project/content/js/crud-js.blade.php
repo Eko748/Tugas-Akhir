@@ -22,7 +22,7 @@
                         $("#formCreateProject").trigger("reset");
                         $("#project").modal("hide");
                         // $("#table-member").DataTable().ajax.reload();
-                        // location.reload();
+                        location.reload();
                     });
                 },
                 error: function(result) {
@@ -40,20 +40,6 @@
         $('#member').modal('show');
     }
 
-    // Update
-    function editMember(id) {
-        $.ajax({
-            url: "{{ url('/management/member-edit') }}",
-            type: "GET",
-            data: {
-                id: id
-            },
-            success: function(data) {
-                $("#modal-content-edit").html(data);
-                return true;
-            }
-        });
-    }
 
     function editForm() {
         $.ajaxSetup({

@@ -44,6 +44,13 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/responsive.css') }}" />
     <link rel="stylesheet" type="text/css"
         href="{{ asset('assets/css/vendors/sweetalert2/dist/sweetalert2.min.css') }}">
+        <style>
+        @media only screen and (max-width: 600px) {
+            .breadcrumb-parent {
+              display: none;
+            }
+          }
+          </style>
     <!-- CSS Libraries -->
     @vite([])
     @yield('css')

@@ -13,8 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('scraping_categories', function (Blueprint $table) {
+        Schema::create('categories', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid_category');
             $table->string('code', 1)->unique();
             $table->string('category_name', 30);
             $table->string('category_slug', 30)->unique();
@@ -34,6 +35,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('scraping_categories');
+        Schema::dropIfExists('categories');
     }
 };

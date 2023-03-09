@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 // use DB;
 use App\Constants\GlobalConstants;
 
@@ -24,6 +25,8 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'uuid_user',
+        'code',
         'role_id',
         'name',
         'email',
@@ -89,6 +92,11 @@ class User extends Authenticatable
     public function hasProject()
     {
         return $this->hasMany(Project::class, 'created_by');
+    }
+
+    public function hasProjectSLR()
+    {
+        return $this->hasMany(ProjectSLR::class, 'created_by');
     }
 
     public function sentMessages()

@@ -70,7 +70,7 @@
                                     <ul class="nav-sub-childmenu submenu-content">
                                         <li><a href="{{ route('management.project.index') }}">Project Master</a>
                                         </li>
-                                        <li><a href="">My Project</a>
+                                        <li><a href="{{ route('slr.index') }}">My Project</a>
                                         </li>
                                         <li><a href="">Riwayat</a></li>
                                     </ul>

@@ -15,7 +15,9 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid_user');
             $table->integer('role_id');
+            $table->integer('code');
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
@@ -29,6 +31,8 @@ return new class extends Migration
             $table->timestamp('created_at')->nullable();
             $table->integer('updated_by')->nullable();
             $table->timestamp('updated_at')->nullable();
+            $table->integer('deleted_by')->nullable();
+            $table->timestamp('deleted_at')->nullable();
         });
     }
 
