@@ -1,4 +1,3 @@
-
 <div class="table-responsive custom-scrollbar">
     <table class="table-member dataTable member table-hover table" id="table-member">
         <thead class="table-primary">

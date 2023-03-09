@@ -33,16 +33,6 @@ class SLRController extends Controller
         return view('pages.management.slr.index', $data);
     }
 
-    // public function getMoreProjects(Request $request)
-    // {
-    //     $query = $request->search_query;
-    //     $select = $request->select;
-    //     if ($request->ajax()) {
-    //         $project = Project::getProjects($query, $select);
-    //         return view('pages.management.slr.content.components.2-data', compact('project'))->render();
-    //     }
-    // }
-
     public function print(Request $request)
     {
         $request->validate([

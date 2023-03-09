@@ -13,6 +13,8 @@ use App\Http\Controllers\Scraping\CategoryController;
 use App\Http\Controllers\Scraping\ReviewController;
 use App\Http\Controllers\Scraping\ScopusController;
 use App\Http\Controllers\Scraping\ScrapingController;
+use App\Exports\UsersExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 Route::middleware('auth')->group(function () {
     Route::post('/gettimelogin', [AuthController::class, 'getTimeLogging']);
@@ -33,6 +35,7 @@ Route::middleware('auth')->group(function () {
                 Route::get('/member-edit', 'edit')->name('management.member.edit');
                 Route::put('/member-update', 'update')->name('management.member.update');
                 Route::post('/member-delete/{id}', 'delete')->name('management.member.delete');
+                Route::get('/member-export', 'export')->name('management.member.export');
             });
 
             Route::controller(ProjectController::class)->group(function () {
@@ -40,6 +43,7 @@ Route::middleware('auth')->group(function () {
                 Route::post('/project-create', 'create')->name('management.project.create');
                 Route::get('/project-list-data', 'getProject')->name('management.project.getProject');
                 Route::get('/project/{uuid_project}', 'detail')->name('management.project.detail');
+                Route::get('/project-fetch-data/{uuid_project}', 'getTable')->name('management.project.getTable');
             });
 
             Route::controller(SLRController::class)->group(function () {
@@ -90,5 +94,9 @@ Route::middleware('auth')->group(function () {
                 Route::post('/send-message', 'store')->name('message.post');
             });
         });
+
+        // Route::get('/export-users', function () {
+        //     return Excel::download(new UsersExport, 'users.xlsx');
+        // })->name('excel.users');
     });
 });

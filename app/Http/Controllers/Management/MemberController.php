@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\UsersExport;
 use Yajra\DataTables\Facades\DataTables;
 
 class MemberController extends Controller
@@ -37,8 +39,7 @@ class MemberController extends Controller
     {
         if ($request->ajax()) {
             $data = Member::with('getUser')->where('created_by', Auth::user()->id)->orderBy("created_at", "DESC")->get();
-            // $data = User::where('created_by', Auth::user()->id)->orderBy("created_at", "DESC")->get();
-            return DataTables::of($data)
+             return DataTables::of($data)
                 ->addIndexColumn()->addColumn('action', function ($data) {
                     $btn = '<div style="text-align: center; vertical-align: middle;">
                                 <button title="Detail" class="btn btn-primary btn-sm btn-outline-dark hovering shadow-sm" onclick="readMember(' . $data->id . ')">
@@ -226,6 +227,11 @@ class MemberController extends Controller
             'success' => $success,
             'message' => $message,
         ]);
+    }
+
+    public function export()
+    {
+        return Excel::download(new UsersExport(), 'users.xlsx');
     }
 
 }

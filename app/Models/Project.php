@@ -26,7 +26,7 @@ class Project extends Model
         return $this->belongsTo(Leader::class, 'leader_id', 'id');
     }
 
-    public function hasProjectSLR()
+    public function hasProject()
     {
         return $this->hasMany(ProjectSLR::class, 'project_id');
     }
