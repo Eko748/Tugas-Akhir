@@ -139,6 +139,20 @@
         })
     }
 
+        function exportData() {
+            swal({
+                title: "Export?",
+                text: "Dapatkan data berupa file Excel!",
+                type: "warning",
+                showCancelButton: !0,
+                confirmButtonText: "Ya, export!",
+                cancelButtonText: "Tidak, batalkan!",
+                reverseButtons: !0
+            }).then((result) => {
+                window.location = "{{ route('management.member.export') }}";
+            });
+        }
+
     function addInstitute() {
         $('#modalHeadingInstitute').html("Create Institute");
         $('#institute').modal('show');

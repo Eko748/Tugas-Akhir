@@ -12,24 +12,24 @@
                     .columns()
                     .eq(0)
                     .each(function(colIdx) {
-                        if (colIdx == 6) {
+                        if (colIdx == 8) {
                             let cell = $('.filters th').eq(
                                 $(api.column(colIdx).header()).index()
                             );
-                            $(cell).html('');
+                            $(cell).html('<a href="{{ route('management.project.export', $uuid_project) }}" title="Export Project" class="cool button btn btn-success hovering shadow-sm"><i class="fa fa-file-text"> </i> Export</a>');
                         } else if (colIdx == 0) {
                             let cell = $('.filters th').eq(
                                 $(api.column(colIdx).header()).index()
                             );
                             $(cell).html('');
-                        } else if (colIdx == 1) {
+                        } else if (colIdx == 3) {
                             let cell = $('.filters th').eq(
                                 $(api.column(colIdx).header()).index()
                             );
                             let title = $(cell).text();
                             $(cell).html(
-                                '<input type="search" class="user form-control form-control-sm" placeholder="' +
-                                title + '">');
+                                '<small><input type="search" class="user form-control form-control-sm" placeholder="' +
+                                title + '"></small>');
                             $('input', $('.filters th').eq($(api.column(colIdx).header())
                                 .index()))
                                 .off('keyup change')
@@ -68,8 +68,6 @@
                             $(cell).html(
                                 '<small><input class="user form-control" placeholder="' +
                                 title + '"></small>'
-                                // '<select class="form-control" id="exampleDataList"> <datalist id="datalistOptions"><option value=""></datalist>'
-                                // '<select id="data-employee" class="form-select"><datalist id="datalistOptions"><option value="h">yakin</option><option value="">a</option></datalist></select>'
                             );
                             $(
                                     'input',
@@ -120,7 +118,7 @@
                 sProcessing: '<button class="btn btn-primary" type="button" disabled><span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span><span class="visually-hidden">Loading...</span></button>',
                 sSearch: '<span class=""><i class="btn-outline-primary hovering fa fa-search"></i></span>',
                 sSearchPlaceholder: 'Search All...',
-                sZeroRecords: '<span class="badge badge-light-danger"></i><p>Kata kunci salah</p></span>',
+                sZeroRecords: '<span class="badge badge-light-danger"></i>Kata kunci salah</span>',
                 sEmptyTable: '<span class="badge badge-light-danger"></i><p>Tidak ada data</p></span>',
                 sLengthMenu: '<i class="btn-outline-primary hovering fa fa-th-list"></i> _MENU_ ',
                 sInfo: '<span class="btn badge-light-primary">_START_ to _END_ of _TOTAL_ <i class="fa fa-user"></i></span>',
@@ -141,22 +139,61 @@
                     searchable: false
                 },
                 {
-                    data: 'title',
-                    name: 'title'
+                    data: 'article',
+                    name: 'article',
+                    render: function (data, type, row) { 
+                            if (data.split(' ').length > 3) {
+                            var short_text = data.split(' ').slice(0,3).join(' ') + '...  ';
+                            var full_text = data;
+                            return '<div class="short-text">' + short_text + '<a href="#" class="read-more">  <small><i class="fa fa-chevron-circle-right""></i></small></a></div><div class="full-text" style="display: none;">' + full_text + '<a href="#" class="read-less">  <small><i class="fa fa-chevron-circle-left"></i></small></a></div>';
+                        } else {
+                            return data;
+                        }
+                    },
+                },
+                {
+                    data: 'abstracts',
+                    name: 'abstracts',
+                    render: function (data, type, row) { 
+                            if (data.split(' ').length > 3) {
+                            var short_text = data.split(' ').slice(0,3).join(' ') + '...  ';
+                            var full_text = data;
+                            return '<div class="short-text">' + short_text + '<a href="#" class="read-more">  <small><i class="fa fa-chevron-circle-right""></i></small></a></div><div class="full-text" style="display: none;">' + full_text + '<a href="#" class="read-less">  <small><i class="fa fa-chevron-circle-left"></i></small></a></div>';
+                        } else {
+                            return data;
+                        }
+                    },
+                },
+                {
+                    data: 'year',
+                    name: 'year'
+                },
+                {
+                    data: 'authors',
+                    name: 'authors',
+                    render: function (data, type, row) { 
+                            if (data.split(' ').length > 3) {
+                            var short_text = data.split(' ').slice(0,3).join(' ') + '...  ';
+                            var full_text = data;
+                            return '<div class="short-text">' + short_text + '<a href="#" class="read-more">  <small><i class="fa fa-chevron-circle-right""></i></small></a></div><div class="full-text" style="display: none;">' + full_text + '<a href="#" class="read-less">  <small><i class="fa fa-chevron-circle-left"></i></small></a></div>';
+                        } else {
+                            return data;
+                        }
+                    },
                 },
                 {
                     data: 'get_category.category_name',
                     name: 'get_category.category_name'
                 },
                 {
-                    data: 'get_user.name',
-                    name: 'get_user.name'
+                    data: 'name',
+                    name: 'name'
                 },
                 {
                     data: 'date',
                     name: 'date',
-                    orderable: false,
-                    searchable: false
+                    // orderable: false,
+                    // searchable: false
                 },
                 {
                     data: 'action',
@@ -164,7 +201,22 @@
                     orderable: false,
                     searchable: false
                 },
-            ]
+            ],
+        });
+        $('tbody').on('click', '.read-more', function () {
+            $(this).closest('.short-text').hide();
+            $(this).closest('.short-text').next('.full-text').show();
+        });
+
+        $('tbody').on('click', '.read-less', function () {
+            $(this).closest('.full-text').hide();
+            $(this).closest('.full-text').prev('.short-text').show();
+        });
+
+        $('tbody').on('draw.dt', function () {
+            $('.full-text').hide();
+            $('.read-less').hide();
         });
     });
+
 </script>

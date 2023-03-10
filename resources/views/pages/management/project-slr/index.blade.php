@@ -6,6 +6,59 @@
 
 @section('content')
 @section('css')
+<style>
+    .cool {
+  position: relative;
+  display: inline-block;
+  padding: 0.5em 1em;
+  color: #fff;
+  text-decoration: none;
+  background-color: #007bff;
+  border-radius: 0.5em;
+  transition: transform 0.3s;
+  perspective: 100px;
+}
+
+.cool::before {
+  position: absolute;
+  content: '';
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: inherit;
+  transform: rotateY(90deg);
+  transform-origin: left;
+  transition: transform 0.3s;
+  pointer-events: none;
+}
+
+.cool:hover {
+  transform: translateZ(10px);
+}
+
+.cool:hover::before {
+  transform: rotateY(0deg);
+}
+
+.short-text { 
+    display: block; 
+    margin-bottom: 10px; 
+} 
+
+.full-text { 
+    display: none; 
+    margin-bottom: 10px; 
+} 
+
+.read-more { 
+    display: inline-block; 
+    margin-top: 5px; 
+} 
+
+
+</style>
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/datatables.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/sweetalert2/dist/sweetalert2.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/loading/loading.css') }}">

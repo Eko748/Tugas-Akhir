@@ -16,7 +16,12 @@
                             let cell = $('.filters th').eq(
                                 $(api.column(colIdx).header()).index()
                             );
-                            $(cell).html('');
+                            $(cell).html('@if ($institute == null)'+
+                            '<button class="btn btn-primary btn-sm button cool" onclick="addInstitute()" data-bs-toggle="modal" data-bs-target="#institute" id="createInstitute">Create Institute</button>'+
+                            '@else'+
+                            '<button title="Create Member" class="btn-primary me-1 ms-1 btn-sm button cool btn-outline-dark hovering shadow-sm" onclick="addMember()" data-bs-toggle="modal" data-bs-target="#member" id="createMember"><i class="fa fa-plus-circle"></i></button>'+
+                            '<button onclick="exportData()" title="Export Member" class="btn-success me-1 ms-1 btn-sm button cool btn-outline-dark hovering shadow-sm"><i class="fa fa-file-excel-o"></i></button>'+
+                            '@endif');
                         } else if (colIdx == 0) {
                             let cell = $('.filters th').eq(
                                 $(api.column(colIdx).header()).index()
@@ -68,8 +73,6 @@
                             $(cell).html(
                                 '<small><input class="user form-control" placeholder="' +
                                 title + '"></small>'
-                                // '<select class="form-control" id="exampleDataList"> <datalist id="datalistOptions"><option value=""></datalist>'
-                                // '<select id="data-employee" class="form-select"><datalist id="datalistOptions"><option value="h">yakin</option><option value="">a</option></datalist></select>'
                             );
                             $(
                                     'input',

@@ -43,10 +43,10 @@ class MemberController extends Controller
              return DataTables::of($data)
                 ->addIndexColumn()->addColumn('action', function ($data) {
                     $btn = '<div style="text-align: center; vertical-align: middle;">
-                                <button title="Detail" class="btn btn-primary btn-sm btn-outline-dark hovering shadow-sm" onclick="readMember(' . $data->id . ')">
+                                <button title="Detail" class="btn btn-info btn-sm btn-outline-dark hovering shadow-sm" onclick="readMember(' . $data->id . ')">
                                     <i class="fa fa-address-book"></i>
                                 </button>
-                                <button title="Edit" class="btn btn-success btn-sm btn-outline-dark hovering shadow-sm" onclick="editMember(' . $data->getUser->id . ')" type="button" data-bs-toggle="modal" data-bs-target="#updateMember">
+                                <button title="Edit" class="btn btn-secondary btn-sm btn-outline-dark hovering shadow-sm" onclick="editMember(' . $data->getUser->id . ')" type="button" data-bs-toggle="modal" data-bs-target="#updateMember">
                                     <i class="fa fa-pencil"></i>
                                 </button>
                                 <button title="Delete" class="btn btn-danger btn-s btn-outline-dark hovering shadow-sm" onclick="deleteMember(' . $data->id . ')">

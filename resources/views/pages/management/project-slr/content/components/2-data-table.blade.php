@@ -4,6 +4,9 @@
             <tr>
                 <th class="align-baseline">No</th>
                 <th id="email" class="align-baseline">Article</th>
+                <th id="email" class="align-baseline">Abstract</th>
+                <th id="email" class="align-baseline">Year</th>
+                <th id="email" class="align-baseline">Authors</th>
                 <th id="email" class="align-baseline">Category</th>
                 <th id="status" class="align-baseline">Created By</th>
                 <th id="status" class="align-baseline">Created At</th>

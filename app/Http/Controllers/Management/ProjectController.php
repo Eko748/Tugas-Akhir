@@ -71,10 +71,10 @@ class ProjectController extends Controller
                 ->addIndexColumn()
                 ->addColumn('action', function ($data) {
                     $btn = '<div style="text-align: center; vertical-align: middle;">
-                            <button title="Detail" class="btn btn-primary btn-sm btn-outline-dark hovering shadow-sm" onclick="readMember(' . $data->id . ')">
+                            <button title="Detail" class="btn btn-info btn-sm btn-outline-dark hovering shadow-sm" onclick="readMember(' . $data->id . ')">
                                 <i class="fa fa-address-book"></i>
                             </button>
-                            <button title="Edit" class="btn btn-success btn-sm btn-outline-dark hovering shadow-sm" onclick="editMember(' . $data->getUser->id . ')" type="button" data-bs-toggle="modal" data-bs-target="#updateMember">
+                            <button title="Edit" class="btn btn-secondary btn-sm btn-outline-dark hovering shadow-sm" onclick="editMember(' . $data->getUser->id . ')" type="button" data-bs-toggle="modal" data-bs-target="#updateMember">
                                 <i class="fa fa-pencil"></i>
                             </button>
                             <button title="Delete" class="btn btn-danger btn-s btn-outline-dark hovering shadow-sm" onclick="deleteMember(' . $data->id . ')">
@@ -82,13 +82,20 @@ class ProjectController extends Controller
                             </button>
                         </div>';
                     return $btn;
+                })->addColumn('article', function ($data) {
+                    $title = $data->title;
+                    return $title;
+                })->addColumn('name', function ($data) {
+                    $created = $data->getUser->name;
+                    $name = '<span class="badge btn-outline-success hovering badge-light-success">' . $created . '</span>';
+                    return $name;
                 })->addColumn('date', function ($data) {
                     $date = $data->created_at;
                     $parse = Carbon::parse($date)->isoFormat('LLLL');
                     $date = '<span class="badge btn-outline-primary hovering badge-light-primary">' . $parse . '</span>';
                     return $date;
                 })
-                ->rawColumns(['action', 'date'])
+                ->rawColumns(['action', 'article', 'name', 'date'])
                 ->make(true);
         }
     }

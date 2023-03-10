@@ -1,12 +1,10 @@
-<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/bootstrap.css') }}" />
-
-<table class="table-primary">
-    <thead class="table-primary">
+<table class="table table-striped">
+    <thead>
         <tr>
-            <th style="text-align: center; vertical-align: middle; background-color:aqua;"><b>Code</b></th>
-            <th style="text-align: center; vertical-align: middle; background-color:aqua;"><b>Nama</b></th>
-            <th style="text-align: center; vertical-align: middle; background-color:aqua;"><b>Email</b></th>
-            <th style="text-align: center; vertical-align: middle; background-color:aqua;"><b>Created At</b></th>
+            <th style="text-align: center; vertical-align: middle;"><b>Code</b></th>
+            <th style="text-align: center; vertical-align: middle;"><b>Nama</b></th>
+            <th style="text-align: center; vertical-align: middle;"><b>Email</b></th>
+            <th style="text-align: center; vertical-align: middle;"><b>Created At</b></th>
         </tr>
     </thead>
     <tbody>
@@ -20,5 +18,3 @@
         @endforeach
     </tbody>
 </table>
-
-<script src="{{ asset('assets/js/bootstrap/bootstrap.bundle.min.js') }}"></script>
