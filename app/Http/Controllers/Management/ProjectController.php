@@ -48,6 +48,7 @@ class ProjectController extends Controller
         $data = [
             "parent" => "Project",
             "child" => "Detail",
+            "title" => $project->title,
             "project" => $project,
             "uuid_project" => $project->uuid_project
         ];
@@ -142,7 +143,7 @@ class ProjectController extends Controller
         $response = [];
         foreach ($projects as $project) {
             $response[] = [
-                'no' => $project->uuid,
+                'no' => $project->uuid_project,
                 'id' => $project->id,
                 'text' => $project->priority . '/' . $project->title
             ];

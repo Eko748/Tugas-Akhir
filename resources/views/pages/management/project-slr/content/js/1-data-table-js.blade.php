@@ -119,7 +119,7 @@
                 sSearch: '<span class=""><i class="btn-outline-primary hovering fa fa-search"></i></span>',
                 sSearchPlaceholder: 'Search All...',
                 sZeroRecords: '<span class="badge badge-light-danger"></i>Kata kunci salah</span>',
-                sEmptyTable: '<span class="badge badge-light-danger"></i><p>Tidak ada data</p></span>',
+                sEmptyTable: '<span class="badge badge-light-danger"></i><span>Tidak ada data</span></span>',
                 sLengthMenu: '<i class="btn-outline-primary hovering fa fa-th-list"></i> _MENU_ ',
                 sInfo: '<span class="btn badge-light-primary">_START_ to _END_ of _TOTAL_ <i class="fa fa-user"></i></span>',
                 sInfoEmpty: '<span class="btn badge-light-primary"><i class="fa fa-eye"></i> 0 to 0 of 0 <i class="fa fa-user"></i></span>',

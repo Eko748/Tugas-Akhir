@@ -25,13 +25,15 @@ class MemberController extends Controller
             $q->where('user_id', Auth::user()->id);
         })->first();
 
-        $coba = User::all();
+        $member = User::with('hasInstitute')->whereHas('hasInstitute', function ($q) {
+            $q->where('user_id', Auth::user()->id);
+        })->where('created_by', Auth::user()->id)->get();
 
         $data = [
             "parent" => "Management",
             "child" => "Member",
             "institute" =>  $user,
-            "coba" => $coba,
+            "members" => $member,
         ];
         return view('pages.management.member.index', $data);
     }
@@ -39,14 +41,14 @@ class MemberController extends Controller
     public function getTable(Request $request)
     {
         if ($request->ajax()) {
-            $data = Member::with('getUser')->where('created_by', Auth::user()->id)->orderBy("created_at", "DESC")->get();
+            $data = User::where('created_by', Auth::user()->id)->orderBy("created_at", "DESC")->get();
              return DataTables::of($data)
                 ->addIndexColumn()->addColumn('action', function ($data) {
                     $btn = '<div style="text-align: center; vertical-align: middle;">
                                 <button title="Detail" class="btn btn-info btn-sm btn-outline-dark hovering shadow-sm" onclick="readMember(' . $data->id . ')">
                                     <i class="fa fa-address-book"></i>
                                 </button>
-                                <button title="Edit" class="btn btn-secondary btn-sm btn-outline-dark hovering shadow-sm" onclick="editMember(' . $data->getUser->id . ')" type="button" data-bs-toggle="modal" data-bs-target="#updateMember">
+                                <button title="Edit" class="btn btn-secondary btn-sm btn-outline-dark hovering shadow-sm" onclick="editMember(' . $data->id . ')" type="button" data-bs-toggle="modal" data-bs-target="#updateMember">
                                     <i class="fa fa-pencil"></i>
                                 </button>
                                 <button title="Delete" class="btn btn-danger btn-s btn-outline-dark hovering shadow-sm" onclick="deleteMember(' . $data->id . ')">
@@ -55,7 +57,7 @@ class MemberController extends Controller
                             </div>';
                     return $btn;
                 })->addColumn('date', function ($data) {
-                    $date = $data->getUser->last_seen;
+                    $date = $data->last_seen;
                     $parse = Carbon::parse($date)->isoFormat('LLLL');
                     $danger = '<span class="badge btn-outline-danger hovering badge-light-danger">Belum ada riwayat Login</span>';
                     $info = '<span class="badge btn-outline-primary hovering badge-light-primary">' . $parse . '</span>';
@@ -67,7 +69,7 @@ class MemberController extends Controller
                     }
                     return $date;
                 })->addColumn('ip', function ($data) {
-                    $ip = $data->getUser->last_seen_ip;
+                    $ip = $data->last_seen_ip;
                     $danger = '<span class="badge btn-outline-danger hovering badge-light-danger">Belum ada riwayat Login</span>';
                     $info = '<span class="badge btn-outline-primary hovering badge-light-primary">' . $ip . '</span>';
 
@@ -80,7 +82,7 @@ class MemberController extends Controller
                 })->addColumn('info', function ($data) {
                     $online = '<span class="text-success">Online</span>';
                     $offline = '<span class="text-secondary">Offline</span>';
-                    $user_id = $data->getUser->id;
+                    $user_id = $data->id;
                     if (Cache::has('user-is-online-' . $user_id)) {
                         return $online;
                     } else {
@@ -93,15 +95,25 @@ class MemberController extends Controller
 
     public function getUser(Request $req)
     {
-        $users = []; 
+        $search = $req->q;
+        $projects = Member::where('created_by', Auth::user()->id)
+            ->with('getUser')->whereHas('getUser', function ($q) use ($search) {
+                $q->where('created_by', Auth::user()->id)->orWhere('name', 'LIKE', '%' . $search . '%')
+                ->orWhere('code', 'LIKE', '%' . $search . '%');
+            })
+            ->orderBy('created_at', 'ASC')
+            ->get();
 
-        if ($req->has('q')) {
-            $search = $req->q;
-            $users = User::select("id", "name", "email")
-                ->where('name', 'LIKE', "%$search%")
-                ->get();
+        $response = [];
+        foreach ($projects as $project) {
+            $response[] = [
+                'id' => $project->getUser->code,
+                'text' => $project->getUser->code.'/'.$project->getUser->name,
+                'code' => $project->getUser->name
+            ];
         }
-        return response()->json($users);
+
+        return response()->json($response);
     }
 
     public function create(Request $request)
@@ -172,7 +184,7 @@ class MemberController extends Controller
             "string" => $string,
         ];
 
-        return view("pages.management.member.content.components.edit", $data);
+        return view("pages.management.member.content.components.4-edit-member", $data);
     }
 
     public function update(Request $request)

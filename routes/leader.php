@@ -30,7 +30,7 @@ Route::middleware('auth')->group(function () {
             Route::controller(MemberController::class)->group(function () {
                 Route::get('/member', 'index')->name('management.member.index');
                 Route::get('/member-data', 'getTable')->name('management.member.table');
-                Route::get('/member-list-data', 'getUser')->name('management.member.getUsers');
+                Route::get('/member-list-data', 'getUser')->name('management.member.getUser');
                 Route::post('/member-create', 'create')->name('management.member.create');
                 Route::get('/member-edit', 'edit')->name('management.member.edit');
                 Route::put('/member-update', 'update')->name('management.member.update');

@@ -19,12 +19,12 @@
                 contentType: false,
                 success: function(result) {
                     swal("Done!", "Karyawan berhasil ditambahkan", "success")
-                    .then((value) => {
-                        $("#formCreateMember").trigger("reset");
-                        $("#member").modal("hide");
-                        $("#table-member").DataTable().ajax.reload();
-                        location.reload();
-                    });
+                        .then((value) => {
+                            $("#formCreateMember").trigger("reset");
+                            $("#member").modal("hide");
+                            $("#table-member").DataTable().ajax.reload();
+                            location.reload();
+                        });
                 },
                 error: function(result) {
                     swal("Error!", "Data sudah ada atau yang lainnya", "error");
@@ -139,19 +139,19 @@
         })
     }
 
-        function exportData() {
-            swal({
-                title: "Export?",
-                text: "Dapatkan data berupa file Excel!",
-                type: "warning",
-                showCancelButton: !0,
-                confirmButtonText: "Ya, export!",
-                cancelButtonText: "Tidak, batalkan!",
-                reverseButtons: !0
-            }).then((result) => {
-                window.location = "{{ route('management.member.export') }}";
-            });
-        }
+    function exportData() {
+        swal({
+            title: "Export?",
+            text: "Dapatkan data berupa file Excel!",
+            type: "warning",
+            showCancelButton: !0,
+            confirmButtonText: "Ya, export!",
+            cancelButtonText: "Tidak, batalkan!",
+            reverseButtons: !0
+        }).then((result) => {
+            window.location = "{{ route('management.member.export') }}";
+        });
+    }
 
     function addInstitute() {
         $('#modalHeadingInstitute').html("Create Institute");

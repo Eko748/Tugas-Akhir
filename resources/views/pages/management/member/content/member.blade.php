@@ -1,7 +1,12 @@
 <div class="page-body">
-    <div class="container-fluid default-dash">
+    <div class="container-fluid">
         <div class="row">
             @include('layout.breadcrumb')
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
             <div class="col-sm-12">
                 <div class="card b-l-primary b-t-primary border-3 card-absolute">
                     <div class="card-header bg-grey b-l-primary b-r-primary border-3">
@@ -13,13 +18,14 @@
                         </div>
                     @endif
                     <div class="card-body">
-                        @include('pages.management.member.content.components.table')
-                        @include('pages.management.member.content.components.create-modal')
-                        @include('pages.management.member.content.components.update-modal')
-                        @include('pages.management.member.content.components.institute-modal')
+                        @include('pages.management.member.content.components.1-data-table')
+                        @include('pages.management.member.content.components.2-create-member')
+                        @include('pages.management.member.content.components.3-update-member')
+                        @include('pages.management.member.content.components.5-create-institute')
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+

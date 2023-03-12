@@ -67,11 +67,25 @@
                                     <a class="submenu-title" href="#">Project<span class="sub-arrow"><i
                                                 class="fa fa-angle-right"></i></span></a>
                                     <ul class="nav-sub-childmenu submenu-content">
-                                        <li><a href="{{ route('management.project.index') }}">Project Master</a>
+                                        <li>
+                                            <a href="{{ route('management.project.index') }}">Project Master</a>
                                         </li>
-                                        <li><a href="{{ route('slr.index') }}">My Project</a>
+                                        @php
+                                            $projects = App\Models\Project::where('created_by', Auth::user()->id)->get();
+                                        @endphp
+                                        @if ($projects == !null)
+                                        @foreach($projects as $project)
+                                        <li>
+                                            <a href="{{ route('management.project.detail', ["uuid_project"=> $project->uuid_project]) }}"
+                                                data-bs-trigger="hover" data-container="body" data-bs-toggle="popover" 
+                                                data-bs-placement="right" data-offset="-5px -5px" 
+                                                data-bs-content="{{ $project->description }}" 
+                                                title="{{ $project->title }}">
+                                                <small class="">{{ $project['title'] }}</small>
+                                            </a>
                                         </li>
-                                        <li><a href="">Riwayat</a></li>
+                                        @endforeach 
+                                        @endif
                                     </ul>
                                 </li>
                             </ul>

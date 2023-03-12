@@ -32,10 +32,37 @@
                                 $(api.column(colIdx).header()).index()
                             );
                             let title = $(cell).text();
-                            $(cell).html(
-                                '<input type="search" class="user form-control form-control-sm" placeholder="' +
-                                title + '">');
-                            $('input', $('.filters th').eq($(api.column(colIdx).header())
+                            let modal = $(this);
+                            $(cell).html('<select class="user form-control form-control-sm select2" style="width: 100%;"></select>'+
+                            '<input type="hidden" class="name-member">');
+                            $('.select2').select2({
+                                placeholder: title,
+                                allowClear: true,
+                                width: "200%",
+                                ajax: {
+                                    url: '{{ route('management.member.getUser') }}',
+                                    dataType: 'json',
+                                    delay: 220,
+                                    data: function(params) {
+                                        return {
+                                            q: params.term
+                                        };
+                                    },
+                                    processResults: function(data) {
+                                        return {
+                                            results: data
+                                        };
+                                    },
+                                    cache: true
+                                },
+                                minimumResultsForSearch: 0,
+                            }).on('select2:select', function(e) {
+                                let data = e.params.data;
+                                let id = data.id;
+                                let name = data.code;
+                                modal.find('.select2').val(name);
+                            });
+                            $('.select2', $('.filters th').eq($(api.column(colIdx).header())
                                 .index()))
                                 .off('keyup change')
                                 .on('change', function(e) {
@@ -144,11 +171,11 @@
                     searchable: false
                 },
                 {
-                    data: 'get_user.name',
+                    data: 'name',
                     name: 'name'
                 },
                 {
-                    data: 'get_user.email',
+                    data: 'email',
                     name: 'email'
                 },
                 {
