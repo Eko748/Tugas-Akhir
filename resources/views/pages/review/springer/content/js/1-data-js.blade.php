@@ -20,7 +20,7 @@
             data: {
                 'search': search,
             },
-            url: '{{ (Auth::user()->role_id == 1) ? route('review.article_springer.index') : route('review.index') }}',
+            url: '{{ Auth::user()->role_id == 1 ? route('review.springer.index') : route('review.index') }}',
             success: function(data) {
                 clearTimeout(requestTimeout);
                 $("#loading").hide();
@@ -28,4 +28,19 @@
             }
         });
     });
+
+    function showFullTitle(identifier) {
+        document.getElementById('product-title-full-' + identifier).style.display = 'inline';
+        document.getElementById('product-title-short-' + identifier).style.display = 'none';
+        document.getElementById('read-more-link-' + identifier).style.display = 'none';
+        document.getElementById('read-less-link-' + identifier).style.display = 'inline';
+    }
+
+    function hideFullTitle(identifier) {
+        document.getElementById('product-title-full-' + identifier).style.display = 'none';
+        document.getElementById('product-title-short-' + identifier).style.display = 'inline';
+        document.getElementById('read-more-link-' + identifier).style.display = 'inline';
+        document.getElementById('read-less-link-' + identifier).style.display = 'none';
+    }
+
 </script>

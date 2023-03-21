@@ -6,67 +6,66 @@
                     <div class="card">
                         <div class="product-box">
                             <div class="product-img">
-                                <div class="text-start">
-                                    <img class="img-fluid" style="width: 100px;"
-                                        src="https://brand-experience.ieee.org/favicon-32x32.png" alt="">
-                                </div>
-                                <p><small>No. {{ $key['article_number'] }}</small></p>
-                                <div class="product-hover">
-                                    <ul>
-                                        <li><a data-bs-toggle="modal" onclick="addData()"
-                                                data-bs-target="#modalCreate-{{ $key['article_number'] }}"><i
-                                                    class="icon-plus"></i></a></li>
-                                        <li><a data-bs-toggle="modal"
-                                                data-bs-target="#modalView-{{ $key['article_number'] }}"><i
-                                                    class="icon-eye"></i></a></li>
-                                    </ul>
+                                <div class="mt-3">
+                                    <div class="text-start mb-2">
+                                        <img class="img-fluid ms-3" style="width: 100%;"
+                                            src="https://link.springer.com/static/0ec8b27393b8fa28d3a17e3ebe39646d1d6540e9/sites/link/images/logo_high_res.png"
+                                            alt="">
+                                    </div>
+                                    <p class="ms-3"><small>{{ $key['identifier'] }}</small></p>
+                                    <div class="product-hover">
+                                        <ul>
+                                            <li><a data-bs-toggle="modal" onclick="addData()"
+                                                    data-bs-target="#modalCreate-{{ $key['identifier'] }}"><i
+                                                        class="icon-plus"></i></a></li>
+                                            <li><a data-bs-toggle="modal"
+                                                    data-bs-target="#modalView-{{ $key['identifier'] }}"><i
+                                                        class="icon-eye"></i></a></li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
-                            @include('pages.review.ieee.content.components.3-create-data')
-                            @include('pages.review.ieee.content.components.4-view-data')
+                            {{-- @include('pages.review.ieee.content.components.3-create-data')
+                            @include('pages.review.ieee.content.components.4-view-data') --}}
                             <div class="product-details">
                                 <div class="product-price">
-                                    {{ $key['title'] }}
+                                    <span class="text-primary" id="product-title-full-{{ $key['identifier'] }}" style="display:none;">{{ $key['title'] }}</span>
+                                    <span class="text-primary" id="product-title-short-{{ $key['identifier'] }}">{{ Str::words($key['title'], 5, '...') }}</span>
+                                    <a href="javascript:void(0)" id="read-more-link-{{ $key['identifier'] }}" onclick="showFullTitle('{{ $key['identifier'] }}')"><small><i class="fa fa-chevron-circle-right"></i></small></a>
+                                    <a href="javascript:void(0)" id="read-less-link-{{ $key['identifier'] }}" onclick="hideFullTitle('{{ $key['identifier'] }}')" style="display:none;"><small><i class="fa fa-chevron-circle-left"></i></small></a>
                                 </div>
                                 <hr>
                                 <div class="rating">
                                     <b>
                                         Publisher: {{ $key['publisher'] }}
                                     </b>
+                                    <br>
                                     <strong>
-                                        <p>{{ $key['publication_title'] }}</p>
+                                        <p>{{ $key['publicationName'] }}</p>
                                     </strong>
                                 </div>
                                 <span>
-                                    @php
-                                        $cek = [];
-                                        foreach ($key['authors'] as $author) {
-                                            foreach ($author as $a) {
-                                                $cek[] = $a;
-                                            }
-                                        }
-                                    @endphp
                                     <b>Authors:</b>
                                 </span>
-                                @foreach ($cek as $name => $value)
-                                    @if ($value['full_name'] == [])
+                                @if (isset($key['creators']))
+                                    @foreach ($key['creators'] as $value)
                                         <p>
-                                            <b>Tidak tercatat!</b>
+                                            - {{ $value['creator'] }}
                                         </p>
-                                    @else
-                                        <p>
-                                            - {{ $value['full_name'] }}
-                                        </p>
-                                    @endif
-                                @endforeach
+                                    @endforeach
+                                @else
+                                    <p>
+                                        - Tidak dicantumkan
+                                    </p>
+                                @endif
                                 <hr>
                                 <div class="product-price mb-2">
-                                    {{ $key['content_type'] }}: {{ $key['publication_year'] }}
-                                    <p class="pull-right">Cited: {{ $key['citing_paper_count'] }}</p>
+                                    Type: {{ $key['publicationType'] }}
+                                    <p class="pull-right">Date: {{ $key['publicationDate'] }}</p>
                                 </div>
-                                <a href="{{ $key['pdf_url'] }}" class="btn btn-sm btn-outline-dark btn-danger">
+                                {{-- <a href="{{ $key['pdf_url'] }}" class="btn btn-sm btn-outline-dark btn-danger">
                                     <i class="fa fa-file-pdf-o"></i>
-                                </a>
+                                </a> --}}
                             </div>
                         </div>
                     </div>

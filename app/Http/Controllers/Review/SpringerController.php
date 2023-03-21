@@ -17,18 +17,19 @@ class SpringerController extends Controller
 
     public function index(Request $request)
     {
-        $query = $request->query('query');
-        $url = 'http://api.springernature.com/meta/v2/json?q=' . urlencode($query) . '&api_key=' . $this->apiKey;
+        $query = $request->query('search');
+        $url = 'http://api.springernature.com/meta/v2/json?q=title:' . urlencode($query) . '&api_key=' . $this->apiKey;
         
         $client = new Client();
         $response = $client->request('GET', $url);
-
-        $key = json_decode($response->getBody()->getContents(), true);
-
+        
+        $path = json_decode($response->getBody()->getContents(), true);
+        // dd($path['records']);
         $data = [
             "parent" => "Review",
             "child" => "Springer",
-            "key" => $key,
+            "search" => $query,
+            "path" => $path['records'],
         ];
 
         if ($request->ajax()) {
