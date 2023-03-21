@@ -6,8 +6,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description"
-        content="Tugas Akhir" />
+    <meta name="description" content="Tugas Akhir" />
     <meta name="keywords"
         content="Aplikasi Web Scraping dan Manajemen Data untuk keperluan Systematic Litterature Review" />
     <meta name="author" content="permanaeko74@gmail.com" />
@@ -38,13 +37,15 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/responsive.css') }}" />
     <link rel="stylesheet" type="text/css"
         href="{{ asset('assets/css/vendors/sweetalert2/dist/sweetalert2.min.css') }}">
-        <style>
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/select2/dist/css/select2.min.css') }}">
+
+    <style>
         @media only screen and (max-width: 600px) {
             .breadcrumb-parent {
-              display: none;
+                display: none;
             }
-          }
-          </style>
+        }
+    </style>
     @vite([])
     @yield('css')
 
@@ -66,7 +67,7 @@
     <div class="page-wrapper compact-wrapper" id="pageWrapper">
         @include('layout.header')
         <div class="page-body-wrapper">
-            @include('layout.sidebar')
+            @include('layout.sidebar.sidebar')
 
             @yield('content')
             @vite('resources/js/app.js')
@@ -86,6 +87,7 @@
     <script src="{{ asset('assets/js/theme-customizer/customizer.js') }}"></script>
 
     <script src="{{ asset('assets/js/popover-custom.js') }}"></script>
+    <script src="{{ asset('assets/css/vendors/select2/dist/js/select2.min.js') }}"></script>
 
     @yield('darkLayoutScript')
     @stack('js')

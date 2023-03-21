@@ -20,6 +20,8 @@ Route::get('/', [LandingController::class, 'index'])->name('home');
 Route::get('/auth/{provider}', [SocialiteController::class, 'redirectToProvider']);
 Route::get('/auth/{provider}/callback', [SocialiteController::class, 'handleProvideCallback']);
 
+
 require __DIR__.'/auth.php';
 require __DIR__ . '/leader.php ';
 require __DIR__ . '/member.php';
+// require __DIR__ . '/institute.php';

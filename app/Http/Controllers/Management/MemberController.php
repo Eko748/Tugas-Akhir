@@ -41,7 +41,8 @@ class MemberController extends Controller
     public function getTable(Request $request)
     {
         if ($request->ajax()) {
-            $data = User::where('created_by', Auth::user()->id)->orderBy("created_at", "DESC")->get();
+            $auth = Auth::user()->hasLeader->first();
+            $data = User::where('created_by', $auth->id)->orderBy("created_at", "DESC")->get();
              return DataTables::of($data)
                 ->addIndexColumn()->addColumn('action', function ($data) {
                     $btn = '<div style="text-align: center; vertical-align: middle;">
@@ -131,7 +132,8 @@ class MemberController extends Controller
         $array = array($institute, $request->email);
         $string = implode('.', $array);
 
-        $auth = Auth::user()->id;
+        $auth = Auth::user()->hasLeader->first();
+        
         $token = Str::random(64);
 
         $request->validate([
@@ -154,7 +156,7 @@ class MemberController extends Controller
                 'email' => $string,
                 'password' => Hash::make($request->password),
                 'status' => $request->status,
-                'created_by' => $auth,
+                'created_by' => $auth->id,
                 'remember_token' => $token
             ]
         );
@@ -163,7 +165,7 @@ class MemberController extends Controller
             [
                 'user_id' => $userCreate->id,
                 'role_id' => 2,
-                'created_by' => $auth,
+                'created_by' => $auth->id,
             ]
         );
 

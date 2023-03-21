@@ -59,6 +59,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function hasLeader()
+    {
+        return $this->hasMany(Leader::class, 'user_id');
+    }
+    
     public function socialAccounts()
     {
         return $this->hasMany(SocialAccount::class);
@@ -79,10 +84,6 @@ class User extends Authenticatable
         return $this->hasOne(Admin::class, 'user_id');
     }
 
-    public function hasLeader()
-    {
-        return $this->hasMany(Leader::class, 'user_id');
-    }
 
     public function hasMember()
     {

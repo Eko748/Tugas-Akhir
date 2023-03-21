@@ -20,6 +20,11 @@ class Member extends Model
         return $this->belongsTo(Role::class, 'role_id', 'id');
     }
 
+    public function getLeader()
+    {
+        return $this->belongsTo(Leader::class, 'created_by', 'id');
+    }
+
     public function hasProjectSLR()
     {
         return $this->hasMany(ProjectSLR::class, 'project_id');

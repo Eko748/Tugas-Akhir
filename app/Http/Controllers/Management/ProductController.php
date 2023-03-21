@@ -80,7 +80,7 @@ class ProductController extends Controller
             return preg_match('/^\d+\./', trim($line));
         });
 
-        print_r($references);
+        print_r($split_text);
     }
 
 

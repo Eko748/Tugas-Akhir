@@ -16,7 +16,7 @@
                             let cell = $('.filters th').eq(
                                 $(api.column(colIdx).header()).index()
                             );
-                            $(cell).html('<a href="{{ route('management.project.export', $uuid_project) }}" title="Export Project" class="cool button btn btn-success hovering shadow-sm"><i class="fa fa-file-text"> </i> Export</a>');
+                            $(cell).html('<a href="{{ (Auth::user()->role_id == 1) ? route('management.project.export', $uuid_project) : route('project.export', $uuid_project) }}" title="Export Project" class="cool button btn btn-success hovering shadow-sm"><i class="fa fa-file-text"> </i> Export</a>');
                         } else if (colIdx == 0) {
                             let cell = $('.filters th').eq(
                                 $(api.column(colIdx).header()).index()
@@ -131,7 +131,7 @@
                     sPrevious: '<',
                 },
             },
-            ajax: "{{ route('management.project.getTable', $project->uuid_project) }}",
+            ajax: "{{ (Auth::user()->role_id == 1) ? route('management.project.getTable', $project->uuid_project) : route('project.getTable', $project->uuid_project) }}",
             columns: [{
                     data: 'DT_RowIndex',
                     name: 'DT_RowIndex',

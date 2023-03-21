@@ -15,14 +15,4 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    public function getAdminId()
-    {
-        $data = User::with('admin')->find(Auth::user()->id);
-        return $data;
-    }
-    // public function getOwnerId()
-    // {
-    //     $data = User::with('owner')->find(Auth::user()->id);
-    //     return $data;
-    // }
 }

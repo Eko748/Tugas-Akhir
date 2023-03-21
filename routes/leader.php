@@ -9,21 +9,49 @@ use App\Http\Controllers\Management\InstituteController;
 use App\Http\Controllers\Management\MemberController;
 use App\Http\Controllers\Management\ProjectController;
 use App\Http\Controllers\Management\SLRController;
-use App\Http\Controllers\Scraping\CategoryController;
-use App\Http\Controllers\Scraping\ReviewController;
-use App\Http\Controllers\Scraping\ScopusController;
-use App\Http\Controllers\Scraping\ScrapingController;
+use App\Http\Controllers\Review\CategoryController;
+use App\Http\Controllers\Review\IeeeController;
+use App\Http\Controllers\Review\ScopusController;
+use App\Http\Controllers\Review\ScrapingController;
 use App\Exports\UsersExport;
+use App\Http\Controllers\Review\AcmController;
+use App\Http\Controllers\Review\CiteSeerxController;
+use App\Http\Controllers\Review\ReviewMasterController;
+use App\Http\Controllers\Review\ScienceDirectController;
+use App\Http\Controllers\Review\SpringerController;
+use Illuminate\Support\Facades\Request;
 use Maatwebsite\Excel\Facades\Excel;
+
 
 Route::middleware('auth')->group(function () {
     Route::post('/gettimelogin', [AuthController::class, 'getTimeLogging']);
-    Route::middleware(['2'])->group(function () {
-        Route::get('/member', [ProductController::class, 'member'])->name('dashboard');
-    });
     Route::middleware(['1', 'auth'])->group(function () {
         // Dashboard
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+        Route::get('/search-route/{search}', function ($search) {
+            // Mendapatkan semua rute yang terdaftar dalam aplikasi
+            $routes = Route::getRoutes();
+
+            // Array untuk menyimpan rute yang sesuai dengan kata kunci pencarian
+            $filteredRoutes = [];
+
+            foreach ($routes as $route) {
+                // Pencarian pada URI rute
+                if (strpos($route->uri(), $search) !== false) {
+                    $filteredRoutes[] = $route;
+                }
+
+                // Pencarian pada nama rute
+                if (strpos($route->getName(), $search) !== false) {
+                    $filteredRoutes[] = $route;
+                }
+            }
+
+            // Mengonversi array rute yang sesuai ke dalam format JSON dan mengirimkannya sebagai respons
+            return response()->json($filteredRoutes);
+        });
+
+
 
         // Management | Member
         Route::prefix("management")->group(function () {
@@ -51,7 +79,6 @@ Route::middleware('auth')->group(function () {
                 Route::get('/slr', 'index')->name('slr.index');
                 Route::post('/slr-print', 'print')->name('slr.print');
                 Route::get('/slr-fetch', 'getMoreProjects')->name('slr.get');
-
             });
 
             Route::controller(InstituteController::class)->group(function () {
@@ -80,11 +107,25 @@ Route::middleware('auth')->group(function () {
             });
         });
 
-        Route::prefix("scraping")->group(function () {
-            Route::controller(ReviewController::class)->group(function () {
-                Route::get('/review', 'index')->name('scraping.review.index');
-                Route::get('/review/fetch-data', 'getData')->name('scraping.data.fetch');
-                Route::post('/review/post-data', 'create')->name('scraping.review.create');
+        Route::prefix("review")->group(function () {
+            Route::controller(ReviewMasterController::class)->group(function () {
+                Route::get('/master', 'index')->name('review.master.index');
+                Route::post('/post-data', 'create')->name('review.master.create');
+            });
+            Route::controller(IeeeController::class)->group(function () {
+                Route::get('/article-ieee', 'index')->name('review.ieee.index');
+            });
+            Route::controller(ScienceDirectController::class)->group(function () {
+                Route::get('/sciencedirect', 'index')->name('review.sciencedirect.index');
+            });
+            Route::controller(SpringerController::class)->group(function () {
+                Route::get('/springer', 'index')->name('review.springer.index');
+            });
+            Route::controller(AcmController::class)->group(function () {
+                Route::get('/acm', 'index')->name('review.acm.index');
+            });
+            Route::controller(CiteSeerxController::class)->group(function () {
+                Route::get('/citeseerx', 'index')->name('review.citeseerx.index');
             });
         });
 
@@ -95,9 +136,5 @@ Route::middleware('auth')->group(function () {
                 Route::post('/send-message', 'store')->name('message.post');
             });
         });
-
-        // Route::get('/export-users', function () {
-        //     return Excel::download(new UsersExport, 'users.xlsx');
-        // })->name('excel.users');
     });
 });

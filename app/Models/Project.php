@@ -11,14 +11,15 @@ class Project extends Model
     use HasFactory;
     protected $guarded = [];
 
-    protected $casts = [
-        'start_date' => 'datetime',
-        'end_date' => 'datetime',
-    ];
     
     public function getUser()
     {
         return $this->belongsTo(User::class, 'created_by', 'id');
+    }
+
+    public function getLastSeenAttribute()
+    {
+        return $this->getUser->last_seen;
     }
 
     public function getLeader()

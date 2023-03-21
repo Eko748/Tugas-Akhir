@@ -24,4 +24,9 @@ class Leader extends Model
     {
         return $this->hasMany(Project::class, 'leader_id');
     }
+
+    public function hasMember()
+    {
+        return $this->hasMany(Member::class, 'created_by');
+    }
 }
