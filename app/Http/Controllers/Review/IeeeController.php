@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Review;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Review\ReviewMasterController;
 use Goutte\Client;
 use Illuminate\Http\Request;
 
-class IeeeController extends Controller
+class IeeeController extends ReviewMasterController
 {
-    public function index(Request $request)
+    public function reviewIeee(Request $request)
     {
         $search = $request->input('search');
         $client = new Client();

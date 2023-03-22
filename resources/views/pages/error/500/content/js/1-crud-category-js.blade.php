@@ -2,7 +2,7 @@
     function addCategory() {
         $("body").on("submit", "#formCreateCategory", function(e) {
             e.preventDefault();
-            let url = "{{ route('review.category.create') }}"
+            let url = "{{ route('scraping.category.create') }}"
             $.ajax({
                 url: url,
                 dataType: "JSON",

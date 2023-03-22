@@ -46,7 +46,7 @@
                 </div>
                 <div class="tab-pane fade" id="tabCreateCategory" role="tabpanel" aria-labelledby="contact-top-tab">
                     <form id="formCreateCategory" class="theme-form needs-validation" method="POST"
-                        action="{{ route('review.category.create') }}" novalidate="">
+                        action="{{ route('scraping.category.create') }}" novalidate="">
                         @csrf
                         <div class="form-group">
                             <x-input-label for="code" :value="__('Code')"></x-input-label>

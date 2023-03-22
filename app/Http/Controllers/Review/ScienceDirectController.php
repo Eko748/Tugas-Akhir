@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\Review;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Review\ReviewMasterController;
 
-class ScienceDirectController extends Controller
+class ScienceDirectController extends ReviewMasterController
 {
-    public function index()
+    public function reviewScienceDirect()
     {
         $data = [
             "parent" => "Review",

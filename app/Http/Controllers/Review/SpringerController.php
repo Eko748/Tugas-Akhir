@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Review;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Review\ReviewMasterController;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 
-class SpringerController extends Controller
+class SpringerController extends ReviewMasterController
 {
     private $apiKey;
 
@@ -15,7 +15,7 @@ class SpringerController extends Controller
         $this->apiKey = 'f99e4740f3ccd28f81a8ea39ec4c3a79';
     }
 
-    public function index(Request $request)
+    public function reviewSpringer(Request $request)
     {
         $query = $request->query('search');
         $url = 'http://api.springernature.com/meta/v2/json?q=title:' . urlencode($query) . '&api_key=' . $this->apiKey;

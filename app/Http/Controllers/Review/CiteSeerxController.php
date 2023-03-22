@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\Review;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Review\ReviewMasterController;
 
-class CiteSeerxController extends Controller
+class CiteSeerxController extends ReviewMasterController
 {
-    public function index()
+    public function reviewCiteSeerx()
     {
         $data = [
             "parent" => "Review",

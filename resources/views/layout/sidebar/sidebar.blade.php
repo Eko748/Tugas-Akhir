@@ -1,14 +1,13 @@
 <div class="sidebar-wrapper">
     <div>
         <div class="logo-wrapper">
-            <a href="/"><img class="img-fluid for-light" width="90%" src="{{ asset('assets/images/logo/slr.png') }}"
-                    alt="" /><img class="img-fluid for-dark"
+            <a href="/"><img class="img-fluid for-light" width="90%"
+                    src="{{ asset('assets/images/logo/slr.png') }}" alt="" /><img class="img-fluid for-dark"
                     src="{{ asset('assets/images/logo/slr-black.png') }}" alt="" /></a>
             {{-- <div class="back-btn"><i class="fa fa-angle-left"></i></div> --}}
         </div>
         <div class="logo-icon-wrapper">
-            <a href="/"><img class="img-fluid" src="{{ asset('assets/images/slr.png') }}"
-                    alt="" /></a>
+            <a href="/"><img class="img-fluid" src="{{ asset('assets/images/slr.png') }}" alt="" /></a>
         </div>
         <nav class="sidebar-main">
             {{-- <div class="left-arrow" id="left-arrow">
@@ -23,11 +22,14 @@
                             <span>Back</span><i class="fa fa-angle-right ps-2" aria-hidden="true"> </i>
                         </div>
                     </li>
-                    @if (Auth::user()->role_id == '1')
-                        @include('layout.sidebar.leader')
-                    @else
-                        @include('layout.sidebar.member')
+                    @if (Auth::check())
+                        @if (Auth::user()->role_id == '1')
+                            @include('layout.sidebar.leader')
+                        @elseif (Auth::user()->role_id == '2')
+                            @include('layout.sidebar.member')
+                        @endif
                     @endif
+
                 </ul>
                 <div class="sidebar-img-section mb-3">
                     <div class="sidebar-img-content mb-3">

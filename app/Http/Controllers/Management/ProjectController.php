@@ -18,10 +18,18 @@ use Yajra\DataTables\Facades\DataTables;
 
 class ProjectController extends Controller
 {
-    public function index(Request $request)
-    {
-        $user_id = Auth::user()->created_by;
+    private $leader_id;
 
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            $this->leader_id = Auth::user()->created_by;
+            return $next($request);
+        });
+    }
+
+    public function getView(Request $request)
+    {
         if (Auth::user()->role_id == "1") {
             $projects = Project::with('hasProject.getUser')->withCount('hasProject')
                 ->where('created_by', Auth::user()->id)
@@ -33,14 +41,14 @@ class ProjectController extends Controller
                 ->get();
         } else {
             $projects = Project::with('getLeader', 'hasProject.getUser')->withCount('hasProject')
-                ->whereHas('getLeader', function ($q) use ($user_id) {
-                    $q->where('id', $user_id);
+                ->whereHas('getLeader', function ($q) {
+                    $q->where('id', $this->leader_id);
                 })
                 ->orderBy('priority', "desc")
                 ->paginate(2);
             $end = Project::with('getLeader', 'hasProject.getUser')->withCount('hasProject')
-                ->whereHas('getLeader', function ($q) use ($user_id) {
-                    $q->where('id', $user_id);
+                ->whereHas('getLeader', function ($q) {
+                    $q->where('id', $this->leader_id);
                 })
                 ->orderBy('priority', "desc")
                 ->orderBy('created_at', 'desc')
@@ -96,17 +104,15 @@ class ProjectController extends Controller
         return view('pages.management.project.index', $data);
     }
 
-    public function detail($uuid_project)
+    public function getProjectDetail($uuid_project)
     {
-        $user_id = Auth::user()->created_by;
-
         if (Auth::user()->role_id == '1') {
             $project = Project::with('hasProject')->where('uuid_project', $uuid_project)
                 ->where('created_by', Auth::user()->id)->firstOrFail();
         } else {
             $project = Project::with('hasProject', 'getLeader')->where('uuid_project', $uuid_project)
-                ->whereHas('getLeader', function ($q) use ($user_id) {
-                    $q->where('id', $user_id);
+                ->whereHas('getLeader', function ($q){
+                    $q->where('id', $this->leader_id);
                 })->firstOrFail();
         }
 
@@ -125,10 +131,8 @@ class ProjectController extends Controller
         return view('pages.management.project-slr.index', $data);
     }
 
-    public function getTable(Request $request, $uuid_project)
+    public function getProjectData(Request $request, $uuid_project)
     {
-        $user_id = Auth::user()->created_by;
-
         if ($request->ajax()) {
 
             if (Auth::user()->role_id == '1') {
@@ -141,8 +145,8 @@ class ProjectController extends Controller
                 $data = ProjectSLR::with('getProject.getLeader', 'getUser', 'getCategory')
                     ->whereHas('getProject', function ($q) use ($uuid_project) {
                         $q->where('uuid_project', $uuid_project);
-                    })->whereHas('getProject.getLeader', function ($q) use ($user_id) {
-                        $q->where('id', $user_id);
+                    })->whereHas('getProject.getLeader', function ($q){
+                        $q->where('id', $this->leader_id);
                     })
                     ->orderBy('created_at', 'DESC')->get();
             }
@@ -180,7 +184,7 @@ class ProjectController extends Controller
         }
     }
 
-    public function create(Request $request)
+    public function createProject(Request $request)
     {
         $user = Leader::where('user_id', Auth::user()->id)->first();
 
@@ -192,7 +196,7 @@ class ProjectController extends Controller
             'end_date' => ['required', 'date_format:Y-m-d H:i:s', 'after:start_date'],
         ]);
 
-        $project = Project::create(
+        Project::create(
             [
                 'uuid_project' => Str::uuid(),
                 'leader_id' => $user->id,
@@ -211,7 +215,6 @@ class ProjectController extends Controller
 
     public function getProject(Request $req)
     {
-        $user_id = Auth::user()->created_by;
         $search = $req->q;
 
         if (Auth::user()->role_id == '1') {
@@ -223,8 +226,8 @@ class ProjectController extends Controller
         } else {
             $projects = Project::with('getLeader')->where('title', 'LIKE', '%' . $search . '%')
                 ->orWhere('priority', 'LIKE', '%' . $search . '%')
-                ->whereHas('getLeader', function ($q) use ($user_id) {
-                    $q->where('id', $user_id);
+                ->whereHas('getLeader', function ($q){
+                    $q->where('id', $this->leader_id);
                 })
                 ->orderBy('priority', 'asc')
                 ->get();
@@ -242,9 +245,8 @@ class ProjectController extends Controller
         return response()->json($response);
     }
 
-    public function export($uuid_project)
+    public function exportProjectData($uuid_project)
     {
-        $user_id = Auth::user()->created_by;
 
         if (Auth::user()->role_id == '1') {
             $project = Project::where('uuid_project', $uuid_project)
@@ -253,8 +255,8 @@ class ProjectController extends Controller
             $institute = Institute::with('getUser')->where('user_id', Auth::user()->id)->first();
         } else {
             $project = Project::with('getLeader')->where('uuid_project', $uuid_project)
-                ->whereHas('getLeader', function ($q) use ($user_id) {
-                    $q->where('id', $user_id);
+                ->whereHas('getLeader', function ($q){
+                    $q->where('id', $this->leader_id);
                 })
                 ->firstOrFail();
             $institute = Institute::with('getUser')->where('user_id', Auth::user()->id)->first();

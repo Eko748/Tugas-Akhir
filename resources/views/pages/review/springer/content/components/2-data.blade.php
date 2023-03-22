@@ -12,7 +12,7 @@
                                             src="https://link.springer.com/static/0ec8b27393b8fa28d3a17e3ebe39646d1d6540e9/sites/link/images/logo_high_res.png"
                                             alt="">
                                     </div>
-                                    <p class="ms-3"><small>{{ $key['identifier'] }}</small></p>
+                                    <p class="ms-3"><small class="text-dark">{{ $key['identifier'] }}</small></p>
                                     <div class="product-hover">
                                         <ul>
                                             <li><a data-bs-toggle="modal" onclick="addData()"
@@ -36,9 +36,9 @@
                                 </div>
                                 <hr>
                                 <div class="rating">
-                                    <b>
+                                    <strong class="text-dark">
                                         Publisher: {{ $key['publisher'] }}
-                                    </b>
+                                    </strong>
                                     <br>
                                     <strong>
                                         <p>{{ $key['publicationName'] }}</p>

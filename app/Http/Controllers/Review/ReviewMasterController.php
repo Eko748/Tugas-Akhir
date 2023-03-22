@@ -3,16 +3,17 @@
 namespace App\Http\Controllers\Review;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Review\CategoryController;
+use App\Models\Category;
 use App\Models\Leader;
 use App\Models\ProjectSLR;
-use Goutte\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
-class ReviewMasterController extends Controller
+class ReviewMasterController extends Controller implements CategoryController
 {
-    public function index()
+    public function getView()
     {
         $data = [
             "parent" => "Review",
@@ -21,7 +22,7 @@ class ReviewMasterController extends Controller
         return view('pages.review.master.index', $data);
     }
 
-    public function create(Request $request)
+    public function createReview(Request $request)
     {
         $user = Leader::where('user_id', Auth::user()->id)->first();
 
@@ -52,5 +53,45 @@ class ReviewMasterController extends Controller
         );
 
         return response()->json(['success' => 'Project berhasil ditambahkan']);
+    }
+
+    public function createCategory(Request $request)
+    {
+        $request->validate([
+            "code" => ['required', 'string', 'uppercase'],
+            "category_name" => "required"
+        ]);
+ 
+        $category = Category::create([
+            "uuid_category" => Str::uuid(),
+            "code" => $request->code,
+            "category_name" => $request->category_name,
+            "category_slug" => Str::slug($request->category_name),
+            "created_by" => Auth::user()->id,
+        ]);
+
+        return redirect()->back()->with(
+            ($category) ? ['message' => 'Data berhasil disimpan!'] : ['error' => 'Nampaknya terjadi kesalahan']
+        );
+    }
+
+    public function getCategory(Request $req)
+    {
+        $search = $req->q;
+        $categories = Category::where('code', 'LIKE', '%' . $search . '%')
+            ->orWhere('category_name', 'LIKE', '%' . $search . '%')
+            ->orderBy('code', 'asc')
+            ->get();
+
+        $response = [];
+        foreach ($categories as $category) {
+            $response[] = [
+                'id' => $category->id,
+                'code' => $category->code,
+                'text' => $category->code . '/' . $category->category_name
+            ];
+        }
+
+        return response()->json($response);
     }
 }

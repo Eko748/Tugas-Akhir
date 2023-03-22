@@ -2,7 +2,14 @@
 
 namespace App\Exceptions;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\Exception\HttpException;
+
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -39,13 +46,21 @@ class Handler extends ExceptionHandler
         });
     }
 
-    // public function render($request, Exception $e)
-    // {
-    //     if ($result = MyExceptionHandler::handle($e))
-    //     {
-    //         return $result;
-    //     }
+    // return response()->view('pages.error.404.index', ['role_id' => $role_id], Response::HTTP_NOT_FOUND);
+    public function render($request, Throwable $exception)
+    {
+        if ($this->isHttpException($exception)) {
+            if ($exception instanceof HttpException && $exception->getStatusCode() == 404) {
+                $user = Auth::user();
+                $role_id = $user ? $user->role_id : null;
+                return response()->view('pages.error.404.index', ['role_id' => $role_id])->withHeaders([
+                    'Cache-Control' => 'no-cache, no-store, must-revalidate',
+                    'Pragma' => 'no-cache',
+                    'Expires' => '0',
+                ]);
+            }
+        }
 
-    //     return parent::render($request, $e);
-    // }
+        return parent::render($request, $exception);
+    }
 }

@@ -21,7 +21,7 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
-        
+
     ];
 
     /**
@@ -39,6 +39,11 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \App\Http\Middleware\UserActivity::class,
+            \Illuminate\Session\Middleware\StartSession::class,
+        ],
+
+        'leader' => [
+            \App\Http\Middleware\CheckRole::class,
         ],
 
         'api' => [
@@ -68,5 +73,6 @@ class Kernel extends HttpKernel
         // 'is_verify_email' => \App\Http\Middleware\IsVerifyEmail::class,
         '1' => \App\Http\Middleware\IsLeader::class,
         '2' => \App\Http\Middleware\IsMember::class,
+        'role' => \App\Http\Middleware\CheckRole::class,
     ];
 }

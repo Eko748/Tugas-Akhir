@@ -19,7 +19,7 @@ use Yajra\DataTables\Facades\DataTables;
 
 class MemberController extends Controller
 {
-    public function index()
+    public function getView()
     {
         $user = User::with('hasInstitute')->whereHas('hasInstitute', function ($q) {
             $q->where('user_id', Auth::user()->id);
@@ -38,7 +38,7 @@ class MemberController extends Controller
         return view('pages.management.member.index', $data);
     }
 
-    public function getTable(Request $request)
+    public function getMemberData(Request $request)
     {
         if ($request->ajax()) {
             $auth = Auth::user()->hasLeader->first();
@@ -117,7 +117,7 @@ class MemberController extends Controller
         return response()->json($response);
     }
 
-    public function create(Request $request)
+    public function createMember(Request $request)
     {
         $user = User::with('hasInstitute')->whereHas('hasInstitute', function ($q) {
             $q->where('user_id', Auth::user()->id);
@@ -176,7 +176,7 @@ class MemberController extends Controller
         return response()->json(['success' => 'Anggota berhasil ditambahkan']);
     }
 
-    public function edit(Request $request)
+    public function editMember(Request $request)
     {
         $edit = User::where("id", $request->id)->first();
         $email = $edit->email;
@@ -189,7 +189,7 @@ class MemberController extends Controller
         return view("pages.management.member.content.components.4-edit-member", $data);
     }
 
-    public function update(Request $request)
+    public function updateMember(Request $request)
     {
 
         $user = User::with('hasInstitute')->whereHas('hasInstitute', function ($q) {
@@ -224,7 +224,7 @@ class MemberController extends Controller
         return response()->json($member);
     }
 
-    public function delete($id)
+    public function deleteMember($id)
     {
         $delete = User::where('id', $id)->delete();
 
@@ -243,7 +243,7 @@ class MemberController extends Controller
         ]);
     }
 
-    public function export()
+    public function exportMemberData()
     {
         $institute = Institute::with('getUser')->where('user_id', Auth::user()->id)->first();
         $member = Member::where('created_by', Auth::user()->id)->count();
