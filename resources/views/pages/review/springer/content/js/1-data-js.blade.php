@@ -20,7 +20,7 @@
             data: {
                 'search': search,
             },
-            url: '{{ Auth::user()->role_id == 1 ? route('review.springer.index') : route('review.index') }}',
+            url: '{{ Auth::user()->role_id == 1 ? route('review.springer.request') : route('springer.request') }}',
             success: function(data) {
                 clearTimeout(requestTimeout);
                 $("#loading").hide();

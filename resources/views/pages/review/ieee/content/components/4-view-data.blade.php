@@ -1,7 +1,11 @@
-<div class="container-fluid modal fade" id="modalView-{{ $key['article_number'] }}">
+<div class="container-fluid modal fade modalView" data-key="{{ $key['article_number'] }}"
+    id="modalView-{{ $key['article_number'] }}">
     <div class="modal-dialog modal-xl modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
+                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
                 <div class="product-box row">
                     <div class="product-img col-lg-1"><img class="img-fluid"
                             src="https://brand-experience.ieee.org/favicon-32x32.png" alt=""></div>
@@ -15,9 +19,21 @@
                             </p>
                         </div>
                         <div class="product-price">
-                            <span>Publication: {{ $key['publication_date'] }}</span>
+                            @if (array_key_exists('publication_date', $key))
+                                <span>Publication: {{ $key['publication_date'] }}</span>
+                            @else
+                                <span>Tidak ada</span>
+                            @endif
+
                         </div>
                         <div class="product-view mb-2">
+                            <div class="mb-3 col-md-12">
+                                <label for="project">Snow Ball</label>
+                                <div class="input-group">
+                                    <select id="getProjectDetail" name="" class="getProjectDetail form-select">
+                                    </select>
+                                </div>
+                            </div>
                             <div class="product-price">
                                 <h2>{{ $key['title'] }}</h2>
                             </div>
@@ -87,7 +103,7 @@
                             @endphp
                             <span>
                                 <small>
-                                    @foreach($items as $item)
+                                    @foreach ($items as $item)
                                         {{ $item }}
                                     @endforeach
                                 </small>
@@ -98,8 +114,11 @@
 
                     </div>
                 </div>
-                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-footer">
+
             </div>
         </div>
     </div>
 </div>
+@include('pages.review.ieee.content.js.5-get-projectDetail-js')

@@ -9,8 +9,12 @@
                     $duration_in_minutes = $end_date->diffInMinutes($start_date);
                     $time_passed_in_minutes = $current_time->diffInMinutes($start_date);
                     $time_left_in_minutes = $duration_in_minutes - $time_passed_in_minutes;
+                    $t = $start_date->diffInMinutes($current_time);
                     
-                    if ($time_left_in_minutes <= 0) {
+                    if ($current_time < $start_date) {
+                        $status = '<i class="fa fa-spin fa-cog text-info"></i>';
+                        $time_left = '<span class="text-info">Belum Dimulai</span>';
+                    } elseif ($time_left_in_minutes <= 0) {
                         $status = '<i class="fa fa-check text-success"></i>';
                         $time_left = '<span class="text-danger">Project telah berakhir</span>';
                     } elseif ($time_left_in_minutes < 60) {
@@ -100,7 +104,7 @@
         @endif
         @if ($projects == !null)
             <h5 class="mb-4">
-                {{ $projects->links(null, ['id' => 'projects', 'data-identifier' => 'projects']) }}
+                {{ $projects->links() }}
             </h5>
         @else
             <h1>Tidak ada Project</h1>

@@ -29,9 +29,9 @@ Route::middleware('auth')->group(function () {
         Route::prefix("management")->group(function () {
             // Member
             Route::controller(MemberController::class)->group(function () {
-                Route::get('/member', 'getView')->name('management.member.index');
-                Route::get('/member-data', 'getMemberData')->name('management.member.table');
-                Route::get('/member-list-data', 'getUser')->name('management.member.getUser');
+                Route::get('/member', 'showMember')->name('management.member.index');
+                Route::get('/member-data', 'requestMemberData')->name('management.member.table');
+                Route::get('/member-search', 'searchMemberData')->name('management.member.getUser');
                 Route::post('/member-create', 'createMember')->name('management.member.create');
                 Route::get('/member-edit', 'editMember')->name('management.member.edit');
                 Route::put('/member-update', 'updateMember')->name('management.member.update');
@@ -40,11 +40,11 @@ Route::middleware('auth')->group(function () {
             });
             // Project
             Route::controller(ProjectController::class)->group(function () {
-                Route::get('/project', 'getView')->name('management.project.index');
+                Route::get('/project', 'showProject')->name('management.project.index');
+                Route::get('/project-request', 'requestProjectData')->name('management.project.request');
                 Route::post('/project-create', 'createProject')->name('management.project.create');
-                Route::get('/project-list-data', 'getProject')->name('management.project.getProject');
-                Route::get('/project/{uuid_project}', 'getProjectDetail')->name('management.project.detail');
-                Route::get('/project-fetch-data/{uuid_project}', 'getProjectData')->name('management.project.getTable');
+                Route::get('/project/{uuid_project}', 'showProjectDetail')->name('management.project.detail');
+                Route::get('/project-fetch-data/{uuid_project}', 'getProjectDetailData')->name('management.project.getTable');
                 Route::get('/project-export/{uuid_project}', 'exportProjectData')->name('management.project.export');
             });
             Route::controller(InstituteController::class)->group(function () {
@@ -55,14 +55,17 @@ Route::middleware('auth')->group(function () {
         Route::prefix("review")->group(function () {
             // Master
             Route::controller(ReviewMasterController::class)->group(function () {
-                Route::get('/master', 'getView')->name('review.master.index');
+                Route::get('/master', 'showReview')->name('review.master.index');
                 Route::post('/post-data', 'createReview')->name('review.master.create');
                 Route::post('/category-post', 'createCategory')->name('review.category.create');
                 Route::get('/list-category', 'getCategory')->name('review.category.get');
+                Route::get('/list-project', 'getProject')->name('review.project.getProject');
+                Route::get('/list-project-detail', 'getProjectDetail')->name('review.project.getProjectDetail');
             });
             // IEEE
             Route::controller(IeeeController::class)->group(function () {
                 Route::get('/article-ieee', 'reviewIeee')->name('review.ieee.index');
+                Route::get('/article-ieee-request', 'requestIeeeData')->name('review.ieee.request');
             });
             // ScienceDirect
             Route::controller(ScienceDirectController::class)->group(function () {
@@ -70,7 +73,8 @@ Route::middleware('auth')->group(function () {
             });
             // Springer
             Route::controller(SpringerController::class)->group(function () {
-                Route::get('/springer', 'reviewSpringer')->name('review.springer.index');
+                Route::get('/springer', 'showReviewSpringer')->name('review.springer.index');
+                Route::get('/springer-request', 'requestSpringerData')->name('review.springer.request');
             });
             // ACM
             Route::controller(AcmController::class)->group(function () {

@@ -5,14 +5,14 @@
         </div>
         <div class="tabbed-card">
             <ul class="pull-right nav nav-tabs border-tab nav-secondary" id="top-tabdanger" role="tablist">
-                <li class="nav-item"><a class="nav-link active" onclick="get()" id="profile-top-danger"
+                <li class="nav-item"><a class="nav-link active" id="profile-top-danger"
                         data-bs-toggle="tab" href="#tabCategory" role="tab" aria-controls="top-profiledanger"
                         aria-selected="true">
                         <p><i class="icofont icofont-man-in-glasses"></i>Kategori</p>
                     </a>
                     <div class="material-border"></div>
                 </li>
-                <li class="nav-item"><a class="nav-link" onclick="create()" id="contact-top-danger" data-bs-toggle="tab"
+                <li class="nav-item"><a class="nav-link" id="contact-top-danger" data-bs-toggle="tab"
                         href="#tabCreateCategory" role="tab" aria-controls="top-contactdanger"
                         aria-selected="false">
                         <p><i class="icofont icofont-contacts"></i>Add</p>
@@ -48,23 +48,28 @@
                     <form id="formCreateCategory" class="theme-form needs-validation" method="POST"
                         action="{{ route('review.category.create') }}" novalidate="">
                         @csrf
-                        <div class="form-group">
-                            <x-input-label for="code" :value="__('Code')"></x-input-label>
+                        <div class="form-group mb-5">
+                            <x-input-label for="category_code" :value="__('Code')"></x-input-label>
                             <div class="input-group">
                                 <span class="input-group-text">
                                     <i class="icon-user"></i>
                                 </span>
-                                <x-text-input id="code" class="form-control" placeholder="ex: A-Z" type="text"
-                                    name="code" :value="old('code')" required autofocus>
+                                <x-text-input id="category_code" class="form-control" placeholder="ex: A-Z" type="text"
+                                    name="category_code" :value="old('category_code')" required autofocus>
                                 </x-text-input>
-                                <x-input-error :messages="$errors->get('code')" class="mt-2">
+                                <x-input-error :messages="$errors->get('category_code')" class="mt-2">
                                     <div class="invalid-tooltip">
                                         Please enter code
                                     </div>
                                 </x-input-error>
                             </div>
+                            {{-- @if (session()->has('error'))
+                                @if ($error->has('code'))
+                                    <span class="text-danger">{{ $errors->first('code') }}</span>
+                                @endif
+                            @endif --}}
                         </div>
-                        <div class="form-group">
+                        <div class="form-group mb-4">
                             <x-input-label for="category_name" :value="__('Nama Kategori')"></x-input-label>
                             <div class="input-group">
                                 <span class="input-group-text">
@@ -78,9 +83,14 @@
                                         Please enter category
                                     </div>
                                 </x-input-error>
+                                @if (session()->has('error'))
+                                    @if ($error->has('category_name'))
+                                        <span class="text-danger">{{ $errors->first('category_name') }}</span>
+                                    @endif
+                                @endif
                             </div>
                         </div>
-                        <button type="submit" onclick="addCategory()" class="pull-right btn btn-primary btn-sm">
+                        <button type="submit" id="add-category" class="mt-4 pull-right btn btn-primary btn-sm">
                             Tambah
                         </button>
                     </form>

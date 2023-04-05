@@ -29,4 +29,9 @@ class Leader extends Model
     {
         return $this->hasMany(Member::class, 'created_by');
     }
+
+    public function hasInstitute()
+    {
+        return $this->hasMany(Institute::class, 'leader_id');
+    }
 }

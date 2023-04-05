@@ -1,4 +1,4 @@
-<input type="hidden" id="update_id" name="user_id" value="{{ $edit->id }}">
+<input type="hidden" id="update_id" name="uuid_user" value="{{ $edit->id }}">
 <div class="form-group">
     <x-input-label for="update_name" :value="__('Name')" />
     <div class="input-group">

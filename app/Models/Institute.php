@@ -13,6 +13,11 @@ class Institute extends Model
 
     public function getUser()
     {
-        return $this->belongsTo(User::class, 'user_id', 'id');
+        return $this->belongsTo(User::class, 'created_by', 'id');
+    }
+
+    public function getLeader()
+    {
+        return $this->belongsTo(Leader::class, 'leader_id', 'id');
     }
 }

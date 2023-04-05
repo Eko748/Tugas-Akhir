@@ -82,7 +82,7 @@
         $.ajax({
             type: "GET",
             data: {},
-            url: "{{ Auth::user()->role_id == 1 ? route('management.project.index') : route('project.index') }}" +
+            url: "{{ Auth::user()->role_id == 1 ? route('management.project.request') : route('project.request') }}" +
                 "?page=" + page + "&type=" + type,
             success: function(data) {
                 if (type == 'projects') {

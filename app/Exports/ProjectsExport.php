@@ -4,27 +4,39 @@ namespace App\Exports;
 
 use App\Models\Project;
 use App\Models\ProjectSLR;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Maatwebsite\Excel\Concerns\FromView;
+
 
 class ProjectsExport implements FromView
 {
     protected $project;
+    private array $data;
 
     public function __construct(Project $project)
     {
         $this->project = $project;
+        $this->data = [
+            'projects' => $this->logicExportProject()['projects']
+        ];
     }
 
     public function view(): View
+    {
+        return view('exports.projects', $this->data);
+    }
+
+    private function logicExportProject()
     {
         $user_id = Auth::user()->created_by;
 
         if (Auth::user()->role_id == '1') {
             $projects = ProjectSLR::with('getProject', 'getUser', 'getCategory')
                 ->where('project_id', $this->project->id)
-                ->orderBy('created_at', 'DESC')
+                ->orderBy('code', 'ASC')
                 ->get();
         } else {
             $projects = ProjectSLR::with('getProject.getLeader', 'getUser', 'getCategory')
@@ -34,14 +46,15 @@ class ProjectsExport implements FromView
                         $l->where('id', $user_id);
                     });
                 })
-                ->orderBy('created_at', 'DESC')
+                ->orderBy('code', 'ASC')
                 ->get();
         }
 
         $data = [
-            "projects" => $projects,
+            'projects' => $projects,
+            'loop' => $projects,
         ];
 
-        return view('exports.projects', $data);
+        return $data;
     }
 }

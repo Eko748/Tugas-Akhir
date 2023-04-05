@@ -13,16 +13,7 @@
                     if ($time_left_in_minutes <= 0) {
                         $status = '<i class="fa fa-check text-success"></i>';
                         $time_left = '<span class="text-danger">Project telah berakhir</span>';
-                    } elseif ($time_left_in_minutes < 60) {
-                        $status = '<i class="fa fa-spin fa-cog" text-danger></i>';
-                        $time_left = '<span class="text-warning">Sisa ' . $time_left_in_minutes . ' menit</span>';
-                    } elseif ($time_left_in_minutes < 1440) {
-                        $status = '<i class="fa fa-spin fa-cog text-warning"></i>';
-                        $time_left = '<span class="text-success">Sisa ' . floor($time_left_in_minutes / 60) . ' jam ' . $time_left_in_minutes % 60 . ' menit</span>';
-                    } else {
-                        $status = '<i class="fa fa-spin fa-cog text-info"></i>';
-                        $time_left = '<span class="text-info">Sisa ' . floor($time_left_in_minutes / 1440) . ' hari ' . floor(($time_left_in_minutes % 1440) / 60) . ' jam</span>';
-                    }
+                    } 
                 @endphp
                 <div class="col-xxl-4 box-col-6 col-lg-6">
                     <div class="project-box"><span class="badge badge-light-primary">{!! $status !!}</span>

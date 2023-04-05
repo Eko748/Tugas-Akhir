@@ -3,12 +3,44 @@
 namespace App\Http\Controllers\Review;
 
 use App\Http\Controllers\Review\ReviewMasterController;
+use App\Models\Project;
 use Goutte\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class IeeeController extends ReviewMasterController
 {
-    public function reviewIeee(Request $request)
+    // private string $apiKey;
+    private string $child;
+    private array $data;
+
+    public function __construct(Request $request)
+    {
+        $this->child = 'IEEE';
+        $ieee = $this->searchIeeeData($request);
+        $this->data = [
+            'parent' => $this->parent,
+            'child' => $this->child,
+            'search' => $ieee['search'],
+            'path' => $ieee['path'],
+            'client' => $ieee['client'],
+            'references' => $ieee['references'],
+        ];
+    }
+
+    public function reviewIeee()
+    {
+        return view('pages.review.ieee.index', $this->data);
+    }
+
+    public function requestIeeeData(Request $request)
+    {
+        if ($request->ajax()) {
+            return view('pages.review.ieee.content.components.2-data', $this->data)->render();
+        }
+    }
+
+    private function searchIeeeData(Request $request)
     {
         $search = $request->input('search');
         $client = new Client();
@@ -20,7 +52,7 @@ class IeeeController extends ReviewMasterController
         $query->searchField('article_title', $search);
         $results = $query->callAPI();
 
-        if (!isset($results['articles'])) { // jika token1 mengalami error
+        if (!isset($results['articles'])) {
             $query = new XPLORE($token2);
             $query->searchField('article_title', $search);
             $results = $query->callAPI();
@@ -28,32 +60,24 @@ class IeeeController extends ReviewMasterController
 
         if (isset($results['articles'])) {
             if (!isset($data)) {
-                $data = [
-                    "parent" => "Review",
-                    "child" => "IEEE",
-                    "path" => $results['articles'],
-                    "search" => $search,
-                    "references" => $references,
-                    "client" => $client,
-                ];
+                return
+                    $data = [
+                        "path" => $results['articles'],
+                        "search" => $search,
+                        "references" => $references,
+                        "client" => $client,
+                    ];
             }
         } else {
             if (!isset($data)) {
-                $data = [
-                    "parent" => "Review",
-                    "child" => "IEEE",
-                    "path" => "Oops! Path is null",
-                    "search" => $search,
-                    "references" => $references,
-                    "client" => $client,
-                ];
+                return
+                    $data = [
+                        "path" => "Oops! Path is null",
+                        "search" => $search,
+                        "references" => $references,
+                        "client" => $client,
+                    ];
             }
         }
-
-        if ($request->ajax()) {
-            return view('pages.review.ieee.content.components.2-data', $data)->render();
-        }
-        return view('pages.review.ieee.index', $data);
     }
-
 }

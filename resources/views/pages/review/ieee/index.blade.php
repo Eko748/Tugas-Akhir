@@ -13,20 +13,15 @@
             }
         }
     </style>
-    {{-- <link rel="stylesheet" type="text/css" href="../assets/css/vendors/scrollbar.css"> --}}
-    {{-- <link rel="stylesheet" type="text/css" href="../assets/css/vendors/select2.css"> --}}
     <link rel="stylesheet" type="text/css" href="../assets/css/vendors/owlcarousel.css">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/select2/dist/css/select2.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/sweetalert2/dist/sweetalert2.min.css') }}">
-
-
-    {{-- <link rel="stylesheet" type="text/css" href="../assets/css/vendors/range-slider.css"> --}}
 @endsection
 @include('pages.review.ieee.content.ieee')
 
 @push('js')
     @include('pages.review.ieee.content.js.1-data-js')
-    {{-- @include('pages.review.ieee.content.js.5-scrapy-js') --}}
+    @include('pages.review.ieee.content.js.4-create-data-js')
 
     <!-- Plugins JS start-->
     <script src="{{ asset('assets/js/sidebar-menu.js') }}"></script>

@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id();
             $table->uuid('uuid_user');
             $table->integer('role_id');
-            $table->integer('code');
-            $table->string('name');
+            $table->string('code', 3);
+            $table->string('name', 40);
             $table->string('email')->unique();
             $table->string('password');
             $table->boolean('status')->nullable();

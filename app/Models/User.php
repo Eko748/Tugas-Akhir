@@ -76,14 +76,13 @@ class User extends Authenticatable
 
     public function hasInstitute()
     {
-        return $this->hasOne(Institute::class, 'user_id');
+        return $this->hasOne(Institute::class, 'created_by');
     }
 
     public function hasAdmin()
     {
         return $this->hasOne(Admin::class, 'user_id');
     }
-
 
     public function hasMember()
     {

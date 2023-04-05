@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Management;
 
-use App\Http\Controllers\Controller;
 use App\Models\Member;
 use Carbon\Carbon;
 use App\Models\User;
@@ -14,47 +13,70 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\UsersExport;
+use App\Http\Controllers\Interface\ValidationController;
 use App\Models\Institute;
+use App\Models\Leader;
 use Yajra\DataTables\Facades\DataTables;
 
-class MemberController extends Controller
+class MemberController extends ManagementMasterController implements ValidationController
 {
-    public function getView()
+    private string $child = 'Member';
+    private array $data;
+
+    public function __construct()
     {
-        $user = User::with('hasInstitute')->whereHas('hasInstitute', function ($q) {
-            $q->where('user_id', Auth::user()->id);
-        })->first();
-
-        $member = User::with('hasInstitute')->whereHas('hasInstitute', function ($q) {
-            $q->where('user_id', Auth::user()->id);
-        })->where('created_by', Auth::user()->id)->get();
-
-        $data = [
-            "parent" => "Management",
-            "child" => "Member",
-            "institute" =>  $user,
-            "members" => $member,
-        ];
-        return view('pages.management.member.index', $data);
+        $this->middleware(function ($request, $next) {
+            $this->child;
+            $get = $this->getMemberData();
+            $this->data = [
+                'parent' => $this->parent,
+                'child' => $this->child,
+                'institute' => $get['institute'],
+                'member' => $get['member']
+            ];
+            return $next($request);
+        });
     }
 
-    public function getMemberData(Request $request)
+    private function getMemberData()
+    {
+        $institute = User::with('hasInstitute', 'hasLeader')->whereHas('hasInstitute', function ($q) {
+            $q->where('created_by', Auth::user()->id);
+        })->first();
+        $leader = Leader::where('user_id', Auth::user()->id)->first();
+        $member = Member::where('created_by', $leader->id)->count();
+
+        return [
+            'institute' => $institute,
+            'member' => $member
+        ];
+    }
+
+    public function showMember()
+    {
+        return view('pages.management.member.index', $this->data);
+    }
+
+    public function requestMemberData(Request $request)
     {
         if ($request->ajax()) {
             $auth = Auth::user()->hasLeader->first();
-            $data = User::where('created_by', $auth->id)->orderBy("created_at", "DESC")->get();
-             return DataTables::of($data)
+            $data = User::where('created_by', $auth->id)->orderBy('created_at', 'desc')->get();
+            return DataTables::of($data)
                 ->addIndexColumn()->addColumn('action', function ($data) {
                     $btn = '<div style="text-align: center; vertical-align: middle;">
-                                <button title="Detail" class="btn btn-info btn-sm btn-outline-dark hovering shadow-sm" onclick="readMember(' . $data->id . ')">
+                                <button title="Detail" class="btn btn-info btn-sm btn-outline-dark hovering shadow-sm"
+                                 onclick="readMember(' . $data->id . ')">
                                     <i class="fa fa-address-book"></i>
                                 </button>
-                                <button title="Edit" class="btn btn-secondary btn-sm btn-outline-dark hovering shadow-sm" onclick="editMember(' . $data->id . ')" type="button" data-bs-toggle="modal" data-bs-target="#updateMember">
+                                <button title="Edit" class="btn btn-secondary btn-sm btn-outline-dark hovering shadow-sm"
+                                 onclick="editMember(' . $data->id . ')" type="button" data-bs-toggle="modal" data-bs-target="#updateMember">
                                     <i class="fa fa-pencil"></i>
                                 </button>
-                                <button title="Delete" class="btn btn-danger btn-s btn-outline-dark hovering shadow-sm" onclick="deleteMember(' . $data->id . ')">
+                                <button title="Delete" class="btn btn-danger btn-s btn-outline-dark hovering shadow-sm"
+                                 onclick="deleteMember(' . $data->id . ')">
                                     <i class="fa fa-trash"></i>
-                                </button>
+                                </button>  
                             </div>';
                     return $btn;
                 })->addColumn('date', function ($data) {
@@ -94,13 +116,13 @@ class MemberController extends Controller
         }
     }
 
-    public function getUser(Request $req)
+    public function searchMemberData(Request $req)
     {
         $search = $req->q;
         $projects = Member::where('created_by', Auth::user()->id)
             ->with('getUser')->whereHas('getUser', function ($q) use ($search) {
                 $q->where('created_by', Auth::user()->id)->orWhere('name', 'LIKE', '%' . $search . '%')
-                ->orWhere('code', 'LIKE', '%' . $search . '%');
+                    ->orWhere('code', 'LIKE', '%' . $search . '%');
             })
             ->orderBy('created_at', 'ASC')
             ->get();
@@ -109,7 +131,7 @@ class MemberController extends Controller
         foreach ($projects as $project) {
             $response[] = [
                 'id' => $project->getUser->code,
-                'text' => $project->getUser->code.'/'.$project->getUser->name,
+                'text' => $project->getUser->code . '/' . $project->getUser->name,
                 'code' => $project->getUser->name
             ];
         }
@@ -117,11 +139,32 @@ class MemberController extends Controller
         return response()->json($response);
     }
 
+    private function generateCode($num)
+    {
+        $letters = range('B', 'Z'); // range of B to Z
+        $digits = range(0, 9);
+        $code = '';
+        while ($num > 0) {
+            $modulo = ($num - 1) % 26;
+            $code = $letters[$modulo] . $code;
+            $num = intval(($num - $modulo) / 26);
+        }
+        // If the code is 'Z', set the next code to be 'AA'
+        if ($code === 'Z') {
+            $code = 'AA';
+        }
+        // If the code starts with 'Z', increment the second letter
+        elseif ($code[0] === 'Z') {
+            $firstLetter = 'A';
+            $secondLetter = chr(ord($code[1]) + 1);
+            $code = $firstLetter . $secondLetter;
+        }
+        return $code;
+    }
+
     public function createMember(Request $request)
     {
-        $user = User::with('hasInstitute')->whereHas('hasInstitute', function ($q) {
-            $q->where('user_id', Auth::user()->id);
-        })->first();
+        $user = $this->data['institute'];
 
         if ($user == null) {
             return redirect()->route('management.member.index');
@@ -131,31 +174,44 @@ class MemberController extends Controller
 
         $array = array($institute, $request->email);
         $string = implode('.', $array);
-
         $auth = Auth::user()->hasLeader->first();
-        
         $token = Str::random(64);
 
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', Rules\Password::defaults()],
-            'status' => ['required', 'integer'],
-        ]);
+        $last_member = User::where('created_by', Auth::user()->id)->orderBy('code', 'desc')->latest()->first();
 
-        $last_member = User::where('created_by', Auth::user()->id)->orderBy('code', 'desc')
-        ->latest()->first();
-        $code = $last_member ? $last_member->code + 1 : 2;
+        if ($last_member) {
+            $last_code = $last_member->code;
+            $last_character = substr($last_code, 0, 1);
+            $last_number = substr($last_code, 1);
 
+            if ($last_character === 'Z') {
+                // jika karakter terakhir adalah Z, maka increment karakter kedua dan reset karakter pertama ke 'A'
+                $new_character = 'A';
+                $new_number = $last_number + 1;
+            } else {
+                // jika karakter terakhir bukan Z, maka increment karakter pertama dan gunakan nomor yang sama
+                $new_character = chr(ord($last_character) + 1);
+                $new_number = $last_number;
+            }
+
+            $new_code = $new_character . str_pad($new_number, strlen($last_number), '0', STR_PAD_LEFT);
+        } else {
+            $new_code = 'B'; // jika tidak ada $last_member, membuat kode awal dengan 'B'
+        }
+
+        $code = $new_code;
+
+
+        $v_data = $this->validateDataCreate($request);
         $userCreate = User::create(
             [
                 'uuid_user' => Str::uuid(),
                 'role_id' => 2,
                 'code' => $code,
-                'name' => $request->name,
+                'name' => $v_data['name'],
                 'email' => $string,
-                'password' => Hash::make($request->password),
-                'status' => $request->status,
+                'password' => Hash::make($v_data['password']),
+                'status' => $v_data['status'],
                 'created_by' => $auth->id,
                 'remember_token' => $token
             ]
@@ -170,31 +226,46 @@ class MemberController extends Controller
         );
 
         $data = [
-            "user" => $userCreate,
-            "member" => $memberCreate,
+            'user' => $userCreate,
+            'member' => $memberCreate,
         ];
         return response()->json(['success' => 'Anggota berhasil ditambahkan']);
     }
 
+    public function validateDataCreate(Request $request)
+    {
+        return $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', Rules\Password::defaults()],
+            'status' => ['required', 'integer'],
+        ], [
+            'required' => 'Kolom :attribute harus diisi.',
+            'string' => 'Kolom :attribute harus berupa teks.',
+            'email' => 'Kolom :attribute harus diisi dengan format email.',
+            'unique' => 'Kolom :attribute sudah ada data ini.',
+            'max' => 'Kolom :attribute tidak boleh lebih dari :max karakter.',
+            'integer' => 'Kolom :attribute harus diisi dengan angka.'
+        ]);
+    }
+
     public function editMember(Request $request)
     {
-        $edit = User::where("id", $request->id)->first();
+        $edit = User::where('id', $request->id)->first();
         $email = $edit->email;
         $string = explode('.', $email, 2);
         $data = [
-            "edit" => $edit,
-            "string" => $string,
+            'edit' => $edit,
+            'string' => $string,
         ];
 
-        return view("pages.management.member.content.components.4-edit-member", $data);
+        return view('pages.management.member.content.components.4-edit-member', $data);
     }
 
     public function updateMember(Request $request)
     {
 
-        $user = User::with('hasInstitute')->whereHas('hasInstitute', function ($q) {
-            $q->where('user_id', Auth::user()->id);
-        })->first();
+        $user = $this->data['institute'];
 
         if ($user == null) {
             return redirect()->route('management.member.index');
@@ -226,7 +297,7 @@ class MemberController extends Controller
 
     public function deleteMember($id)
     {
-        $delete = User::where('id', $id)->delete();
+        $delete = User::where('uuid_user', $id)->delete();
 
         if ($delete == 1) {
             $success = true;
@@ -245,11 +316,9 @@ class MemberController extends Controller
 
     public function exportMemberData()
     {
-        $institute = Institute::with('getUser')->where('user_id', Auth::user()->id)->first();
-        $member = Member::where('created_by', Auth::user()->id)->count();
-        $slug = $institute->institute_slug;
-        $fileName = $slug.'-'.$member.'-member.xlsx';
+        $institute = $this->data['institute']->hasInstitute()->first()->institute_slug;
+        $member = $this->data['member'];
+        $fileName = $member . '-member-' . $institute . '.xlsx';
         return Excel::download(new UsersExport(), $fileName);
     }
-
 }

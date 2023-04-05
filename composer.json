@@ -9,6 +9,7 @@
         "defuse/php-encryption": "^2.3",
         "fruitcake/laravel-cors": "^2.0.5",
         "guzzlehttp/guzzle": "^7.5",
+        "illuminate/contracts": "^9.52",
         "imangazaliev/didom": "2.*",
         "kasparsj/scopus-search-api": "1.2",
         "kreait/firebase-php": "^6.9",

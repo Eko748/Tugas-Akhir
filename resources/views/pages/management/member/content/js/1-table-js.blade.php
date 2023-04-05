@@ -137,7 +137,7 @@
                     });
             },
             order: [
-                [1, 'desc']
+                [0, 'asc']
             ],
             processing: true,
             serverSide: true,
@@ -167,7 +167,6 @@
             columns: [{
                     data: 'DT_RowIndex',
                     name: 'DT_RowIndex',
-                    orderable: false,
                     searchable: false
                 },
                 {

@@ -6,8 +6,8 @@
                 <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="product-details col-lg-16 text-justify">
-                <form id="formCreateProjectData" class="theme-form needs-validation" method="post" onsubmit="enableInput()" action=""
-                    novalidate="">
+                <form id="" class="formCreateProjectData theme-form needs-validation" method="post"
+                    onsubmit="enableInput()" action="" novalidate="">
                     @csrf
                     <div class="modal-body">
                         <div class="row g-2">
@@ -31,9 +31,8 @@
                             <div class="mb-3 col-md-4">
                                 <x-input-label for="title" :value="__('Title')" />
                                 <div class="input-group"><span class="input-group-text"><i class="icon-user"></i></span>
-                                    <x-text-input placeholder="" value="{{ $key['title'] }}"
-                                        id="title" class="form-control" type="text" name="title"
-                                        :value="$key['title']" disabled />
+                                    <x-text-input placeholder="" value="{{ $key['title'] }}" id="title-{{ $key['article_number'] }}"
+                                        class="ieee ieee form-control" type="text" name="title" :value="$key['title']" disabled />
                                     <x-input-error :messages="$errors->get('title')" class="mt-2" />
                                     <div class="invalid-tooltip">Please enter
                                         title
@@ -44,7 +43,7 @@
                                 <x-input-label for="name" :value="__('Publisher')" />
                                 <div class="input-group"><span class="input-group-text"><i class="icon-user"></i></span>
                                     <x-text-input placeholder="{{ $key['publisher'] }}" value="{{ $key['publisher'] }}"
-                                        id="publisher" class="form-control" type="text" name="publisher"
+                                        id="publisher-{{ $key['article_number'] }}" class="ieee form-control" type="text" name="publisher"
                                         :value="$key['publisher']" disabled />
                                     <x-input-error :messages="$errors->get('publisher')" class="mt-2" />
                                     <div class="invalid-tooltip">Please enter
@@ -56,7 +55,7 @@
                                 <x-input-label for="type" :value="__('Type')" />
                                 <div class="input-group"><span class="input-group-text"><i class="icon-user"></i></span>
                                     <x-text-input placeholder="{{ $key['content_type'] }}"
-                                        value="{{ $key['content_type'] }}" id="type" class="form-control"
+                                        value="{{ $key['content_type'] }}" id="type-{{ $key['article_number'] }}" class="ieee form-control"
                                         type="text" name="type" :value="$key['content_type']" disabled />
                                     <x-input-error :messages="$errors->get('type')" class="mt-2" />
                                     <div class="invalid-tooltip">Please enter
@@ -70,8 +69,8 @@
                                 <x-input-label for="publication_title" :value="__('Publication Title')" />
                                 <div class="input-group"><span class="input-group-text"><i class="icon-user"></i></span>
                                     <x-text-input placeholder="{{ $key['publication_title'] }}"
-                                        value="{{ $key['publication_title'] }}" id="publication_title"
-                                        class="form-control" type="text" name="publication" :value="$key['publication_title']"
+                                        value="{{ $key['publication_title'] }}" id="publication_title-{{ $key['article_number'] }}"
+                                        class="ieee form-control" type="text" name="publication" :value="$key['publication_title']"
                                         disabled />
                                     <x-input-error :messages="$errors->get('publication_title')" class="mt-2" />
                                     <div class="invalid-tooltip">Please enter
@@ -83,8 +82,8 @@
                                 <x-input-label for="publication_year" :value="__('Publication Year')" />
                                 <div class="input-group"><span class="input-group-text"><i class="icon-user"></i></span>
                                     <x-text-input placeholder="{{ $key['publication_year'] }}"
-                                        value="{{ $key['publication_year'] }}" id="publication_year"
-                                        class="form-control" type="text" name="year" :value="$key['publication_year']"
+                                        value="{{ $key['publication_year'] }}" id="publication_year-{{ $key['article_number'] }}"
+                                        class="ieee form-control" type="text" name="year" :value="$key['publication_year']"
                                         disabled />
                                     <x-input-error :messages="$errors->get('publication_year')" class="mt-2" />
                                     <div class="invalid-tooltip">Please enter
@@ -97,8 +96,8 @@
                                 <div class="input-group"><span class="input-group-text"><i
                                             class="icon-user"></i></span>
                                     <x-text-input placeholder="{{ $key['citing_paper_count'] }}"
-                                        value="{{ $key['citing_paper_count'] }}" id="citing_paper_count"
-                                        class="form-control" type="text" name="cited" :value="$key['citing_paper_count']"
+                                        value="{{ $key['citing_paper_count'] }}" id="citing_paper_count-{{ $key['article_number'] }}"
+                                        class="ieee form-control" type="text" name="cited" :value="$key['citing_paper_count']"
                                         disabled />
                                     <x-input-error :messages="$errors->get('citing_paper_count')" class="mt-2" />
                                     <div class="invalid-tooltip">Please enter
@@ -111,8 +110,7 @@
                             <div class="mb-3 col-md-12">
                                 <label for="abstract">Abstract</label>
                                 <div class="input-group">
-                                    <textarea placeholder="" value="" name="abstracts" id="abstracts"
-                                        cols="150" rows="5" disabled>{{ $key['abstract'] }}</textarea>
+                                    <textarea class="ieee" placeholder="" value="" name="abstracts" id="abstracts-{{ $key['article_number'] }}" cols="150" rows="5" disabled>{{ $key['abstract'] }}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -128,8 +126,12 @@
                                 @endphp
                                 <label for="authors">Authors</label>
                                 <div class="input-group">
-                                    <textarea placeholder="" value="" name="authors" id="authors" cols="150" rows="2" required
-                                        disabled>@foreach ($authors as $author){{ trim($author['full_name']) }}; @endforeach</textarea>
+                                    <textarea class="ieee" value="" name="authors" id="authors-{{ $key['article_number'] }}" cols="150" rows="2" required
+                                        disabled>
+@foreach ($authors as $author)
+{{ trim($author['full_name']) }};
+@endforeach
+</textarea>
                                 </div>
                             </div>
                         </div>
@@ -143,8 +145,11 @@
                                 @endphp
                                 <label for="keywords">Keywords</label>
                                 <div class="input-group">
-                                    <textarea placeholder="" value="" name="keywords" id="keywords" cols="150" rows="3"
-                                        disabled>@foreach ($a as $value){{ trim($value) }}; @endforeach</textarea>
+                                    <textarea class="ieee" value="" name="keywords" id="keywords-{{ $key['article_number'] }}" cols="150" rows="3" disabled>
+@foreach ($a as $value)
+{{ trim($value) }};
+@endforeach
+</textarea>
                                 </div>
                             </div>
                         </div>
@@ -156,8 +161,7 @@
                                 @endphp
                                 <label for="keywords">References</label>
                                 <div class="input-group">
-                                    <textarea placeholder="" value="" name="references" id="references" cols="150" rows="6"
-                                        disabled>{{ $text }}</textarea>
+                                    <textarea class="ieee" value="ieee" name="references" id="references-{{ $key['article_number'] }}" cols="150" rows="6" disabled>{{ $text }}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -175,4 +179,3 @@
 </div>
 @include('pages.review.ieee.content.js.2-get-project-js')
 @include('pages.review.ieee.content.js.3-get-category-js')
-@include('pages.review.ieee.content.js.4-create-data-js')

@@ -3,25 +3,26 @@
         @if ($doing != null)
             @foreach ($doing as $v)
                 @php
-                    $c = \Carbon\Carbon::now();
-                    $s = \Carbon\Carbon::parse($v->start_date)->setTimezone('Asia/Jakarta');
-                    $e = \Carbon\Carbon::parse($v->end_date)->setTimezone('Asia/Jakarta');
-                    $d = $e->diffInMinutes($s);
-                    $ts = $c->diffInMinutes($s);
-                    $tl = $d - $ts;
+                    $current_time = \Carbon\Carbon::now();
+                    $start_date = \Carbon\Carbon::parse($v->start_date)->setTimezone('Asia/Jakarta');
+                    $end_date = \Carbon\Carbon::parse($v->end_date)->setTimezone('Asia/Jakarta');
+                    $duration_in_minutes = $end_date->diffInMinutes($start_date);
+                    $time_passed_in_minutes = $current_time->diffInMinutes($start_date);
+                    $time_left_in_minutes = $duration_in_minutes - $time_passed_in_minutes;
+                    $t = $start_date->diffInMinutes($current_time);
                     
-                    if ($tl <= 0) {
-                        $status = '<i class="fa fa-check text-success"></i>';
-                        $time = '<span class="text-danger">Project telah berakhir</span>';
-                    } elseif ($tl < 60) {
+                    if ($current_time < $start_date) {
+                        $status = '<i class="fa fa-spin fa-cog text-info"></i>';
+                        $time_left = '<span class="text-info">Belum Dimulai</span>';
+                    } elseif ($time_left_in_minutes < 60) {
                         $status = '<i class="fa fa-spin fa-cog" text-danger></i>';
-                        $time = '<span class="text-warning">Sisa ' . $tl . ' menit</span>';
-                    } elseif ($tl < 1440) {
+                        $time_left = '<span class="text-warning">Sisa ' . $time_left_in_minutes . ' menit</span>';
+                    } elseif ($time_left_in_minutes < 1440) {
                         $status = '<i class="fa fa-spin fa-cog text-warning"></i>';
-                        $time = '<span class="text-success">Sisa ' . floor($tl / 60) . ' jam ' . $tl % 60 . ' menit</span>';
+                        $time_left = '<span class="text-success">Sisa ' . floor($time_left_in_minutes / 60) . ' jam ' . $time_left_in_minutes % 60 . ' menit</span>';
                     } else {
                         $status = '<i class="fa fa-spin fa-cog text-info"></i>';
-                        $time = '<span class="text-info">Sisa ' . floor($tl / 1440) . ' hari ' . floor(($tl % 1440) / 60) . ' jam</span>';
+                        $time_left = '<span class="text-info">Sisa ' . floor($time_left_in_minutes / 1440) . ' hari ' . floor(($time_left_in_minutes % 1440) / 60) . ' jam</span>';
                     }
                 @endphp
                 <div class="col-xxl-4 box-col-6 col-lg-6">
@@ -59,7 +60,7 @@
                                 {{ $v->hasProject->count() }}
                             </div>
                             <div class="col-5"> <span>Deadline</span></div>
-                            <div class="col-7 font-primary">{!! $time !!}</div>
+                            <div class="col-7 font-primary">{!! $time_left !!}</div>
                         </div>
                         <div class="project-status mt-4">
                             <div class="media mb-0">
@@ -77,12 +78,12 @@
                 </div>
             @endforeach
         @endif
-        {{-- @if ($doing == !null)
+        @if ($doing == !null)
             <h5 class="mb-4">
                 {{ $doing->links() }}
             </h5>
         @else
             <h1>Tidak ada Project</h1>
-        @endif --}}
+        @endif
     </div>
 </div>
