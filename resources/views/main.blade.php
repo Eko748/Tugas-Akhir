@@ -32,6 +32,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/feather-icon.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/scrollbar.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/bootstrap.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/custom.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.css') }}" />
     <link id="color" rel="stylesheet" href="{{ asset('assets/css/color-1.css') }}" media="screen" />
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/responsive.css') }}" />

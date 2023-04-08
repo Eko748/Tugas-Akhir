@@ -10,6 +10,7 @@
                     onsubmit="enableInput()" action="" novalidate="">
                     @csrf
                     <div class="modal-body">
+                        <input type="hidden" class="slr-code" name="reference_source" value="">
                         <div class="row g-2">
                             <div class="mb-3 col-md-6">
                                 <label for="category">Category</label>

@@ -21,7 +21,7 @@
                         Engineers merupakan website penyedia jurnal terbesar. Jurnal-jurnal yang
                         lolos masuk IEEE ini sangat berkualitas sehingga tempat ini adalah tempat
                         paling favorit bagi para penulis jurnal.
-                        <a href="#" class="review-go pull-right me-1 mt-1 mb-1">Go</a>
+                        <a href="#" class="review-go btn-success pull-right me-1 mt-1 mb-1">Go</a>
                     </div>
                 </div>
             </div>
@@ -37,7 +37,7 @@
                     <div class="card-body">
                         ScienceDirect adalah database yang berisi kumpulan dokumen full-text yang
                         berkualitas yang telah diperiksa oleh peer-review Elsevier.
-                        <a href="#" class="review-go pull-right me-1 mt-1 mb-1">Go</a>
+                        <a href="#" class="review-go btn-success pull-right me-1 mt-1 mb-1">Go</a>
                     </div>
                 </div>
             </div>
@@ -55,7 +55,7 @@
                         Springer adalah perusahaan penerbitan global yang menerbitkan buku, buku
                         elektronik, dan jurnal tinjauan sejawat di terbitan-terbitan sains, teknik,
                         dan medis (STM).
-                        <a href="#" class="review-go pull-right me-1 mt-1 mb-1">Go</a>
+                        <a href="#" class="review-go btn-success pull-right me-1 mt-1 mb-1">Go</a>
                     </div>
                 </div>
             </div>
@@ -72,7 +72,7 @@
                         ACM, singkatan dari Association for Computing Machinery (Asosiasi untuk
                         Permesinan Komputer), adalah sebuah serikat ilmiah dan pendidikan komputer
                         pertama di dunia yang didirikan pada tahun 1947.
-                        <a href="#" class="review-go pull-right me-1 mt-1 mb-1">Go</a>
+                        <a href="#" class="review-go btn-success pull-right me-1 mt-1 mb-1">Go</a>
                     </div>
                 </div>
             </div>
@@ -91,7 +91,7 @@
                         CiteSeerX adalah mesin pencari dan perpustakaan digital
                         untuk tulisan ilmiah dan artikel akademis, terutama di bidang ilmu komputer
                         dan informasi.
-                        <a href="#" class="review-go pull-right me-1 mt-1 mb-1">Go</a>
+                        <a href="#" class="review-go btn-success pull-right me-1 mt-1 mb-1">Go</a>
                     </div>
                 </div>
             </div>

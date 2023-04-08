@@ -24,16 +24,9 @@
                             @else
                                 <span>Tidak ada</span>
                             @endif
-
                         </div>
+                        <hr>
                         <div class="product-view mb-2">
-                            <div class="mb-3 col-md-12">
-                                <label for="project">Snow Ball</label>
-                                <div class="input-group">
-                                    <select id="getProjectDetail" name="" class="getProjectDetail form-select">
-                                    </select>
-                                </div>
-                            </div>
                             <div class="product-price">
                                 <h2>{{ $key['title'] }}</h2>
                             </div>
@@ -82,14 +75,10 @@
                             </div>
                             @php
                                 $crawler = $client->request('GET', $references . $key['article_number']);
-                                $text = $crawler->filterXPath('//body/text()[1]')->text();
                                 $text = $crawler->filter('body')->text();
                                 
-                                // menghapus karakter \n dan \r
-                                $text = str_replace(["\r", "\n"], '', $text);
-                                
                                 // memisahkan teks ke dalam array yang terpisah per item
-                                $items = preg_split('/(?<=\d\.)/', $text);
+                                $items = preg_split('/\s+\d+\.\s(?=[a-zA-Z])/u', $text);
                                 
                                 // membersihkan setiap item dari spasi di awal dan akhir, dan menghapus baris kosong
                                 foreach ($items as $key => $value) {
@@ -101,13 +90,45 @@
                                     }
                                 }
                             @endphp
-                            <span>
-                                <small>
-                                    @foreach ($items as $item)
-                                        {{ $item }}
-                                    @endforeach
-                                </small>
-                            </span>
+
+                            <div class="row">
+                                <div class="col-12">
+                                    <span>
+                                        <small>
+                                            @php
+                                                $counter = 0;
+                                            @endphp
+                                            @foreach ($items as $key => $item)
+                                                <div class="row">
+                                                    @if ($key == 0)
+                                                        <div class="col-md-1 text-justify" style="text-align: center;">
+                                                            <p class="text-justify pull-right">
+                                                                {{ ++$counter }}.
+                                                            </p>
+                                                        </div>
+                                                        <div class="col-md-11">
+                                                            <p class="text-justify">
+                                                            {{ preg_replace('/\d+\.\s/', '', $item) }}<br>
+                                                            </p>
+                                                        </div>
+                                                    @else
+                                                        <div class="col-md-1" style="text-align: center;">
+                                                            <p class="text-justify pull-right">
+                                                                {{ ++$counter }}.
+                                                            </p>
+                                                        </div>
+                                                        <div class="col-md-11">
+                                                            <p class="text-justify">
+                                                            {{ preg_replace('/\s+(\d+\.\s)(?=[a-zA-Z])/', "<br class='mb-2'>\$1", trim(preg_replace('/1\. /', '', $item))) }}<br>
+                                                            </p>
+                                                        </div>
+                                                    @endif
+                                                </div>
+                                            @endforeach
+                                        </small>
+                                    </span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-lg-1">

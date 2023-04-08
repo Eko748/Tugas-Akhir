@@ -16,7 +16,7 @@
                             let cell = $('.filters th').eq(
                                 $(api.column(colIdx).header()).index()
                             );
-                            $(cell).html('<a href="{{ (Auth::user()->role_id == 1) ? route('management.project.export', $uuid_project) : route('project.export', $uuid_project) }}" title="Export Project" class="cool button btn btn-success hovering shadow-sm"><i class="fa fa-file-text"> </i> Export</a>');
+                            $(cell).html('<a href="{{ (Auth::user()->role_id == 1) ? route('management.project.export', $uuid_project) : route('project.export', $uuid_project) }}" title="Export Project" class="review-go button btn btn-success hovering"><i class="fa fa-file-text"></i></a>');
                         } else if (colIdx == 0) {
                             let cell = $('.filters th').eq(
                                 $(api.column(colIdx).header()).index()
@@ -105,7 +105,7 @@
                     });
             },
             order: [
-                [1, 'desc']
+                [8, 'desc']
             ],
             processing: true,
             serverSide: true,
@@ -132,11 +132,16 @@
                 },
             },
             ajax: "{{ (Auth::user()->role_id == 1) ? route('management.project.getTable', $project->uuid_project) : route('project.getTable', $project->uuid_project) }}",
-            columns: [{
+            columns: [
+                {
                     data: 'DT_RowIndex',
                     name: 'DT_RowIndex',
                     orderable: false,
                     searchable: false
+                },
+                {
+                    data: 'code',
+                    name: 'code'
                 },
                 {
                     data: 'article',
@@ -182,18 +187,12 @@
                     },
                 },
                 {
-                    data: 'get_category.category_name',
-                    name: 'get_category.category_name'
-                },
-                {
                     data: 'name',
                     name: 'name'
                 },
                 {
                     data: 'date',
                     name: 'date',
-                    // orderable: false,
-                    // searchable: false
                 },
                 {
                     data: 'action',

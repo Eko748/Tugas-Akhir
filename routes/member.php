@@ -5,6 +5,7 @@ use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Exception\PageHandlingController;
 use App\Http\Controllers\Management\ProductController;
 use App\Http\Controllers\Management\ProjectController;
+use App\Http\Controllers\Management\ProjectSLRController;
 use App\Http\Controllers\Management\SLRController;
 use App\Http\Controllers\Review\AcmController;
 use App\Http\Controllers\Review\CiteSeerxController;
@@ -25,24 +26,19 @@ Route::middleware('auth')->group(function () {
 
             Route::prefix("project")->group(function () {
                 Route::controller(ProjectController::class)->group(function () {
-                    Route::get('/master', 'showProject')->name('project.index');
-                    Route::get('/master-request', 'requestProjectData')->name('project.request');
-                    Route::get('/{uuid_project}', 'showProjectDetail')->name('project.detail');
-                    // Route::get('/list-data', 'getProject')->name('project.getProject');
-                    Route::get('/fetch-data/{uuid_project}', 'getProjectDetailData')->name('project.getTable');
-                    Route::get('/export/{uuid_project}', 'exportProjectData')->name('project.export');
+                    Route::get('/index', 'showProject')->name('project.index');
+                    Route::get('/request', 'requestProjectData')->name('project.request');
+                    Route::post('/create', 'createProject')->name('project.create');
                 });
-                // Route::controller(SLRController::class)->group(function () {
-                //     Route::get('/list-data', 'getProject')->name('project.getProject');
-                // });
+                Route::controller(ProjectSLRController::class)->group(function () {
+                    Route::get('/{uuid_project}', 'showProjectDetail')->name('project.detail');
+                    Route::get('/fetch/{uuid_project}', 'getProjectDetailData')->name('project.getTable');
+                    Route::get('/export/{uuid_project}', 'exportProjectData')->name('project.export');
+                    Route::get('/snowballing/{uuid_project}', 'showModalSnowballing')->name('project.snowBalling');
+                    Route::get('/detail/{uuid_project}', 'showModalDetail')->name('project.modalDetail');
+                    Route::post('/delete', 'deleteProjectSLR')->name('projectSLR.delete');
+                });
             });
-
-
-            // Route::prefix("category")->group(function () {
-            //     Route::controller(CategoryController::class)->group(function () {
-            //         Route::get('/category-data', 'getCategory')->name('category.getCategory');
-            //     });
-            // });
 
             Route::prefix("review")->group(function () {
                 // Master

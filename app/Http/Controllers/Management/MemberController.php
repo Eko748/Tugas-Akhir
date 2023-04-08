@@ -139,29 +139,6 @@ class MemberController extends ManagementMasterController implements ValidationC
         return response()->json($response);
     }
 
-    private function generateCode($num)
-    {
-        $letters = range('B', 'Z'); // range of B to Z
-        $digits = range(0, 9);
-        $code = '';
-        while ($num > 0) {
-            $modulo = ($num - 1) % 26;
-            $code = $letters[$modulo] . $code;
-            $num = intval(($num - $modulo) / 26);
-        }
-        // If the code is 'Z', set the next code to be 'AA'
-        if ($code === 'Z') {
-            $code = 'AA';
-        }
-        // If the code starts with 'Z', increment the second letter
-        elseif ($code[0] === 'Z') {
-            $firstLetter = 'A';
-            $secondLetter = chr(ord($code[1]) + 1);
-            $code = $firstLetter . $secondLetter;
-        }
-        return $code;
-    }
-
     public function createMember(Request $request)
     {
         $user = $this->data['institute'];
@@ -309,8 +286,8 @@ class MemberController extends ManagementMasterController implements ValidationC
 
         //  Return response
         return response()->json([
-            'success' => $success,
-            'message' => $message,
+            's' => $success,
+            'e' => $message,
         ]);
     }
 

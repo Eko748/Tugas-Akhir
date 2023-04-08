@@ -42,12 +42,12 @@
     }
 
     // Update
-    function editMember(id) {
+    function editMember(uuid_project) {
         $.ajax({
             url: "{{ url('/management/member-edit') }}",
             type: "GET",
             data: {
-                id: id
+                uuid_project: uuid_project
             },
             success: function(data) {
                 $("#modal-content-edit").html(data);
@@ -110,7 +110,6 @@
             cancelButtonText: "No, cancel!",
             reverseButtons: !0
         }).then(function(e) {
-
             if (e.value === true) {
                 let CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
                 $.ajax({
@@ -121,11 +120,10 @@
                     },
                     dataType: 'JSON',
                     success: function(results) {
-
                         if (results.success === true) {
-                            swal("Done!", results.message, "success");
+                            swal("Done!", results.s, "success");
                         } else {
-                            swal("Error!", results.message, "error");
+                            swal("Error!", results.e, "error");
                         }
                         $("#table-member").DataTable().ajax.reload();
                     }

@@ -2,37 +2,31 @@
 
 namespace App\Http\Controllers\Management;
 
-use App\Exports\ProjectsExport;
 use App\Http\Controllers\Controller;
-use App\Models\Institute;
 use App\Models\Leader;
 use App\Models\Project;
-use App\Models\ProjectSLR;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
-use Maatwebsite\Excel\Facades\Excel;
-use Yajra\DataTables\Facades\DataTables;
 
 class ProjectController extends Controller
 {
     private $data;
-    private $role;
 
     public function __construct(Request $request)
     {
         $this->middleware(function ($request, $next) {
             $logicProject = $this->setLogicProject($request);
             $this->data = [
-                "parent" => "Management",
-                "child" => "Project",
-                "projects" => $logicProject['projects'],
-                "current_p" => $logicProject['current_p'],
-                "end_p" => $logicProject['end_p'],
-                "done" => $logicProject['done'],
-                "doing" => $logicProject['doing'],
+                'parent' => 'Management',
+                'child' => 'Project',
+                'projects' => $logicProject['projects'],
+                'current_p' => $logicProject['current_p'],
+                'end_p' => $logicProject['end_p'],
+                'done' => $logicProject['done'],
+                'doing' => $logicProject['doing'],
             ];
             return $next($request);
         });
@@ -118,85 +112,6 @@ class ProjectController extends Controller
         ];
     }
 
-    public function showProjectDetail($uuid_project)
-    {
-        if (Auth::user()->role_id == '1') {
-            $project = Project::with('hasProject')->where('uuid_project', $uuid_project)
-                ->where('created_by', Auth::user()->id)->firstOrFail();
-        } else {
-            $project = Project::with('hasProject', 'getLeader')->where('uuid_project', $uuid_project)
-                ->whereHas('getLeader', function ($q) {
-                    $q->where('id', Auth::user()->created_by);
-                })->firstOrFail();
-        }
-
-        if (!$project) {
-            abort(404);
-        }
-
-        $data = [
-            "parent" => "Project",
-            "child" => "Detail",
-            "title" => $project->title,
-            "project" => $project,
-            "uuid_project" => $project->uuid_project
-        ];
-
-        return view('pages.management.project-slr.index', $data);
-    }
-
-    public function getProjectDetailData(Request $request, $uuid_project)
-    {
-        if ($request->ajax()) {
-            if (Auth::user()->role_id == '1') {
-                $data = ProjectSLR::with('getProject', 'getUser', 'getCategory')
-                    ->whereHas('getProject', function ($q) use ($uuid_project) {
-                        $q->where('uuid_project', $uuid_project);
-                    })
-                    ->orderBy('created_at', 'DESC')->get();
-            } else {
-                $data = ProjectSLR::with('getProject.getLeader', 'getUser', 'getCategory')
-                    ->whereHas('getProject', function ($q) use ($uuid_project) {
-                        $q->where('uuid_project', $uuid_project);
-                    })->whereHas('getProject.getLeader', function ($q) {
-                        $q->where('id', Auth::user()->created_by);
-                    })
-                    ->orderBy('created_at', 'DESC')->get();
-            }
-
-            return DataTables::of($data)
-                ->addIndexColumn()
-                ->addColumn('action', function ($data) {
-                    $btn = '<div style="text-align: center; vertical-align: middle;">
-                            <button title="Detail" class="btn btn-info btn-sm btn-outline-dark hovering shadow-sm" onclick="readMember(' . $data->id . ')">
-                                <i class="fa fa-address-book"></i>
-                            </button>
-                            <button title="Edit" class="btn btn-secondary btn-sm btn-outline-dark hovering shadow-sm" onclick="editMember(' . $data->getUser->id . ')" type="button" data-bs-toggle="modal" data-bs-target="#updateMember">
-                                <i class="fa fa-pencil"></i>
-                            </button>
-                            <button title="Delete" class="btn btn-danger btn-s btn-outline-dark hovering shadow-sm" onclick="deleteMember(' . $data->id . ')">
-                                <i class="fa fa-trash"></i>
-                            </button>
-                        </div>';
-                    return $btn;
-                })->addColumn('article', function ($data) {
-                    $title = $data->title;
-                    return $title;
-                })->addColumn('name', function ($data) {
-                    $created = $data->getUser->name;
-                    $name = '<span class="badge btn-outline-success hovering badge-light-success">' . $created . '</span>';
-                    return $name;
-                })->addColumn('date', function ($data) {
-                    $date = $data->created_at;
-                    $parse = Carbon::parse($date)->isoFormat('LLLL');
-                    $date = '<span class="badge btn-outline-primary hovering badge-light-primary">' . $parse . '</span>';
-                    return $date;
-                })
-                ->rawColumns(['action', 'article', 'name', 'date'])
-                ->make(true);
-        }
-    }
-
     public function createProject(Request $request)
     {
         $user = Leader::where('user_id', Auth::user()->id)->first();
@@ -226,28 +141,4 @@ class ProjectController extends Controller
         return response()->json(['success' => 'Project berhasil ditambahkan']);
     }
 
-    public function exportProjectData($uuid_project)
-    {
-        if (Auth::user()->role_id == '1') {
-            $project = Project::where('uuid_project', $uuid_project)
-                ->where('created_by', Auth::user()->id)
-                ->firstOrFail();
-            $institute = Institute::with('getUser')->where('created_by', Auth::user()->id)->first();
-        } else {
-            $project = Project::with('getLeader')->where('uuid_project', $uuid_project)
-                ->whereHas('getLeader', function ($q) {
-                    $q->where('id', Auth::user()->created_by);
-                })
-                ->firstOrFail();
-            $institute = Institute::with('getUser', 'getLeader')
-                ->whereHas('getLeader', function ($q) {
-                    $q->where('id', Auth::user()->created_by);
-                })
-                ->first();
-        }
-
-        $fileName = $institute->institute_slug . '-project.xlsx';
-        $print = Excel::download(new ProjectsExport($project), $fileName);
-        return $print;
-    }
 }

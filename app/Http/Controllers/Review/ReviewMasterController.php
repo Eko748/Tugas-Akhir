@@ -59,6 +59,7 @@ class ReviewMasterController extends Controller implements CategoryController, V
                 'authors' => $request->authors,
                 'keywords' => $request->keywords,
                 'references' => $request->references,
+                'reference_source' => decrypt($request->reference_source),
                 'created_by' => Auth::user()->id,
             ]
         );

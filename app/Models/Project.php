@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Crypt;
@@ -25,5 +26,15 @@ class Project extends Model
     public function hasProject()
     {
         return $this->hasMany(ProjectSLR::class, 'project_id');
+    }
+
+    public static function deleteOldRecycle()
+    {
+        $projects = Project::where('deleted_at', '<', Carbon::now()->subWeek())
+                    ->get();
+        
+        foreach ($projects as $project) {
+            $project->delete();
+        }
     }
 }

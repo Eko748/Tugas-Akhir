@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -29,6 +30,17 @@ class ProjectSLR extends Model
     public function getMember()
     {
         return $this->belongsTo(Member::class, 'created_by', 'id');
+    }
+
+    public static function deleteOldRecycle()
+    {
+        $projects = ProjectSLR::whereNotNull('deleted_by')
+                    ->where('deleted_at', '<', Carbon::now()->subWeek())
+                    ->get();
+        
+        foreach ($projects as $project) {
+            $project->delete();
+        }
     }
 
 }

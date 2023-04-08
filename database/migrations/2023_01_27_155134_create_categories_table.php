@@ -15,15 +15,15 @@ return new class extends Migration
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
-            $table->uuid('uuid_category');
+            // $table->uuid('uuid_category');
             $table->string('category_code', 1);
-            $table->string('category_name', 30);
-            $table->integer('created_by');
-            $table->timestamp('created_at')->nullable();
-            $table->integer('updated_by')->nullable();
-            $table->timestamp('updated_at')->nullable();
-            $table->integer('deleted_by')->nullable();
-            $table->timestamp('deleted_at')->nullable();
+            $table->string('category_name', 20);
+            $table->timestamps();
+            // $table->integer('created_by');
+            // $table->integer('updated_by')->nullable();
+            // $table->timestamp('updated_at')->nullable();
+            // $table->integer('deleted_by')->nullable();
+            // $table->timestamp('deleted_at')->nullable();
         });
     }
 

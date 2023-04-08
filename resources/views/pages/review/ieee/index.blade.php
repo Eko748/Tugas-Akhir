@@ -6,13 +6,6 @@
 
 @section('content')
 @section('css')
-    <style>
-        @media only screen and (max-width: 767px) {
-            .scrap-data {
-                display: none;
-            }
-        }
-    </style>
     <link rel="stylesheet" type="text/css" href="../assets/css/vendors/owlcarousel.css">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/select2/dist/css/select2.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/sweetalert2/dist/sweetalert2.min.css') }}">

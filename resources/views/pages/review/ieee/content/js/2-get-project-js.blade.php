@@ -1,6 +1,18 @@
 <script type="text/javascript">
     $(document).ready(function() {
         $('.modalCreate').each(function() {
+            const params = new URLSearchParams(window.location.search);
+            const slr_code = params.get('slr_code');
+            console.log(slr_code);
+            $('.slr-code').val(slr_code);
+            const inputHidden = document.querySelector('.slr-code');
+
+            if (inputHidden !== null) {
+                inputHidden.value = slr_code;
+                console.log('ada');
+            } else {
+                console.log("Elemen input tersembunyi tidak ditemukan.");
+            }
             let modal = $(this);
             let key = modal.data('key');
             let select = modal.find('.getProject');

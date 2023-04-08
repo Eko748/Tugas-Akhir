@@ -36,6 +36,7 @@ class ProjectsExport implements FromView
         if (Auth::user()->role_id == '1') {
             $projects = ProjectSLR::with('getProject', 'getUser', 'getCategory')
                 ->where('project_id', $this->project->id)
+                ->where('deleted_by', null)
                 ->orderBy('code', 'ASC')
                 ->get();
         } else {

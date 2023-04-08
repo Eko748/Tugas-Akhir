@@ -10,6 +10,7 @@ use App\Http\Controllers\Exception\PageHandlingController;
 use App\Http\Controllers\Management\InstituteController;
 use App\Http\Controllers\Management\MemberController;
 use App\Http\Controllers\Management\ProjectController;
+use App\Http\Controllers\Management\ProjectSLRController;
 use App\Http\Controllers\Review\IeeeController;
 use App\Http\Controllers\Review\AcmController;
 use App\Http\Controllers\Review\CiteSeerxController;
@@ -39,13 +40,20 @@ Route::middleware('auth')->group(function () {
                 Route::get('/member-export', 'exportMemberData')->name('management.member.export');
             });
             // Project
-            Route::controller(ProjectController::class)->group(function () {
-                Route::get('/project', 'showProject')->name('management.project.index');
-                Route::get('/project-request', 'requestProjectData')->name('management.project.request');
-                Route::post('/project-create', 'createProject')->name('management.project.create');
-                Route::get('/project/{uuid_project}', 'showProjectDetail')->name('management.project.detail');
-                Route::get('/project-fetch-data/{uuid_project}', 'getProjectDetailData')->name('management.project.getTable');
-                Route::get('/project-export/{uuid_project}', 'exportProjectData')->name('management.project.export');
+            Route::prefix("project")->group(function () {
+                Route::controller(ProjectController::class)->group(function () {
+                    Route::get('/index', 'showProject')->name('management.project.index');
+                    Route::get('/request', 'requestProjectData')->name('management.project.request');
+                    Route::post('/create', 'createProject')->name('management.project.create');
+                });
+                Route::controller(ProjectSLRController::class)->group(function () {
+                    Route::get('/{uuid_project}', 'showProjectDetail')->name('management.project.detail');
+                    Route::get('/fetch/{uuid_project}', 'getProjectDetailData')->name('management.project.getTable');
+                    Route::get('/export/{uuid_project}', 'exportProjectData')->name('management.project.export');
+                    Route::get('/snowballing/{uuid_project}', 'showModalSnowballing')->name('management.project.snowBalling');
+                    Route::get('/detail/{uuid_project}', 'showModalDetail')->name('management.project.modalDetail');
+                    Route::post('/delete', 'deleteProjectSLR')->name('management.projectSLR.delete');
+                });
             });
             Route::controller(InstituteController::class)->group(function () {
                 Route::post('/institute-create', 'create')->name('management.institute.create');
