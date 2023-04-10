@@ -9,8 +9,8 @@
                 <form id="" class="formCreateProjectData theme-form needs-validation" method="post"
                     onsubmit="enableInput()" action="" novalidate="">
                     @csrf
+                    <input type="hidden" class="slr-code" name="reference_source" value="">
                     <div class="modal-body">
-                        <input type="hidden" class="slr-code" name="reference_source" value="">
                         <div class="row g-2">
                             <div class="mb-3 col-md-6">
                                 <label for="category">Category</label>

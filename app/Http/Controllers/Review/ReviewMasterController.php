@@ -43,6 +43,8 @@ class ReviewMasterController extends Controller implements CategoryController, V
 
         $code_suffix = $last_project ? ((int) substr($last_project->code, -1)) + 1 : 1;
 
+        $reference_source = $request->has('reference_source') ? $request->reference_source : null;
+
         ProjectSLR::create(
             [
                 'uuid_project_slr' => Str::uuid(),
@@ -59,12 +61,12 @@ class ReviewMasterController extends Controller implements CategoryController, V
                 'authors' => $request->authors,
                 'keywords' => $request->keywords,
                 'references' => $request->references,
-                'reference_source' => decrypt($request->reference_source),
+                'reference_source' => $reference_source,
                 'created_by' => Auth::user()->id,
             ]
         );
 
-        return response()->json(['success' => 'Project berhasil ditambahkan']);
+        return response()->json(['success' => true]);
     }
 
     public function createCategory(Request $request)

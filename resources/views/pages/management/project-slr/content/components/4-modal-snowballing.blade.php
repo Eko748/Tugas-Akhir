@@ -43,8 +43,10 @@
     </div>
     <div class="card-footer">
         @if (Auth::user()->role_id == 1)
-            <a href="{{ route('review.ieee.index') }}?slr_id={{ $views->uuid_project_slr }}&slr_code={{ encrypt($views->code) }}"
+            <a href="{{ route('review.ieee.index') }}?slr_id={{ $views->uuid_project_slr }}&slr_code={{ $views->code }}"
                 class="pull-right button btn-info review-go hovering">IEEE</a>
+            <a href="{{ route('review.springer.index') }}?slr_id={{ $views->uuid_project_slr }}&slr_code={{ encrypt($views->code) }}"
+                class="pull-right button btn-warning review-go hovering">Springer</a>
         @elseif (Auth::user()->role_id == 2)
             <a href="{{ route('ieee.index') }}?slr_id={{ $views->uuid_project_slr }}&slr_code={{ encrypt($views->code) }}"
                 class="pull-right button btn-info review-go hovering">IEEE</a>

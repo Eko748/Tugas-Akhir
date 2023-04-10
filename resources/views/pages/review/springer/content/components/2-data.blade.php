@@ -16,8 +16,8 @@
                                     <div class="product-hover">
                                         <ul>
                                             <li><a data-bs-toggle="modal" onclick="addData()"
-                                                    data-bs-target="#modalCreate-{{ $key['identifier'] }}"><i
-                                                        class="icon-plus"></i></a></li>
+                                                    data-bs-target="#modalCreate-{{ str_replace([':', '.', '/', '-'], '', $key['identifier']) }}">
+                                                    <i class="icon-plus"></i></a></li>
                                             <li><a data-bs-toggle="modal"
                                                     data-bs-target="#modalView-{{ $key['identifier'] }}"><i
                                                         class="icon-eye"></i></a></li>
@@ -25,14 +25,21 @@
                                     </div>
                                 </div>
                             </div>
-                            {{-- @include('pages.review.ieee.content.components.3-create-data')
-                            @include('pages.review.ieee.content.components.4-view-data') --}}
+                            @include('pages.review.springer.content.components.3-create-data')
+                            {{-- @include('pages.review.ieee.content.components.4-view-data') --}}
                             <div class="product-details">
                                 <div class="product-price">
-                                    <span class="text-primary" id="product-title-full-{{ $key['identifier'] }}" style="display:none;">{{ $key['title'] }}</span>
-                                    <span class="text-primary" id="product-title-short-{{ $key['identifier'] }}">{{ Str::words($key['title'], 5, '...') }}</span>
-                                    <a href="javascript:void(0)" id="read-more-link-{{ $key['identifier'] }}" onclick="showFullTitle('{{ $key['identifier'] }}')"><small><i class="fa fa-chevron-circle-right"></i></small></a>
-                                    <a href="javascript:void(0)" id="read-less-link-{{ $key['identifier'] }}" onclick="hideFullTitle('{{ $key['identifier'] }}')" style="display:none;"><small><i class="fa fa-chevron-circle-left"></i></small></a>
+                                    <span class="text-primary" id="product-title-full-{{ $key['identifier'] }}"
+                                        style="display:none;">{{ $key['title'] }}</span>
+                                    <span class="text-primary"
+                                        id="product-title-short-{{ $key['identifier'] }}">{{ Str::words($key['title'], 5, '...') }}</span>
+                                    <a href="javascript:void(0)" id="read-more-link-{{ $key['identifier'] }}"
+                                        onclick="showFullTitle('{{ $key['identifier'] }}')"><small><i
+                                                class="fa fa-chevron-circle-right"></i></small></a>
+                                    <a href="javascript:void(0)" id="read-less-link-{{ $key['identifier'] }}"
+                                        onclick="hideFullTitle('{{ $key['identifier'] }}')"
+                                        style="display:none;"><small><i
+                                                class="fa fa-chevron-circle-left"></i></small></a>
                                 </div>
                                 <hr>
                                 <div class="rating">
@@ -42,6 +49,9 @@
                                     <br>
                                     <strong>
                                         <p>{{ $key['publicationName'] }}</p>
+                                    </strong>
+                                    <strong>
+                                        <p>{{ $key['url'][0]['value'] }}</p>
                                     </strong>
                                 </div>
                                 <span>

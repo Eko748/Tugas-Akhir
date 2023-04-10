@@ -35,6 +35,8 @@
 
 @push('js')
     @include('pages.review.springer.content.js.1-data-js')
+    @include('pages.review.springer.content.js.4-create-data-js')
+
     <script src="{{ asset('assets/js/sidebar-menu.js') }}"></script>
     <script src="{{ asset('assets/js/owlcarousel/owl.carousel.js') }}"></script>
 

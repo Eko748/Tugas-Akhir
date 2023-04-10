@@ -7,9 +7,9 @@
 @section('content')
 @section('css')
     <link rel="stylesheet" type="text/css" href="../assets/css/vendors/animate.css">
-    <link rel="stylesheet" type="text/css" href="../assets/css/vendors/date-picker.css">
-    <link rel="stylesheet" type="text/css" href="../assets/css/vendors/dropzone.css">
-    <link rel="stylesheet" type="text/css" href="../assets/css/vendors/daterange-picker.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/date-picker.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/dropzone.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/daterange-picker.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/select2/dist/css/select2.min.css') }}">
 
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/datatables.css') }}">
@@ -26,18 +26,18 @@
     <script src="{{ asset('assets/js/sidebar-menu.js') }}"></script>
     <script src="{{ asset('assets/css/vendors/sweetalert2/dist/sweetalert2.all.min.js') }}"></script>
     <script src="{{ asset('assets/css/vendors/select2/dist/js/select2.min.js') }}"></script>
-    <script src="../assets/js/modal-animated.js"></script>
-    <script src="../assets/js/datepicker/date-picker/datepicker.js"></script>
-    <script src="../assets/js/datepicker/date-picker/datepicker.en.js"></script>
-    <script src="../assets/js/datepicker/date-picker/datepicker.custom.js"></script>
-    <script src="../assets/js/dropzone/dropzone.js"></script>
-    <script src="../assets/js/dropzone/dropzone-script.js"></script>
-    <script src="../assets/js/typeahead/handlebars.js"></script>
-    <script src="../assets/js/typeahead/typeahead.bundle.js"></script>
-    <script src="../assets/js/typeahead-search/handlebars.js"></script>
-    <script src="../assets/js/datepicker/daterange-picker/moment.min.js"></script>
-    <script src="../assets/js/datepicker/daterange-picker/daterangepicker.js"></script>
-    <script src="../assets/js/datepicker/daterange-picker/daterange-picker.custom.js"></script>
+    <script src="{{ asset('assets/js/modal-animated.js') }}"></script>
+    <script src="{{ asset('assets/js/datepicker/date-picker/datepicker.js') }}"></script>
+    <script src="{{ asset('assets/js/datepicker/date-picker/datepicker.en.js') }}"></script>
+    <script src="{{ asset('assets/js/datepicker/date-picker/datepicker.custom.js') }}"></script>
+    <script src="{{ asset('assets/js/dropzone/dropzone.js') }}"></script>
+    <script src="{{ asset('assets/js/dropzone/dropzone-script.js') }}"></script>
+    <script src="{{ asset('assets/js/typeahead/handlebars.js') }}"></script>
+    <script src="{{ asset('assets/js/typeahead/typeahead.bundle.js') }}"></script>
+    <script src="{{ asset('assets/js/typeahead-search/handlebars.js') }}"></script>
+    <script src="{{ asset('assets/js/datepicker/daterange-picker/moment.min.js') }}"></script>
+    <script src="{{ asset('assets/js/datepicker/daterange-picker/daterangepicker.js') }}"></script>
+    <script src="{{ asset('assets/js/datepicker/daterange-picker/daterange-picker.custom.js') }}"></script>
 
 
     @include('pages.management.project.content.js.1-crud-js')
