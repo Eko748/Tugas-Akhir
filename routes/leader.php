@@ -11,6 +11,7 @@ use App\Http\Controllers\Management\InstituteController;
 use App\Http\Controllers\Management\MemberController;
 use App\Http\Controllers\Management\ProjectController;
 use App\Http\Controllers\Management\ProjectSLRController;
+use App\Http\Controllers\Recycle\RecycleProjectController;
 use App\Http\Controllers\Review\IeeeController;
 use App\Http\Controllers\Review\AcmController;
 use App\Http\Controllers\Review\CiteSeerxController;
@@ -72,7 +73,7 @@ Route::middleware('auth')->group(function () {
             });
             // IEEE
             Route::controller(IeeeController::class)->group(function () {
-                Route::get('/article-ieee', 'reviewIeee')->name('review.ieee.index');
+                Route::get('/article-ieee', 'showReviewIeee')->name('review.ieee.index');
                 Route::get('/article-ieee-request', 'requestIeeeData')->name('review.ieee.request');
             });
             // ScienceDirect
@@ -86,11 +87,19 @@ Route::middleware('auth')->group(function () {
             });
             // ACM
             Route::controller(AcmController::class)->group(function () {
-                Route::get('/acm', 'reviewAcm')->name('review.acm.index');
+                Route::get('/acm', 'showReviewAcm')->name('review.acm.index');
+                Route::get('/acm-request', 'requestAcmData')->name('review.acm.request');
             });
             // CiteSeerx
             Route::controller(CiteSeerxController::class)->group(function () {
-                Route::get('/citeseerx', 'reviewCiteSeerx')->name('review.citeseerx.index');
+                Route::get('/citeseerx', 'showReviewCiteSeerx')->name('review.citeseerx.index');
+            });
+        });
+        // Recycle
+        Route::prefix("recycle")->group(function () {
+            Route::controller(RecycleProjectController::class)->group(function () {
+                Route::get('/project', 'showRecycleProject')->name('recycle.project');
+                Route::get('/project-request', 'requestRecycleData')->name('recycle.project.request');
             });
         });
         // To do

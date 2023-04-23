@@ -11,8 +11,8 @@
         content="Aplikasi Web Scraping dan Manajemen Data untuk keperluan Systematic Litterature Review" />
     <meta name="author" content="permanaeko74@gmail.com" />
 
-    <link rel="icon" href="{{ asset('assets/images/logo/favicon-icon.png') }}" type="image/x-icon" />
-    <link rel="shortcut icon" href="{{ asset('assets/images/logo/favicon-icon.png') }}" type="image/x-icon" />
+    <link rel="icon" href="{{ asset('assets/images/logo/slr-logo.png') }}" type="image/x-icon" />
+    <link rel="shortcut icon" href="{{ asset('assets/images/logo/slr-logo.png') }}" type="image/x-icon" />
 
     <title>@yield('title')</title>
 

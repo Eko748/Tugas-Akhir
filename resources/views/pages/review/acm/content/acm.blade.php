@@ -4,14 +4,16 @@
             @include('layout.breadcrumb')
         </div>
     </div>
-    <div class="container-fluid">
-        <div class="row">
-            {{-- <div class="col-md-7 col-xl-7">
-                @include('pages.review.master.content.components.1-menu')
+    <div class="row">
+        <div class="container-fluid product-wrapper col-md-12">
+            <div class="product-grid">
+                @include('pages.review.acm.content.components.1-menu')
+                <div id="data-review" class="mt-3">
+                    @include('pages.review.acm.content.components.2-data')
+                </div>
+                @include('pages.review.acm.content.components.5-load')
             </div>
-            <div class="col-md-5 col-xl-5">
-                @include('pages.review.master.content.components.2-category')
-            </div> --}}
         </div>
     </div>
+
 </div>

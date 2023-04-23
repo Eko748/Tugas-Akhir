@@ -15,7 +15,7 @@
                                     <p class="ms-3"><small class="text-dark">{{ $key['identifier'] }}</small></p>
                                     <div class="product-hover">
                                         <ul>
-                                            <li><a data-bs-toggle="modal" onclick="addData()"
+                                            <li><a data-bs-toggle="modal" href="addData()"
                                                     data-bs-target="#modalCreate-{{ str_replace([':', '.', '/', '-'], '', $key['identifier']) }}">
                                                     <i class="icon-plus"></i></a></li>
                                             <li><a data-bs-toggle="modal"

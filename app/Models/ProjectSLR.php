@@ -27,6 +27,11 @@ class ProjectSLR extends Model
         return $this->belongsTo(User::class, 'created_by', 'id');
     }
 
+    public function getDeletedData()
+    {
+        return $this->belongsTo(User::class, 'deleted_by', 'id');
+    }
+
     public function getMember()
     {
         return $this->belongsTo(Member::class, 'created_by', 'id');

@@ -1,4 +1,4 @@
-<div class="modal fade modalCreate" data-key="{{ $key['article_number'] }}" id="modalCreate-{{ $key['article_number'] }}">
+<div class="modal fade modalCreate" data-key="acm" id="modalCreate-acm">
     <div class="modal-dialog modal-xl modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -6,10 +6,9 @@
                 <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="product-details col-lg-16 text-justify">
-                <form id="" class="formCreateProjectData theme-form needs-validation" method="post"
-                    onsubmit="enableInput()" action="" novalidate="">
+                <form id="formCreateProjectData" class="formCreateProjectData theme-form needs-validation"
+                    method="post" onsubmit="enableInput()" action="" novalidate="">
                     @csrf
-                    <input type="hidden" class="slr-code" name="reference_source" value="">
                     <div class="modal-body">
                         <div class="row g-2">
                             <div class="mb-3 col-md-6">
@@ -32,8 +31,9 @@
                             <div class="mb-3 col-md-4">
                                 <x-input-label for="title" :value="__('Title')" />
                                 <div class="input-group"><span class="input-group-text"><i class="icon-user"></i></span>
-                                    <x-text-input placeholder="" value="{{ $key['title'] }}" id="title-{{ $key['article_number'] }}"
-                                        class="create form-control" type="text" name="title" :value="$key['title']" disabled />
+                                    <x-text-input placeholder="" value="{{ $key['title'] }}" id="title"
+                                        class="create form-control" type="text" name="title" :value="$key['title']"
+                                        disabled />
                                     <x-input-error :messages="$errors->get('title')" class="mt-2" />
                                     <div class="invalid-tooltip">Please enter
                                         title
@@ -44,7 +44,7 @@
                                 <x-input-label for="name" :value="__('Publisher')" />
                                 <div class="input-group"><span class="input-group-text"><i class="icon-user"></i></span>
                                     <x-text-input placeholder="{{ $key['publisher'] }}" value="{{ $key['publisher'] }}"
-                                        id="publisher-{{ $key['article_number'] }}" class="create form-control" type="text" name="publisher"
+                                        id="publisher" class="create form-control" type="text" name="publisher"
                                         :value="$key['publisher']" disabled />
                                     <x-input-error :messages="$errors->get('publisher')" class="mt-2" />
                                     <div class="invalid-tooltip">Please enter
@@ -55,9 +55,9 @@
                             <div class="mb-3 col-md-4">
                                 <x-input-label for="type" :value="__('Type')" />
                                 <div class="input-group"><span class="input-group-text"><i class="icon-user"></i></span>
-                                    <x-text-input placeholder="{{ $key['content_type'] }}"
-                                        value="{{ $key['content_type'] }}" id="type-{{ $key['article_number'] }}" class="create form-control"
-                                        type="text" name="type" :value="$key['content_type']" disabled />
+                                    <x-text-input placeholder="{{ $key['type'] }}" value="{{ $key['type'] }}"
+                                        id="type" class="create form-control" type="text" name="type"
+                                        :value="$key['type']" disabled />
                                     <x-input-error :messages="$errors->get('type')" class="mt-2" />
                                     <div class="invalid-tooltip">Please enter
                                         type
@@ -67,40 +67,37 @@
                         </div>
                         <div class="row g-3">
                             <div class="mb-3 col-md-4">
-                                <x-input-label for="publication_title" :value="__('Publication Title')" />
+                                <x-input-label for="publication" :value="__('Publication Title')" />
                                 <div class="input-group"><span class="input-group-text"><i class="icon-user"></i></span>
-                                    <x-text-input placeholder="{{ $key['publication_title'] }}"
-                                        value="{{ $key['publication_title'] }}" id="publication_title-{{ $key['article_number'] }}"
-                                        class="create form-control" type="text" name="publication" :value="$key['publication_title']"
-                                        disabled />
-                                    <x-input-error :messages="$errors->get('publication_title')" class="mt-2" />
+                                    <x-text-input placeholder="{{ $key['publication'] }}"
+                                        value="{{ $key['publication'] }}" id="publication" class="create form-control"
+                                        type="text" name="publication" :value="$key['publication']" disabled />
+                                    <x-input-error :messages="$errors->get('publication')" class="mt-2" />
                                     <div class="invalid-tooltip">Please enter
                                         publication title
                                     </div>
                                 </div>
                             </div>
                             <div class="mb-3 col-md-4">
-                                <x-input-label for="publication_year" :value="__('Publication Year')" />
+                                <x-input-label for="year" :value="__('Publication Year')" />
                                 <div class="input-group"><span class="input-group-text"><i class="icon-user"></i></span>
-                                    <x-text-input placeholder="{{ $key['publication_year'] }}"
-                                        value="{{ $key['publication_year'] }}" id="publication_year-{{ $key['article_number'] }}"
-                                        class="create form-control" type="text" name="year" :value="$key['publication_year']"
-                                        disabled />
-                                    <x-input-error :messages="$errors->get('publication_year')" class="mt-2" />
+                                    <x-text-input placeholder="{{ $key['year'] }}" value="{{ $key['year'] }}"
+                                        id="year" class="create form-control" type="text" name="year"
+                                        :value="$key['year']" disabled />
+                                    <x-input-error :messages="$errors->get('year')" class="mt-2" />
                                     <div class="invalid-tooltip">Please enter
                                         publication year
                                     </div>
                                 </div>
                             </div>
                             <div class="mb-3 col-md-4">
-                                <x-input-label for="citing_paper_count" :value="__('Cited')" />
+                                <x-input-label for="cited" :value="__('Cited')" />
                                 <div class="input-group"><span class="input-group-text"><i
                                             class="icon-user"></i></span>
-                                    <x-text-input placeholder="{{ $key['citing_paper_count'] }}"
-                                        value="{{ $key['citing_paper_count'] }}" id="citing_paper_count-{{ $key['article_number'] }}"
-                                        class="create form-control" type="text" name="cited" :value="$key['citing_paper_count']"
+                                    <x-text-input placeholder="0" value="0" id="cited"
+                                        class="create form-control" type="text" name="cited" :value="0"
                                         disabled />
-                                    <x-input-error :messages="$errors->get('citing_paper_count')" class="mt-2" />
+                                    <x-input-error :messages="$errors->get('cited')" class="mt-2" />
                                     <div class="invalid-tooltip">Please enter
                                         cited
                                     </div>
@@ -111,58 +108,40 @@
                             <div class="mb-3 col-md-12">
                                 <label for="abstract">Abstract</label>
                                 <div class="input-group">
-                                    <textarea class="create" placeholder="" value="" name="abstracts" id="abstracts-{{ $key['article_number'] }}" cols="150" rows="5" disabled>{{ $key['abstract'] }}</textarea>
+                                    <textarea class="create" placeholder="" value="" name="abstracts" id="abstracts" cols="150"
+                                        rows="5" disabled>{{ $key['abstract'] }}</textarea>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="mb-3 col-md-12">
-                                @php
-                                    $authors = [];
-                                    foreach ($key['authors'] as $author) {
-                                        foreach ($author as $a) {
-                                            $authors[] = $a;
-                                        }
-                                    }
-                                @endphp
                                 <label for="authors">Authors</label>
                                 <div class="input-group">
-                                    <textarea class="create" value="" name="authors" id="authors-{{ $key['article_number'] }}" cols="150" rows="2" required
-                                        disabled>
-@foreach ($authors as $author)
-{{ trim($author['full_name']) }};
-@endforeach
-</textarea>
+                                    <textarea class="create" placeholder="" value="" name="authors" id="authors" cols="150"
+                                        rows="2" required disabled>@if (isset($key['authors']))@foreach ($key['authors'] as $author){{ $author }};@endforeach@endif</textarea>
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="mb-3 col-md-12">
-                                @php
-                                    $a = [];
-                                    foreach ($key['index_terms'] as $keyword) {
-                                        $a = $keyword['terms'];
-                                    }
-                                @endphp
-                                <label for="keywords">Keywords</label>
-                                <div class="input-group">
-                                    <textarea class="create" value="" name="keywords" id="keywords-{{ $key['article_number'] }}" cols="150" rows="3" disabled>
-@foreach ($a as $value)
-{{ trim($value) }};
-@endforeach
-</textarea>
+                        @if (isset($key['keyword']))
+                            <div class="row">
+                                <div class="mb-3 col-md-12">
+                                    <label for="keywords">Keywords</label>
+                                    <div class="input-group">
+                                        <textarea class="create" placeholder="" value="" name="keywords" id="keywords" cols="150"
+                                            rows="2" required disabled>@foreach ($key['keywords'] as $keyword){{ $keyword }};@endforeach</textarea>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        @endif
                         <div class="row">
+                            @php
+                                $i = 1;
+                            @endphp
                             <div class="mb-3 col-md-12">
-                                @php
-                                    $crawler = $client->request('GET', $references . $key['article_number']);
-                                    $text = $crawler->filterXPath('//body/text()[1]')->text();
-                                @endphp
-                                <label for="keywords">References</label>
+                                <label for="references">References</label>
                                 <div class="input-group">
-                                    <textarea class="create" value="ieee" name="references" id="references-{{ $key['article_number'] }}" cols="150" rows="6" disabled>{{ $text }}</textarea>
+                                    <textarea class="create" placeholder="" value="" name="references" id="references" cols="150"
+                                        rows="6" disabled>@foreach ($key['references'] as $references){{ $i++ }}. {{ $references }}@endforeach</textarea>
                                 </div>
                             </div>
                         </div>
@@ -178,5 +157,5 @@
         </div>
     </div>
 </div>
-@include('pages.review.ieee.content.js.2-get-project-js')
-@include('pages.review.ieee.content.js.3-get-category-js')
+@include('pages.review.springer.content.js.2-get-project-js')
+@include('pages.review.springer.content.js.3-get-category-js')

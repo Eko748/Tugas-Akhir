@@ -28,7 +28,7 @@ class IeeeController extends ReviewMasterController
         ];
     }
 
-    public function reviewIeee()
+    public function showReviewIeee()
     {
         return view('pages.review.ieee.index', $this->data);
     }

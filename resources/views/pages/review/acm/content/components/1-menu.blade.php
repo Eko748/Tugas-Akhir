@@ -1,97 +1,63 @@
-<div class="ribbon-wrapper card">
-    <div class="card-body">
-        <div class="ribbon ribbon-clip ribbon-secondary">
-            About Review
+<div class="feature-products">
+    <div class="row m-b-10">
+        <div class="col-md-3 col-sm-2 products-total">
+            <div class="square-product-setting d-inline-block"><a class="icon-grid grid-layout-view"
+                    href="javascript:void(0)" data-original-title="" title=""><i data-feather="grid"></i></a>
+            </div>
+            <div class="square-product-setting d-inline-block"><a class="icon-grid m-0 list-layout-view"
+                    href="javascript:void(0)" data-original-title="" title=""><i data-feather="list"></i></a>
+            </div>
+            <div class="d-none-productlist filter-toggle">
+                <h6 class="mb-0">Filters<span class="ms-2"><i class="toggle-data"
+                            data-feather="chevron-down"></i></span></h6>
+            </div>
+            <div class="scrap-data">
+                <div class="grid-options d-inline-block">
+                    <ul>
+                        <li><a class="product-2-layout-view" href="javascript:void(0)" data-original-title=""
+                                title=""><span class="line-grid line-grid-1 bg-primary"></span><span
+                                    class="line-grid line-grid-2 bg-primary"></span></a></li>
+                        <li><a class="product-3-layout-view" href="javascript:void(0)" data-original-title=""
+                                title=""><span class="line-grid line-grid-3 bg-primary"></span><span
+                                    class="line-grid line-grid-4 bg-primary"></span><span
+                                    class="line-grid line-grid-5 bg-primary"></span></a></li>
+                        <li><a class="product-4-layout-view" href="javascript:void(0)" data-original-title=""
+                                title=""><span class="line-grid line-grid-6 bg-primary"></span><span
+                                    class="line-grid line-grid-7 bg-primary"></span><span
+                                    class="line-grid line-grid-8 bg-primary"></span><span
+                                    class="line-grid line-grid-9 bg-primary"></span></a></li>
+                        <li><a class="product-6-layout-view" href="javascript:void(0)" data-original-title=""
+                                title=""><span class="line-grid line-grid-10 bg-primary"></span><span
+                                    class="line-grid line-grid-11 bg-primary"></span><span
+                                    class="line-grid line-grid-12 bg-primary"></span><span
+                                    class="line-grid line-grid-13 bg-primary"></span><span
+                                    class="line-grid line-grid-14 bg-primary"></span><span
+                                    class="line-grid line-grid-15 bg-primary"></span></a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
-        <div class="default-according style-1" id="accordionoc">
-            <div class="card">
-                <div class="card-header pb-0">
-                    <h5 class="mb-0">
-                        <button class="btn btn-link text-white bg-primary" data-bs-toggle="collapse"
-                            data-bs-target="#data-ieee" aria-expanded="true" aria-controls="collapse11"><i
-                                class="icofont icofont-briefcase-alt-2"></i>
-                            IEEE
-                            #<span>1</span></button>
-                    </h5>
+        {{-- <div class="col-md-9 col-sm-10 text-end">
+            <div class="select2-drpdwn-product select-options d-inline-block">
+                <select class="form-control btn-square" name="select">
+                    <option value="opt1">Featured</option>
+                    <option value="opt2">Lowest Prices</option>
+                    <option value="opt3">Highest Prices</option>
+                </select>
+            </div>
+        </div> --}}
+    </div>
 
-                </div>
-                <div class="collapse show" id="data-ieee" aria-labelledby="collapseicon" data-bs-parent="#accordionoc">
-                    <div class="card-body">
-                        IEEE atau singkatan dari The Institute of Electrical and Electronics
-                        Engineers merupakan website penyedia jurnal terbesar. Jurnal-jurnal yang
-                        lolos masuk IEEE ini sangat berkualitas sehingga tempat ini adalah tempat
-                        paling favorit bagi para penulis jurnal.
-                        <a href="#" class="review-go pull-right me-1 mt-1 mb-1">Go</a>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-header pb-0">
-                    <h5 class="mb-0">
-                        <button class="btn btn-link collapsed text-white bg-primary" data-bs-toggle="collapse"
-                            data-bs-target="#data-science" aria-expanded="false"><i class="icofont icofont-support"></i>
-                            ScienceDirect #<span>2</span></button>
-                    </h5>
-                </div>
-                <div class="collapse" id="data-science" aria-labelledby="headingeight" data-bs-parent="#accordionoc">
-                    <div class="card-body">
-                        ScienceDirect adalah database yang berisi kumpulan dokumen full-text yang
-                        berkualitas yang telah diperiksa oleh peer-review Elsevier.
-                        <a href="#" class="review-go pull-right me-1 mt-1 mb-1">Go</a>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-header pb-0">
-                    <h5 class="mb-0">
-                        <button class="btn btn-link collapsed text-white bg-primary" data-bs-toggle="collapse"
-                            data-bs-target="#data-springer" aria-expanded="false" aria-controls="collapseicon2"><i
-                                class="icofont icofont-tasks-alt"></i> Springer
-                            #<span>3</span></button>
-                    </h5>
-                </div>
-                <div class="collapse" id="data-springer" data-bs-parent="#accordionoc">
-                    <div class="card-body">
-                        Springer adalah perusahaan penerbitan global yang menerbitkan buku, buku
-                        elektronik, dan jurnal tinjauan sejawat di terbitan-terbitan sains, teknik,
-                        dan medis (STM).
-                        <a href="#" class="review-go pull-right me-1 mt-1 mb-1">Go</a>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-header pb-0">
-                    <h5 class="mb-0">
-                        <button class="btn btn-link collapsed text-white bg-primary" data-bs-toggle="collapse"
-                            data-bs-target="#data-acm" aria-expanded="false"><i class="icofont icofont-support"></i>
-                            ACM #<span>2</span></button>
-                    </h5>
-                </div>
-                <div class="collapse" id="data-acm" aria-labelledby="headingeight" data-bs-parent="#accordionoc">
-                    <div class="card-body">
-                        ACM, singkatan dari Association for Computing Machinery (Asosiasi untuk
-                        Permesinan Komputer), adalah sebuah serikat ilmiah dan pendidikan komputer
-                        pertama di dunia yang didirikan pada tahun 1947.
-                        <a href="#" class="review-go pull-right me-1 mt-1 mb-1">Go</a>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-header pb-0">
-                    <h5 class="mb-0">
-                        <button class="btn btn-link collapsed text-white bg-primary" data-bs-toggle="collapse"
-                            data-bs-target="#data-cite" aria-expanded="false" aria-controls="collapseicon2"><i
-                                class="icofont icofont-tasks-alt"></i>
-                            CiteSeerX
-                            #<span>3</span></button>
-                    </h5>
-                </div>
-                <div class="collapse" id="data-cite" data-bs-parent="#accordionoc">
-                    <div class="card-body">
-                        CiteSeerX adalah mesin pencari dan perpustakaan digital
-                        untuk tulisan ilmiah dan artikel akademis, terutama di bidang ilmu komputer
-                        dan informasi.
-                        <a href="#" class="review-go pull-right me-1 mt-1 mb-1">Go</a>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="pro-filter-sec">
+                <div class="product-search">
+                    <div class="form-group col-md-8">
+                        <div class="input-group col-md-4 input-group-lg mb-3">
+                            <button class="btn btn-outline-primary" type="button" id="submit-review"><i class="fa fa-search"></i></button>
+                            <input id="search" type="text" class="form-control" placeholder="Search.."
+                                aria-label="Example text with button addon" aria-describedby="button-addon1">
+                        </div>
                     </div>
                 </div>
             </div>

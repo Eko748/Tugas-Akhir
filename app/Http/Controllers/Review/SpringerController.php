@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Review;
 
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
-use Symfony\Component\DomCrawler\Crawler;
 
 class SpringerController extends ReviewMasterController
 {
@@ -27,21 +26,6 @@ class SpringerController extends ReviewMasterController
 
     public function showReviewSpringer(Request $request)
     {
-        // $query = $request->query('search');
-        // $a = 'Predicting Code Smells and Analysis of Predictions';
-        // $url = 'http://api.springernature.com/meta/v2/json?q=title:' . urlencode($a) . '&api_key=' . $this->apiKey;
-        // $client = new Client();
-        // $response = $client->request('GET', $url);
-        // $path = json_decode($response->getBody()->getContents(), true);
-        // // $ref = 'http://link.springer.com/openurl/fulltext?id=doi:10.1007/s41870-023-01185-y';
-        // // $response = $client->request('GET', $ref);
-        // // $html = (string) $response->getBody();
-        // // $crawler = new Crawler($html);
-        // // $text = '';
-        // // $items = $crawler->evaluate('//p[@class="c-article-references__text"]')->each(function ($node) {
-        // //     return $node->text();
-        // // });
-        // // dd($items);
         return view('pages.review.springer.index', $this->data);
     }
 

@@ -1,5 +1,6 @@
 <script type="text/javascript">
     function addData() {
+        console.log("ada");
         $("body").on("submit", ".formCreateProjectData", function(e) {
             e.preventDefault();
             let formData = new FormData(this);
@@ -15,7 +16,7 @@
                 processData: false,
                 contentType: false,
                 success: function(result) {
-                    swal("Done!", "Data berhasil ditambahkan", "success")
+                    swal("Done!", "Data berhasil ditambahkan", "success" = true)
                         .then((value) => {
                             $(".formCreateProjectData").trigger("reset");
                             $(".modalCreate").modal("hide");

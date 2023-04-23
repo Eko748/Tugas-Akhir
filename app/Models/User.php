@@ -99,6 +99,11 @@ class User extends Authenticatable
         return $this->hasMany(ProjectSLR::class, 'created_by');
     }
 
+    public function hasDataProjectSLR()
+    {
+        return $this->hasMany(ProjectSLR::class, 'deleted_by');
+    }
+
     public function sentMessages()
     {
         return $this->hasMany(Message::class, 'sender_id');

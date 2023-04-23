@@ -117,7 +117,7 @@ class ProjectController extends Controller
         $user = Leader::where('user_id', Auth::user()->id)->first();
 
         $request->validate([
-            'title' => ['required', 'string', 'max:50'],
+            'subject' => ['required', 'string', 'max:50'],
             'priority' => ['required', 'string', 'max:10'],
             'description' => ['required', 'string', 'max:255'],
             'start_date' => ['required', 'date_format:Y-m-d H:i:s'],
@@ -128,7 +128,7 @@ class ProjectController extends Controller
             [
                 'uuid_project' => Str::uuid(),
                 'leader_id' => $user->id,
-                'title' => $request->title,
+                'subject' => $request->subject,
                 'priority' => $request->priority,
                 'description' => $request->description,
                 'status' => "1",

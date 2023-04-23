@@ -16,9 +16,9 @@
                                         <div class="row mb-3">
                                             <div class="col">
                                                 <div class="mb-3">
-                                                    <label>Project Title</label>
-                                                    <input name="title" class="form-control" type="text"
-                                                        placeholder="Input Title..">
+                                                    <label>Subject</label>
+                                                    <input name="subject" class="form-control" type="text"
+                                                        placeholder="Input Subject..">
                                                 </div>
                                             </div>
                                         </div>

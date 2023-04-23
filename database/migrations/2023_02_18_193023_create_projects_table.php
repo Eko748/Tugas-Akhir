@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->uuid('uuid_project');
             $table->integer('leader_id');
-            $table->string('title');
+            $table->string('subject');
             $table->string('priority', 2);
             $table->text('description')->nullable();
             $table->integer('status');

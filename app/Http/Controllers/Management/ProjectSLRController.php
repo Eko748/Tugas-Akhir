@@ -9,7 +9,6 @@ use App\Models\ProjectSLR;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Crypt;
 use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -32,11 +31,11 @@ class ProjectSLRController extends ProjectController
         }
 
         $data = [
-            "parent" => "Project",
-            "child" => "Detail",
-            "title" => $project->title,
-            "project" => $project,
-            "uuid_project" => $project->uuid_project
+            'parent' => 'Project',
+            'child' => 'Detail',
+            'title' => $project->title,
+            'project' => $project,
+            'uuid_project' => $project->uuid_project
         ];
 
         return view('pages.management.project-slr.index', $data);
@@ -75,10 +74,10 @@ class ProjectSLRController extends ProjectController
                 })->addColumn('action', function ($data) {
                     $btn = '<div style="text-align: center; vertical-align: middle;">
                     <button title="Backward Snowballing" class="mb-2 review-go btn-warning btn-outline-dark" onclick="snowBalling(' . $data->id . ')">
-                        <i class="fa fa-pencil"></i>
+                        <i class="fa fa-address-book"></i>
                     </button>
                             <button title="View Detail" class="mb-2 review-go btn-info btn-outline-dark" onclick="showDetail(' . $data->id . ')">
-                                <i class="fa fa-address-book"></i>
+                                <i class="fa fa-eye"></i>
                             </button>
                             <button title="Delete" class="review-go btn-danger btn-outline-dark" id="deleteSLR" data-id="' . $data->id . '">
                                 <i class="fa fa-trash"></i>

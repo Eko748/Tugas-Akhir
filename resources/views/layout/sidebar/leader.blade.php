@@ -33,21 +33,28 @@
         </svg><span class="management">Management</span></a>
     <ul class="sidebar-submenu">
         @php
+            $p = App\Models\Project::with('getUser')
+                ->where('created_by', Auth::user()->id)
+                ->orderBy('created_at', 'asc')
+                ->get();
+            foreach ($p as $k => $v) {
+                $current_v = \Carbon\Carbon::now()->setTimezone('Asia/Jakarta');
+                $start_v = \Carbon\Carbon::parse($v->start_date)->setTimezone('Asia/Jakarta');
+                $end_v = \Carbon\Carbon::parse($v->end_date)->setTimezone('Asia/Jakarta');
+            }
+            $cv = $current_v < $start_v;
             $projects = App\Models\Project::with('getUser')
                 ->where('created_by', Auth::user()->id)
                 ->orderBy('created_at', 'desc')
                 ->get();
-            $p = App\Models\Project::with('getUser')
-                ->where('created_by', Auth::user()->id)
-                ->get();
-        @endphp
-        @foreach ($projects as $v)
-            @php
-                $start = \Carbon\Carbon::parse($v->start_date)->setTimezone('Asia/Jakarta');
-                $end = \Carbon\Carbon::parse($v->end_date)->setTimezone('Asia/Jakarta');
+            foreach ($projects as $key => $value) {
+                $start = \Carbon\Carbon::parse($value->start_date)->setTimezone('Asia/Jakarta');
+                $end = \Carbon\Carbon::parse($value->end_date)->setTimezone('Asia/Jakarta');
                 $current = \Carbon\Carbon::now()->setTimezone('Asia/Jakarta');
-            @endphp
-        @endforeach
+                $c = $current > $start && $current < $end;
+                $cy = $start < $current;
+            }
+        @endphp
         <li>
             <a href="{{ route('management.member.index') }}">Member</a>
         </li>
@@ -59,56 +66,28 @@
                 @endif
             </a>
         </li>
-
-        @if (!empty($v))
-            @if ($current <= $end && $current >= $start)
-                <li>
-                    <a class="submenu-title" href="#">Doing <span class="sub-arrow"><i
-                                class="fa fa-angle-right"></i></span></a>
-                    <ul class="nav-sub-childmenu submenu-content">
-                        @if (!empty($projects))
-                            @foreach ($projects as $project)
-                                @php
-                                    $start_date = \Carbon\Carbon::parse($project->start_date)->setTimezone('Asia/Jakarta');
-                                    $end_date = \Carbon\Carbon::parse($project->end_date)->setTimezone('Asia/Jakarta');
-                                    $current_time = \Carbon\Carbon::now()->setTimezone('Asia/Jakarta');
-                                @endphp
-
-                                @if ($current_time <= $end_date && $current_time >= $start_date)
-                                    <li>
-                                        <a href="{{ route('management.project.detail', ['uuid_project' => $project->uuid_project]) }}"
-                                            data-bs-trigger="hover" data-container="body" data-bs-toggle="popover"
-                                            data-bs-placement="right" data-offset="-5px -5px"
-                                            data-bs-content="{{ $project->description }}" title="{{ $project->title }}">
-                                            <small class="">{{ $project['title'] }}</small>
-                                        </a>
-                                    </li>
-                                @endif
-                            @endforeach
-                        @endif
-                    </ul>
-                </li>
-
+        @if (!empty($projects))
+            {{-- @if ($cv) --}}
                 <li>
                     <a class="submenu-title" href="#">Up Coming<span class="sub-arrow"><i
                                 class="fa fa-angle-right"></i></span></a>
                     <ul class="nav-sub-childmenu submenu-content">
-                        @if (!empty($projects))
-                            @foreach ($projects as $project)
+                        @if (!empty($p))
+                            @foreach ($p as $pr)
                                 @php
-                                    $start_h = \Carbon\Carbon::parse($project->start_date)->setTimezone('Asia/Jakarta');
-                                    $end_h = \Carbon\Carbon::parse($project->end_date)->setTimezone('Asia/Jakarta');
+                                    $start_h = \Carbon\Carbon::parse($pr->start_date)->setTimezone('Asia/Jakarta');
+                                    $end_h = \Carbon\Carbon::parse($pr->end_date)->setTimezone('Asia/Jakarta');
                                     $current_h = \Carbon\Carbon::now()->setTimezone('Asia/Jakarta');
+                                    $g = $current_h < $start_h && $current_h < $end_h;
                                 @endphp
 
-                                @if ($current_h <= $start_h)
+                                @if ($g)
                                     <li>
-                                        <a href="{{ route('management.project.detail', ['uuid_project' => $project->uuid_project]) }}"
+                                        <a href="{{ route('management.project.detail', ['uuid_project' => $pr->uuid_project]) }}"
                                             data-bs-trigger="hover" data-container="body" data-bs-toggle="popover"
                                             data-bs-placement="right" data-offset="-5px -5px"
-                                            data-bs-content="{{ $project->description }}"
-                                            title="{{ $project->title }}">
-                                            <small class="">{{ $project['title'] }}</small>
+                                            data-bs-content="{{ $pr->description }}" title="{{ $pr->subject }}">
+                                            <small class="">{{ $pr['subject'] }}</small>
                                         </a>
                                     </li>
                                 @endif
@@ -116,8 +95,38 @@
                         @endif
                     </ul>
                 </li>
-            @endif
+            {{-- @endif --}}
+            {{-- @if ($c) --}}
+            <li>
+                <a class="submenu-title" href="#">Doing <span class="sub-arrow"><i
+                            class="fa fa-angle-right"></i></span></a>
+                <ul class="nav-sub-childmenu submenu-content">
+                    @if (!empty($projects))
+                        @foreach ($projects as $project)
+                            @php
+                                $start_date = \Carbon\Carbon::parse($project->start_date)->setTimezone('Asia/Jakarta');
+                                $end_date = \Carbon\Carbon::parse($project->end_date)->setTimezone('Asia/Jakarta');
+                                $current_time = \Carbon\Carbon::now()->setTimezone('Asia/Jakarta');
+                                $h = $current_time > $start_date && $current_time < $end_date;
+                            @endphp
+
+                            @if ($h)
+                                <li>
+                                    <a href="{{ route('management.project.detail', ['uuid_project' => $project->uuid_project]) }}"
+                                        data-bs-trigger="hover" data-container="body" data-bs-toggle="popover"
+                                        data-bs-placement="right" data-offset="-5px -5px"
+                                        data-bs-content="{{ $project->description }}" title="{{ $project->subject }}">
+                                        <small class="">{{ $project['subject'] }}</small>
+                                    </a>
+                                </li>
+                            @endif
+                        @endforeach
+                    @endif
+                </ul>
+            </li>
+            {{-- @endif --}}
         @endif
+
     </ul>
 </li>
 <li class="sidebar-list">
@@ -171,6 +180,6 @@
         </svg><span class="recycle">Recycle</span></a>
     <ul class="sidebar-submenu">
         <li><a href="{{ route('management.member.index') }}">Member</a></li>
-        <li><a href="{{ route('management.member.index') }}">Project</a></li>
+        <li><a href="{{ route('recycle.project') }}">Project</a></li>
     </ul>
 </li>

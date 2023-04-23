@@ -7,7 +7,7 @@
                 <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="product-details col-lg-16 text-justify">
-                <form id="formCreateProjectData" class="theme-form needs-validation" method="post"
+                <form id="formCreateProjectData" class="formCreateProjectData theme-form needs-validation" method="post"
                     onsubmit="enableInput()" action="" novalidate="">
                     @csrf
                     <div class="modal-body">
@@ -178,5 +178,5 @@
         </div>
     </div>
 </div>
-@include('pages.review.ieee.content.js.2-get-project-js')
-@include('pages.review.ieee.content.js.3-get-category-js')
+@include('pages.review.springer.content.js.2-get-project-js')
+@include('pages.review.springer.content.js.3-get-category-js')

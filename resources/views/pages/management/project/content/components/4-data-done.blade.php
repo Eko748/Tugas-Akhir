@@ -17,7 +17,7 @@
                 @endphp
                 <div class="col-xxl-4 box-col-6 col-lg-6">
                     <div class="project-box"><span class="badge badge-light-primary">{!! $status !!}</span>
-                        <h6>{{ $value['title'] }}</h6>
+                        <h6>{{ $value['subject'] }}</h6>
                         <div class="media"><img class="img-20 me-2 rounded-circle" src="../assets/images/user/3.jpg"
                                 alt="" data-original-title="" title="">
                             <div class="media-body">
@@ -73,7 +73,9 @@
                 {{ $done->links() }}
             </h5>
         @else
-            <h1>Tidak ada Project</h1>
+            <center>
+                <span><i class=""></i></span><h1 class="mb-4 text-danger">Tidak ada Project</h1>
+            </center>
         @endif
     </div>
 </div>

@@ -7,7 +7,7 @@
             {{-- <div class="back-btn"><i class="fa fa-angle-left"></i></div> --}}
         </div>
         <div class="logo-icon-wrapper">
-            <a href="/"><img class="img-fluid" src="{{ asset('assets/images/slr.png') }}" alt="" /></a>
+            <a href="/"><img class="img-fluid" src="{{ asset('assets/images/logo/slr.png') }}" alt="" /></a>
         </div>
         <nav class="sidebar-main">
             {{-- <div class="left-arrow" id="left-arrow">

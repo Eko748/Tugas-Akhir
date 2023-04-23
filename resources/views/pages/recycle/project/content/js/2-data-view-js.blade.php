@@ -53,7 +53,7 @@
             if (e.value === true) {
                 let CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
                 $.ajax({
-                    url: '{{ Auth::user()->role_id == 1 ? route('management.projectSLR.delete') : route('projectSLR.delete') }}',
+                    url: '{{ route('management.projectSLR.delete') }}',
                     type: 'POST',
                     data: {
                         id: id,

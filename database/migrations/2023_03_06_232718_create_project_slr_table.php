@@ -20,12 +20,12 @@ return new class extends Migration
             $table->integer('category_id');
             $table->string('code', 5);
             $table->text('title'); 
-            $table->string('publisher', 50);
+            $table->string('publisher', 150);
             $table->text('publication');
-            $table->string('year', 10);
-            $table->string('type', 20);
+            $table->string('year', 30);
+            $table->string('type', 50);
             $table->integer('cited');
-            $table->text('authors', 50);
+            $table->text('authors');
             $table->text('abstracts');
             $table->text('keywords');
             $table->text('references')->nullable();
