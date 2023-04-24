@@ -26,13 +26,13 @@ class SpringerController extends ReviewMasterController
 
     public function showReviewSpringer(Request $request)
     {
-        return view('pages.review.springer.index', $this->data);
+        return view('pages.review.category.springer.index', $this->data);
     }
 
     public function requestSpringerData(Request $request)
     {
         if ($request->ajax()) {
-            return view('pages.review.springer.content.components.2-data', $this->data)->render();
+            return view('pages.review.category.springer.content.components.2-data', $this->data)->render();
         }
     }
 

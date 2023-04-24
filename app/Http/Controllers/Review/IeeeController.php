@@ -3,14 +3,11 @@
 namespace App\Http\Controllers\Review;
 
 use App\Http\Controllers\Review\ReviewMasterController;
-use App\Models\Project;
 use Goutte\Client;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class IeeeController extends ReviewMasterController
 {
-    // private string $apiKey;
     private string $child;
     private array $data;
 
@@ -30,13 +27,13 @@ class IeeeController extends ReviewMasterController
 
     public function showReviewIeee()
     {
-        return view('pages.review.ieee.index', $this->data);
+        return view('pages.review.category.ieee.index', $this->data);
     }
 
     public function requestIeeeData(Request $request)
     {
         if ($request->ajax()) {
-            return view('pages.review.ieee.content.components.2-data', $this->data)->render();
+            return view('pages.review.category.ieee.content.components.2-data', $this->data)->render();
         }
     }
 

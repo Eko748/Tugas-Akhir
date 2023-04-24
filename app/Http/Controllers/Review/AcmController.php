@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Review;
 
 use App\Http\Controllers\Review\ReviewMasterController;
+use Symfony\Component\ErrorHandler\Error\FatalError;
+
 use Illuminate\Http\Request;
 use Goutte\Client;
 use Illuminate\Support\Facades\Auth;
@@ -12,27 +14,26 @@ class AcmController extends ReviewMasterController
     private string $child;
     private array $data;
 
-    public function __construct(Request $request)
+    public function __construct()
     {
         $this->child = 'ACM';
-        $acm = $this->searchAcmData($request);
         $this->data = [
             'parent' => $this->parent,
             'child' => $this->child,
-            'search' => $acm['query'],
-            'key' => $acm['key'],
         ];
     }
 
-    public function showReviewAcm(Request $request)
+    public function showReviewAcm()
     {
-        return view('pages.review.acm.index', $this->data);
+        return view('pages.review.category.acm.index', $this->data);
     }
 
     public function requestAcmData(Request $request)
     {
+        $this->data['search'] = $this->searchAcmData($request)['query'];
+        $this->data['key'] = $this->searchAcmData($request)['key'];
         if ($request->ajax()) {
-            return view('pages.review.acm.content.components.2-data', $this->data)->render();
+            return view('pages.review.category.acm.content.components.2-data', $this->data)->render();
         }
     }
 
@@ -40,7 +41,7 @@ class AcmController extends ReviewMasterController
     {
         $delay = 2000;
         $maxRequestsPerMinute = 30;
-        $query = $request->query('search');
+        $query = $request->input('search');
         $client = new Client();
         $options = [
             'headers' => [
@@ -51,15 +52,10 @@ class AcmController extends ReviewMasterController
         $requestCount = 0;
         $lastRequestTime = 0;
 
-        $data = null;
-
-        while ($requestCount < $maxRequestsPerMinute) {
-            $timeSinceLastRequest = microtime(true) - $lastRequestTime;
-            if (!empty($query)) {
-                $response = $client->request('GET', $query, $options);
-            } else {
-                $response = $client->request('GET', 'https://dl.acm.org/doi/10.1145/2018567.2018569', $options);
-            }
+        // while ($requestCount < $maxRequestsPerMinute) {
+        $timeSinceLastRequest = microtime(true) - $lastRequestTime;
+        if (!empty($query)) {
+            $response = $client->request('GET', $query, $options);
             if ($timeSinceLastRequest * 1000 >= $delay) {
                 $requestCount++;
                 $lastRequestTime = microtime(true);
@@ -91,22 +87,6 @@ class AcmController extends ReviewMasterController
                     }
                     $references[] = $node->text();
                 });
-
-                $data = [
-                    'query' => $query,
-                    'key' => [
-                        'title' => $title,
-                        'publisher' => $publisher,
-                        'publication' => $publication,
-                        'year' => $year,
-                        'type' => $type,
-                        'cited' => $cited,
-                        'authors' => $authors,
-                        'abstract' => $abstract,
-                        'keywords' => $keywords,
-                        'references' => $references,
-                    ]
-                ];
             } else {
                 $role_id = Auth::user()->role_id;
                 return response()->view('pages.error.404.index', ['role_id' => $role_id])->withHeaders([
@@ -115,6 +95,21 @@ class AcmController extends ReviewMasterController
                     'Expires' => '0',
                 ]);
             }
+            $data = [
+                'query' => $query,
+                'key' => [
+                    'title' => $title,
+                    'publisher' => $publisher,
+                    'publication' => $publication,
+                    'year' => $year,
+                    'type' => $type,
+                    'cited' => $cited,
+                    'authors' => $authors,
+                    'abstract' => $abstract,
+                    'keywords' => $keywords,
+                    'references' => $references,
+                ]
+            ];
             return $data;
         }
     }

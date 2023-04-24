@@ -2,15 +2,21 @@
 
 namespace App\Http\Controllers\Review;
 
-use App\Http\Controllers\Controller;
-use App\Http\Controllers\Interface\CategoryController;
-use App\Http\Controllers\Interface\ValidationController;
-use App\Models\Category;
-use App\Models\Project;
-use App\Models\ProjectSLR;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
+use App\Http\Controllers\{
+    Controller,
+    Interface\CategoryController,
+    Interface\ValidationController
+};
+use App\Models\{
+    Category,
+    Project,
+    ProjectSLR
+};
+use Illuminate\{
+    Http\Request,
+    Support\Str,
+    Support\Facades\Auth
+};
 
 class ReviewMasterController extends Controller implements CategoryController, ValidationController
 {
@@ -41,7 +47,12 @@ class ReviewMasterController extends Controller implements CategoryController, V
             ->orderBy('id', 'desc')
             ->first();
 
-        $code_suffix = $last_project ? ((int) substr($last_project->code, -1)) + 1 : 1;
+        // $code_suffix = $last_project ? ((int) substr($last_project->code, -1)) + 1 : 1;
+        $code_suffix = $last_project ? ((int) substr($last_project->code, -2)) + 1 : 1;
+        if ($code_suffix > 999) {
+            $code_suffix = 1;
+        }
+
 
         $reference_source = $request->has('reference_source') ? $request->reference_source : null;
 
@@ -132,13 +143,13 @@ class ReviewMasterController extends Controller implements CategoryController, V
                 ->whereHas('getLeader', function ($query) use ($id) {
                     $query->where('user_id', $id);
                 })
-                ->where('title', 'LIKE', '%' . $search . '%')
+                ->where('subject', 'LIKE', '%' . $search . '%')
                 ->orWhere('priority', 'LIKE', '%' . $search . '%')
                 ->orderBy('priority', 'asc')
                 ->get();
         } else {
             $get_projects = Project::with('getLeader')
-                ->where('title', 'LIKE', '%' . $search . '%')
+                ->where('subject', 'LIKE', '%' . $search . '%')
                 ->orWhere('priority', 'LIKE', '%' . $search . '%')
                 ->orderBy('priority', 'asc')
                 ->get();
@@ -149,7 +160,7 @@ class ReviewMasterController extends Controller implements CategoryController, V
             $response[] = [
                 'no' => $get_project->uuid_project,
                 'id' => $get_project->id,
-                'text' => $get_project->priority . '/' . $get_project->title
+                'text' => $get_project->priority . '/' . $get_project->subject
             ];
         }
 

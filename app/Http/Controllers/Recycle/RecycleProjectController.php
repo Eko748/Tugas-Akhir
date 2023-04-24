@@ -34,13 +34,12 @@ class RecycleProjectController extends Controller
     public function requestRecycleData(Request $request)
     {
         if ($request->ajax()) {
-            if (Auth::user()->role_id == '1') {
-                $data = ProjectSLR::with('getProject', 'getDeletedData', 'getUser')
-                    ->whereHas('getProject', function ($q) {
-                        $q->where('created_by', Auth::user()->id);
-                    })->where('deleted_by',)
-                    ;
-            }
+            // if (Auth::user()->role_id == '1') {
+            $data = ProjectSLR::with('getProject', 'getDeletedData', 'getUser')
+                ->whereHas('getProject', function ($q) {
+                    $q->where('created_by', Auth::user()->id);
+                })->whereNotNull('deleted_by')->get();
+            // }
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('fiture', function ($data) {
@@ -52,9 +51,6 @@ class RecycleProjectController extends Controller
                     return $btn;
                 })->addColumn('action', function ($data) {
                     $btn = '<div style="text-align: center; vertical-align: middle;">
-                    <button title="Backward Snowballing" class="mb-2 review-go btn-warning btn-outline-dark" onclick="snowBalling(' . $data->id . ')">
-                        <i class="fa fa-pencil"></i>
-                    </button>
                             <button title="View Detail" class="mb-2 review-go btn-info btn-outline-dark" onclick="showDetail(' . $data->id . ')">
                                 <i class="fa fa-eye"></i>
                             </button>

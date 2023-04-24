@@ -33,7 +33,7 @@ class ProjectSLRController extends ProjectController
         $data = [
             'parent' => 'Project',
             'child' => 'Detail',
-            'title' => $project->title,
+            'subject' => $project->subject,
             'project' => $project,
             'uuid_project' => $project->uuid_project
         ];

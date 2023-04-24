@@ -17,7 +17,7 @@
     </div>
     <div class="container-fluid">
         <div class="row">
-            <h1>Apa Yang kau cari Bro {{ $name }} ?</h1>
+            <h1>Apa Yang kau cari Bro ?</h1>
         </div>
     </div>
 </div>

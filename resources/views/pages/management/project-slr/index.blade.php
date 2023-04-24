@@ -1,7 +1,7 @@
 @extends('main')
 
 @section('title')
-    {{ $parent }} {{ $title }}
+    {{ $parent }} {{ $subject }}
 @endsection
 
 @section('content')

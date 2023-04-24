@@ -1,5 +1,8 @@
-<div class="card">
+<div class="ribbon-wrapper card">
     <div class="card-body">
+        <div class="ribbon ribbon-clip ribbon-secondary">
+            {{ $subject }}
+        </div>
         <div class="table-responsive custom-scrollbar">
             <table class="table-project dataTable project table-hover table" id="table-project">
                 <thead class="table-primary">
@@ -17,7 +20,6 @@
                         </th>
                     </tr>
                 </thead>
-                <tbody></tbody>
             </table>
         </div>
     </div>

@@ -37,12 +37,15 @@
                 ->where('created_by', Auth::user()->id)
                 ->orderBy('created_at', 'asc')
                 ->get();
-            foreach ($p as $k => $v) {
-                $current_v = \Carbon\Carbon::now()->setTimezone('Asia/Jakarta');
-                $start_v = \Carbon\Carbon::parse($v->start_date)->setTimezone('Asia/Jakarta');
-                $end_v = \Carbon\Carbon::parse($v->end_date)->setTimezone('Asia/Jakarta');
+            if (isset($p)) {
+                # code...
+                foreach ($p as $k => $v) {
+                    // $current_v = \Carbon\Carbon::now()->setTimezone('Asia/Jakarta');
+                    $start_v = \Carbon\Carbon::parse($v->start_date)->setTimezone('Asia/Jakarta');
+                    $end_v = \Carbon\Carbon::parse($v->end_date)->setTimezone('Asia/Jakarta');
+                }
             }
-            $cv = $current_v < $start_v;
+            // $cv = $current_v < $start_v;
             $projects = App\Models\Project::with('getUser')
                 ->where('created_by', Auth::user()->id)
                 ->orderBy('created_at', 'desc')
@@ -68,33 +71,33 @@
         </li>
         @if (!empty($projects))
             {{-- @if ($cv) --}}
-                <li>
-                    <a class="submenu-title" href="#">Up Coming<span class="sub-arrow"><i
-                                class="fa fa-angle-right"></i></span></a>
-                    <ul class="nav-sub-childmenu submenu-content">
-                        @if (!empty($p))
-                            @foreach ($p as $pr)
-                                @php
-                                    $start_h = \Carbon\Carbon::parse($pr->start_date)->setTimezone('Asia/Jakarta');
-                                    $end_h = \Carbon\Carbon::parse($pr->end_date)->setTimezone('Asia/Jakarta');
-                                    $current_h = \Carbon\Carbon::now()->setTimezone('Asia/Jakarta');
-                                    $g = $current_h < $start_h && $current_h < $end_h;
-                                @endphp
+            <li>
+                <a class="submenu-title" href="#">Up Coming<span class="sub-arrow"><i
+                            class="fa fa-angle-right"></i></span></a>
+                <ul class="nav-sub-childmenu submenu-content">
+                    @if (!empty($p))
+                        @foreach ($p as $pr)
+                            @php
+                                $start_h = \Carbon\Carbon::parse($pr->start_date)->setTimezone('Asia/Jakarta');
+                                $end_h = \Carbon\Carbon::parse($pr->end_date)->setTimezone('Asia/Jakarta');
+                                $current_h = \Carbon\Carbon::now()->setTimezone('Asia/Jakarta');
+                                $g = $current_h < $start_h && $current_h < $end_h;
+                            @endphp
 
-                                @if ($g)
-                                    <li>
-                                        <a href="{{ route('management.project.detail', ['uuid_project' => $pr->uuid_project]) }}"
-                                            data-bs-trigger="hover" data-container="body" data-bs-toggle="popover"
-                                            data-bs-placement="right" data-offset="-5px -5px"
-                                            data-bs-content="{{ $pr->description }}" title="{{ $pr->subject }}">
-                                            <small class="">{{ $pr['subject'] }}</small>
-                                        </a>
-                                    </li>
-                                @endif
-                            @endforeach
-                        @endif
-                    </ul>
-                </li>
+                            @if ($g)
+                                <li>
+                                    <a href="{{ route('management.project.detail', ['uuid_project' => $pr->uuid_project]) }}"
+                                        data-bs-trigger="hover" data-container="body" data-bs-toggle="popover"
+                                        data-bs-placement="right" data-offset="-5px -5px"
+                                        data-bs-content="{{ $pr->description }}" title="{{ $pr->subject }}">
+                                        <small class="">{{ $pr['subject'] }}</small>
+                                    </a>
+                                </li>
+                            @endif
+                        @endforeach
+                    @endif
+                </ul>
+            </li>
             {{-- @endif --}}
             {{-- @if ($c) --}}
             <li>

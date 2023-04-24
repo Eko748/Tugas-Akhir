@@ -20,13 +20,13 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth')->group(function () {
     Route::post('/gettimelogin', [AuthController::class, 'getTimeLogging']);
     Route::middleware(['2', 'auth'])->group(function () {
-        Route::prefix("member")->group(function () {
+        Route::prefix("m")->group(function () {
             Route::get('/home', [DashboardController::class, 'index'])->name('dashboard.member');
             Route::get('/member', [ProductController::class, 'member'])->name('dashboard');
 
             Route::prefix("project")->group(function () {
                 Route::controller(ProjectController::class)->group(function () {
-                    Route::get('/index', 'showProject')->name('project.index');
+                    Route::get('/', 'showProject')->name('project.index');
                     Route::get('/request', 'requestProjectData')->name('project.request');
                     Route::post('/create', 'createProject')->name('project.create');
                 });
@@ -43,7 +43,7 @@ Route::middleware('auth')->group(function () {
             Route::prefix("review")->group(function () {
                 // Master
                 Route::controller(ReviewMasterController::class)->group(function () {
-                    Route::get('/master', 'showReview')->name('master.index');
+                    Route::get('/', 'showReview')->name('master.index');
                     Route::post('/post-data', 'createReview')->name('master.create');
                     Route::post('/category-post', 'createCategory')->name('category.create');
                     Route::get('/list-category', 'getCategory')->name('category.get');

@@ -1,24 +1,19 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Http\Response;
-use App\Http\Controllers\Dashboard\DashboardController;
-use App\Http\Controllers\Management\ProductController;
-use App\Http\Controllers\Auth\AuthController;
-use App\Http\Controllers\Chat\MessageController;
-use App\Http\Controllers\Exception\PageHandlingController;
-use App\Http\Controllers\Management\InstituteController;
-use App\Http\Controllers\Management\MemberController;
-use App\Http\Controllers\Management\ProjectController;
-use App\Http\Controllers\Management\ProjectSLRController;
+use App\Http\Controllers\{
+    Auth\AuthController,
+    Dashboard\DashboardController,
+    Exception\PageHandlingController
+};
+use App\Http\Controllers\Management\{
+    InstituteController, MemberController, ProjectController, ProjectSLRController
+};
 use App\Http\Controllers\Recycle\RecycleProjectController;
-use App\Http\Controllers\Review\IeeeController;
-use App\Http\Controllers\Review\AcmController;
-use App\Http\Controllers\Review\CiteSeerxController;
-use App\Http\Controllers\Review\ReviewMasterController;
-use App\Http\Controllers\Review\ScienceDirectController;
-use App\Http\Controllers\Review\SpringerController;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Review\{
+    IeeeController, AcmController, CiteSeerxController, ReviewMasterController, 
+    ScienceDirectController, SpringerController
+};
 
 Route::middleware('auth')->group(function () {
     // Login
@@ -43,7 +38,7 @@ Route::middleware('auth')->group(function () {
             // Project
             Route::prefix("project")->group(function () {
                 Route::controller(ProjectController::class)->group(function () {
-                    Route::get('/index', 'showProject')->name('management.project.index');
+                    Route::get('/', 'showProject')->name('management.project.index');
                     Route::get('/request', 'requestProjectData')->name('management.project.request');
                     Route::post('/create', 'createProject')->name('management.project.create');
                 });
@@ -64,7 +59,7 @@ Route::middleware('auth')->group(function () {
         Route::prefix("review")->group(function () {
             // Master
             Route::controller(ReviewMasterController::class)->group(function () {
-                Route::get('/master', 'showReview')->name('review.master.index');
+                Route::get('/', 'showReview')->name('review.master.index');
                 Route::post('/post-data', 'createReview')->name('review.master.create');
                 Route::post('/category-post', 'createCategory')->name('review.category.create');
                 Route::get('/list-category', 'getCategory')->name('review.category.get');
@@ -103,13 +98,6 @@ Route::middleware('auth')->group(function () {
             });
         });
         // To do
-        Route::prefix("chat")->group(function () {
-            Route::controller(MessageController::class)->group(function () {
-                Route::get('/messages', 'index');
-                Route::get('/ajax-message', 'getAjax')->name('message.ajax');
-                Route::post('/send-message', 'store')->name('message.post');
-            });
-        });
     });
 
     Route::fallback([PageHandlingController::class, 'showPage404']);

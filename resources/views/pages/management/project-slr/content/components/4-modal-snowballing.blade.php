@@ -7,8 +7,7 @@
                         @php
                             $counter = 0;
                             $text = $views->references;
-                            $items = preg_split('/\s+\d+\.\s(?=[a-zA-Z])/u', $text);
-                            
+                            $items = preg_split('/\s+(\d{1,3}\.)\s+(?=[a-zA-Z])/u', $text);                            
                             foreach ($items as $key => $value) {
                                 $value = trim($value);
                                 if (empty($value)) {
@@ -22,7 +21,7 @@
                             <div class="row">
                                 <td>
                                     <div class="col-md-1 col-sm-1 col-xs-1" style="text-align: center;">
-                                        <p class="text-justify pull-right">
+                                        <p class="text-justify" style="text-align: center; vertical-align: middle;">
                                             {{ ++$counter }}.
                                         </p>
                                     </div>
@@ -30,7 +29,11 @@
                                 <td>
                                     <div class="col-md-11 col-sm-11 col-xs-11">
                                         <p class="text-justify">
-                                            {{ preg_replace('/\d+\.\s/', '', $item) }}<br>
+                                            @if (preg_match('/^\d\.\s/', $item))
+                                                {{ preg_replace('/^\d\.\s/', '', $item) }}
+                                            @else
+                                                {{ $item }}
+                                            @endif
                                         </p>
                                     </div>
                                 </td>
