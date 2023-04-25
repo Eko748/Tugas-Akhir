@@ -8,20 +8,14 @@ use Illuminate\Http\Request;
 
 class IeeeController extends ReviewMasterController
 {
-    private string $child;
+    private string $child = 'IEEE';
     private array $data;
 
-    public function __construct(Request $request)
+    public function __construct()
     {
-        $this->child = 'IEEE';
-        $ieee = $this->searchIeeeData($request);
         $this->data = [
             'parent' => $this->parent,
             'child' => $this->child,
-            'search' => $ieee['search'],
-            'path' => $ieee['path'],
-            'client' => $ieee['client'],
-            'references' => $ieee['references'],
         ];
     }
 
@@ -32,6 +26,13 @@ class IeeeController extends ReviewMasterController
 
     public function requestIeeeData(Request $request)
     {
+        $ieee = $this->searchIeeeData($request);
+        $this->data = [
+            'search' => $ieee['search'],
+            'path' => $ieee['path'],
+            'client' => $ieee['client'],
+            'references' => $ieee['references'],
+        ];
         if ($request->ajax()) {
             return view('pages.review.category.ieee.content.components.2-data', $this->data)->render();
         }

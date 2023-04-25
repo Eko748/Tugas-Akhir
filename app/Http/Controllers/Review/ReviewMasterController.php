@@ -26,8 +26,6 @@ class ReviewMasterController extends Controller implements CategoryController, V
 
     public function __construct()
     {
-        $this->parent;
-        $this->child;
         $this->data = [
             'parent' => $this->parent,
             'child' => $this->child,
@@ -47,12 +45,10 @@ class ReviewMasterController extends Controller implements CategoryController, V
             ->orderBy('id', 'desc')
             ->first();
 
-        // $code_suffix = $last_project ? ((int) substr($last_project->code, -1)) + 1 : 1;
         $code_suffix = $last_project ? ((int) substr($last_project->code, -2)) + 1 : 1;
         if ($code_suffix > 999) {
             $code_suffix = 1;
         }
-
 
         $reference_source = $request->has('reference_source') ? $request->reference_source : null;
 
@@ -98,7 +94,6 @@ class ReviewMasterController extends Controller implements CategoryController, V
     public function validateDataCreate(Request $request)
     {
         return $request->validate([
-            // 'code' => ['required', 'string', 'alpha', 'size:1', 'uppercase'],
             'project_id' => ['required', 'integer'],
             'category_id' => ['required', 'integer'],
             'code' => ['required', 'string'],

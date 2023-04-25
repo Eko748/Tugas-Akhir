@@ -1,6 +1,6 @@
 <div class="product-wrapper-grid">
     <div class="row">
-        @if ($search != null)
+        @if (isset($search))
             @foreach ($path as $key)
                 <div class="col-xl-3 col-sm-6 xl-4">
                     <div class="card">

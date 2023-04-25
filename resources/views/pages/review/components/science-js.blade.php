@@ -20,7 +20,7 @@
             data: {
                 'search': search,
             },
-            url: '{{ Auth::user()->role_id == 1 ? route('review.acm.request') : route('acm.request') }}',
+            url: '{{ Auth::user()->role_id == 1 ? route('review.sciencedirect.request') : route('science.request') }}',
             success: function(data) {
                 clearTimeout(requestTimeout);
                 $("#loading").hide();

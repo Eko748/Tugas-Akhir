@@ -7,10 +7,9 @@
 @section('content')
 @section('css')
 @endsection
-@include('pages.review.category.acm.content.acm')
-
+@include('pages.review.category.science.content.science')
 @push('js')
-    @include('pages.review.components.acm-js')
+    @include('pages.review.components.science-js')
 
     <script src="{{ asset('assets/js/sidebar-menu.js') }}"></script>
     <script src="{{ asset('assets/css/vendors/select2/dist/js/select2.min.js') }}"></script>

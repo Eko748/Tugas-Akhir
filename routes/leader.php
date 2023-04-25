@@ -73,7 +73,8 @@ Route::middleware('auth')->group(function () {
             });
             // ScienceDirect
             Route::controller(ScienceDirectController::class)->group(function () {
-                Route::get('/sciencedirect', 'reviewScienceDirect')->name('review.sciencedirect.index');
+                Route::get('/sciencedirect', 'showReviewScienceDirect')->name('review.sciencedirect.index');
+                Route::get('/sciencedirect-request', 'requestScienceDirectData')->name('review.sciencedirect.request');
             });
             // Springer
             Route::controller(SpringerController::class)->group(function () {

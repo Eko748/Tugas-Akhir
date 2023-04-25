@@ -11,26 +11,27 @@ class SpringerController extends ReviewMasterController
     private string $child = 'Springer';
     private array $data;
 
-    public function __construct(Request $request)
+    public function __construct()
     {
-        parent::__construct();
-        $springer = $this->searchSpringerData($request);
         $this->data = [
             'parent' => $this->parent,
-            'child' => $this->child,
-            'search' => $springer['query'],
-            'client' => $springer['client'],
-            'path' => $springer['path']['records'],
+            'child' => $this->child
         ];
     }
 
-    public function showReviewSpringer(Request $request)
+    public function showReviewSpringer()
     {
         return view('pages.review.category.springer.index', $this->data);
     }
 
     public function requestSpringerData(Request $request)
     {
+        $springer = $this->searchSpringerData($request);
+        $this->data = [
+            'search' => $springer['query'],
+            'client' => $springer['client'],
+            'path' => $springer['path']['records'],
+        ];
         if ($request->ajax()) {
             return view('pages.review.category.springer.content.components.2-data', $this->data)->render();
         }
