@@ -2,21 +2,9 @@
 
 namespace App\Http\Controllers\Review;
 
-use App\Http\Controllers\{
-    Controller,
-    Interface\CategoryController,
-    Interface\ValidationController
-};
-use App\Models\{
-    Category,
-    Project,
-    ProjectSLR
-};
-use Illuminate\{
-    Http\Request,
-    Support\Str,
-    Support\Facades\Auth
-};
+use App\Http\Controllers\{Controller, Interface\CategoryController, Interface\ValidationController};
+use App\Models\{Category, Project, ProjectSLR};
+use Illuminate\{Http\Request, Support\Str, Support\Facades\Auth};
 
 class ReviewMasterController extends Controller implements CategoryController, ValidationController
 {

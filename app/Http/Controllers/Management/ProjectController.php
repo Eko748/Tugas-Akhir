@@ -130,6 +130,7 @@ class ProjectController extends Controller
                 'leader_id' => $user->id,
                 'subject' => $request->subject,
                 'priority' => $request->priority,
+                'target' => $request->target,
                 'description' => $request->description,
                 'status' => "1",
                 'start_date' => $request->start_date,

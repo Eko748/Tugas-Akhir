@@ -8,7 +8,7 @@
         <div class="container-fluid product-wrapper col-md-12">
             <div class="product-grid">
                 @include('pages.review.category.ieee.content.components.1-menu')
-                <div id="data-review">
+                <div id="data-review" class="mt-3">
                     @include('pages.review.category.ieee.content.components.2-data')
                 </div>
                 @include('pages.review.components.1-load')

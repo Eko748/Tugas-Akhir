@@ -47,12 +47,12 @@ class IeeeController extends ReviewMasterController
         $references = 'https://ieeexplore.ieee.org/xpl/dwnldReferences?arnumber=';
 
         $query = new XPLORE($token1);
-        $query->searchField('article_title', $search);
+        $query->searchField('article_number', $search);
         $results = $query->callAPI();
 
         if (!isset($results['articles'])) {
             $query = new XPLORE($token2);
-            $query->searchField('article_title', $search);
+            $query->searchField('article_number', $search);
             $results = $query->callAPI();
         }
 
@@ -70,7 +70,7 @@ class IeeeController extends ReviewMasterController
             if (!isset($data)) {
                 return
                     $data = [
-                        "path" => "Oops! Path is null",
+                        "path" => $results,
                         "search" => $search,
                         "references" => $references,
                         "client" => $client,

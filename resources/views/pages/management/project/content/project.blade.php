@@ -10,9 +10,6 @@
             @include('pages.management.project.content.components.1-menu')
             <div class="col-sm-12">
                 <div class="card">
-                    {{-- <div class="card-header">
-                        <a href="#" class="review-go pull-left">Review</a>
-                    </div> --}}
                     <div class="card-body">
                         <div class="tab-content" id="top-tabContent">
                             <div id="project-load">

@@ -20,6 +20,7 @@
         "laravel/ui": "^4.0",
         "maatwebsite/excel": "^3.1",
         "nesbot/carbon": "2.*",
+        "ocramius/proxy-manager": "^2.14",
         "roach-php/laravel": "^1.0",
         "sunra/php-simple-html-dom-parser": "^1.5",
         "symfony/panther": "^2.0",

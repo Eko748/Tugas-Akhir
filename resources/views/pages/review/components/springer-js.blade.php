@@ -10,12 +10,7 @@
 
         showLoading();
 
-        let requestTimeout = setTimeout(function() {
-            $("#loading").hide();
-            alert('Request timed out. Please try again.');
-        }, 30000);
-
-        $.ajax({
+        let xhr = $.ajax({
             type: "GET",
             data: {
                 'search': search,
@@ -27,6 +22,33 @@
                 $('#data-review').html(data).show();
             }
         });
+
+        let requestTimeout = setTimeout(function() {
+            $("#loading").hide();
+            swal({
+                title: 'Request Timeout!',
+                text: 'Mohon periksa jaringan anda',
+                type: 'error',
+                onClose: function() {
+                    $('#data-review').show();
+                }
+            });
+            xhr.abort();
+        }, 60000);
+    });
+
+    function cleanSearchQuery() {
+        const searchInput = document.getElementById("search");
+        const query = searchInput.value;
+        const cleanedQuery = query.replace(/[^\w\s]/gi, "");
+        searchInput.value = cleanedQuery;
+    }
+
+    document.getElementById("search").addEventListener("keyup", function(event) {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            document.getElementById("submit-review").click();
+        }
     });
 
     function addData() {
@@ -113,5 +135,34 @@
                 },
             });
         });
+    }
+
+    function showFullAbstract() {
+        document.querySelectorAll('.show')[0].style.display = 'inline';
+        document.querySelectorAll('.hide')[0].style.display = 'none';
+        document.querySelectorAll('.read-more')[0].style.display = 'none';
+        document.querySelectorAll('.read-less')[0].style.display = 'inline';
+    }
+
+    function hideFullAbstract() {
+        document.querySelectorAll('.show')[0].style.display = 'none';
+        document.querySelectorAll('.hide')[0].style.display = 'inline';
+        document.querySelectorAll('.read-more')[0].style.display = 'inline';
+        document.querySelectorAll('.read-less')[0].style.display = 'none';
+    }
+
+    function toggleItems() {
+        var itemsDiv = document.querySelector('.all-items');
+        var readMoreBtn = document.querySelector('#read-more');
+        var readLessBtn = document.querySelector('#read-less');
+        if (itemsDiv.classList.contains('d-none')) {
+            itemsDiv.classList.remove('d-none');
+            readMoreBtn.classList.add('d-none');
+            readLessBtn.classList.remove('d-none');
+        } else {
+            itemsDiv.classList.add('d-none');
+            readMoreBtn.classList.remove('d-none');
+            readLessBtn.classList.add('d-none');
+        }
     }
 </script>

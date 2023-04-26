@@ -14,11 +14,18 @@
                                 <div class="col-sm-12">
                                     <div class="form theme-form projectcreate">
                                         <div class="row mb-3">
-                                            <div class="col">
+                                            <div class="col-sm-10">
                                                 <div class="mb-3">
                                                     <label>Subject</label>
                                                     <input name="subject" class="form-control" type="text"
                                                         placeholder="Input Subject..">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <div class="mb-3">
+                                                    <label>Target</label>
+                                                    <input name="target" class="form-control" type="number"
+                                                        placeholder="Input Target..">
                                                 </div>
                                             </div>
                                         </div>

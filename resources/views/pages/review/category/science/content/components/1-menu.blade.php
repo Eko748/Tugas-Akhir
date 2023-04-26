@@ -37,24 +37,15 @@
                 </div>
             </div>
         </div>
-        {{-- <div class="col-md-9 col-sm-10 text-end">
-            <div class="select2-drpdwn-product select-options d-inline-block">
-                <select class="form-control btn-square" name="select">
-                    <option value="opt1">Featured</option>
-                    <option value="opt2">Lowest Prices</option>
-                    <option value="opt3">Highest Prices</option>
-                </select>
-            </div>
-        </div> --}}
     </div>
-
     <div class="row">
         <div class="col-md-12">
             <div class="pro-filter-sec">
                 <div class="product-search">
                     <div class="form-group col-md-8">
                         <div class="input-group col-md-4 input-group-lg mb-3">
-                            <button class="btn btn-outline-primary" type="button" id="submit-review"><i class="fa fa-search"></i></button>
+                            <button class="btn btn-outline-primary" type="button" id="submit-review"><i
+                                    class="fa fa-search"></i></button>
                             <input id="search" type="text" class="form-control" placeholder="Search.."
                                 aria-label="Example text with button addon" aria-describedby="button-addon1">
                         </div>

@@ -18,11 +18,7 @@
   <div class="container-fluid default-dash">
     <div class="row">
       @include('layout.breadcrumb')
-
       @include('pages.dashboard.components.index-top')
-      @include('pages.dashboard.components.index-middle')
-      @include('pages.dashboard.components.index-bottom')
-      
     </div>
   </div>
   <!-- Container-fluid Ends-->

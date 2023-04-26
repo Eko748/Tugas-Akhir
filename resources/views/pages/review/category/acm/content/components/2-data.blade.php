@@ -80,6 +80,7 @@
             <center>
                 <img id="img-scrap" class="text-center img-fluid" src="{{ asset('images/Search-Scraping.png') }}"
                     style="width:300px" alt="">
+                    <p>Klik untuk beralih ke halaman <a href="https://dl.acm.org/doi/10.1145/2018567.2018569"><b class="text-primary"><u>ACM Digital Library</u></b></a></p>
             </center>
         @endif
     </div>

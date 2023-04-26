@@ -2,9 +2,6 @@
 
 namespace App\Http\Controllers\Review;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use App\Http\Controllers\Controller;
-
 class XPLORE
  {
 
@@ -42,7 +39,7 @@ class XPLORE
     protected $outputDataFormat = 'array';
 
     // default of 25 results returned
-    protected $resultSetMax = 8;
+    protected $resultSetMax = 25;
 
     // maximum of 200 results returned
     protected $resultSetMaxCap = 200;
