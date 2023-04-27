@@ -1,6 +1,9 @@
-<div class="tab-pane fade show active" id="top-home" role="tabpanel" aria-labelledby="top-home-tab">
-    <div id="load" class="row">
-        @if ($projects != null)
+@if ($projects != null)
+    @if ($all_project->count() > 12)
+        {{ $projects->render('pagination.project', compact('projects')) }}
+    @endif
+    <div class="tab-pane fade show active" id="top-home" role="tabpanel" aria-labelledby="top-home-tab">
+        <div id="load" class="row">
             @foreach ($projects as $project)
                 @php
                     $current_time = \Carbon\Carbon::now();
@@ -31,26 +34,31 @@
                 <div class="col-xxl-4 box-col-6 col-lg-6">
                     <div class="project-box"><span class="badge badge-light-primary">{!! $status !!}</span>
                         <h6>{{ $project['subject'] }}</h6>
-                        <div class="media"><img class="img-20 me-2 rounded-circle" src="../assets/images/user/3.jpg"
-                                alt="" data-original-title="" title="">
+                        <div class="media">
                             <div class="media-body">
                                 <p>
                                     @php
                                         $priority = $project->priority;
                                         
                                         if ($priority == 'P1') {
-                                            $priority = '<span class="text-success"><b>Low</b></span>';
+                                            $priority = 'success';
+                                            $info = 'Rendah';
                                         } elseif ($priority == 'P2') {
-                                            $priority = '<span class="text-info"><b>Medium</b></span>';
+                                            $priority = 'info';
+                                            $info = 'Sedang';
                                         } elseif ($priority == 'P3') {
-                                            $priority = '<span class="text-warning"><b>High</b></span>';
+                                            $priority = 'warning';
+                                            $info = 'Tinggi';
                                         } elseif ($priority == 'P4') {
-                                            $priority = '<span class="text-danger"><b>Urgent</b></span>';
+                                            $priority = 'danger';
+                                            $info = 'Urgent';
                                         } else {
-                                            $priority = '<span class="text-dark">Not Defined</span>';
+                                            $priority = 'dark';
+                                            $info = 'Tidak ada';
                                         }
                                     @endphp
-                                    {!! $priority !!}
+                                    <span title="Prioritas {!! $info !!}"
+                                        class="btn badge-{!! $priority !!} btn-sm"></span>
                                 </p>
                             </div>
                         </div>
@@ -62,52 +70,70 @@
                             <div class="col-7 font-primary text-primary">
                                 {{ $project->hasProject->count() }}
                             </div>
+                            <div class="col-5"><span>Target </span></div>
+                            <div class="col-7 font-primary text-primary">
+                                {{ $project->target }}
+                            </div>
                             <div class="col-5"> <span>Deadline</span></div>
                             <div class="col-7 font-primary">{!! $time_left !!}</div>
                         </div>
-                        {{-- <div class="customers">
-                                            <ul>
-                                                <li class="d-inline-block"><img class="img-30 rounded-circle"
-                                                        src="../assets/images/user/3.jpg" alt=""
-                                                        data-original-title="" title=""></li>
-                                                <li class="d-inline-block"><img class="img-30 rounded-circle"
-                                                        src="../assets/images/user/5.jpg" alt=""
-                                                        data-original-title="" title=""></li>
-                                                <li class="d-inline-block"><img class="img-30 rounded-circle"
-                                                        src="../assets/images/user/1.jpg" alt=""
-                                                        data-original-title="" title=""></li>
-                                                <li class="d-inline-block ms-2">
-                                                    <p class="f-12">+10 More</p>
-                                                </li>
-                                            </ul>
-                                        </div> --}}
+                        @php
+                            $progress = $project->hasProject->count();
+                            $target = $project->target;
+                            $width = $progress >= $target ? 100 : ($progress / $target) * 100;
+                            $width = $width > 100 ? 100 : $width;
+                            if (floor($width) == $width) {
+                                $width = number_format($width, 0);
+                            } else {
+                                $width = number_format($width, 2);
+                            }
+                            if ($width <= 25) {
+                                $bg = 'danger';
+                            } elseif ($width > 25 && $width <= 50) {
+                                $bg = 'warning';
+                            } elseif ($width > 50 && $width <= 75) {
+                                $bg = 'info';
+                            } elseif ($width > 75 && $width <= 100) {
+                                $bg = 'success';
+                            } else {
+                                $bg = 'dark';
+                            }
+                        @endphp
                         <div class="project-status mt-4">
                             <div class="media mb-0">
-                                <p>70% </p>
-                                <div class="media-body text-end"><span>Done</span></div>
+                                <p>{{ $width }}% </p>
+                                <div class="media-body text-end">
+                                    @if ($width >= 100 && $progress >= $target)
+                                        <span>Done</span>
+                                    @elseif ($width < 100 && $progress >= $target)
+                                        <span>Progres</span>
+                                    @elseif ($progress < $target)
+                                        <span>Stop</span>
+                                    @endif
+                                </div>
                             </div>
                             <div class="progress" style="height: 5px">
-                                <div class="progress-bar-animated bg-primary progress-bar-striped" role="progressbar"
-                                    style="width: 70%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+                                <div class="progress-bar-animated bg-{!! $bg !!} progress-bar-striped"
+                                    role="progressbar" style="width: {{ $width }}%"
+                                    aria-valuenow="{{ $width }}" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
                         </div>
                         <a href="{{ Auth::user()->role_id == 1 ? route('management.project.detail', ['uuid_project' => $project->uuid_project]) : route('project.detail', ['uuid_project' => $project->uuid_project]) }}"
-                            class="mt-3 btn badge-light-secondary btn-sm">Detail</a>
+                            class="mt-3 btn badge-light-primary btn-xs"
+                            title="Lihat semua commit project {{ $project['subject'] }}">
+                            <i class="fa fa-folder-open"></i> Detail Commit
+                        </a>
                     </div>
                 </div>
             @endforeach
-        @else
-            <center>
-                <img id="img-scrap" class="text-center img-fluid" src="{{ asset('images/Search-Scraping.png') }}"
-                    style="width:300px" alt="">
-            </center>
-        @endif
-        @if ($projects == !null)
-            <h5 class="mb-4">
-                {{ $projects->links() }}
-            </h5>
-        @else
-            <h1>Tidak ada Project</h1>
-        @endif
+        </div>
     </div>
-</div>
+    @if ($all_project->count() > 12)
+        {{ $projects->render('pagination.project', compact('projects')) }}
+    @endif
+@else
+    <center>
+        <img id="img-scrap" class="text-center img-fluid" src="{{ asset('images/Search-Scraping.png') }}"
+            style="width:300px" alt="">
+    </center>
+@endif

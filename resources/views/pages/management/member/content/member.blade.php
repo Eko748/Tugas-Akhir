@@ -10,7 +10,7 @@
             <div class="col-sm-12">
                 <div class="card b-l-primary b-t-primary border-3 card-absolute">
                     <div class="card-header bg-grey b-l-primary b-r-primary border-3">
-                        <h5 style="display: inline">Tabel Member</h5>
+                        <h5 style="display: inline">Member</h5>
                     </div>
                     @if ($message = Session::get('success'))
                         <div class="alert alert-success">

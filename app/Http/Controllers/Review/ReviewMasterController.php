@@ -30,10 +30,10 @@ class ReviewMasterController extends Controller implements CategoryController, V
         $v_project = $this->validateDataCreate($request);
         $last_project = ProjectSLR::where('created_by', Auth::user()->id)
             ->where('project_id', $v_project['project_id'])
-            ->orderBy('id', 'desc')
+            ->orderBy('created_at', 'desc')
             ->first();
 
-        $code_suffix = $last_project ? ((int) substr($last_project->code, -2)) + 1 : 1;
+        $code_suffix = $last_project ? ((int) substr($last_project->code, 2)) + 1 : 1;
         if ($code_suffix > 999) {
             $code_suffix = 1;
         }

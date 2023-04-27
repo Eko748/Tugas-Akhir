@@ -34,7 +34,8 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/bootstrap.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/custom.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.css') }}" />
-    <link id="color" rel="stylesheet" href="{{ asset('assets/css/color-1.css') }}" media="screen" />
+    <link id="color" rel="stylesheet" type="text/css" href="{{ asset('assets/css/color-1.css') }}"
+        media="screen" />
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/responsive.css') }}" />
     <link rel="stylesheet" type="text/css"
         href="{{ asset('assets/css/vendors/sweetalert2/dist/sweetalert2.min.css') }}">
@@ -71,13 +72,13 @@
             @include('layout.sidebar.sidebar')
 
             @yield('content')
-            @vite('resources/js/app.js')
+            {{-- @vite('resources/js/app.js') --}}
 
             @include('layout.footer')
         </div>
     </div>
 
-    <script src="{{ asset('assets/js/jquery-3.5.1.min.js') }}"></script>
+    <script src="{{ asset('assets/js/jquery-3.6.0.min.js') }}"></script>
     <script src="{{ asset('assets/js/bootstrap/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('assets/js/icons/feather-icon/feather.min.js') }}"></script>
     <script src="{{ asset('assets/js/icons/feather-icon/feather-icon.js') }}"></script>
@@ -85,7 +86,7 @@
     <script src="{{ asset('assets/js/scrollbar/custom.js') }}"></script>
     <script src="{{ asset('assets/js/config.js') }}"></script>
     <script src="{{ asset('assets/js/script.js') }}"></script>
-    <script src="{{ asset('assets/js/theme-customizer/customizer.js') }}"></script>
+    {{-- <script src="{{ asset('assets/js/theme-customizer/customizer.js') }}"></script> --}}
 
     <script src="{{ asset('assets/js/popover-custom.js') }}"></script>
     <script src="{{ asset('assets/css/vendors/select2/dist/js/select2.min.js') }}"></script>

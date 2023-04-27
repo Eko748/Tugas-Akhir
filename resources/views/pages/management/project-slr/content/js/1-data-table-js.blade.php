@@ -78,7 +78,7 @@
                                     // Get the search value
                                     $(this).attr('title', $(this).val());
                                     let regexr =
-                                        '({search})'; //$(this).parents('th').find('select').val();
+                                        '({search})';
 
                                     let cursorPosition = this.selectionStart;
                                     api
@@ -105,14 +105,14 @@
                     });
             },
             order: [
-                [8, 'desc']
+                [7, 'asc']
             ],
             processing: true,
             serverSide: true,
             searchable: true,
             lengthMenu: [
-                [5, 10, 15, 30, 50, 100, -1],
-                [5, 10, 15, 30, 50, 100, "All"]
+                [5, 10, 15, 30, 50, 100, 150, 300],
+                [5, 10, 15, 30, 50, 100, 150, 300]
             ],
             oLanguage: {
                 sProcessing: '<button class="btn btn-primary" type="button" disabled><span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span><span class="visually-hidden">Loading...</span></button>',
@@ -121,9 +121,9 @@
                 sZeroRecords: '<span class="badge badge-light-danger"></i>Kata kunci salah</span>',
                 sEmptyTable: '<span class="badge badge-light-danger"></i><span>Tidak ada data</span></span>',
                 sLengthMenu: '<i class="btn-outline-primary hovering fa fa-th-list"></i> _MENU_ ',
-                sInfo: '<span class="btn badge-light-primary">_START_ to _END_ of _TOTAL_ <i class="fa fa-user"></i></span>',
-                sInfoEmpty: '<span class="btn badge-light-primary"><i class="fa fa-eye"></i> 0 to 0 of 0 <i class="fa fa-user"></i></span>',
-                sInfoFiltered: '<span class="badge badge-light-primary">from _MAX_ <i class="fa fa-users"></i></span>',
+                sInfo: '<span class="btn badge-light-primary">_START_ to _END_ of _TOTAL_ <i class="fa fa-file-text"></i></span>',
+                sInfoEmpty: '<span class="btn badge-light-primary"><i class="fa fa-folder-open"></i> 0 to 0 of 0 <i class="fa fa-file-text"></i></span>',
+                sInfoFiltered: '<span class="badge badge-light-primary">from _MAX_ <i class="fa fa-file-text"></i></span>',
                 oPaginate: {
                     sFirst: "First",
                     sLast: "Last",

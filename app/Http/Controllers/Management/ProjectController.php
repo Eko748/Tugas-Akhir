@@ -27,6 +27,9 @@ class ProjectController extends Controller
                 'end_p' => $logicProject['end_p'],
                 'done' => $logicProject['done'],
                 'doing' => $logicProject['doing'],
+                'all_project' => $logicProject['all_project'],
+                'page' => $logicProject['page'],
+                'page_doing' => $logicProject['page_doing']
             ];
             return $next($request);
         });
@@ -53,27 +56,28 @@ class ProjectController extends Controller
     private function setLogicProject(Request $request)
     {
         if (Auth::user()->id == 1) {
-            $projects = Project::with('hasProject.getUser')->withCount('hasProject')
+            $detail = Project::with('hasProject.getUser')->withCount('hasProject')
                 ->where('created_by', Auth::user()->id)
-                ->orderBy('priority', 'desc')
-                ->paginate(9);
+                ->orderBy('created_at', 'desc');
+            $all_project = $detail->get();
+            $projects = $detail->paginate(12);
             $end = Project::with('hasProject.getUser')->withCount('hasProject')
                 ->where('created_by', Auth::user()->id)
-                ->orderBy('priority', "desc")
+                ->orderBy('created_at', "desc")
                 ->get();
         } else {
-            $projects = Project::with('getLeader', 'hasProject.getUser')->withCount('hasProject')
+            $detail = Project::with('getLeader', 'hasProject.getUser')->withCount('hasProject')
                 ->whereHas('getLeader', function ($q) {
                     $q->where('id', Auth::user()->created_by);
                 })
-                ->orderBy('priority', "desc")
-                ->paginate(9);
+                ->orderBy('created_at', "desc");
+            $all_project = $detail->get();
+            $projects = $detail->paginate(12);
             $end = Project::with('getLeader', 'hasProject.getUser')->withCount('hasProject')
                 ->whereHas('getLeader', function ($q) {
                     $q->where('id', Auth::user()->created_by);
                 })
-                ->orderBy('priority', "desc")
-                ->orderBy('created_at', 'desc')
+                ->orderBy('created_at', "desc")
                 ->get();
         }
 
@@ -82,7 +86,7 @@ class ProjectController extends Controller
             Carbon::parse($projects->pluck('end_date')->flatten()->max())->setTimezone('Asia/Jakarta') : null;
 
         $done = $end->where('end_date', '<=', $current_p);
-        $perPage = 2;
+        $perPage = 12;
         $currentPage = $request->page ?? 1;
         $page_done = new LengthAwarePaginator(
             $done->forPage($currentPage, $perPage),
@@ -93,7 +97,7 @@ class ProjectController extends Controller
         );
 
         $doing = $end->where('end_date', '>', $current_p);
-        $perPage = 2;
+        $perPage = 12;
         $currentPage = $request->page ?? 1;
         $page_doing = new LengthAwarePaginator(
             $doing->forPage($currentPage, $perPage),
@@ -104,11 +108,14 @@ class ProjectController extends Controller
         );
 
         return [
-            "projects" => $projects,
-            "current_p" => $current_p,
-            "end_p" => $end_p,
-            "done" => $page_done,
-            "doing" => $page_doing,
+            'projects' => $projects,
+            'current_p' => $current_p,
+            'end_p' => $end_p,
+            'done' => $page_done,
+            'doing' => $page_doing,
+            'page' => $done,
+            'page_doing' => $doing,
+            'all_project' => $all_project,
         ];
     }
 
@@ -123,6 +130,7 @@ class ProjectController extends Controller
             'start_date' => ['required', 'date_format:Y-m-d H:i:s'],
             'end_date' => ['required', 'date_format:Y-m-d H:i:s', 'after:start_date'],
         ]);
+        $target = $request->target ? $request->target : 10;
 
         Project::create(
             [
@@ -130,7 +138,7 @@ class ProjectController extends Controller
                 'leader_id' => $user->id,
                 'subject' => $request->subject,
                 'priority' => $request->priority,
-                'target' => $request->target,
+                'target' => $target,
                 'description' => $request->description,
                 'status' => "1",
                 'start_date' => $request->start_date,
@@ -141,5 +149,4 @@ class ProjectController extends Controller
 
         return response()->json(['success' => 'Project berhasil ditambahkan']);
     }
-
 }

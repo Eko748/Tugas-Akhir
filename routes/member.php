@@ -21,7 +21,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/gettimelogin', [AuthController::class, 'getTimeLogging']);
     Route::middleware(['2', 'auth'])->group(function () {
         Route::prefix("m")->group(function () {
-            Route::get('/home', [DashboardController::class, 'index'])->name('dashboard.member');
+            Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.member');
             Route::get('/member', [ProductController::class, 'member'])->name('dashboard');
 
             Route::prefix("project")->group(function () {
@@ -52,12 +52,12 @@ Route::middleware('auth')->group(function () {
                 });
                 // IEEE
                 Route::controller(IeeeController::class)->group(function () {
-                    Route::get('/article-ieee', 'reviewIeee')->name('ieee.index');
+                    Route::get('/article-ieee', 'showReviewIeee')->name('ieee.index');
                     Route::get('/article-ieee-request', 'requestIeeeData')->name('ieee.request');
                 });
                 // ScienceDirect
                 Route::controller(ScienceDirectController::class)->group(function () {
-                    Route::get('/sciencedirect', 'reviewScienceDirect')->name('sciencedirect.index');
+                    Route::get('/sciencedirect', 'showReviewScienceDirect')->name('sciencedirect.index');
                 });
                 // Springer
                 Route::controller(SpringerController::class)->group(function () {
@@ -66,7 +66,8 @@ Route::middleware('auth')->group(function () {
                 });
                 // ACM
                 Route::controller(AcmController::class)->group(function () {
-                    Route::get('/acm', 'reviewAcm')->name('acm.index');
+                    Route::get('/acm', 'showReviewAcm')->name('acm.index');
+                    Route::get('/acm-request', 'requestAcmData')->name('acm.request');
                 });
                 // CiteSeerx
                 Route::controller(CiteSeerxController::class)->group(function () {

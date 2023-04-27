@@ -28,10 +28,10 @@
             </div>
             @if (Auth::user()->role_id == 1)
                 <div class="col-md-6 d-flex justify-content-center justify-content-md-end mt-2 mb-3">
-                    <a title="Go to Review" href="{{ route('review.master.index') }}" class="py-2 btn-success review-go me-2 mr-auto button">Review</a>
-                    <button title="Create Project" class="review-go btn-primary ms-2 ml-auto" onclick="addProject()"
+                    <a title="Go to Review" href="{{ route('review.master.index') }}" class="btn-success review-go me-2 mr-auto button">Review</a>
+                    <button title="Create Project" class="btn btn-primary review-go ms-2 ml-auto" onclick="addProject()"
                         data-bs-toggle="modal" data-bs-target="#project" id="createProject">
-                        Create Project
+                        New Project
                     </button>
                 </div>
             @endif

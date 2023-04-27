@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('leader_id');
             $table->string('subject');
             $table->string('priority', 2);
-            $table->integer('target')->default(10);
+            $table->integer('target')->nullable()->default('10');
             $table->text('description')->nullable();
             $table->integer('status');
             $table->timestamp('start_date')->nullable();

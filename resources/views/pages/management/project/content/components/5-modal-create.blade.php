@@ -40,7 +40,7 @@
                                         </div>
                                     </div>
                                     <div class="row mb-3">
-                                        <div class="col-sm-4">
+                                        <div class="col-sm-4 mt-3">
                                             <div class="mb-3">
                                                 <label>Priority</label>
                                                 <select name="priority" class="form-select">
@@ -51,7 +51,7 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-sm-8">
+                                        <div class="col-sm-8 mt-3">
                                             <div class="mb-3">
                                                 <label>Deadline</label>
                                                 <div class="input-group">

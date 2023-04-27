@@ -8,7 +8,8 @@
             format: 'MM/DD/YYYY HH:mm:ss'
         },
         startDate: moment().startOf('hour'),
-        endDate: moment().startOf('hour').add(24, 'hour')
+        endDate: moment().startOf('hour').add(1, 'hour'),
+        minDate: moment().startOf('minute')
     }, function(start, end, label) {
         $('input[name="start_date"]').val(start.format('YYYY-MM-DD HH:mm:ss'));
         $('input[name="end_date"]').val(end.format('YYYY-MM-DD HH:mm:ss'));
