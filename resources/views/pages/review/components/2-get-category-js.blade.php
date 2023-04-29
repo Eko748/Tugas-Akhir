@@ -10,7 +10,7 @@
                 dropdownParent: modal,
                 width: "100%",
                 ajax: {
-                    url: '{{ (Auth::user()->role_id == 1) ? route('review.category.get') : route('category.get') }}',
+                    url: '{{ Auth::user()->role_id == 1 ? route('review.category.get') : route('category.get') }}',
                     dataType: 'json',
                     delay: 220,
                     data: function(params) {

@@ -12,6 +12,13 @@ class ProjectSLR extends Model
     protected $table = 'project_slr';
     protected $guarded = [];
 
+    protected $hidden = [
+        'id', 'uuid_project_slr', 'project_id', 'category_id',
+        'created_by', 'created_at', 'updated_by', 'updated_at',
+        'deleted_by', 'deleted_at',
+        'title', 'references'
+    ];
+
     public function getProject()
     {
         return $this->belongsTo(Project::class, 'project_id', 'id');
@@ -40,12 +47,11 @@ class ProjectSLR extends Model
     public static function deleteOldRecycle()
     {
         $projects = ProjectSLR::whereNotNull('deleted_by')
-                    ->where('deleted_at', '<', Carbon::now()->subWeek())
-                    ->get();
-        
+            ->where('deleted_at', '<', Carbon::now()->subWeek())
+            ->get();
+
         foreach ($projects as $project) {
             $project->delete();
         }
     }
-
 }

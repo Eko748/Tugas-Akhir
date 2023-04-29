@@ -103,12 +103,10 @@
                             <div class="media mb-0">
                                 <p>{{ $width }}% </p>
                                 <div class="media-body text-end">
-                                    @if ($width >= 100 && $progress >= $target)
+                                    @if ($width >= 100)
                                         <span>Done</span>
-                                    @elseif ($width < 100 && $progress >= $target)
+                                    @elseif ($width < 100)
                                         <span>Progres</span>
-                                    @elseif ($progress < $target)
-                                        <span>Stop</span>
                                     @endif
                                 </div>
                             </div>

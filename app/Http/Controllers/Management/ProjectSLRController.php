@@ -44,34 +44,24 @@ class ProjectSLRController extends ProjectController
     public function getProjectDetailData(Request $request, $uuid_project)
     {
         if ($request->ajax()) {
-            if (Auth::user()->role_id == '1') {
-                $data = ProjectSLR::with('getProject', 'getUser', 'getCategory')
-                    ->whereHas('getProject', function ($q) use ($uuid_project) {
+            if (Auth::user()->role_id == 1) {
+                $data = ProjectSLR::whereHas('getProject', function ($q) use ($uuid_project) {
                         $q->where('uuid_project', $uuid_project);
                     })
                     ->where('deleted_by', null)
                     ->orderBy('created_at', 'DESC')->get();
             } else {
-                $data = ProjectSLR::with('getProject.getLeader', 'getUser', 'getCategory')
-                    ->whereHas('getProject', function ($q) use ($uuid_project) {
-                        $q->where('uuid_project', $uuid_project);
-                    })->whereHas('getProject.getLeader', function ($q) {
-                        $q->where('id', Auth::user()->created_by);
-                    })
+                $data = ProjectSLR::whereHas('getProject', function ($q) use ($uuid_project) {
+                    $q->where('uuid_project', $uuid_project);
+                })->whereHas('getProject.getLeader', function ($q) {
+                    $q->where('id', Auth::user()->created_by);
+                })
                     ->where('deleted_by', null)
                     ->orderBy('created_at', 'DESC')->get();
             }
-
             return DataTables::of($data)
                 ->addIndexColumn()
-                ->addColumn('fiture', function ($data) {
-                    $btn = '<div style="text-align: center; vertical-align: middle;">
-                            <button title="Backward Snowballing" class="btn cool review-go btn-primary btn-outline-dark hovering shadow-sm" onclick="snowBalling(' . $data->id . ')">
-                                <i class="fa fa-address-book"></i>
-                            </button>
-                        </div>';
-                    return $btn;
-                })->addColumn('action', function ($data) {
+                ->addColumn('action', function ($data) {
                     $btn = '<div style="text-align: center; vertical-align: middle;">
                     <button title="Backward Snowballing" class="mb-2 review-go btn-warning btn-outline-dark" onclick="snowBalling(' . $data->id . ')">
                         <i class="fa fa-address-book"></i>
@@ -87,17 +77,15 @@ class ProjectSLRController extends ProjectController
                 })->addColumn('article', function ($data) {
                     $title = $data->title;
                     return $title;
-                })->addColumn('name', function ($data) {
+                })->addColumn('info', function ($data) {
                     $created = $data->getUser->name;
                     $name = '<span class="badge btn-outline-primary hovering badge-light-primary">' . $created . '</span>';
-                    return $name;
-                })->addColumn('date', function ($data) {
-                    $date = $data->created_at;
-                    $parse = Carbon::parse($date)->isoFormat('LLLL');
-                    $date = '<span class="badge btn-outline-primary hovering badge-light-primary">' . $parse . '</span>';
-                    return $date;
+                    $info = $data->created_at;
+                    $parse = Carbon::parse($info)->isoFormat('LLLL');
+                    $info = '<span class="badge btn-outline-primary hovering badge-light-primary">' . $parse . '</span>';
+                    return $name . '<br>' . $info;
                 })
-                ->rawColumns(['fiture', 'action', 'article', 'name', 'date'])
+                ->rawColumns(['fiture', 'action', 'article', 'info'])
                 ->make(true);
         }
     }
@@ -143,12 +131,28 @@ class ProjectSLRController extends ProjectController
 
     private function getDetailData(Request $request)
     {
-        $views = ProjectSLR::with('getProject', 'getUser', 'getCategory')
-            ->where('id', $request->code)->first();
-        $data = [
-            'views' => $views,
-        ];
-        return $data;
+        try {
+            $hashedId = $request->code;
+            $views = ProjectSLR::with('getProject', 'getCategory')
+                ->get();
+            $detail = null;
+            foreach ($views as $view) {
+                $hash = hash('sha256', $view->id); // hashing nilai id pengguna untuk membandingkan dengan nilai hash yang diterima
+                if ($hash === $hashedId) {
+                    $detail = $view;
+                    break;
+                }
+            }
+            if (!$detail) {
+                return response()->json(['error' => 'User not found.'], 404);
+            }
+            $data = [
+                'views' => $detail,
+            ];
+            return $data;
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Something went wrong.'], 500);
+        }
     }
 
     public function deleteProjectSLR(Request $request)

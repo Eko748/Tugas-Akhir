@@ -10,17 +10,10 @@
                     onsubmit="enableInput()" action="" novalidate="">
                     @csrf
                     <input type="hidden" class="slr-code" name="reference_source" value="">
+                    <input type="hidden" name="category_id" value="1">
                     <div class="modal-body">
                         <div class="row g-2">
-                            <div class="mb-3 col-md-6">
-                                <label for="category">Category</label>
-                                <div class="input-group">
-                                    <select id="category" name="category_id" class="getCategory form-select">
-                                    </select>
-                                    <input type="hidden" name="code" class="code">
-                                </div>
-                            </div>
-                            <div class="mb-3 col-md-6">
+                            <div class="mb-3 col-md-12">
                                 <label for="project">List Project</label>
                                 <div class="input-group">
                                     <select id="getProject" name="project_id" class="getProject form-select">
@@ -31,7 +24,7 @@
                         <div class="row g-3">
                             <div class="mb-3 col-md-4">
                                 <x-input-label for="title" :value="__('Title')" />
-                                <div class="input-group"><span class="input-group-text"><i class="icon-user"></i></span>
+                                <div class="input-group">
                                     <x-text-input placeholder="" value="{{ $key['title'] }}"
                                         id="title-{{ $key['article_number'] }}" class="create form-control"
                                         type="text" name="title" :value="$key['title']" disabled />
@@ -43,7 +36,7 @@
                             </div>
                             <div class="mb-3 col-md-4">
                                 <x-input-label for="name" :value="__('Publisher')" />
-                                <div class="input-group"><span class="input-group-text"><i class="icon-user"></i></span>
+                                <div class="input-group">
                                     <x-text-input placeholder="{{ $key['publisher'] }}" value="{{ $key['publisher'] }}"
                                         id="publisher-{{ $key['article_number'] }}" class="create form-control"
                                         type="text" name="publisher" :value="$key['publisher']" disabled />
@@ -55,7 +48,7 @@
                             </div>
                             <div class="mb-3 col-md-4">
                                 <x-input-label for="type" :value="__('Type')" />
-                                <div class="input-group"><span class="input-group-text"><i class="icon-user"></i></span>
+                                <div class="input-group">
                                     <x-text-input placeholder="{{ $key['content_type'] }}"
                                         value="{{ $key['content_type'] }}" id="type-{{ $key['article_number'] }}"
                                         class="create form-control" type="text" name="type" :value="$key['content_type']"
@@ -70,7 +63,7 @@
                         <div class="row g-3">
                             <div class="mb-3 col-md-4">
                                 <x-input-label for="publication_title" :value="__('Publication Title')" />
-                                <div class="input-group"><span class="input-group-text"><i class="icon-user"></i></span>
+                                <div class="input-group">
                                     <x-text-input placeholder="{{ $key['publication_title'] }}"
                                         value="{{ $key['publication_title'] }}"
                                         id="publication_title-{{ $key['article_number'] }}" class="create form-control"
@@ -83,7 +76,7 @@
                             </div>
                             <div class="mb-3 col-md-4">
                                 <x-input-label for="publication_year" :value="__('Publication Year')" />
-                                <div class="input-group"><span class="input-group-text"><i class="icon-user"></i></span>
+                                <div class="input-group">
                                     <x-text-input placeholder="{{ $key['publication_year'] }}"
                                         value="{{ $key['publication_year'] }}"
                                         id="publication_year-{{ $key['article_number'] }}"
@@ -97,8 +90,7 @@
                             </div>
                             <div class="mb-3 col-md-4">
                                 <x-input-label for="citing_paper_count" :value="__('Cited')" />
-                                <div class="input-group"><span class="input-group-text"><i
-                                            class="icon-user"></i></span>
+                                <div class="input-group">
                                     <x-text-input placeholder="{{ $key['citing_paper_count'] }}"
                                         value="{{ $key['citing_paper_count'] }}"
                                         id="citing_paper_count-{{ $key['article_number'] }}"

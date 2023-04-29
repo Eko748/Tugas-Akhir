@@ -23,7 +23,7 @@
                             $("#formCreateMember").trigger("reset");
                             $("#member").modal("hide");
                             $("#table-member").DataTable().ajax.reload();
-                            location.reload();
+                            // location.reload();
                         });
                 },
                 error: function(result) {
@@ -36,22 +36,26 @@
     }
 
     // Read
-    function readMember(id) {
+    function detailMember(id) {
         $('#modalHeading').html("Detail Member");
         $('#member').modal('show');
     }
 
     // Update
-    function editMember(uuid_project) {
+    function editMember(id) {
+        let hashedId = CryptoJS.SHA256(id.toString()).toString(); // menggunakan CryptoJS untuk menghitung hash SHA-256
         $.ajax({
             url: "{{ url('/management/member-edit') }}",
             type: "GET",
             data: {
-                uuid_project: uuid_project
+                id: hashedId
             },
             success: function(data) {
                 $("#modal-content-edit").html(data);
                 return true;
+            },
+            error: function(xhr, status, error) {
+                console.log(error);
             }
         });
     }

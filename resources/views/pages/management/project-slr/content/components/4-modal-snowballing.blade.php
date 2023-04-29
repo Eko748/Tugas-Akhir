@@ -20,14 +20,14 @@
                         @foreach ($items as $key => $item)
                             <div class="row">
                                 <td>
-                                    <div class="col-md-1 col-sm-1 col-xs-1" style="text-align: center;">
+                                    <div class="col-md-2 col-sm-2 col-xs-2" style="text-align: center;">
                                         <p class="text-justify" style="text-align: center; vertical-align: middle;">
                                             {{ ++$counter }}.
                                         </p>
                                     </div>
                                 </td>
                                 <td>
-                                    <div class="col-md-11 col-sm-11 col-xs-11">
+                                    <div class="col-md-10 col-sm-10 col-xs-10">
                                         <p class="text-justify">
                                             @if (preg_match('/^\d\.\s/', $item))
                                                 {{ preg_replace('/^\d\.\s/', '', $item) }}

@@ -12,11 +12,11 @@
                     .columns()
                     .eq(0)
                     .each(function(colIdx) {
-                        if (colIdx == 8) {
+                        if (colIdx == 7) {
                             let cell = $('.filters th').eq(
                                 $(api.column(colIdx).header()).index()
                             );
-                            $(cell).html('<a href="{{ (Auth::user()->role_id == 1) ? route('management.project.export', $uuid_project) : route('project.export', $uuid_project) }}" title="Export Project" class="review-go button btn btn-success hovering"><i class="fa fa-file-text"></i></a>');
+                            $(cell).html('<a href="{{ Auth::user()->role_id == 1 ? route('management.project.export', $uuid_project) : route('project.export', $uuid_project) }}" title="Export Project" class="review-go button btn btn-success hovering"><i class="fa fa-file-text"></i></a>');
                         } else if (colIdx == 0) {
                             let cell = $('.filters th').eq(
                                 $(api.column(colIdx).header()).index()
@@ -34,10 +34,9 @@
                                 .index()))
                                 .off('keyup change')
                                 .on('change', function(e) {
-                                    // Get the search value
                                     $(this).attr('title', $(this).val());
                                     let regexr =
-                                        '({search})'; //$(this).parents('th').find('select').val();
+                                        '({search})';
 
                                     let cursorPosition = this.selectionStart;
                                     api
@@ -105,7 +104,7 @@
                     });
             },
             order: [
-                [7, 'asc']
+                [6, 'desc']
             ],
             processing: true,
             serverSide: true,
@@ -121,7 +120,7 @@
                 sZeroRecords: '<span class="badge badge-light-danger"></i>Kata kunci salah</span>',
                 sEmptyTable: '<span class="badge badge-light-danger"></i><span>Tidak ada data</span></span>',
                 sLengthMenu: '<i class="btn-outline-primary hovering fa fa-th-list"></i> _MENU_ ',
-                sInfo: '<span class="btn badge-light-primary">_START_ to _END_ of _TOTAL_ <i class="fa fa-file-text"></i></span>',
+                sInfo: '<span class="btn badge-light-primary"><i class="fa fa-folder-open"></i> _START_ to _END_ of _TOTAL_ <i class="fa fa-file-text"></i></span>',
                 sInfoEmpty: '<span class="btn badge-light-primary"><i class="fa fa-folder-open"></i> 0 to 0 of 0 <i class="fa fa-file-text"></i></span>',
                 sInfoFiltered: '<span class="badge badge-light-primary">from _MAX_ <i class="fa fa-file-text"></i></span>',
                 oPaginate: {
@@ -131,13 +130,17 @@
                     sPrevious: '<',
                 },
             },
-            ajax: "{{ (Auth::user()->role_id == 1) ? route('management.project.getTable', $project->uuid_project) : route('project.getTable', $project->uuid_project) }}",
+            ajax: "{{ Auth::user()->role_id == 1 ? route('management.project.getTable', $project->uuid_project) : route('project.getTable', $project->uuid_project) }}",
             columns: [
                 {
                     data: 'DT_RowIndex',
                     name: 'DT_RowIndex',
+                    searchable: false,
                     orderable: false,
-                    searchable: false
+                    render: function(data) {
+                        return '<div class="text-primary text-center">' + data + '.' +
+                            '</div>';
+                    },
                 },
                 {
                     data: 'code',
@@ -187,12 +190,8 @@
                     },
                 },
                 {
-                    data: 'name',
-                    name: 'name'
-                },
-                {
-                    data: 'date',
-                    name: 'date',
+                    data: 'info',
+                    name: 'info',
                 },
                 {
                     data: 'action',
@@ -217,5 +216,4 @@
             $('.read-less').hide();
         });
     });
-
 </script>

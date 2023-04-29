@@ -41,7 +41,7 @@
     <script src="{{ asset('assets/css/vendors/select2/dist/js/select2.min.js') }}"></script>
     <script src="{{ asset('assets/js/crypto-js/crypto-js.js') }}"></script>
     <!-- Plugins JS start-->
-    <script src="../assets/js/form-validation-custom.js"></script>
+    {{-- <script src="../assets/js/form-validation-custom.js"></script> --}}
     @include('pages.management.project-slr.content.js.1-data-table-js')
     @include('pages.management.project-slr.content.js.2-data-view-js')
     @include('pages.management.project-slr.content.js.3-copy-js')

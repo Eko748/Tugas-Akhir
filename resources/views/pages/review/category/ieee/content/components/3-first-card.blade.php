@@ -1,7 +1,7 @@
 <div class="col-xl-6 col-sm-6 xl-6">
     <div class="card">
         <div class="product-box">
-            <div class="product-img">
+            <div class="product-img mb-2">
                 <div class="text-start">
                     <div class="row">
                         <div class="col-md-2 col-sm-2 col-xs-1">
@@ -10,29 +10,37 @@
                         </div>
                         <div class="col-md-8 ms-2 me-1 col-sm-9 col-xs-4">
                             <div class="product-price mt-2">
-                                <h4>
-                                    <b>
-                                        {{ $key['title'] }}
-                                    </b>
-                                </h4>
+                                <span>
+                                    No. {{ $key['article_number'] }}
+                                </span>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="product-hover">
                     <ul>
-                        <li><a data-bs-toggle="modal" onclick="addData()" data-bs-placement="bottom"
-                                data-bs-target="#modalCreate-{{ $key['article_number'] }}"><i class="icon-plus"></i></a>
+                        <li>
+                            <a data-bs-toggle="modal" title="Lihat Detail"
+                                data-bs-target="#modalView-{{ $key['article_number'] }}">
+                                <i class="icon-eye"></i>
+                            </a>
                         </li>
-                        <li><a data-bs-toggle="modal" data-bs-target="#modalView-{{ $key['article_number'] }}"><i
-                                    class="icon-eye"></i></a></li>
+
+                        <li>
+                            <a data-bs-toggle="modal" title="Tambahkan Data Review ke Project" onclick="addData()"
+                                data-bs-placement="bottom" data-bs-target="#modalCreate-{{ $key['article_number'] }}">
+                                <i class="icon-plus"></i>
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
             @include('pages.review.category.ieee.content.components.5-modal-create')
             @include('pages.review.category.ieee.content.components.6-modal-view')
             <div class="product-details">
-                <span class="text-dark">No. {{ $key['article_number'] }}</span>
+                <div class="product-price">
+                    {{ $key['title'] }}
+                </div>
                 <hr>
                 <div class="rating">
                     <span>

@@ -49,17 +49,24 @@ class Handler extends ExceptionHandler
     // return response()->view('pages.error.404.index', ['role_id' => $role_id], Response::HTTP_NOT_FOUND);
     public function render($request, Throwable $exception)
     {
-        if ($this->isHttpException($exception)) {
-            if ($exception instanceof HttpException && $exception->getStatusCode() == 404) {
-                $user = Auth::user();
-                $role_id = $user ? $user->role_id : null;
-                return response()->view('pages.error.404.index', ['role_id' => $role_id])->withHeaders([
-                    'Cache-Control' => 'no-cache, no-store, must-revalidate',
-                    'Pragma' => 'no-cache',
-                    'Expires' => '0',
-                ]);
-            }
-        }
+        // if ($this->isHttpException($exception)) {
+        //     if ($exception instanceof HttpException && $exception->getStatusCode() == 404) {
+        //         $user = Auth::user();
+        //         $role_id = $user ? $user->role_id : null;
+        //         return response()->view('pages.error.404.index', ['role_id' => $role_id])->withHeaders([
+        //             'Cache-Control' => 'no-cache, no-store, must-revalidate',
+        //             'Pragma' => 'no-cache',
+        //             'Expires' => '0',
+        //         ]);
+        //     }
+        // }
+        // $user = Auth::user();
+        // $role_id = $user ? $user->role_id : null;
+        // return response()->view('pages.error.404.index', ['role_id' => $role_id])->withHeaders([
+        //     'Cache-Control' => 'no-cache, no-store, must-revalidate',
+        //     'Pragma' => 'no-cache',
+        //     'Expires' => '0',
+        // ]);
 
         return parent::render($request, $exception);
     }

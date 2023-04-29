@@ -64,26 +64,34 @@ class MemberController extends ManagementMasterController implements ValidationC
             $data = User::where('created_by', $auth->id)->orderBy('created_at', 'desc')->get();
             return DataTables::of($data)
                 ->addIndexColumn()->addColumn('action', function ($data) {
-                    $btn = '<div style="text-align: center; vertical-align: middle;">
-                                <button title="Detail" class="btn btn-info btn-sm btn-outline-dark hovering shadow-sm"
-                                 onclick="readMember(' . $data->id . ')">
+                    $btn = '<div class="text-center">
+                                <button title="Detail" class="mb-2 review-go btn-info btn-outline-dark"
+                                 onclick="detailMember(' . $data->id . ')" type="button">
                                     <i class="fa fa-address-book"></i>
                                 </button>
-                                <button title="Edit" class="btn btn-secondary btn-sm btn-outline-dark hovering shadow-sm"
+                                <button title="Edit" class="mb-2 review-go btn-warning btn-outline-dark"
                                  onclick="editMember(' . $data->id . ')" type="button" data-bs-toggle="modal" data-bs-target="#updateMember">
                                     <i class="fa fa-pencil"></i>
                                 </button>
-                                <button title="Delete" class="btn btn-danger btn-s btn-outline-dark hovering shadow-sm"
+                                <button title="Delete" class="review-go btn-danger btn-outline-dark"
                                  onclick="deleteMember(' . $data->id . ')">
                                     <i class="fa fa-trash"></i>
                                 </button>  
                             </div>';
                     return $btn;
-                })->addColumn('date', function ($data) {
+                })->addColumn('info', function ($data) {
+                    $online = '<span class="text-success">Online</span>';
+                    $offline = '<span class="text-secondary">Offline</span>';
+                    $user_id = $data->id;
+                    if (Cache::has('user-is-online-' . $user_id)) {
+                        $status = $online;
+                    } else {
+                        $status = $offline;
+                    }
                     $date = $data->last_seen;
                     $parse = Carbon::parse($date)->isoFormat('LLLL');
-                    $danger = '<span class="badge btn-outline-danger hovering badge-light-danger">Belum ada riwayat Login</span>';
-                    $info = '<span class="badge btn-outline-primary hovering badge-light-primary">' . $parse . '</span>';
+                    $danger = '<small><span class="badge btn-outline-danger hovering badge-light-danger">Belum ada riwayat Login</span><br><span>'. $status .'<span></small>';
+                    $info = '<small><span class="badge btn-outline-primary hovering badge-light-primary">' . $parse . '</span><br><span>'. $status .'<span></small>';
 
                     if ($date == null) {
                         return $danger;
@@ -102,17 +110,7 @@ class MemberController extends ManagementMasterController implements ValidationC
                         return $info;
                     }
                     return $ip;
-                })->addColumn('info', function ($data) {
-                    $online = '<span class="text-success">Online</span>';
-                    $offline = '<span class="text-secondary">Offline</span>';
-                    $user_id = $data->id;
-                    if (Cache::has('user-is-online-' . $user_id)) {
-                        return $online;
-                    } else {
-                        return $offline;
-                    }
-                    return $user_id;
-                })->rawColumns(['action', 'date', 'info', 'ip'])->make(true);
+                })->rawColumns(['action', 'info', 'ip'])->make(true);
         }
     }
 
@@ -162,18 +160,16 @@ class MemberController extends ManagementMasterController implements ValidationC
             $last_number = substr($last_code, 1);
 
             if ($last_character === 'Z') {
-                // jika karakter terakhir adalah Z, maka increment karakter kedua dan reset karakter pertama ke 'A'
                 $new_character = 'A';
                 $new_number = $last_number + 1;
             } else {
-                // jika karakter terakhir bukan Z, maka increment karakter pertama dan gunakan nomor yang sama
                 $new_character = chr(ord($last_character) + 1);
                 $new_number = $last_number;
             }
 
             $new_code = $new_character . str_pad($new_number, strlen($last_number), '0', STR_PAD_LEFT);
         } else {
-            $new_code = 'B'; // jika tidak ada $last_member, membuat kode awal dengan 'B'
+            $new_code = 'B';
         }
 
         $code = $new_code;
@@ -228,16 +224,34 @@ class MemberController extends ManagementMasterController implements ValidationC
 
     public function editMember(Request $request)
     {
-        $edit = User::where('id', $request->id)->first();
-        $email = $edit->email;
-        $string = explode('.', $email, 2);
-        $data = [
-            'edit' => $edit,
-            'string' => $string,
-        ];
-
-        return view('pages.management.member.content.components.4-edit-member', $data);
+        $id = Auth::user()->hasLeader;
+        $auth = $id[0]['id'];
+        try {
+            $hashedId = $request->id;
+            $users = User::where('created_by', $auth)->get(); // ambil semua pengguna dari database
+            $edit = null;
+            foreach ($users as $user) {
+                $hash = hash('sha256', $user->id); // hashing nilai id pengguna untuk membandingkan dengan nilai hash yang diterima
+                if ($hash === $hashedId) {
+                    $edit = $user;
+                    break;
+                }
+            }
+            if (!$edit) {
+                return response()->json(['error' => 'User not found.'], 404);
+            }
+            $email = $edit->email;
+            $string = explode('.', $email, 2);
+            $data = [
+                'edit' => $edit,
+                'string' => $string,
+            ];
+            return view('pages.management.member.content.components.4-edit-member', $data);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Something went wrong.'], 500);
+        }
     }
+
 
     public function updateMember(Request $request)
     {
@@ -269,7 +283,7 @@ class MemberController extends ManagementMasterController implements ValidationC
             "email" => $string
         ]);
 
-        return response()->json($member);
+        return response()->json(['success' => 'Data berhasil diupdate!']);
     }
 
     public function deleteMember($id)

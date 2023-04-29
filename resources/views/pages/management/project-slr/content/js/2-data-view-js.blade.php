@@ -3,40 +3,45 @@
         $('#modalHeadingViewProject').html("Backward Snowballing");
         $('#modal-content-detail').hide();
         $('#modal-content-snowballing').show();
+        let hashedId = CryptoJS.SHA256(id.toString()).toString();
         $.ajax({
-            url: '{{ (Auth::user()->role_id == 1) ? route('management.project.snowBalling', $uuid_project) : route('project.snowBalling', $uuid_project) }}',
+            url: '{{ Auth::user()->role_id == 1 ? route('management.project.snowBalling', $uuid_project) : route('project.snowBalling', $uuid_project) }}',
             type: 'GET',
             data: {
-                code: id
+                code: hashedId
             },
             success: function(data) {
                 $('#modal-content-snowballing').html(data);
                 $('#viewProject').modal('show');
+                return true;
+            },
+            error: function(xhr, status, error) {
+                console.log(error);
             }
         });
-        // Mendapatkan elemen teks yang ingin disalin
-
     }
 
     function showDetail(id) {
         $('#modalHeadingViewProject').html("Detail Data");
         $('#modal-content-snowballing').hide();
         $('#modal-content-detail').show();
+        let hashedId = CryptoJS.SHA256(id.toString()).toString();
         $.ajax({
-            url: '{{ (Auth::user()->role_id == 1) ? route('management.project.modalDetail', $uuid_project) : route('project.modalDetail', $uuid_project) }}',
+            url: '{{ Auth::user()->role_id == 1 ? route('management.project.modalDetail', $uuid_project) : route('project.modalDetail', $uuid_project) }}',
             type: 'GET',
             data: {
-                code: id,
-                user: {{ Auth::user()->id }}
+                code: hashedId,
             },
             success: function(data) {
                 $('#modal-content-detail').html(data);
                 $('#viewProject').modal('show');
+                return true;
+            },
+            error: function(xhr, status, error) {
+                console.log(error);
             }
         });
     }
-
-
 
     $('body').on('click', '#deleteSLR', function() {
         let id = $(this).data('id');

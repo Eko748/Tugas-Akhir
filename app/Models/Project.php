@@ -10,7 +10,12 @@ class Project extends Model
 {
     use HasFactory;
     protected $guarded = [];
-    
+    protected $hidden = [
+        'id', 'uuid_project', 'leader_id',
+        'created_by', 'created_at', 'updated_by', 'updated_at',
+        'deleted_by', 'deleted_at',
+    ];
+
     public function getUser()
     {
         return $this->belongsTo(User::class, 'created_by', 'id');

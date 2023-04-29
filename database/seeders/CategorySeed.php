@@ -24,7 +24,7 @@ class CategorySeed extends Seeder
         Category::create(
             [
                 'category_code' => 'B',
-                'category_name' => 'ScienceDirect'
+                'category_name' => 'ACM'
             ],
         );
         Category::create(
@@ -36,7 +36,7 @@ class CategorySeed extends Seeder
         Category::create(
             [
                 'category_code' => 'D',
-                'category_name' => 'ACM'
+                'category_name' => 'ScienceDirect'
             ],
         );
         Category::create(

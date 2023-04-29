@@ -12,29 +12,33 @@
                     .columns()
                     .eq(0)
                     .each(function(colIdx) {
-                        if (colIdx == 6) {
+                        if (colIdx == 5) {
                             let cell = $('.filters th').eq(
                                 $(api.column(colIdx).header()).index()
                             );
-                            $(cell).html('@if ($institute == null)'+
-                            '<button class="btn btn-primary btn-sm button cool" onclick="addInstitute()" data-bs-toggle="modal" data-bs-target="#institute" id="createInstitute">Create Institute</button>'+
-                            '@else'+
-                            '<button title="Create Member" class="btn-primary me-1 ms-1 btn-sm button cool btn-outline-dark hovering shadow-sm" onclick="addMember()" data-bs-toggle="modal" data-bs-target="#member" id="createMember"><i class="fa fa-plus-circle"></i></button>'+
-                            '<button onclick="exportData()" title="Export Member" class="btn-success me-1 ms-1 btn-sm button cool btn-outline-dark hovering shadow-sm"><i class="fa fa-file-excel-o"></i></button>'+
-                            '@endif');
+                            $(cell).html('@if ($institute == null)' +
+                                '' +
+                                '@else' +
+                                '<button title="Create Member" class="row btn btn-primary me-1 ms-1 btn-xs button cool btn-outline-dark hovering shadow-sm" onclick="addMember()" data-bs-toggle="modal" data-bs-target="#member" id="createMember"><i class="fa fa-plus-circle"></i> <small></small></button>' +
+                                '@endif');
                         } else if (colIdx == 0) {
                             let cell = $('.filters th').eq(
                                 $(api.column(colIdx).header()).index()
                             );
-                            $(cell).html('');
+                            $(cell).html('@if ($institute == null)' +
+                                '<button class="btn btn-primary btn-sm button cool" onclick="addInstitute()" data-bs-toggle="modal" data-bs-target="#institute" id="createInstitute">Create Institute</button>' +
+                                '@else' +
+                                '<button onclick="exportData()" title="Export Member" class="btn btn-success me-1 ms-1 btn-sm button cool btn-outline-dark hovering shadow-sm"><i class="fa fa-file-text"></i></button>' +
+                                '@endif');
                         } else if (colIdx == 1) {
                             let cell = $('.filters th').eq(
                                 $(api.column(colIdx).header()).index()
                             );
                             let title = $(cell).text();
                             let modal = $(this);
-                            $(cell).html('<select class="user form-control form-control-sm select2" style="width: 100%;"></select>'+
-                            '<input type="hidden" class="name-member">');
+                            $(cell).html(
+                                '<select class="user form-control form-control-sm select2" style="width: 100%;"></select>' +
+                                '<input type="hidden" class="name-member">');
                             $('.select2').select2({
                                 placeholder: title,
                                 allowClear: true,
@@ -63,13 +67,12 @@
                                 modal.find('.select2').val(name);
                             });
                             $('.select2', $('.filters th').eq($(api.column(colIdx).header())
-                                .index()))
+                                    .index()))
                                 .off('keyup change')
                                 .on('change', function(e) {
-                                    // Get the search value
                                     $(this).attr('title', $(this).val());
                                     let regexr =
-                                        '({search})'; //$(this).parents('th').find('select').val();
+                                        '({search})';
 
                                     let cursorPosition = this.selectionStart;
                                     api
@@ -107,11 +110,9 @@
                                 )
                                 .off('keyup change')
                                 .on('change', function(e) {
-                                    // Get the search value
                                     $(this).attr('title', $(this).val());
                                     let regexr =
-                                        '({search})'; //$(this).parents('th').find('select').val();
-
+                                        '({search})';
                                     let cursorPosition = this.selectionStart;
                                     api
                                         .column(colIdx)
@@ -137,7 +138,7 @@
                     });
             },
             order: [
-                [0, 'asc']
+                [4, 'asc']
             ],
             processing: true,
             serverSide: true,
@@ -154,7 +155,7 @@
                 sEmptyTable: '<span class="badge badge-light-danger"></i><p>Tidak ada data</p></span>',
                 sLengthMenu: '<i class="btn-outline-primary hovering fa fa-th-list"></i> _MENU_ ',
                 sInfo: '<span class="btn badge-light-primary mb-2 pull-left">_START_ to _END_ of _TOTAL_ <i class="fa fa-user"></i></span>',
-                sInfoEmpty: '<span class="btn badge-light-primary"><i class="fa fa-eye"></i> 0 to 0 of 0 <i class="fa fa-user"></i></span>',
+                sInfoEmpty: '<span class="btn badge-light-primary"><i class="fa fa-folder-open"></i> 0 to 0 of 0 <i class="fa fa-user"></i></span>',
                 sInfoFiltered: '<span class="badge badge-light-primary">from _MAX_ <i class="fa fa-users"></i></span>',
                 oPaginate: {
                     sFirst: '',
@@ -167,7 +168,12 @@
             columns: [{
                     data: 'DT_RowIndex',
                     name: 'DT_RowIndex',
-                    searchable: false
+                    searchable: false,
+                    orderable: false,
+                    render: function(data) {
+                        return '<div class="text-primary text-center">' + data + '.' +
+                            '</div>';
+                    },
                 },
                 {
                     data: 'name',
@@ -180,10 +186,6 @@
                 {
                     data: 'info',
                     name: 'info'
-                },
-                {
-                    data: 'date',
-                    name: 'date'
                 },
                 {
                     data: 'ip',

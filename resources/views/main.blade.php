@@ -86,7 +86,7 @@
     <script src="{{ asset('assets/js/scrollbar/custom.js') }}"></script>
     <script src="{{ asset('assets/js/config.js') }}"></script>
     <script src="{{ asset('assets/js/script.js') }}"></script>
-    {{-- <script src="{{ asset('assets/js/theme-customizer/customizer.js') }}"></script> --}}
+    <script src="{{ asset('assets/js/theme-customizer/customizer.js') }}"></script>
 
     <script src="{{ asset('assets/js/popover-custom.js') }}"></script>
     <script src="{{ asset('assets/css/vendors/select2/dist/js/select2.min.js') }}"></script>
