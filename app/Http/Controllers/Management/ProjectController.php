@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Management;
 
-use App\Http\Controllers\Controller;
 use App\Models\Leader;
 use App\Models\Project;
 use Carbon\Carbon;
@@ -11,43 +10,42 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
-class ProjectController extends Controller
+class ProjectController extends ManagementController
 {
-    private $data;
+    private string $child = 'Project';
+    private array $data;
 
-    public function __construct(Request $request)
+    public function __construct(array $data = [])
     {
-        $this->middleware(function ($request, $next) {
-            $logicProject = $this->setLogicProject($request);
-            $this->data = [
-                'parent' => 'Management',
-                'child' => 'Project',
-                'projects' => $logicProject['projects'],
-                'current_p' => $logicProject['current_p'],
-                'end_p' => $logicProject['end_p'],
-                'done' => $logicProject['done'],
-                'doing' => $logicProject['doing'],
-                'all_project' => $logicProject['all_project'],
-                'page' => $logicProject['page'],
-                'page_doing' => $logicProject['page_doing']
-            ];
-            return $next($request);
-        });
+        $this->data = $data;
     }
 
-    public function showProject()
+    public function showProject(Request $request)
     {
-        return view('pages.management.project.index', $this->data);
+        return view('pages.management.project.index', $this->setLogicProject($request));
     }
 
     public function requestProjectData(Request $request)
     {
         if ($request->ajax()) {
+            $logicProject = $this->setLogicProject($request);
             if ($request->has('type') && $request->input('type') == 'projects') {
+                $this->data = [
+                    'projects' => $logicProject['projects'],
+                    'all_project' => $logicProject['all_project']
+                ];
                 return view('pages.management.project.content.components.2-data', $this->data)->render();
             } elseif ($request->has('type') && $request->input('type') == 'doing') {
+                $this->data = [
+                    'doing' => $logicProject['doing'],
+                    'page_doing' => $logicProject['page_doing']
+                ];
                 return view('pages.management.project.content.components.3-data-doing', $this->data)->render();
             } elseif ($request->has('type') && $request->input('type') == 'done') {
+                $this->data = [
+                    'done' => $logicProject['done'],
+                    'page' => $logicProject['page']
+                ];
                 return view('pages.management.project.content.components.4-data-done', $this->data)->render();
             }
         }
@@ -55,37 +53,10 @@ class ProjectController extends Controller
 
     private function setLogicProject(Request $request)
     {
-        if (Auth::user()->id == 1) {
-            $detail = Project::with('hasProject.getUser')->withCount('hasProject')
-                ->where('created_by', Auth::user()->id)
-                ->orderBy('created_at', 'desc');
-            $all_project = $detail->get();
-            $projects = $detail->paginate(12);
-            $end = Project::with('hasProject.getUser')->withCount('hasProject')
-                ->where('created_by', Auth::user()->id)
-                ->orderBy('created_at', "desc")
-                ->get();
-        } else {
-            $detail = Project::with('getLeader', 'hasProject.getUser')->withCount('hasProject')
-                ->whereHas('getLeader', function ($q) {
-                    $q->where('id', Auth::user()->created_by);
-                })
-                ->orderBy('created_at', "desc");
-            $all_project = $detail->get();
-            $projects = $detail->paginate(12);
-            $end = Project::with('getLeader', 'hasProject.getUser')->withCount('hasProject')
-                ->whereHas('getLeader', function ($q) {
-                    $q->where('id', Auth::user()->created_by);
-                })
-                ->orderBy('created_at', "desc")
-                ->get();
-        }
+        $get = $this->getProjectData();
 
         $current_p = Carbon::now()->setTimezone('Asia/Jakarta');
-        $end_p = $projects->pluck('end_date')->flatten()->max() ?
-            Carbon::parse($projects->pluck('end_date')->flatten()->max())->setTimezone('Asia/Jakarta') : null;
-
-        $done = $end->where('end_date', '<=', $current_p);
+        $done = $get['end']->where('end_date', '<=', $current_p);
         $perPage = 12;
         $currentPage = $request->page ?? 1;
         $page_done = new LengthAwarePaginator(
@@ -96,7 +67,7 @@ class ProjectController extends Controller
             ['path' => $request->url()]
         );
 
-        $doing = $end->where('end_date', '>', $current_p);
+        $doing = $get['end']->where('end_date', '>', $current_p);
         $perPage = 12;
         $currentPage = $request->page ?? 1;
         $page_doing = new LengthAwarePaginator(
@@ -108,14 +79,14 @@ class ProjectController extends Controller
         );
 
         return [
-            'projects' => $projects,
-            'current_p' => $current_p,
-            'end_p' => $end_p,
-            'done' => $page_done,
+            'parent' => $this->parent,
+            'child' => $this->child,
+            'projects' => $get['projects'],
+            'all_project' => $get['all_project'],
             'doing' => $page_doing,
-            'page' => $done,
             'page_doing' => $doing,
-            'all_project' => $all_project,
+            'done' => $page_done,
+            'page' => $done,
         ];
     }
 

@@ -5,6 +5,7 @@
 
         $("body").on("submit", "#formCreateProject", function(e) {
             e.preventDefault();
+            $('#formCreateProject button[type="submit"]').attr('disabled', true);
             let formData = new FormData(this);
             let CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             let url = '{{ route('management.project.create') }}'
@@ -21,7 +22,6 @@
                         .then((value) => {
                             $("#formCreateProject").trigger("reset");
                             $("#project").modal("hide");
-                            location.reload();
                         });
                 },
                 error: function(result) {
@@ -29,6 +29,9 @@
                     $("#formCreateProject").trigger("reset");
                     $("#project").modal("hide");
                 },
+                complete: function() {
+                    $('#formCreateProject button[type="submit"]').attr('disabled', false);
+                }
             });
         });
     }

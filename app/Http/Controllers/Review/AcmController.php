@@ -2,32 +2,34 @@
 
 namespace App\Http\Controllers\Review;
 
+use App\Http\Controllers\Interface\ReviewData;
 use App\Http\Controllers\Review\ReviewMasterController;
 use Goutte\Client;
 use Illuminate\Http\Request;
 
-class AcmController extends ReviewMasterController
+class AcmController extends ReviewMasterController implements ReviewData
 {
     private string $child = 'ACM';
     private array $data;
 
-    public function __construct()
+    public function __construct(array $data = [])
+    {
+        $this->data = $data;
+    }
+
+    public function showReviewData()
     {
         $this->data = [
             'parent' => $this->parent,
             'child' => $this->child,
         ];
-    }
-
-    public function showReviewAcm()
-    {
         return view('pages.review.category.acm.index', $this->data);
     }
 
-    public function requestAcmData(Request $request)
+    public function requestReviewData(Request $request)
     {
         try {
-            $acm = $this->searchAcmData($request);
+            $acm = $this->searchReviewData($request);
             $this->data = [
                 'search' => $acm['query'],
                 'key' => $acm['key']
@@ -40,7 +42,7 @@ class AcmController extends ReviewMasterController
         }
     }
 
-    private function searchAcmData(Request $request)
+    public function searchReviewData($request)
     {
         try {
             $delay = 2000;

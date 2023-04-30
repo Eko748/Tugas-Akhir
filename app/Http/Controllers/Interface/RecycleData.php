@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Interface;
 
 use Illuminate\Http\Request;
 
-interface RecycleController
+interface RecycleData
 {
+    public function showRecycleData();
     public function requestRecycleData(Request $request);
 }

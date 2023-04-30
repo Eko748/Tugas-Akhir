@@ -9,6 +9,7 @@ use App\Http\Controllers\{
 use App\Http\Controllers\Management\{
     InstituteController, MemberController, ProjectController, ProjectSLRController
 };
+use App\Http\Controllers\Recycle\RecycleMemberController;
 use App\Http\Controllers\Recycle\RecycleProjectController;
 use App\Http\Controllers\Review\{
     IeeeController, AcmController, CiteSeerxController, ReviewMasterController, 
@@ -68,23 +69,23 @@ Route::middleware('auth')->group(function () {
             });
             // IEEE
             Route::controller(IeeeController::class)->group(function () {
-                Route::get('/article-ieee', 'showReviewIeee')->name('review.ieee.index');
-                Route::get('/article-ieee-request', 'requestIeeeData')->name('review.ieee.request');
+                Route::get('/article-ieee', 'showReviewData')->name('review.ieee.index');
+                Route::get('/article-ieee-request', 'requestReviewData')->name('review.ieee.request');
+            });
+            // ACM
+            Route::controller(AcmController::class)->group(function () {
+                Route::get('/acm', 'showReviewData')->name('review.acm.index');
+                Route::get('/acm-request', 'requestReviewData')->name('review.acm.request');
+            });
+            // Springer
+            Route::controller(SpringerController::class)->group(function () {
+                Route::get('/springer', 'showReviewData')->name('review.springer.index');
+                Route::get('/springer-request', 'requestReviewData')->name('review.springer.request');
             });
             // ScienceDirect
             Route::controller(ScienceDirectController::class)->group(function () {
                 Route::get('/sciencedirect', 'showReviewScienceDirect')->name('review.sciencedirect.index');
                 Route::get('/sciencedirect-request', 'requestScienceDirectData')->name('review.sciencedirect.request');
-            });
-            // Springer
-            Route::controller(SpringerController::class)->group(function () {
-                Route::get('/springer', 'showReviewSpringer')->name('review.springer.index');
-                Route::get('/springer-request', 'requestSpringerData')->name('review.springer.request');
-            });
-            // ACM
-            Route::controller(AcmController::class)->group(function () {
-                Route::get('/acm', 'showReviewAcm')->name('review.acm.index');
-                Route::get('/acm-request', 'requestAcmData')->name('review.acm.request');
             });
             // CiteSeerx
             Route::controller(CiteSeerxController::class)->group(function () {
@@ -93,13 +94,17 @@ Route::middleware('auth')->group(function () {
         });
         // Recycle
         Route::prefix("recycle")->group(function () {
+            Route::controller(RecycleMemberController::class)->group(function () {
+                Route::get('/member', 'showRecycleData')->name('recycle.member');
+                Route::get('/member-request', 'requestRecycleData')->name('recycle.member.request');
+            });
             Route::controller(RecycleProjectController::class)->group(function () {
-                Route::get('/project', 'showRecycleProject')->name('recycle.project');
+                Route::get('/project', 'showRecycleData')->name('recycle.project');
                 Route::get('/project-request', 'requestRecycleData')->name('recycle.project.request');
             });
         });
         // To do
     });
 
-    Route::fallback([PageHandlingController::class, 'showPage404']);
+    // Route::fallback([PageHandlingController::class, 'showPage404']);
 });

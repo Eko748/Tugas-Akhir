@@ -12,12 +12,12 @@
                     .columns()
                     .eq(0)
                     .each(function(colIdx) {
-                        if (colIdx == 7) {
+                        if (colIdx == 0) {
                             let cell = $('.filters th').eq(
                                 $(api.column(colIdx).header()).index()
                             );
                             $(cell).html('');
-                        } else if (colIdx == 0) {
+                        } else if (colIdx == 4) {
                             let cell = $('.filters th').eq(
                                 $(api.column(colIdx).header()).index()
                             );
@@ -66,7 +66,7 @@
                     });
             },
             order: [
-                [6, 'desc']
+                [0, 'desc']
             ],
             processing: true,
             serverSide: true,
@@ -92,7 +92,7 @@
                     sPrevious: '<',
                 },
             },
-            ajax: "{{ route('recycle.project.request') }}",
+            ajax: "{{ route('recycle.member.request') }}",
             columns: [
                 {
                     data: 'DT_RowIndex',
@@ -101,55 +101,16 @@
                     searchable: false
                 },
                 {
-                    data: 'sub',
-                    name: 'sub'
+                    data: 'name',
+                    name: 'name'
                 },
                 {
-                    data: 'code',
-                    name: 'code'
-                },
-                {
-                    data: 'article',
-                    name: 'article',
-                    render: function (data, type, row) { 
-                            if (data.split(' ').length > 3) {
-                            var short_text = data.split(' ').slice(0,3).join(' ') + '...  ';
-                            var full_text = data;
-                            return '<div class="short-text">' + short_text + '<a href="#" class="read-more">  <small><i class="fa fa-chevron-circle-right""></i></small></a></div><div class="full-text" style="display: none;">' + full_text + '<a href="#" class="read-less">  <small><i class="fa fa-chevron-circle-left"></i></small></a></div>';
-                        } else {
-                            return data;
-                        }
-                    },
-                },
-                {
-                    data: 'abstracts',
-                    name: 'abstracts',
-                    render: function (data, type, row) { 
-                            if (data.split(' ').length > 3) {
-                            var short_text = data.split(' ').slice(0,3).join(' ') + '...  ';
-                            var full_text = data;
-                            return '<div class="short-text">' + short_text + '<a href="#" class="read-more">  <small><i class="fa fa-chevron-circle-right""></i></small></a></div><div class="full-text" style="display: none;">' + full_text + '<a href="#" class="read-less">  <small><i class="fa fa-chevron-circle-left"></i></small></a></div>';
-                        } else {
-                            return data;
-                        }
-                    },
-                },
-                {
-                    data: 'authors',
-                    name: 'authors',
-                    render: function (data, type, row) { 
-                            if (data.split(' ').length > 3) {
-                            var short_text = data.split(' ').slice(0,3).join(' ') + '...  ';
-                            var full_text = data;
-                            return '<div class="short-text">' + short_text + '<a href="#" class="read-more">  <small><i class="fa fa-chevron-circle-right""></i></small></a></div><div class="full-text" style="display: none;">' + full_text + '<a href="#" class="read-less">  <small><i class="fa fa-chevron-circle-left"></i></small></a></div>';
-                        } else {
-                            return data;
-                        }
-                    },
+                    data: 'email',
+                    name: 'email'
                 },
                 {
                     data: 'info',
-                    name: 'info',
+                    name: 'info'
                 },
                 {
                     data: 'action',

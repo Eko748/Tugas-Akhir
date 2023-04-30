@@ -7,7 +7,7 @@
 
     <div class="container-fluid">
         <div class="row">
-            @include('pages.recycle.project.content.components.2-data-table')
+            @include('pages.recycle.member.content.components.2-data-table')
         </div>
     </div>
 </div>

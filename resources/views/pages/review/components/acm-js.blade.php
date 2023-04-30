@@ -10,12 +10,7 @@
 
         showLoading();
 
-        let requestTimeout = setTimeout(function() {
-            $("#loading").hide();
-            alert('Request timed out. Please try again.');
-        }, 60000);
-
-        $.ajax({
+        let xhr = $.ajax({
             type: "GET",
             data: {
                 'search': search,
@@ -27,6 +22,19 @@
                 $('#data-review').html(data).show();
             }
         });
+
+        let requestTimeout = setTimeout(function() {
+            $("#loading").hide();
+            swal({
+                title: 'Request Timeout!',
+                text: 'Mohon periksa jaringan anda',
+                type: 'error',
+                onClose: function() {
+                    $('#data-review').show();
+                }
+            });
+            xhr.abort();
+        }, 60000);
     });
 
     function cleanSearchQuery() {
@@ -47,8 +55,11 @@
     function addData() {
         $("body").on("submit", ".formCreateProjectData", function(e) {
             e.preventDefault();
+            $('.formCreateProjectData button[type="submit"]').attr('disabled', true);
             let formData = new FormData(this);
             let CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+            formData.append('code', 'B');
+            formData.append('category_id', '2');
             let url =
                 '{{ Auth::user()->role_id == 1 ? route('review.master.create') : route('master.create') }}'
             $.ajax({
@@ -64,7 +75,6 @@
                         .then((value) => {
                             $(".formCreateProjectData").trigger("reset");
                             $(".modalCreate").modal("hide");
-                            // location.reload();
                         });
                 },
                 error: function(result) {
@@ -72,6 +82,9 @@
                     $(".formCreateProjectData").trigger("reset");
                     $(".modalCreate").modal("hide");
                 },
+                complete: function() {
+                    $('.formCreateProjectData button[type="submit"]').attr('disabled', false);
+                }
             });
         });
     }

@@ -5,12 +5,9 @@
                 <thead class="table-primary">
                     <tr>
                         <th class="align-baseline text-center">No</th>
-                        <th class="align-baseline">Subject</th>
-                        <th class="align-baseline">Code</th>
-                        <th class="align-baseline">Title</th>
-                        <th class="align-baseline">Abstract</th>
-                        <th class="align-baseline">Authors</th>
-                        <th class="align-baseline">Deleted Info</th>
+                        <th id="email" class="align-baseline">Nama</th>
+                        <th id="email" class="align-baseline">Email</th>
+                        <th id="email" class="align-baseline">Deleted Info</th>
                         <th class="align-baseline text-center">
                             <i class="fa fa-tags"></i>
                         </th>

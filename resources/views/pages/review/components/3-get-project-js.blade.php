@@ -52,10 +52,7 @@
                 },
                 minimumInputLength: 0,
                 minimumResultsForSearch: 0,
-            }).on('select2:select', function(e) {
-                let data = e.params.data;
-                let projectId = data.id;
-            });
+            })
         });
     });
 </script>

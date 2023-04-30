@@ -9,8 +9,7 @@
                 <form id="" class="formCreateProjectData theme-form needs-validation" method="post"
                     onsubmit="enableInput()" action="" novalidate="">
                     @csrf
-                    <input type="hidden" class="slr-code" name="reference_source" value="">
-                    <input type="hidden" name="category_id" value="1">
+                    <input type="hidden" class="slr-code" name="reference_source">
                     <div class="modal-body">
                         <div class="row g-2">
                             <div class="mb-3 col-md-12">
@@ -79,9 +78,8 @@
                                 <div class="input-group">
                                     <x-text-input placeholder="{{ $key['publication_year'] }}"
                                         value="{{ $key['publication_year'] }}"
-                                        id="publication_year-{{ $key['article_number'] }}"
-                                        class="create form-control" type="text" name="year" :value="$key['publication_year']"
-                                        disabled />
+                                        id="publication_year-{{ $key['article_number'] }}" class="create form-control"
+                                        type="text" name="year" :value="$key['publication_year']" disabled />
                                     <x-input-error :messages="$errors->get('publication_year')" class="mt-2" />
                                     <div class="invalid-tooltip">Please enter
                                         publication year

@@ -6,6 +6,7 @@
         $('.modal .modal-dialog').attr('class', 'modal-dialog  fadeInLeft  animated');
         $("body").on("submit", "#formCreateMember", function(e) {
             e.preventDefault();
+            $('#formCreateMember button[type="submit"]').attr('disabled', true);
             let formData = new FormData(this);
             let CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             let url = "{{ route('management.member.create') }}"
@@ -23,7 +24,6 @@
                             $("#formCreateMember").trigger("reset");
                             $("#member").modal("hide");
                             $("#table-member").DataTable().ajax.reload();
-                            // location.reload();
                         });
                 },
                 error: function(result) {
@@ -31,6 +31,9 @@
                     $("#formCreateMember").trigger("reset");
                     $("#member").modal("hide");
                 },
+                complete: function() {
+                    $('#formCreateMember button[type="submit"]').attr('disabled', false);
+                }
             });
         });
     }
@@ -69,6 +72,7 @@
 
         $("body").on("submit", "#formUpdateMember", function(e) {
             e.preventDefault();
+            $('#formUpdateMember button[type="submit"]').attr('disabled', true);
             let txt_id = $("#update_id").val();
             let txt_name = $("#update_name").val();
             let txt_email = $("#update_email").val();
@@ -81,7 +85,7 @@
                     name: txt_name,
                     email: txt_email
                 },
-                success: function(data) {
+                success: function(result) {
                     $("#updateMember").modal("hide");
                     swal({
                         type: "success",
@@ -90,15 +94,20 @@
                     }).then(function() {
                         $("#formUpdateMember").trigger("reset");
                         $("#table-member").DataTable().ajax.reload();
-                        //location.reload(true);
                     });
                 },
                 error: function(result) {
-                    swal("Error!", "Data sudah ada atau yang lainnya", "error");
-                    $("#formUpdatemember").trigger("reset");
-                    $("#updateMember").modal("hide");
-                    $("#table-member").DataTable().ajax.reload();
+                    swal({
+                        type: "error",
+                        title: "Fail!",
+                        text: "Data Gagal Diubah!",
+                    }).then(function() {
+                        $("#formUpdateMember").trigger("reset");
+                    });
                 },
+                complete: function() {
+                    $('#formUpdateMember button[type="submit"]').attr('disabled', false);
+                }
             });
         });
     }

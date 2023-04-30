@@ -65,7 +65,7 @@
                                                 <div class="row">
                                                     @if ($key == 0)
                                                         <div class="col-md-1 text-justify" style="text-align: center;">
-                                                            <p class="text-justify pull-right">
+                                                            <p class="text-justify">
                                                                 {{ ++$counter }}.
                                                             </p>
                                                         </div>
@@ -76,7 +76,7 @@
                                                         </div>
                                                     @else
                                                         <div class="col-md-1" style="text-align: center;">
-                                                            <p class="text-justify pull-right">
+                                                            <p class="text-justify">
                                                                 {{ ++$counter }}.
                                                             </p>
                                                         </div>

@@ -54,8 +54,11 @@
     function addData() {
         $("body").on("submit", ".formCreateProjectData", function(e) {
             e.preventDefault();
+            $('.formCreateProjectData button[type="submit"]').attr('disabled', true);
             let formData = new FormData(this);
             let CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+            formData.append('code', 'A');
+            formData.append('category_id', '1');
             let url =
                 '{{ Auth::user()->role_id == 1 ? route('review.master.create') : route('master.create') }}'
             $.ajax({
@@ -78,9 +81,13 @@
                     $(".formCreateProjectData").trigger("reset");
                     $(".modalCreate").modal("hide");
                 },
+                complete: function() {
+                    $('.formCreateProjectData button[type="submit"]').attr('disabled', false);
+                }
             });
         });
     }
+
 
     function enableInput() {
         document.querySelectorAll('.create').forEach(function(el) {

@@ -7,9 +7,9 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
-class RecycleProjectController extends RecycleController implements RecycleData
+class RecycleMemberController extends RecycleController implements RecycleData
 {
-    private string $child = 'Project';
+    private string $child = 'Member';
     private array $data;
 
     public function __construct(array $data = [])
@@ -23,13 +23,13 @@ class RecycleProjectController extends RecycleController implements RecycleData
             'parent' => $this->parent,
             'child' => $this->child,
         ];
-        return view('pages.recycle.project.index', $this->data);
+        return view('pages.recycle.member.index', $this->data);
     }
 
     public function requestRecycleData(Request $request)
     {
         if ($request->ajax()) {
-            $data = $this->recycleProject();
+            $data = $this->recycleMember();
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($data) {
@@ -43,21 +43,15 @@ class RecycleProjectController extends RecycleController implements RecycleData
                             </button>
                         </div>';
                     return $btn;
-                })->addColumn('article', function ($data) {
-                    $title = $data->title;
-                    return $title;
-                })->addColumn('sub', function ($data) {
-                    $sub = $data->getProject->subject;
-                    return $sub;
                 })->addColumn('info', function ($data) {
-                    $deleted = $data->getDeletedData->name;
+                    $deleted = $data->getDeletedData->getUser->name;
                     $name = '<span class="badge btn-outline-primary hovering badge-light-primary">' . $deleted . '</span>';
                     $info = $data->deleted_at;
                     $parse = Carbon::parse($info)->isoFormat('LLLL');
                     $info = '<span class="badge btn-outline-primary hovering badge-light-primary">' . $parse . '</span>';
                     return $name . '<br>' . $info;
                 })
-                ->rawColumns(['action', 'article', 'info', 'sub'])
+                ->rawColumns(['action', 'info'])
                 ->make(true);
         }
     }

@@ -182,7 +182,7 @@
             </g>
         </svg><span class="recycle">Recycle</span></a>
     <ul class="sidebar-submenu">
-        <li><a href="{{ route('management.member.index') }}">Member</a></li>
+        <li><a href="{{ route('recycle.member') }}">Member</a></li>
         <li><a href="{{ route('recycle.project') }}">Project</a></li>
     </ul>
 </li>

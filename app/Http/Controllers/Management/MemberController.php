@@ -13,47 +13,27 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\UsersExport;
-use App\Http\Controllers\Interface\ValidationController;
-use App\Models\Institute;
-use App\Models\Leader;
+use App\Http\Controllers\Interface\ValidationData;
+use Illuminate\Validation\Rule;
 use Yajra\DataTables\Facades\DataTables;
 
-class MemberController extends ManagementMasterController implements ValidationController
+class MemberController extends ManagementController implements ValidationData
 {
     private string $child = 'Member';
     private array $data;
 
-    public function __construct()
+    public function __construct(array $data = [])
     {
-        $this->middleware(function ($request, $next) {
-            $this->child;
-            $get = $this->getMemberData();
-            $this->data = [
-                'parent' => $this->parent,
-                'child' => $this->child,
-                'institute' => $get['institute'],
-                'member' => $get['member']
-            ];
-            return $next($request);
-        });
-    }
-
-    private function getMemberData()
-    {
-        $institute = User::with('hasInstitute', 'hasLeader')->whereHas('hasInstitute', function ($q) {
-            $q->where('created_by', Auth::user()->id);
-        })->first();
-        $leader = Leader::where('user_id', Auth::user()->id)->first();
-        $member = Member::where('created_by', $leader->id)->count();
-
-        return [
-            'institute' => $institute,
-            'member' => $member
-        ];
+        $this->data = $data;
     }
 
     public function showMember()
     {
+        $this->data = [
+            'parent' => $this->parent,
+            'child' => $this->child,
+            'institute' => $this->getMemberData()['institute'],
+        ];
         return view('pages.management.member.index', $this->data);
     }
 
@@ -90,8 +70,8 @@ class MemberController extends ManagementMasterController implements ValidationC
                     }
                     $date = $data->last_seen;
                     $parse = Carbon::parse($date)->isoFormat('LLLL');
-                    $danger = '<small><span class="badge btn-outline-danger hovering badge-light-danger">Belum ada riwayat Login</span><br><span>'. $status .'<span></small>';
-                    $info = '<small><span class="badge btn-outline-primary hovering badge-light-primary">' . $parse . '</span><br><span>'. $status .'<span></small>';
+                    $danger = '<small><span class="badge btn-outline-danger hovering badge-light-danger">Belum ada riwayat Login</span><br><span>' . $status . '<span></small>';
+                    $info = '<small><span class="badge btn-outline-primary hovering badge-light-primary">' . $parse . '</span><br><span>' . $status . '<span></small>';
 
                     if ($date == null) {
                         return $danger;
@@ -139,7 +119,9 @@ class MemberController extends ManagementMasterController implements ValidationC
 
     public function createMember(Request $request)
     {
-        $user = $this->data['institute'];
+        $get = $this->getMemberData();
+
+        $user = $get['institute'];
 
         if ($user == null) {
             return redirect()->route('management.member.index');
@@ -152,7 +134,7 @@ class MemberController extends ManagementMasterController implements ValidationC
         $auth = Auth::user()->hasLeader->first();
         $token = Str::random(64);
 
-        $last_member = User::where('created_by', Auth::user()->id)->orderBy('code', 'desc')->latest()->first();
+        $last_member = User::where('created_by', $auth->id)->orderBy('code', 'desc')->latest()->first();
 
         if ($last_member) {
             $last_code = $last_member->code;
@@ -174,7 +156,6 @@ class MemberController extends ManagementMasterController implements ValidationC
 
         $code = $new_code;
 
-
         $v_data = $this->validateDataCreate($request);
         $userCreate = User::create(
             [
@@ -190,18 +171,13 @@ class MemberController extends ManagementMasterController implements ValidationC
             ]
         );
 
-        $memberCreate = Member::create(
+        Member::create(
             [
                 'user_id' => $userCreate->id,
                 'role_id' => 2,
                 'created_by' => $auth->id,
             ]
         );
-
-        $data = [
-            'user' => $userCreate,
-            'member' => $memberCreate,
-        ];
         return response()->json(['success' => 'Anggota berhasil ditambahkan']);
     }
 
@@ -228,10 +204,10 @@ class MemberController extends ManagementMasterController implements ValidationC
         $auth = $id[0]['id'];
         try {
             $hashedId = $request->id;
-            $users = User::where('created_by', $auth)->get(); // ambil semua pengguna dari database
+            $users = User::where('created_by', $auth)->get();
             $edit = null;
             foreach ($users as $user) {
-                $hash = hash('sha256', $user->id); // hashing nilai id pengguna untuk membandingkan dengan nilai hash yang diterima
+                $hash = hash('sha256', $user->id);
                 if ($hash === $hashedId) {
                     $edit = $user;
                     break;
@@ -255,36 +231,37 @@ class MemberController extends ManagementMasterController implements ValidationC
 
     public function updateMember(Request $request)
     {
-
-        $user = $this->data['institute'];
-
-        if ($user == null) {
-            return redirect()->route('management.member.index');
-        } else {
-            $institute = $user->hasInstitute->institute_slug;
-        }
-
-        $array = array($institute, $request->email);
-        $string = implode('.', $array);
-
-        if ($request->name) {
+        try {
+            $get = $this->getMemberData();
+            $user = $get['institute'];
+            if (!$user) {
+                return redirect()->route('management.member.index');
+            }
+            $string = $user->hasInstitute->institute_slug . '.' . $request->email;
             $request->validate([
                 'name' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($request->id)],
             ]);
-        } else {
-            $request->validate([
-                'name' => ['required', 'string', 'max:255'],
-                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            ]);
+            try {
+                User::where('id', $request->id)->update([
+                    'name' => $request->name,
+                    'email' => $string
+                ]);
+                return response()->json(['success' => 'Data berhasil diupdate!']);
+            } catch (\Illuminate\Database\QueryException $ex) {
+                $error_code = $ex->errorInfo[1];
+                if ($error_code == 1062) {
+                    return response()->json(['error' => 'Email telah digunakan. Silakan gunakan email lain.']);
+                } else {
+                    return response()->json(['error' => $ex->getMessage()]);
+                }
+            }
+            return response()->json(['success' => 'Data berhasil diupdate!']);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()]);
         }
-
-        $member = User::where("id", $request->id)->update([
-            "name" => $request->name,
-            "email" => $string
-        ]);
-
-        return response()->json(['success' => 'Data berhasil diupdate!']);
     }
+
 
     public function deleteMember($id)
     {
@@ -298,7 +275,6 @@ class MemberController extends ManagementMasterController implements ValidationC
             $message = "Member tidak ditemukan!";
         }
 
-        //  Return response
         return response()->json([
             's' => $success,
             'e' => $message,
@@ -307,8 +283,9 @@ class MemberController extends ManagementMasterController implements ValidationC
 
     public function exportMemberData()
     {
-        $institute = $this->data['institute']->hasInstitute()->first()->institute_slug;
-        $member = $this->data['member'];
+        $get = $this->getMemberData();
+        $institute = $get['institute']->hasInstitute()->first()->institute_slug;
+        $member = $get['member'];
         $fileName = $member . '-member-' . $institute . '.xlsx';
         return Excel::download(new UsersExport(), $fileName);
     }

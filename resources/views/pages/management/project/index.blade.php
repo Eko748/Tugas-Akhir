@@ -6,7 +6,6 @@
 
 @section('content')
 @section('css')
-    {{-- <link rel="stylesheet" type="text/css" href="../assets/css/vendors/animate.css"> --}}
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/date-picker.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/dropzone.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/daterange-picker.css') }}">
@@ -23,7 +22,6 @@
 @include('pages.management.project.content.project')
 
 @push('js')
-    {{-- <script src="{{ asset('assets/js/encrypt/project.js') }}"></script> --}}
     <script src="{{ asset('assets/js/sidebar-menu.js') }}"></script>
     <script src="{{ asset('assets/css/vendors/sweetalert2/dist/sweetalert2.all.min.js') }}"></script>
     <script src="{{ asset('assets/css/vendors/select2/dist/js/select2.min.js') }}"></script>
@@ -39,7 +37,6 @@
     <script src="{{ asset('assets/js/datepicker/daterange-picker/moment.min.js') }}"></script>
     <script src="{{ asset('assets/js/datepicker/daterange-picker/daterangepicker.js') }}"></script>
     <script src="{{ asset('assets/js/datepicker/daterange-picker/daterange-picker.custom.js') }}"></script>
-    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
     @include('pages.management.project.content.js.1-crud-js')
     @include('pages.management.project.content.js.3-load-data-js')
     @include('pages.management.project.content.js.2-date-range-js')

@@ -2,43 +2,50 @@
 
 namespace App\Http\Controllers\Review;
 
+use App\Http\Controllers\Interface\ReviewData;
+use App\Http\Controllers\Interface\Hehee;
 use App\Http\Controllers\Review\ReviewMasterController;
 use Goutte\Client;
 use Illuminate\Http\Request;
 
-class IeeeController extends ReviewMasterController
+class IeeeController extends ReviewMasterController implements ReviewData
 {
     private string $child = 'IEEE';
     private array $data;
 
-    public function __construct()
+    public function __construct(array $data = [])
+    {
+        $this->data = $data;
+    }
+
+    public function showReviewData()
     {
         $this->data = [
             'parent' => $this->parent,
             'child' => $this->child,
         ];
-    }
-
-    public function showReviewIeee()
-    {
         return view('pages.review.category.ieee.index', $this->data);
     }
 
-    public function requestIeeeData(Request $request)
+    public function requestReviewData(Request $request)
     {
-        $ieee = $this->searchIeeeData($request);
-        $this->data = [
-            'search' => $ieee['search'],
-            'path' => $ieee['path'],
-            'client' => $ieee['client'],
-            'references' => $ieee['references'],
-        ];
-        if ($request->ajax()) {
-            return view('pages.review.category.ieee.content.components.2-data', $this->data)->render();
+        try {
+            $ieee = $this->searchReviewData($request);
+            $this->data = [
+                'search' => $ieee['search'],
+                'path' => $ieee['path'],
+                'client' => $ieee['client'],
+                'references' => $ieee['references'],
+            ];
+            if ($request->ajax()) {
+                return view('pages.review.category.ieee.content.components.2-data', $this->data)->render();
+            }
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Terjadi kesalahan saat mengambil data IEEE'], 500);
         }
     }
 
-    private function searchIeeeData(Request $request)
+    public function searchReviewData($request)
     {
         $search = $request->input('search');
         $client = new Client();

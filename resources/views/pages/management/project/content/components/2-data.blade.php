@@ -75,7 +75,7 @@
                                 {{ $project->target }}
                             </div>
                             <div class="col-5"> <span>Deadline</span></div>
-                            <div class="col-7 font-primary">{!! $time_left !!}</div>
+                            <div class="col-7 font-primary"><small>{!! $time_left !!}</small></div>
                         </div>
                         @php
                             $progress = $project->hasProject->count();

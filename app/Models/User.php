@@ -79,6 +79,11 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class, 'role_id', 'id');
     }
 
+    public function getDeletedData()
+    {
+        return $this->belongsTo(Leader::class, 'deleted_by', 'id');
+    }
+
     public function hasInstitute()
     {
         return $this->hasOne(Institute::class, 'created_by');

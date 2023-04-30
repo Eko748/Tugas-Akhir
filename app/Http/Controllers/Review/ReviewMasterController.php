@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers\Review;
 
-use App\Http\Controllers\{Controller, Interface\CategoryController, Interface\ValidationController};
-use App\Models\{Category, Project, ProjectSLR};
+use App\Http\Controllers\Interface\ValidationData;
+use App\Models\ProjectSLR;
 use Illuminate\{Http\Request, Support\Str, Support\Facades\Auth};
 
-class ReviewMasterController extends Controller implements CategoryController, ValidationController
+class ReviewMasterController extends ReviewController implements ValidationData
 {
-    protected string $parent = 'Review';
     private string $child = 'Master';
     private array $data;
 
@@ -27,57 +26,48 @@ class ReviewMasterController extends Controller implements CategoryController, V
 
     public function createReview(Request $request)
     {
-        $v_project = $this->validateDataCreate($request);
-        $last_project = ProjectSLR::where('created_by', Auth::user()->id)
-            ->where('project_id', $v_project['project_id'])
-            ->orderBy('created_at', 'desc')
-            ->first();
+        try {
+            $v_project = $this->validateDataCreate($request);
+            $last_project = ProjectSLR::where('created_by', Auth::user()->id)
+                ->where('project_id', $v_project['project_id'])
+                ->orderBy('created_at', 'desc')
+                ->first();
 
-        $code_suffix = $last_project ? ((int) substr($last_project->code, 2)) + 1 : 1;
-        if ($code_suffix > 999) {
-            $code_suffix = 1;
+            $code_suffix = $last_project ? ((int) substr($last_project->code, 2)) + 1 : 1;
+            if ($code_suffix > 999) {
+                $code_suffix = 1;
+            }
+
+            $reference_source = $request->has('reference_source') ? $request->reference_source : null;
+            sleep(2);
+
+            ProjectSLR::create(
+                [
+                    'uuid_project_slr' => Str::uuid(),
+                    'project_id' => $v_project['project_id'],
+                    'category_id' => $v_project['category_id'],
+                    'code' => $v_project['code'] . Auth::user()->code . $code_suffix,
+                    'title' => $request->title,
+                    'publisher' => $request->publisher,
+                    'publication' => $request->publication,
+                    'year' => $request->year,
+                    'type' => $request->type,
+                    'cited' => $request->cited,
+                    'abstracts' => $request->abstracts,
+                    'authors' => $request->authors,
+                    'keywords' => $request->keywords,
+                    'references' => $request->references,
+                    'reference_source' => $reference_source,
+                    'created_by' => Auth::user()->id,
+                ]
+            );
+
+            return response()->json(['success' => 'Review berhasil terhubung dengan Project']);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Gagal, silahkan coba lagi', 'message' => $e->getMessage()]);
         }
-
-        $reference_source = $request->has('reference_source') ? $request->reference_source : null;
-
-        ProjectSLR::create(
-            [
-                'uuid_project_slr' => Str::uuid(),
-                'project_id' => $v_project['project_id'],
-                'category_id' => $v_project['category_id'],
-                'code' => $v_project['code'] . Auth::user()->code . $code_suffix,
-                'title' => $request->title,
-                'publisher' => $request->publisher,
-                'publication' => $request->publication,
-                'year' => $request->year,
-                'type' => $request->type,
-                'cited' => $request->cited,
-                'abstracts' => $request->abstracts,
-                'authors' => $request->authors,
-                'keywords' => $request->keywords,
-                'references' => $request->references,
-                'reference_source' => $reference_source,
-                'created_by' => Auth::user()->id,
-            ]
-        );
-
-        return response()->json(['success' => true]);
     }
 
-    public function createCategory(Request $request)
-    {
-        $v_category = $this->validateDataCreate($request);
-        $category = Category::create([
-            "uuid_category" => Str::uuid(),
-            "category_code" => $v_category['category_code'],
-            "category_name" => $v_category['category_name'],
-            "created_by" => Auth::user()->id,
-        ]);
-
-        return redirect()->back()->with(
-            ($category) ? ['message' => 'Data berhasil disimpan!'] : ['error' => 'Nampaknya terjadi kesalahan']
-        );
-    }
 
     public function validateDataCreate(Request $request)
     {
@@ -96,13 +86,9 @@ class ReviewMasterController extends Controller implements CategoryController, V
         ]);
     }
 
-    public function getCategory(Request $req)
+    public function getCategory(Request $request)
     {
-        $search = $req->q;
-        $categories = Category::where('category_code', 'LIKE', '%' . $search . '%')
-            ->orWhere('category_name', 'LIKE', '%' . $search . '%')
-            ->orderBy('category_code', 'asc')
-            ->get();
+        $categories = $this->getCategoryReview($request);
 
         $response = [];
         foreach ($categories as $category) {
@@ -116,72 +102,16 @@ class ReviewMasterController extends Controller implements CategoryController, V
         return response()->json($response);
     }
 
-    public function getProject(Request $req)
+    public function getProject(Request $request)
     {
-        $search = $req->q;
-        $id = $req->id;
-
-        if (Auth::user()->role_id == '1') {
-            $get_projects = Project::with('getLeader')
-                ->whereHas('getLeader', function ($query) use ($id) {
-                    $query->where('user_id', $id);
-                })
-                ->where('subject', 'LIKE', '%' . $search . '%')
-                ->orWhere('priority', 'LIKE', '%' . $search . '%')
-                ->orderBy('priority', 'asc')
-                ->get();
-        } else {
-            $get_projects = Project::with('getLeader')
-                ->where('subject', 'LIKE', '%' . $search . '%')
-                ->orWhere('priority', 'LIKE', '%' . $search . '%')
-                ->orderBy('priority', 'asc')
-                ->get();
-        }
-
+        $get_projects = $this->getProjectReview($request);
         $response = [];
         foreach ($get_projects as $get_project) {
+            $hash = hash('sha256', $get_project->id);
             $response[] = [
                 'no' => $get_project->uuid_project,
                 'id' => $get_project->id,
                 'text' => $get_project->priority . '/' . $get_project->subject
-            ];
-        }
-
-        return response()->json($response);
-    }
-
-    public function getProjectDetail(Request $req)
-    {
-        $search = $req->q;
-
-        if (Auth::user()->role_id == '1') {
-            $get_projects = ProjectSLR::with('getProject.getLeader')
-                ->whereHas('getProject', function ($query) {
-                    $query->where('created_by', Auth::user()->id);
-                })
-                ->where('title', 'LIKE', '%' . $search . '%')
-                ->orWhere('code', 'LIKE', '%' . $search . '%')
-                ->orWhere('year', 'LIKE', '%' . $search . '%')
-                ->orderBy('code', 'asc')
-                ->get();
-        } else {
-            $get_projects = ProjectSLR::with('getProject.getLeader')
-                ->whereHas('getProject.getLeader', function ($query) {
-                    $query->where('leader_id', Auth::user()->created_by);
-                })
-                ->where('title', 'LIKE', '%' . $search . '%')
-                ->orWhere('code', 'LIKE', '%' . $search . '%')
-                ->orWhere('year', 'LIKE', '%' . $search . '%')
-                ->orderBy('code', 'asc')
-                ->get();
-        }
-
-        $response = [];
-        foreach ($get_projects as $get_project) {
-            $response[] = [
-                'no' => $get_project->uuid_project_slr,
-                'id' => $get_project->id,
-                'text' => $get_project->code . '/' . $get_project->year . '/' . $get_project->title
             ];
         }
 
