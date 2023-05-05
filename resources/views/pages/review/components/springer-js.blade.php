@@ -52,7 +52,6 @@
     });
 
     function addData() {
-        console.log("ada");
         $("body").on("submit", ".formCreateProjectData", function(e) {
             e.preventDefault();
             $('.formCreateProjectData button[type="submit"]').attr('disabled', true);
@@ -86,6 +85,7 @@
                     $('.formCreateProjectData button[type="submit"]').attr('disabled', false);
                 }
             });
+            abort();
         });
     }
 
@@ -93,20 +93,6 @@
         document.querySelectorAll('.create').forEach(function(el) {
             el.disabled = false;
         });
-    }
-
-    function showFullTitle(identifier) {
-        document.getElementById('product-title-full-' + identifier).style.display = 'inline';
-        document.getElementById('product-title-short-' + identifier).style.display = 'none';
-        document.getElementById('read-more-link-' + identifier).style.display = 'none';
-        document.getElementById('read-less-link-' + identifier).style.display = 'inline';
-    }
-
-    function hideFullTitle(identifier) {
-        document.getElementById('product-title-full-' + identifier).style.display = 'none';
-        document.getElementById('product-title-short-' + identifier).style.display = 'inline';
-        document.getElementById('read-more-link-' + identifier).style.display = 'inline';
-        document.getElementById('read-less-link-' + identifier).style.display = 'none';
     }
 
     function showFullAbstract() {

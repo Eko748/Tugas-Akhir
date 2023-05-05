@@ -1,5 +1,5 @@
 <div class="feature-products">
-    <div class="row m-b-10 ms-1 me-1">
+    <div class="row m-b-10 me-1">
         <div class="col-md-3 col-sm-2 products-total">
             <div class="square-product-setting d-inline-block"><a class="icon-grid grid-layout-view"
                     href="javascript:void(0)" data-original-title="" title=""><i data-feather="grid"></i></a>

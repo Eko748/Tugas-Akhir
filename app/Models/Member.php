@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Model;
 class Member extends Model
 {
     use HasFactory;
+    public $table = 'member';
+    public $incrementing = false;
     protected $guarded = [];
 
     public function getUser()

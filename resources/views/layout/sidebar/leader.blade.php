@@ -1,5 +1,4 @@
 <li class="sidebar-list">
-    {{-- <label class="badge badge-light-primary">2</label --}}
     <a class="sidebar-link" href="{{ route('dashboard.index') }}">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g>
@@ -19,59 +18,42 @@
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g>
                 <g>
+                    <path d="M14.3053 15.45H8.90527" stroke="#130F26" stroke-width="1.5" stroke-linecap="round"
+                        stroke-linejoin="round"></path>
+                    <path d="M12.2604 11.4387H8.90442" stroke="#130F26" stroke-width="1.5" stroke-linecap="round"
+                        stroke-linejoin="round"></path>
                     <path fill-rule="evenodd" clip-rule="evenodd"
-                        d="M2.75024 12C2.75024 5.063 5.06324 2.75 12.0002 2.75C18.9372 2.75 21.2502 5.063 21.2502 12C21.2502 18.937 18.9372 21.25 12.0002 21.25C5.06324 21.25 2.75024 18.937 2.75024 12Z"
+                        d="M20.1598 8.3L14.4898 2.9C13.7598 2.8 12.9398 2.75 12.0398 2.75C5.74978 2.75 3.64978 5.07 3.64978 12C3.64978 18.94 5.74978 21.25 12.0398 21.25C18.3398 21.25 20.4398 18.94 20.4398 12C20.4398 10.58 20.3498 9.35 20.1598 8.3Z"
                         stroke="#130F26" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                    <path d="M15.2045 13.8999H15.2135" stroke="#130F26" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round"></path>
-                    <path d="M12.2045 9.8999H12.2135" stroke="#130F26" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round"></path>
-                    <path d="M9.19557 13.8999H9.20457" stroke="#130F26" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round"></path>
+                    <path d="M13.9342 2.83276V5.49376C13.9342 7.35176 15.4402 8.85676 17.2982 8.85676H20.2492"
+                        stroke="#130F26" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
                 </g>
             </g>
-        </svg><span class="management">Management</span></a>
+        </svg>
+        <span class="management">Management</span></a>
     <ul class="sidebar-submenu">
         @php
-            $p = App\Models\Project::with('getUser')
-                ->where('created_by', Auth::user()->id)
-                ->orderBy('created_at', 'asc')
-                ->get();
-            if (isset($p)) {
-                # code...
-                foreach ($p as $k => $v) {
-                    // $current_v = \Carbon\Carbon::now()->setTimezone('Asia/Jakarta');
-                    $start_v = \Carbon\Carbon::parse($v->start_date)->setTimezone('Asia/Jakarta');
-                    $end_v = \Carbon\Carbon::parse($v->end_date)->setTimezone('Asia/Jakarta');
-                }
-            }
-            // $cv = $current_v < $start_v;
-            $projects = App\Models\Project::with('getUser')
-                ->where('created_by', Auth::user()->id)
-                ->orderBy('created_at', 'desc')
-                ->get();
-            foreach ($projects as $key => $value) {
-                $start = \Carbon\Carbon::parse($value->start_date)->setTimezone('Asia/Jakarta');
-                $end = \Carbon\Carbon::parse($value->end_date)->setTimezone('Asia/Jakarta');
-                $current = \Carbon\Carbon::now()->setTimezone('Asia/Jakarta');
-                $c = $current > $start && $current < $end;
-                $cy = $start < $current;
-            }
+            $auth = Auth::user()->id;
+            $m = App\Models\Project::where('created_by', $auth)->first();
+            $project = $m->uuid_project;
         @endphp
         <li>
             <a href="{{ route('management.member.index') }}">Member</a>
         </li>
         <li>
+            <a href="{{ route('management.project.index', ['uuid_project' => $project]) }}">Project</a>
+        </li>
+        {{-- <li>
             <a class="project-master" href="{{ route('management.project.index') }}">
                 Project Master
                 @if ($projects->count() > 0)
                     <sup class="mt-2 text-primary"><b>{{ $projects->count() }}</b></sup>
                 @endif
             </a>
-        </li>
-        @if (!empty($projects))
-            {{-- @if ($cv) --}}
-            <li>
+        </li> --}}
+        {{-- @if (!empty($projects)) --}}
+        {{-- @if ($cv) --}}
+        {{-- <li>
                 <a class="submenu-title" href="#">Up Coming<span class="sub-arrow"><i
                             class="fa fa-angle-right"></i></span></a>
                 <ul class="nav-sub-childmenu submenu-content">
@@ -97,10 +79,10 @@
                         @endforeach
                     @endif
                 </ul>
-            </li>
-            {{-- @endif --}}
-            {{-- @if ($c) --}}
-            <li>
+            </li> --}}
+        {{-- @endif --}}
+        {{-- @if ($c) --}}
+        {{-- <li>
                 <a class="submenu-title" href="#">Doing <span class="sub-arrow"><i
                             class="fa fa-angle-right"></i></span></a>
                 <ul class="nav-sub-childmenu submenu-content">
@@ -126,9 +108,9 @@
                         @endforeach
                     @endif
                 </ul>
-            </li>
-            {{-- @endif --}}
-        @endif
+            </li> --}}
+        {{-- @endif --}}
+        {{-- @endif --}}
 
     </ul>
 </li>
@@ -138,17 +120,15 @@
             <g>
                 <g>
                     <path fill-rule="evenodd" clip-rule="evenodd"
-                        d="M2.75024 12C2.75024 5.063 5.06324 2.75 12.0002 2.75C18.9372 2.75 21.2502 5.063 21.2502 12C21.2502 18.937 18.9372 21.25 12.0002 21.25C5.06324 21.25 2.75024 18.937 2.75024 12Z"
+                        d="M11.2753 2.71436C16.0029 2.71436 19.8363 6.54674 19.8363 11.2753C19.8363 16.0039 16.0029 19.8363 11.2753 19.8363C6.54674 19.8363 2.71436 16.0039 2.71436 11.2753C2.71436 6.54674 6.54674 2.71436 11.2753 2.71436Z"
                         stroke="#130F26" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                    <path d="M15.2045 13.8999H15.2135" stroke="#130F26" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round"></path>
-                    <path d="M12.2045 9.8999H12.2135" stroke="#130F26" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round"></path>
-                    <path d="M9.19557 13.8999H9.20457" stroke="#130F26" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round"></path>
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                        d="M19.8987 18.4878C20.6778 18.4878 21.3092 19.1202 21.3092 19.8983C21.3092 20.6783 20.6778 21.3097 19.8987 21.3097C19.1197 21.3097 18.4873 20.6783 18.4873 19.8983C18.4873 19.1202 19.1197 18.4878 19.8987 18.4878Z"
+                        stroke="#130F26" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
                 </g>
             </g>
-        </svg><span class="">Review</span></a>
+        </svg>
+        <span class="">Review</span></a>
     <ul class="sidebar-submenu">
         <li><a href="{{ route('review.master.index') }}">Review Master</a></li>
         <li>
@@ -156,10 +136,8 @@
                         class="fa fa-angle-right"></i></span></a>
             <ul class="nav-sub-childmenu submenu-content">
                 <li><a href="{{ route('review.ieee.index') }}">IEEE</a></li>
-                <li><a href="{{ route('review.sciencedirect.index') }}">Science Direct</a></li>
-                <li><a href="{{ route('review.springer.index') }}">Springer</a></li>
                 <li><a href="{{ route('review.acm.index') }}">ACM</a></li>
-                <li><a href="{{ route('review.citeseerx.index') }}">CiterX</a></li>
+                <li><a href="{{ route('review.springer.index') }}">Springer</a></li>
             </ul>
         </li>
     </ul>
@@ -169,18 +147,20 @@
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g>
                 <g>
+                    <path d="M11.1437 17.8829H4.67114" stroke="#130F26" stroke-width="1.5" stroke-linecap="round"
+                        stroke-linejoin="round"></path>
                     <path fill-rule="evenodd" clip-rule="evenodd"
-                        d="M2.75024 12C2.75024 5.063 5.06324 2.75 12.0002 2.75C18.9372 2.75 21.2502 5.063 21.2502 12C21.2502 18.937 18.9372 21.25 12.0002 21.25C5.06324 21.25 2.75024 18.937 2.75024 12Z"
+                        d="M15.205 17.8839C15.205 19.9257 15.8859 20.6057 17.9267 20.6057C19.9676 20.6057 20.6485 19.9257 20.6485 17.8839C20.6485 15.8421 19.9676 15.1621 17.9267 15.1621C15.8859 15.1621 15.205 15.8421 15.205 17.8839Z"
                         stroke="#130F26" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                    <path d="M15.2045 13.8999H15.2135" stroke="#130F26" stroke-width="2" stroke-linecap="round"
+                    <path d="M14.1765 7.39439H20.6481" stroke="#130F26" stroke-width="1.5" stroke-linecap="round"
                         stroke-linejoin="round"></path>
-                    <path d="M12.2045 9.8999H12.2135" stroke="#130F26" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round"></path>
-                    <path d="M9.19557 13.8999H9.20457" stroke="#130F26" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round"></path>
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                        d="M10.1153 7.39293C10.1153 5.35204 9.43436 4.67114 7.39346 4.67114C5.35167 4.67114 4.67078 5.35204 4.67078 7.39293C4.67078 9.43472 5.35167 10.1147 7.39346 10.1147C9.43436 10.1147 10.1153 9.43472 10.1153 7.39293Z"
+                        stroke="#130F26" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
                 </g>
             </g>
-        </svg><span class="recycle">Recycle</span></a>
+        </svg>
+        <span class="recycle">Recycle</span></a>
     <ul class="sidebar-submenu">
         <li><a href="{{ route('recycle.member') }}">Member</a></li>
         <li><a href="{{ route('recycle.project') }}">Project</a></li>

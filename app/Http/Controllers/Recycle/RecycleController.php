@@ -14,7 +14,8 @@ class RecycleController extends Controller
     public function recycleMember()
     {
         $auth = Auth::user()->hasLeader->first();
-        $data = User::where('created_by', $auth->id)->where('status', 2)->get();
+        $data = User::where('created_by', $auth->id)
+            ->whereNotNull('deleted_by')->get();
         return $data;
     }
 

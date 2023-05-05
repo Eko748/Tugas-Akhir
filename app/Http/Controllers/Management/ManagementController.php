@@ -39,6 +39,8 @@ class ManagementController extends Controller
                 ->where('created_by', Auth::user()->id)
                 ->orderBy('created_at', "desc")
                 ->get();
+
+            // dd($all_project);
         } else {
             $detail = Project::with('getLeader', 'hasProject.getUser')->withCount('hasProject')
                 ->whereHas('getLeader', function ($q) {

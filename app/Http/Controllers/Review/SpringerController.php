@@ -45,6 +45,8 @@ class SpringerController extends ReviewMasterController implements ReviewData
     public function searchReviewData($request)
     {
         $query = $request->query('search');
+        $query = str_replace('https://link.springer.com/article/', '', $query);
+        $query = str_replace('https://link.springer.com/chapter/', '', $query);
         $url = 'http://api.springernature.com/meta/v2/json?q=doi:' . urlencode($query) . '&api_key=' . 'f99e4740f3ccd28f81a8ea39ec4c3a79';
         $client = new Client();
         $response = $client->request('GET', $url);

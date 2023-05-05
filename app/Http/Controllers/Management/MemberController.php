@@ -41,7 +41,7 @@ class MemberController extends ManagementController implements ValidationData
     {
         if ($request->ajax()) {
             $auth = Auth::user()->hasLeader->first();
-            $data = User::where('created_by', $auth->id)->orderBy('created_at', 'desc')->get();
+            $data = User::where('deleted_by', null)->where('created_by', $auth->id)->orderBy('created_at', 'desc')->get();
             return DataTables::of($data)
                 ->addIndexColumn()->addColumn('action', function ($data) {
                     $btn = '<div class="text-center">
@@ -78,19 +78,20 @@ class MemberController extends ManagementController implements ValidationData
                     } else {
                         return $info;
                     }
-                    return $date;
                 })->addColumn('ip', function ($data) {
                     $ip = $data->last_seen_ip;
-                    $danger = '<span class="badge btn-outline-danger hovering badge-light-danger">Belum ada riwayat Login</span>';
-                    $info = '<span class="badge btn-outline-primary hovering badge-light-primary">' . $ip . '</span>';
+                    $danger = '<small><span class="badge btn-outline-danger hovering badge-light-danger">Belum ada riwayat Login</span></small>';
+                    $info = '<small><span class="badge btn-outline-primary hovering badge-light-primary">' . $ip . '</span></small>';
 
                     if ($ip == null) {
                         return $danger;
                     } else {
                         return $info;
                     }
-                    return $ip;
-                })->rawColumns(['action', 'info', 'ip'])->make(true);
+                })->addColumn('member', function ($data) {
+                    $member = '(' . $data->code . ') ' . $data->name;
+                    return $member;
+                })->rawColumns(['action', 'info', 'ip', 'member'])->make(true);
         }
     }
 
@@ -159,13 +160,13 @@ class MemberController extends ManagementController implements ValidationData
         $v_data = $this->validateDataCreate($request);
         $userCreate = User::create(
             [
+                'id' => random_int(1000000, 9999999),
                 'uuid_user' => Str::uuid(),
                 'role_id' => 2,
                 'code' => $code,
                 'name' => $v_data['name'],
                 'email' => $string,
                 'password' => Hash::make($v_data['password']),
-                'status' => $v_data['status'],
                 'created_by' => $auth->id,
                 'remember_token' => $token
             ]
@@ -173,6 +174,7 @@ class MemberController extends ManagementController implements ValidationData
 
         Member::create(
             [
+                'id' => random_int(1000000, 9999999),
                 'user_id' => $userCreate->id,
                 'role_id' => 2,
                 'created_by' => $auth->id,
@@ -185,9 +187,8 @@ class MemberController extends ManagementController implements ValidationData
     {
         return $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:user'],
             'password' => ['required', Rules\Password::defaults()],
-            'status' => ['required', 'integer'],
         ], [
             'required' => 'Kolom :attribute harus diisi.',
             'string' => 'Kolom :attribute harus berupa teks.',
@@ -224,7 +225,7 @@ class MemberController extends ManagementController implements ValidationData
             ];
             return view('pages.management.member.content.components.4-edit-member', $data);
         } catch (\Exception $e) {
-            return response()->json(['error' => 'Something went wrong.'], 500);
+            return response()->json(['error' => 'Data tidak berhasil diubah'], 500);
         }
     }
 
@@ -240,7 +241,7 @@ class MemberController extends ManagementController implements ValidationData
             $string = $user->hasInstitute->institute_slug . '.' . $request->email;
             $request->validate([
                 'name' => ['required', 'string', 'max:255'],
-                'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($request->id)],
+                'email' => ['required', 'string', 'email', 'max:255', Rule::unique('user')->ignore($request->id)],
             ]);
             try {
                 User::where('id', $request->id)->update([
@@ -263,22 +264,21 @@ class MemberController extends ManagementController implements ValidationData
     }
 
 
-    public function deleteMember($id)
+    public function deleteMember(Request $request)
     {
-        $delete = User::where('uuid_user', $id)->delete();
+        $delete = User::find($request->id)->update([
+            'deleted_by' => Auth::user()->id,
+            'deleted_at' => now()
+        ]);
 
         if ($delete == 1) {
-            $success = true;
-            $message = "Member Berhasil dihapus";
+            $e = true;
+            $message = "Member Berhasil dihapus!";
         } else {
-            $success = true;
-            $message = "Member tidak ditemukan!";
+            $e = false;
+            $message = "Proses Tidak berjalan!";
         }
-
-        return response()->json([
-            's' => $success,
-            'e' => $message,
-        ]);
+        return response()->json([ 'e' => $e, 'status' => $message ]);
     }
 
     public function exportMemberData()

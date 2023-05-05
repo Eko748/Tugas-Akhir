@@ -9,11 +9,12 @@ use Illuminate\Database\Eloquent\Model;
 class Project extends Model
 {
     use HasFactory;
+    protected $table = 'project';
+    public $incrementing = false;
     protected $guarded = [];
     protected $hidden = [
-        'id', 'uuid_project', 'leader_id',
-        'created_by', 'created_at', 'updated_by', 'updated_at',
-        'deleted_by', 'deleted_at',
+        'uuid_project', 'leader_id',
+        'created_by', 'created_at'
     ];
 
     public function getUser()

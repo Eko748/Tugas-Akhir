@@ -25,18 +25,7 @@
             {{-- @include('pages.review.ieee.content.components.4-view-data') --}}
             <div class="product-details">
                 <div class="product-price">
-                    <h4 class="text-primary" id="product-title-full-{{ $key['identifier'] }}"
-                        style="display:none;">{{ $key['title'] }}</h4>
-                    <h4 class="text-primary"
-                        id="product-title-short-{{ $key['identifier'] }}">{{ Str::words($key['title'], 20, '...') }}</h4>
-                        @if (null !== Str::words($key['title'], 20, '...'))
-                        <a href="javascript:void(0)" id="read-more-link-{{ $key['identifier'] }}"
-                            onclick="showFullTitle('{{ $key['identifier'] }}')"><small><i
-                                    class="fa fa-chevron-circle-right"></i></small></a>
-                        @endif
-                    <a href="javascript:void(0)" id="read-less-link-{{ $key['identifier'] }}"
-                        onclick="hideFullTitle('{{ $key['identifier'] }}')" style="display:none;"><small><i
-                                class="fa fa-chevron-circle-left"></i></small></a>
+                    <h4 class="text-primary" id="product-title-full-{{ $key['identifier'] }}">{{ $key['title'] }}</h4>
                 </div>
                 <hr>
                 <div class="rating">
@@ -67,10 +56,10 @@
                 <div class="rating">
                     <span>
                         <b class="text-primary">Abstract:</b>
-                        <p class="show" style="display:none;">
-                            {{ $key['abstract'] }}
-                        </p>
                     </span>
+                    <p class="show" style="display:none;">
+                        {{ $key['abstract'] }}
+                    </p>
                     <p class="hide">
                         {{ Str::words($key['abstract'], 10, '...') }}
                     </p>

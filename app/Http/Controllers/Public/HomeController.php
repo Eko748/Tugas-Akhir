@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Public;
   
 use App\Http\Controllers\Controller;
 
-class LandingController extends Controller
+class HomeController extends Controller
 {
-    public function index()
+    public function showHomePage()
     {
         return view('public.pages.home.index');
     }  

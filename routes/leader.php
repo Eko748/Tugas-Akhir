@@ -7,13 +7,20 @@ use App\Http\Controllers\{
     Exception\PageHandlingController
 };
 use App\Http\Controllers\Management\{
-    InstituteController, MemberController, ProjectController, ProjectSLRController
+    InstituteController,
+    MemberController,
+    ProjectController,
+    ProjectSLRController
 };
 use App\Http\Controllers\Recycle\RecycleMemberController;
 use App\Http\Controllers\Recycle\RecycleProjectController;
 use App\Http\Controllers\Review\{
-    IeeeController, AcmController, CiteSeerxController, ReviewMasterController, 
-    ScienceDirectController, SpringerController
+    IeeeController,
+    AcmController,
+    CiteSeerxController,
+    ReviewMasterController,
+    ScienceDirectController,
+    SpringerController
 };
 
 Route::middleware('auth')->group(function () {
@@ -39,12 +46,12 @@ Route::middleware('auth')->group(function () {
             // Project
             Route::prefix("project")->group(function () {
                 Route::controller(ProjectController::class)->group(function () {
-                    Route::get('/', 'showProject')->name('management.project.index');
-                    Route::get('/request', 'requestProjectData')->name('management.project.request');
-                    Route::post('/create', 'createProject')->name('management.project.create');
+                    Route::get('/{uuid_project}', 'showProject')->name('management.project.index');
+                    //     Route::get('/request', 'requestProjectData')->name('management.project.request');
+                    //     Route::post('/create', 'createProject')->name('management.project.create');
                 });
                 Route::controller(ProjectSLRController::class)->group(function () {
-                    Route::get('/{uuid_project}', 'showProjectDetail')->name('management.project.detail');
+                    Route::get('/uu/{uuid_project}', 'showProjectDetail')->name('management.project.detail');
                     Route::get('/fetch/{uuid_project}', 'getProjectDetailData')->name('management.project.getTable');
                     Route::get('/export/{uuid_project}', 'exportProjectData')->name('management.project.export');
                     Route::get('/snowballing/{uuid_project}', 'showModalSnowballing')->name('management.project.snowBalling');
@@ -65,6 +72,7 @@ Route::middleware('auth')->group(function () {
                 Route::post('/category-post', 'createCategory')->name('review.category.create');
                 Route::get('/list-category', 'getCategory')->name('review.category.get');
                 Route::get('/list-project', 'getProject')->name('review.project.getProject');
+                Route::get('/list-ongkir', 'ongkir')->name('review.ongkir');
                 Route::get('/list-project-detail', 'getProjectDetail')->name('review.project.getProjectDetail');
             });
             // IEEE

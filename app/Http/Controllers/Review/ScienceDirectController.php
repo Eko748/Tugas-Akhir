@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Review;
 
 use App\Http\Controllers\Review\ReviewMasterController;
-use GuzzleHttp\Client;
+use Goutte\Client;
 use Illuminate\Http\Request;
 use Symfony\Component\DomCrawler\Crawler;
 use ProxyManager\Factory\ProxyFactory;
@@ -31,7 +31,7 @@ class ScienceDirectController extends ReviewMasterController
             ],
         ];
         $response = $client->request('GET', 'https://sciencedirect.com/science/article/abs/pii/S2214212621001939', $options);
-        echo $response->getBody()->getContents();
+        echo $response->html();
 
         // 'Content-Type' => 'text/html; charset=UTF-8',
         // 'Connection' => 'keep-alive',

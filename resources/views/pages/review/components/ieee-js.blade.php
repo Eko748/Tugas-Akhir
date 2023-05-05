@@ -80,14 +80,15 @@
                     swal("Error!", "Data sudah ada atau yang lainnya", "error");
                     $(".formCreateProjectData").trigger("reset");
                     $(".modalCreate").modal("hide");
+                    return false;
                 },
                 complete: function() {
                     $('.formCreateProjectData button[type="submit"]').attr('disabled', false);
                 }
             });
+            abort();
         });
     }
-
 
     function enableInput() {
         document.querySelectorAll('.create').forEach(function(el) {

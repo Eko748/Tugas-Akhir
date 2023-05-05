@@ -10,13 +10,13 @@ class ProjectSLR extends Model
 {
     use HasFactory;
     protected $table = 'project_slr';
+    public $incrementing = false;
     protected $guarded = [];
 
     protected $hidden = [
-        'id', 'uuid_project_slr', 'project_id', 'category_id',
+        'uuid_project_slr', 'project_id', 'category_id',
         'created_by', 'created_at', 'updated_by', 'updated_at',
         'deleted_by', 'deleted_at',
-        'title', 'references'
     ];
 
     public function getProject()

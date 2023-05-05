@@ -3,6 +3,16 @@
         <div class="ribbon ribbon-clip ribbon-secondary">
             About Review
         </div>
+        <div class="row">
+            <select name="a" id="ongkir" class="ongkir">
+                {{-- @php
+                    $i = 0;
+                @endphp
+                @foreach ($ongkir as $ong => $v)
+                    <option value="">{{ $v['province'] }}</option>
+                @endforeach --}}
+            </select>
+        </div>
         <div class="default-according style-1" id="accordionoc">
             <div class="card">
                 <div class="card-header pb-0">
@@ -98,3 +108,5 @@
         </div>
     </div>
 </div>
+
+

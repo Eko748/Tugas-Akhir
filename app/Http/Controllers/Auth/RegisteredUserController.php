@@ -65,6 +65,7 @@ class RegisteredUserController extends Controller
         ]);
 
         $user = User::create([
+            'id' => random_int(1000000, 9999999),
             'role_id' => 2,
             'code' => 'A',
             'name' => $request->name,

@@ -33,17 +33,5 @@ class CategorySeed extends Seeder
                 'category_name' => 'Springer'
             ],
         );
-        Category::create(
-            [
-                'category_code' => 'D',
-                'category_name' => 'ScienceDirect'
-            ],
-        );
-        Category::create(
-            [
-                'category_code' => 'E',
-                'category_name' => 'CiteerSeerX'
-            ],
-        );
     }
 }

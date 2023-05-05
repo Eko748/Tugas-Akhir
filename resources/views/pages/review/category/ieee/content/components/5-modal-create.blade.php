@@ -11,7 +11,7 @@
                     @csrf
                     <input type="hidden" class="slr-code" name="reference_source">
                     <div class="modal-body">
-                        <div class="row g-2">
+                        {{-- <div class="row g-2">
                             <div class="mb-3 col-md-12">
                                 <label for="project">List Project</label>
                                 <div class="input-group">
@@ -19,7 +19,7 @@
                                     </select>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="row g-3">
                             <div class="mb-3 col-md-4">
                                 <x-input-label for="title" :value="__('Title')" />
@@ -181,5 +181,5 @@
 </div>
 </div>
 </div>
-@include('pages.review.components.2-get-category-js')
-@include('pages.review.components.3-get-project-js')
+{{-- @include('pages.review.components.2-get-category-js')
+@include('pages.review.components.3-get-project-js') --}}

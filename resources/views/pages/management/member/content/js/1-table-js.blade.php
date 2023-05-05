@@ -26,7 +26,7 @@
                                 $(api.column(colIdx).header()).index()
                             );
                             $(cell).html('@if ($institute == null)' +
-                                '<button class="btn btn-primary btn-sm button cool" onclick="addInstitute()" data-bs-toggle="modal" data-bs-target="#institute" id="createInstitute">Create Institute</button>' +
+                                '<button class="btn btn-primary btn-sm button cool" onclick="addInstitute()" data-bs-toggle="modal" data-bs-target="#institute" id="createInstitute"><i class="fa fa-plus"></i> Instansi</button>' +
                                 '@else' +
                                 '<button onclick="exportData()" title="Export Member" class="btn btn-success me-1 ms-1 btn-sm button cool btn-outline-dark hovering shadow-sm"><i class="fa fa-file-text"></i></button>' +
                                 '@endif');
@@ -176,8 +176,8 @@
                     },
                 },
                 {
-                    data: 'name',
-                    name: 'name'
+                    data: 'member',
+                    name: 'member'
                 },
                 {
                     data: 'email',

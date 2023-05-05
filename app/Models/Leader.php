@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Leader extends Model
 {
     use HasFactory;
+    protected $table = 'leader';
+    public $incrementing = false;
     protected $guarded = [];
 
     public function getUser()

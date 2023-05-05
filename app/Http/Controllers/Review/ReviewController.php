@@ -18,17 +18,17 @@ class ReviewController extends Controller
         $id = $request->id;
 
         if (Auth::user()->role_id == '1') {
-            $projects = Project::with('getLeader')
-                ->whereHas('getLeader', function ($query) use ($id) {
-                    $query->where('user_id', $id);
-                })
+            $projects = Project::whereHas('getLeader', function ($query) use ($id) {
+                $query->where('user_id', $id);
+            })
                 ->where('subject', 'LIKE', '%' . $search . '%')
                 ->orWhere('priority', 'LIKE', '%' . $search . '%')
+                ->where('start_date', '<=', now())
+                ->where('end_date', '>=', now())
                 ->orderBy('priority', 'asc')
                 ->get();
         } else {
-            $projects = Project::with('getLeader')
-                ->where('subject', 'LIKE', '%' . $search . '%')
+            $projects = Project::where('subject', 'LIKE', '%' . $search . '%')
                 ->orWhere('priority', 'LIKE', '%' . $search . '%')
                 ->orderBy('priority', 'asc')
                 ->get();
@@ -45,5 +45,4 @@ class ReviewController extends Controller
             ->get();
         return $category;
     }
-    
 }

@@ -41,6 +41,6 @@
 
     @include('pages.management.member.content.js.1-table-js')
     @include('pages.management.member.content.js.2-crud-js')
-    @include('pages.management.member.content.js.3-validate-js')
+    {{-- @include('pages.management.member.content.js.3-validate-js') --}}
 @endpush
 @endsection

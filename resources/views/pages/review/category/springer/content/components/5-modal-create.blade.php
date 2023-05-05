@@ -11,23 +11,6 @@
                     method="post" onsubmit="enableInput()" action="" novalidate="">
                     @csrf
                     <div class="modal-body">
-                        <div class="row g-2">
-                            <div class="mb-3 col-md-6">
-                                <label for="category">Category</label>
-                                <div class="input-group">
-                                    <select id="category" name="category_id" class="getCategory form-select">
-                                    </select>
-                                    <input type="hidden" name="code" class="code">
-                                </div>
-                            </div>
-                            <div class="mb-3 col-md-6">
-                                <label for="project">List Project</label>
-                                <div class="input-group">
-                                    <select id="getProject" name="project_id" class="getProject form-select">
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
                         <div class="row g-3">
                             <div class="mb-3 col-md-4">
                                 <x-input-label for="title" :value="__('Title')" />
@@ -180,5 +163,3 @@
         </div>
     </div>
 </div>
-@include('pages.review.components.2-get-category-js')
-@include('pages.review.components.3-get-project-js')

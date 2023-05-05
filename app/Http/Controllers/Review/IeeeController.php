@@ -7,6 +7,7 @@ use App\Http\Controllers\Interface\Hehee;
 use App\Http\Controllers\Review\ReviewMasterController;
 use Goutte\Client;
 use Illuminate\Http\Request;
+use Kavist\RajaOngkir\RajaOngkir;
 
 class IeeeController extends ReviewMasterController implements ReviewData
 {
@@ -48,18 +49,19 @@ class IeeeController extends ReviewMasterController implements ReviewData
     public function searchReviewData($request)
     {
         $search = $request->input('search');
+        $article_number = str_replace('https://ieeexplore.ieee.org/document/', '', $search);
         $client = new Client();
         $token1 = '6gt3qk5zbgegvb9zb7epynjy';
         $token2 = 'psqph6ps5ehvbrd2zgp4w6dq';
         $references = 'https://ieeexplore.ieee.org/xpl/dwnldReferences?arnumber=';
 
         $query = new XPLORE($token1);
-        $query->searchField('article_number', $search);
+        $query->searchField('article_number', $article_number);
         $results = $query->callAPI();
 
         if (!isset($results['articles'])) {
             $query = new XPLORE($token2);
-            $query->searchField('article_number', $search);
+            $query->searchField('article_number', $article_number);
             $results = $query->callAPI();
         }
 

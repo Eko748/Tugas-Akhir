@@ -15,16 +15,16 @@ class InstituteController extends Controller
     {
         $user = Leader::where('user_id', Auth::user()->id)->first();
         $request->validate([
-            "institute_name" => "required"
+            'institute_name' => 'required'
         ]);
         Institute::create([
-            "uuid_institute" => Str::uuid(),
-            "leader_id" => $user->id,
-            "institute_name" => $request->institute_name,
-            "institute_slug" => Str::of($request->institute_name)->slug(""),
-            "created_by" => Auth::user()->id,
+            'id' => random_int(1000000, 9999999),
+            'leader_id' => $user->id,
+            'institute_name' => $request->institute_name,
+            'institute_slug' => Str::of($request->institute_name)->slug(''),
+            'created_by' => Auth::user()->id,
         ]);
 
-        return response()->json(["success" => "true"]);
+        return response()->json(['success' => 'true']);
     }
 }

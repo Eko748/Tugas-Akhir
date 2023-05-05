@@ -44,12 +44,10 @@ class RecycleMemberController extends RecycleController implements RecycleData
                         </div>';
                     return $btn;
                 })->addColumn('info', function ($data) {
-                    $deleted = $data->getDeletedData->getUser->name;
-                    $name = '<span class="badge btn-outline-primary hovering badge-light-primary">' . $deleted . '</span>';
                     $info = $data->deleted_at;
                     $parse = Carbon::parse($info)->isoFormat('LLLL');
                     $info = '<span class="badge btn-outline-primary hovering badge-light-primary">' . $parse . '</span>';
-                    return $name . '<br>' . $info;
+                    return $info;
                 })
                 ->rawColumns(['action', 'info'])
                 ->make(true);

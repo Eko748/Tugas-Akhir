@@ -86,6 +86,7 @@
                     $('.formCreateProjectData button[type="submit"]').attr('disabled', false);
                 }
             });
+            abort();
         });
     }
 
@@ -93,20 +94,6 @@
         document.querySelectorAll('.create').forEach(function(el) {
             el.disabled = false;
         });
-    }
-
-    function showFullTitle() {
-        document.querySelectorAll('.show')[0].style.display = 'inline';
-        document.querySelectorAll('.hide')[0].style.display = 'none';
-        document.querySelectorAll('.read-more')[0].style.display = 'none';
-        document.querySelectorAll('.read-less')[0].style.display = 'inline';
-    }
-
-    function hideFullTitle() {
-        document.querySelectorAll('.show')[0].style.display = 'none';
-        document.querySelectorAll('.hide')[0].style.display = 'inline';
-        document.querySelectorAll('.read-more')[0].style.display = 'inline';
-        document.querySelectorAll('.read-less')[0].style.display = 'none';
     }
 
     function showFullAbstract() {
@@ -121,5 +108,20 @@
         document.querySelectorAll('.hide')[1].style.display = 'inline';
         document.querySelectorAll('.read-more')[1].style.display = 'inline';
         document.querySelectorAll('.read-less')[1].style.display = 'none';
+    }
+
+    function toggleItems() {
+        var itemsDiv = document.querySelector('.all-items');
+        var readMoreBtn = document.querySelector('#read-more');
+        var readLessBtn = document.querySelector('#read-less');
+        if (itemsDiv.classList.contains('d-none')) {
+            itemsDiv.classList.remove('d-none');
+            readMoreBtn.classList.add('d-none');
+            readLessBtn.classList.remove('d-none');
+        } else {
+            itemsDiv.classList.add('d-none');
+            readMoreBtn.classList.remove('d-none');
+            readLessBtn.classList.add('d-none');
+        }
     }
 </script>

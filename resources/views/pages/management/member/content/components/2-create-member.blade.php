@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modalHeadingCreateMember"></h5>
+                <h5 class="modal-title"><i class="fa fa-plus"></i>  <strong id="modalHeadingCreateMember"></strong></h5>
                 <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form id="formCreateMember" class="theme-form needs-validation" method="POST" novalidate="">
@@ -37,19 +37,6 @@
                                 autocomplete="new-password" />
                             <x-input-error :messages="$errors->get('password')" class="mt-2" />
                             <div class="invalid-tooltip">Please enter password</div>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="checkbox">
-                            <div class="input-group">
-                                <x-text-input id="status"
-                                    class="form-control rounded border-gray-300 text-indigo-600" value="1"
-                                    type="checkbox" name="status" required />
-                                <x-input-error :messages="$errors->get('status')" class="mt-2" />
-                                <x-input-label for="status" :value="__('Agree with Privacy Policy')" />
-                                <div class="invalid-tooltip">Please agree this checkbox</div>
-                            </div>
                         </div>
                     </div>
                 </div>

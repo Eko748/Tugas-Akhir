@@ -38,7 +38,7 @@ class AcmController extends ReviewMasterController implements ReviewData
                 return view('pages.review.category.acm.content.components.2-data', $this->data)->render();
             }
         } catch (\Exception $e) {
-            return response()->json(['error' => 'Terjadi kesalahan saat mengambil data ACM'], 500);
+            return response()->json(['error' => 'Terjadi kesalahan terhadap request data ACM'], 500);
         }
     }
 
@@ -48,6 +48,7 @@ class AcmController extends ReviewMasterController implements ReviewData
             $delay = 2000;
             $maxRequestsPerMinute = 30;
             $query = $request->input('search');
+            // $query = str_replace('https://dl.acm.org/doi/', '', $query);
             $client = new Client();
             $options = [
                 'headers' => [
@@ -61,7 +62,7 @@ class AcmController extends ReviewMasterController implements ReviewData
             while ($requestCount < $maxRequestsPerMinute) {
                 $timeSinceLastRequest = microtime(true) - $lastRequestTime;
                 if (!empty($query)) {
-                    $response = $client->request('GET', 'https://dl.acm.org/doi/' . $query, $options);
+                    $response = $client->request('GET', $query, $options);
                     if ($timeSinceLastRequest * 1000 >= $delay) {
                         $requestCount++;
                         $lastRequestTime = microtime(true);
@@ -94,7 +95,7 @@ class AcmController extends ReviewMasterController implements ReviewData
                             $references[] = $node->text();
                         });
                     } else {
-                        return response()->json(['error' => 'Terjadi kesalahan saat mengambil data ACM'], 500);
+                        return response()->json(['error' => 'Terjadi kesalahan terhadap permintaan data'], 500);
                     }
                     $data = [
                         'query' => $query,

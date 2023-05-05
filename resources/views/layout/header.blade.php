@@ -191,9 +191,6 @@
         } else if (route === 'Member') {
             window.location.href = '{{ route('management.member.index') }}';
             return;
-        } else if (route === 'Project') {
-            window.location.href = '{{ route('management.project.index') }}';
-            return;
         } else if (route === 'Review') {
             window.location.href = '{{ route('review.master.index') }}';
             return;

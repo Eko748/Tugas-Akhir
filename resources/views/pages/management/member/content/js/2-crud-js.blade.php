@@ -19,7 +19,7 @@
                 processData: false,
                 contentType: false,
                 success: function(result) {
-                    swal("Done!", "Karyawan berhasil ditambahkan", "success")
+                    swal("Done!", "Member berhasil ditambahkan", "success")
                         .then((value) => {
                             $("#formCreateMember").trigger("reset");
                             $("#member").modal("hide");
@@ -38,13 +38,11 @@
         });
     }
 
-    // Read
     function detailMember(id) {
         $('#modalHeading').html("Detail Member");
         $('#member').modal('show');
     }
 
-    // Update
     function editMember(id) {
         let hashedId = CryptoJS.SHA256(id.toString()).toString(); // menggunakan CryptoJS untuk menghitung hash SHA-256
         $.ajax({
@@ -109,34 +107,35 @@
                     $('#formUpdateMember button[type="submit"]').attr('disabled', false);
                 }
             });
+            abort();
         });
     }
 
-    // Delete
     function deleteMember(id) {
         swal({
-            title: "Delete?",
-            text: "Please ensure and then confirm!",
+            title: "Hapus?",
+            text: "Mohon Konfirmasi!",
             type: "warning",
             showCancelButton: !0,
-            confirmButtonText: "Yes, delete it!",
-            cancelButtonText: "No, cancel!",
-            reverseButtons: !0
+            confirmButtonText: "Hapus Data!",
+            cancelButtonText: "Batalkan!",
+            reverseButtons: !0,
+            confirmButtonColor: "#ff0000"
         }).then(function(e) {
             if (e.value === true) {
                 let CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
                 $.ajax({
-                    type: 'POST',
                     url: "{{ url('/management/member-delete') }}/" + id,
+                    type: 'POST',
                     data: {
                         _token: CSRF_TOKEN
                     },
                     dataType: 'JSON',
                     success: function(results) {
-                        if (results.success === true) {
-                            swal("Done!", results.s, "success");
+                        if (results.e === true) {
+                            swal("Done!", results.status, "success");
                         } else {
-                            swal("Error!", results.e, "error");
+                            swal("Error!", results.status, "error");
                         }
                         $("#table-member").DataTable().ajax.reload();
                     }
@@ -144,10 +143,7 @@
             } else {
                 e.dismiss;
             }
-
-        }, function(dismiss) {
-            return false;
-        })
+        });
     }
 
     function exportData() {
@@ -165,7 +161,7 @@
     }
 
     function addInstitute() {
-        $('#modalHeadingInstitute').html("Create Institute");
+        $('#modalHeadingInstitute').html("Instansi");
         $('#institute').modal('show');
 
         $("body").on("submit", "#formCreateInstitute", function(e) {
@@ -194,7 +190,7 @@
                     swal("Error!", "Data sudah ada atau yang lainnya", "error");
                     $("#formCreateInstitute").trigger("reset");
                     $("#institute").modal("hide");
-                    // location.reload(true);
+                    location.reload(true);
                 },
             });
         });

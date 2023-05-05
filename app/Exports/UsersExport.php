@@ -11,7 +11,9 @@ class UsersExport implements FromView
 {
     public function view(): View
     {
-        $users = User::where('created_by', Auth::user()->id)->get();
+        $auth = Auth::user()->hasLeader->first();
+        $users = User::where('created_by', $auth->id)
+        ->where('deleted_by', null)->get();
         $data = [
             "users" => $users,
         ];
