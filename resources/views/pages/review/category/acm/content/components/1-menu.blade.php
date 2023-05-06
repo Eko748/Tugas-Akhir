@@ -61,7 +61,7 @@
                                 aria-describedby="button-addon1">
                             <button class="btn btn-outline-primary" data-bs-trigger="hover" data-container="body"
                                 data-bs-toggle="popover" data-bs-placement="right" data-offset="-5px -5px"
-                                title="Tutorial {{ $parent }} {{ $child }}"
+                                title="Tutorial Review ACM"
                                 data-bs-content="Terapkan 2 suffix terakhir seperti pada tautan (https://dl.acm.org/doi/10.1145/2018567.2018569) yaitu (10.1145/2018567.2018569) kedalam kolom pencarian">
                                 <i class="fa fa-info"></i>
                             </button>

@@ -4,25 +4,12 @@
             <div class="product-img">
                 <div class="mt-3">
                     <div class="text-start mb-2">
-                        <img class="img-fluid ms-3" style="width:20%; height:20%"
-                            src="{{ asset('assets/images/logo/acm.png') }}"
+                        <img class="img-fluid ms-3" style="width:50%"
+                            src="{{ asset('assets/images/logo/amc.png') }}"
                             alt="">
                     </div>
-                    @auth
-                    <div class="product-hover">
-                        <ul>
-                            <li><a data-bs-toggle="modal" onclick="addData()" data-bs-target="#modalCreate-acm">
-                                    <i class="icon-plus"></i></a></li>
-                            <li><a data-bs-toggle="modal" onclick="addData()" data-bs-target="#modalCreate-acm">
-                                    <i class="icon-eye"></i></a></li>
-                        </ul>
-                    </div>
-                    @endauth
                 </div>
             </div>
-            @auth
-            @include('pages.review.category.acm.content.components.5-modal-create')
-            @endauth
             <div class="product-details">
                 <div class="product-price">
                     <h4 class="show text-primary">{{ $key['title'] }}</h4>

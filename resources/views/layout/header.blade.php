@@ -145,15 +145,13 @@
                         </svg>
                     </div>
                     <ul class="profile-dropdown onhover-show-div">
-                        <li><a href="{{ route('profile.edit') }}"><i data-feather="user"></i><span>Account </span></a></li>
+                        <li><a href="{{ route('profile.edit') }}"><span><i class="fa fa-user"></i>  Profile</span></a></li>
                         <li>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
                                 <a href="{{ route('logout') }}"
                                     onclick="event.preventDefault();
-                    this.closest('form').submit();"><i
-                                        data-feather="file-text">
-                                    </i><span>Log out</span>
+                    this.closest('form').submit();"><span><i class="fa fa-sign-out"></i> Log out</span>
                                 </a>
                             </form>
                         </li>

@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Auth\SocialiteController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Public\HomeController;
+use App\Http\Controllers\Review\AcmController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,6 +18,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [HomeController::class, 'showHomePage'])->name('home');
+Route::get('/demo', [AcmController::class, 'requestReviewData'])->name('home.demo');
+
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');

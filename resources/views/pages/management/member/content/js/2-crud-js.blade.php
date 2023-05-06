@@ -35,6 +35,7 @@
                     $('#formCreateMember button[type="submit"]').attr('disabled', false);
                 }
             });
+            abort();
         });
     }
 

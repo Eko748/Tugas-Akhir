@@ -1,29 +1,34 @@
 <!-- demo section start-->
-<section class="demo-section section-py-space" id="dashboard">
-    <div class="title"> 
-      <h1>Dashboard</h1>
+<section class="demo-section section-py-space mb-5" id="review">
+    <div class="title">
+        <h1>Review</h1>
     </div>
     <div class="custom-container">
-      <div class="row demo-block">
-        <div class="col-lg-4 col-md-6 wow pulse">  
-          <div class="demo-box">
-            <div class="img-wrraper"><img class="img-fluid" src="../assets/images/landing/demo/default.jpg" alt=""></div>
-            <div class="demo-title"><a class="btn" href="index.html" target="_blank">Html</a><a class="btn ms-2" href="https://react.pixelstrap.com/zeta/dashboard/default" target="_blank">React</a></div>
-          </div>
+        <div class="row demo-block">
+            <div class="col-lg-4 col-md-4 col-sm-6 wow pulse">
+                <div class="demo-box text-center">
+                    <div class="img-wrraper"><img class="img-fluid" style="width: 300px; height: 150px"
+                            src="{{ asset('assets/images/logo/ieee.png') }}" alt=""></div>
+                    <div class="demo-title"><a class="btn" href="https://ieeexplore.ieee.org/" target="_blank">
+                            <i class="fa fa-file-text"></i></a></div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-6 wow pulse">
+                <div class="demo-box text-center">
+                    <div class="img-wrraper"><img class="img-fluid" style="width: 150px; height: 150px"
+                            src="{{ asset('assets/images/logo/acm.png') }}" alt=""></div>
+                    <div class="demo-title"><a class="btn" href="https://www.acm.org/" target="_blank"><i class="fa fa-file-text"></i></a></div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-6 wow pulse">
+                <div class="demo-box text-center">
+                    <div class="img-wrraper"><img class="img-fluid" style="width: 350px; height: 150px"
+                            src="{{ asset('assets/images/logo/springer.png') }}" alt=""></div>
+                    <div class="demo-title"><a class="btn" href="https://link.springer.com/" target="_blank"><i class="fa fa-file-text"></i></a>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="col-lg-4 col-md-6 wow pulse">  
-          <div class="demo-box">
-            <div class="img-wrraper"><img class="img-fluid" src="../assets/images/landing/demo/ecommerce.jpg" alt=""></div>
-            <div class="demo-title"><a class="btn" href="dashboard-02.html" target="_blank">Html</a><a class="btn ms-2" href="https://react.pixelstrap.com/zeta/dashboard/ecommerce" target="_blank">React</a></div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6 wow pulse">  
-          <div class="demo-box">
-            <div class="img-wrraper"><img class="img-fluid" src="../assets/images/landing/demo/crypto.jpg" alt=""></div>
-            <div class="demo-title"><a class="btn" href="crypto-dashboard.html" target="_blank">Html</a><a class="btn ms-2" href="https://react.pixelstrap.com/zeta/dashboard/crypto" target="_blank">React</a></div>
-          </div>
-        </div>
-      </div>
     </div>
-  </section>
-  <!-- demo section end-->
+</section>
+<!-- demo section end-->

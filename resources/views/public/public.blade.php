@@ -55,9 +55,11 @@
     <script src="{{ asset('assets/js/animation/wow/wow.min.js') }}"></script>
     <script src="{{ asset('assets/js/landing_sticky.js') }}"></script>
     <script src="{{ asset('assets/js/landing.js') }}"></script>
+    <script src="{{ asset('assets/js/popover-custom.js') }}"></script>
     <!-- Plugins JS Ends-->
     <script src="{{ asset('assets/js/script.js') }}"></script>
-    <script src="{{ asset('assets/js/theme-customizer/customizer.js') }}"></script>
+    {{-- <script src="{{ asset('assets/js/theme-customizer/customizer.js') }}"></script> --}}
     <!-- Plugin used-->
+    @stack('js')
   </body>
 </html>

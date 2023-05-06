@@ -68,25 +68,20 @@ class MemberController extends ManagementController implements ValidationData
                     } else {
                         $status = $offline;
                     }
-                    $date = $data->last_seen;
-                    $parse = Carbon::parse($date)->isoFormat('LLLL');
-                    $danger = '<small><span class="badge btn-outline-danger hovering badge-light-danger">Belum ada riwayat Login</span><br><span>' . $status . '<span></small>';
-                    $info = '<small><span class="badge btn-outline-primary hovering badge-light-primary">' . $parse . '</span><br><span>' . $status . '<span></small>';
-
-                    if ($date == null) {
-                        return $danger;
-                    } else {
-                        return $info;
-                    }
+                    $info = '<span>' . $status . '<span>';
+                    return $info;
                 })->addColumn('ip', function ($data) {
                     $ip = $data->last_seen_ip;
-                    $danger = '<small><span class="badge btn-outline-danger hovering badge-light-danger">Belum ada riwayat Login</span></small>';
-                    $info = '<small><span class="badge btn-outline-primary hovering badge-light-primary">' . $ip . '</span></small>';
+                    $info = '<small><span class="badge btn-outline-primary hovering badge-light-primary">IP Address: ' . $ip . '</span></small>';
+                    $date = $data->last_seen;
+                    $parse = Carbon::parse($date)->isoFormat('LLLL');
+                    $danger_d = '<small><span class="badge btn-outline-danger hovering badge-light-danger">Belum ada riwayat Login</span>';
+                    $info_d = '<small><span class="badge btn-outline-primary hovering badge-light-primary">' . $parse . '</span>';
 
-                    if ($ip == null) {
-                        return $danger;
+                    if ($date == null && $ip == null) {
+                        return $danger_d;
                     } else {
-                        return $info;
+                        return $info_d . '<br>' . $info;
                     }
                 })->addColumn('member', function ($data) {
                     $member = '(' . $data->code . ') ' . $data->name;
@@ -278,7 +273,7 @@ class MemberController extends ManagementController implements ValidationData
             $e = false;
             $message = "Proses Tidak berjalan!";
         }
-        return response()->json([ 'e' => $e, 'status' => $message ]);
+        return response()->json(['e' => $e, 'status' => $message]);
     }
 
     public function exportMemberData()
