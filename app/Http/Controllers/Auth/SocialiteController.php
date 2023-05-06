@@ -23,7 +23,7 @@ class SocialiteController extends Controller
     {
         try {
             $user = Socialite::driver($provider)->stateless()->user();
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             return redirect()->back();
         }
         // find or create user and send params user get from socialite and provider

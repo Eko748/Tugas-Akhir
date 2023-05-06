@@ -36,8 +36,14 @@
                     <div class="sidebar-img-content mb-3">
                         <img class="img-fluid" src="{{ asset('assets/images/logo/slr-logo.png') }}" alt="" />
                         <h4></h4>
-                        <a class="btn btn-secondary btn-outline-dark" href="{{ route('logout') }}">Log out <i
-                                class="fa fa-sign-out"></i></a>
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <a class="btn btn-secondary btn-outline-dark" href="{{ route('logout') }}"
+                                onclick="event.preventDefault();
+                this.closest('form').submit();">
+                                <span>Log out</span> <i class="fa fa-sign-out"></i>
+                            </a>
+                        </form>
                     </div>
                 </div>
             </div>

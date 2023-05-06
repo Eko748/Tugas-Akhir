@@ -6,81 +6,46 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+use Illuminate\View\View;
 
 class RegisteredUserController extends Controller
 {
     /**
      * Display the registration view.
-     *
-     * @return \Illuminate\View\View
      */
-    public function create()
+    public function create(): View
     {
-        return view('auth.pages.register.index');
+        return view('auth.register');
     }
 
     /**
      * Handle an incoming registration request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse
-     *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
-        $user = User::with('userStores')->whereHas('userStores', function ($q) {
-            $q->where('user_id', Auth::user()->id);
-        })->first();
-
-        if ($user == null) {
-            return redirect()->route('management.employee.index');
-        } else {
-            $store = $user->userStores->store_name;
-        }
-
-        $array = array($store, $request->email);
-        $string = implode('.', $array);
-
-        $auth = Auth::user()->id;
-
-        $request->validate([
-            "name" => "required|string|max:255",
-            "email" => "required|string|max:255|unique:users",
-            "password" => ["required", "min:5"],
-            "status" => "required|numeric",
-        ]);
-        $token = Str::random(64);
-
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', Rules\Password::defaults()],
-            'status' => ['required', 'integer'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
         $user = User::create([
-            'id' => random_int(1000000, 9999999),
-            'role_id' => 2,
-            'code' => 'A',
             'name' => $request->name,
-            'email' => $string,
+            'email' => $request->email,
             'password' => Hash::make($request->password),
-            'status' => $request->status,
-            'created_by' => $auth,
-            'remember_token' => $token
         ]);
 
+        event(new Registered($user));
 
-        // event(new Registered($user));
+        Auth::login($user);
 
-        // Auth::login($user);
-
-        return redirect()->route('management.employee.index');
+        return redirect(RouteServiceProvider::HOME);
     }
 }

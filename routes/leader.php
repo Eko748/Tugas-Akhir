@@ -4,8 +4,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{
     Auth\AuthController,
     Dashboard\DashboardController,
-    Exception\PageHandlingController
+    Exception\PageHandlingController,
+    ProfileController
 };
+use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Management\{
     InstituteController,
     MemberController,
