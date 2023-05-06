@@ -28,9 +28,9 @@ class Member extends Model
         return $this->belongsTo(Leader::class, 'created_by', 'id');
     }
 
-    public function hasProjectSLR()
+    public function hasReview()
     {
-        return $this->hasMany(ProjectSLR::class, 'project_id');
+        return $this->hasMany(Review::class, 'project_id');
     }
 
     public static function deleteOldRecycle()

@@ -5,7 +5,6 @@
         </div>
     </div>
     <div class="container-fluid">
-        @include('pages.management.project-slr.content.components.3-modal-view')
         <div class="row">
             @include('pages.management.project-slr.content.components.2-data-table')
         </div>

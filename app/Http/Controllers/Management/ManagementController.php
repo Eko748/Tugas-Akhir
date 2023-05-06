@@ -29,39 +29,14 @@ class ManagementController extends Controller
 
     protected function getProjectData()
     {
-        if (Auth::user()->id == 1) {
-            $detail = Project::with('hasProject.getUser')->withCount('hasProject')
-                ->where('created_by', Auth::user()->id)
+        if (Auth::user()->role_id == 1) {
+            $projects = Project::where('created_by', Auth::user()->id)
                 ->orderBy('created_at', 'desc');
-            $all_project = $detail->get();
-            $projects = $detail->paginate(12);
-            $end = Project::with('hasProject.getUser')->withCount('hasProject')
-                ->where('created_by', Auth::user()->id)
-                ->orderBy('created_at', "desc")
-                ->get();
-
-            // dd($all_project);
-        } else {
-            $detail = Project::with('getLeader', 'hasProject.getUser')->withCount('hasProject')
-                ->whereHas('getLeader', function ($q) {
-                    $q->where('id', Auth::user()->created_by);
-                })
-                ->orderBy('created_at', "desc");
-            $all_project = $detail->get();
-            $projects = $detail->paginate(12);
-            $end = Project::with('getLeader', 'hasProject.getUser')->withCount('hasProject')
-                ->whereHas('getLeader', function ($q) {
-                    $q->where('id', Auth::user()->created_by);
-                })
-                ->orderBy('created_at', "desc")
-                ->get();
+        } elseif (Auth::user()->role_id == 2) {
+            $projects = Project::where('leader_id', Auth::user()->created_by)
+                ->orderBy('created_at', 'desc');
         }
-        $data = [
-            'all_project' => $all_project,
-            'projects' => $projects,
-            'end' => $end
-        ];
 
-        return $data;
+        return $projects;
     }
 }

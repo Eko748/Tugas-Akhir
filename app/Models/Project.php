@@ -29,7 +29,7 @@ class Project extends Model
 
     public function hasProject()
     {
-        return $this->hasMany(ProjectSLR::class, 'project_id');
+        return $this->hasMany(Review::class, 'project_id');
     }
 
     public static function deleteOldRecycle()

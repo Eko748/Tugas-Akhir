@@ -20,10 +20,10 @@
                 <form class="theme-form login-form needs-validation" method="POST" action="{{ route('login') }}"
                     novalidate="">
                     @csrf
-                    <h4>Login</h4>
-                    <h6>Welcome back! Log in to your account.</h6>
+                    <h4 class="text-dark mb-3">Login</h4>
+                    {{-- <h6>Welcome back! Log in to your account.</h6> --}}
                     <div class="form-group">
-                        <x-input-label for="email" :value="__('Email')" />
+                        <x-input-label class="text-dark" for="email" :value="__('Email')" />
                         <div class="input-group"><span class="input-group-text"><i class="icon-email"></i></span>
                             <x-text-input id="email" class="form-control block mt-1 w-full" type="email"
                                 name="email" :value="old('email')" required autofocus />
@@ -32,7 +32,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <x-input-label for="password" :value="__('Password')" />
+                        <x-input-label class="text-dark" for="password" :value="__('Password')" />
                         <div class="input-group"><span class="input-group-text"><i class="icon-lock"></i></span>
                             <x-text-input id="password" class="form-control block mt-1 w-full" type="password"
                                 name="password" required autocomplete="current-password" />

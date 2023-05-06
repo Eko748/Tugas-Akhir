@@ -41,7 +41,7 @@
             <a href="{{ route('management.member.index') }}">Member</a>
         </li>
         <li>
-            <a href="{{ route('management.project.index', ['uuid_project' => $project]) }}">Project</a>
+            <a href="{{ route('management.project.index') }}">Project</a>
         </li>
         {{-- <li>
             <a class="project-master" href="{{ route('management.project.index') }}">

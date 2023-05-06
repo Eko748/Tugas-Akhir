@@ -68,14 +68,14 @@ class User extends Authenticatable
         return $this->hasMany(Project::class, 'created_by');
     }
 
-    public function hasProjectSLR()
+    public function hasReview()
     {
-        return $this->hasMany(ProjectSLR::class, 'created_by');
+        return $this->hasMany(Review::class, 'created_by');
     }
 
-    public function hasDataProjectSLR()
+    public function hasDataReview()
     {
-        return $this->hasMany(ProjectSLR::class, 'deleted_by');
+        return $this->hasMany(Review::class, 'deleted_by');
     }
 
 }

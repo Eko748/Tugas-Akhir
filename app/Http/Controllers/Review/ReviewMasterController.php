@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Review;
 
 use App\Http\Controllers\Interface\ValidationData;
 use App\Models\Project;
-use App\Models\ProjectSLR;
+use App\Models\Review;
 use Illuminate\{Http\Request, Support\Str, Support\Facades\Auth};
 
 class ReviewMasterController extends ReviewController implements ValidationData
@@ -38,7 +38,7 @@ class ReviewMasterController extends ReviewController implements ValidationData
                 })->orderBy('created_at', "desc")->first();
             }
             $v_project = $this->validateDataCreate($request);
-            $last_project = ProjectSLR::where('created_by', Auth::user()->id)
+            $last_project = Review::where('created_by', Auth::user()->id)
                 ->orderBy('created_at', 'desc')
                 ->first();
 
@@ -49,10 +49,10 @@ class ReviewMasterController extends ReviewController implements ValidationData
 
             $reference_source = $request->has('reference_source') ? $request->reference_source : null;
 
-            ProjectSLR::create(
+            Review::create(
                 [
                     'id' => random_int(1000000, 9999999),
-                    'uuid_project_slr' => Str::uuid(),
+                    'uuid_review' => Str::uuid(),
                     'project_id' => $project->id,
                     'category_id' => $request->category_id,
                     'code' => $request->code . Auth::user()->code . $code_suffix,

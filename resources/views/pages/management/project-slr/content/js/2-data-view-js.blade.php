@@ -5,7 +5,7 @@
         $('#modal-content-snowballing').show();
         let hashedId = CryptoJS.SHA256(id.toString()).toString();
         $.ajax({
-            url: '{{ Auth::user()->role_id == 1 ? route('management.project.snowBalling', $uuid_project) : route('project.snowBalling', $uuid_project) }}',
+            url: '{{ Auth::user()->role_id == 1 ? route('management.project.snowBalling') : route('project.snowBalling') }}',
             type: 'GET',
             data: {
                 code: hashedId
@@ -27,7 +27,7 @@
         $('#modal-content-detail').show();
         let hashedId = CryptoJS.SHA256(id.toString()).toString();
         $.ajax({
-            url: '{{ Auth::user()->role_id == 1 ? route('management.project.modalDetail', $uuid_project) : route('project.modalDetail', $uuid_project) }}',
+            url: '{{ Auth::user()->role_id == 1 ? route('management.project.modalDetail') : route('project.modalDetail') }}',
             type: 'GET',
             data: {
                 code: hashedId,

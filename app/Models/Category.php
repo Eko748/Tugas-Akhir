@@ -13,6 +13,6 @@ class Category extends Model
 
     public function hasProjectSLR()
     {
-        return $this->hasMany(ProjectSLR::class, 'project_id');
+        return $this->hasMany(Review::class, 'project_id');
     }
 }

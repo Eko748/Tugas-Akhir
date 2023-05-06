@@ -12,16 +12,19 @@
                     .columns()
                     .eq(0)
                     .each(function(colIdx) {
-                        if (colIdx == 7) {
+                        if (colIdx == 0) {
                             let cell = $('.filters th').eq(
                                 $(api.column(colIdx).header()).index()
                             );
-                            $(cell).html('<a href="{{ Auth::user()->role_id == 1 ? route('management.project.export', $uuid_project) : route('project.export', $uuid_project) }}" title="Export Project" class="review-go button btn btn-success hovering"><i class="fa fa-file-text"></i></a>');
-                        } else if (colIdx == 0) {
+                            $(cell).html(
+                                '<a href="{{ Auth::user()->role_id == 1 ? route('management.project.export') : route('project.export') }}" title="Export Project" class="text-center review-go btn-success hovering"><i class="fa fa-file-text"></i></a>');
+                        } else if (colIdx == 7) {
                             let cell = $('.filters th').eq(
                                 $(api.column(colIdx).header()).index()
                             );
-                            $(cell).html('');
+                            $(cell).html(
+                                '<a href="{{ Auth::user()->role_id == 1 ? route('review.master.index') : route('review.index') }}" title="Go To Review" class="text-center review-go btn btn-primary hovering"><i class="fa fa-plus"></i></a>'
+                                );
                         } else if (colIdx == 3) {
                             let cell = $('.filters th').eq(
                                 $(api.column(colIdx).header()).index()
@@ -130,7 +133,7 @@
                     sPrevious: '<',
                 },
             },
-            ajax: "{{ Auth::user()->role_id == 1 ? route('management.project.getTable', $project->uuid_project) : route('project.getTable', $project->uuid_project) }}",
+            ajax: "{{ Auth::user()->role_id == 1 ? route('management.project.getTable') : route('project.getTable') }}",
             columns: [
                 {
                     data: 'DT_RowIndex',

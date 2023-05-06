@@ -6,15 +6,15 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ProjectSLR extends Model
+class Review extends Model
 {
     use HasFactory;
-    protected $table = 'project_slr';
+    protected $table = 'review';
     public $incrementing = false;
     protected $guarded = [];
 
     protected $hidden = [
-        'uuid_project_slr', 'project_id', 'category_id',
+        'uuid_review', 'project_id', 'category_id',
         'created_by', 'created_at', 'updated_by', 'updated_at',
         'deleted_by', 'deleted_at',
     ];
@@ -46,7 +46,7 @@ class ProjectSLR extends Model
 
     public static function deleteOldRecycle()
     {
-        $projects = ProjectSLR::whereNotNull('deleted_by')
+        $projects = Review::whereNotNull('deleted_by')
             ->where('deleted_at', '<', Carbon::now()->subWeek())
             ->get();
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Recycle;
 
 use App\Http\Controllers\Controller;
 use App\Models\ProjectSLR;
+use App\Models\Review;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
@@ -21,7 +22,7 @@ class RecycleController extends Controller
 
     public function recycleProject()
     {
-        $data = ProjectSLR::whereHas('getProject', function ($q) {
+        $data = Review::whereHas('getProject', function ($q) {
             $q->where('created_by', Auth::user()->id);
         })->whereNotNull('deleted_by')->get();
         return $data;

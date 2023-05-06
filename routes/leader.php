@@ -46,18 +46,16 @@ Route::middleware('auth')->group(function () {
             // Project
             Route::prefix("project")->group(function () {
                 Route::controller(ProjectController::class)->group(function () {
-                    Route::get('/{uuid_project}', 'showProject')->name('management.project.index');
-                    //     Route::get('/request', 'requestProjectData')->name('management.project.request');
-                    //     Route::post('/create', 'createProject')->name('management.project.create');
-                });
-                Route::controller(ProjectSLRController::class)->group(function () {
-                    Route::get('/uu/{uuid_project}', 'showProjectDetail')->name('management.project.detail');
-                    Route::get('/fetch/{uuid_project}', 'getProjectDetailData')->name('management.project.getTable');
-                    Route::get('/export/{uuid_project}', 'exportProjectData')->name('management.project.export');
-                    Route::get('/snowballing/{uuid_project}', 'showModalSnowballing')->name('management.project.snowBalling');
-                    Route::get('/detail/{uuid_project}', 'showModalDetail')->name('management.project.modalDetail');
+                    Route::get('/', 'showProject')->name('management.project.index');
+                    Route::get('/project-request', 'requestReviewData')->name('management.project.getTable');
+                    Route::get('/project-export', 'exportProjectData')->name('management.project.export');
+                    Route::get('/snowballing', 'showModalSnowballing')->name('management.project.snowBalling');
+                    Route::get('/detail', 'showModalDetail')->name('management.project.modalDetail');
                     Route::post('/delete', 'deleteProjectSLR')->name('management.projectSLR.delete');
                 });
+                // Route::controller(ProjectSLRController::class)->group(function () {
+                //     Route::get('/uu/{uuid_project}', 'showProjectDetail')->name('management.project.detail');
+                // });
             });
             Route::controller(InstituteController::class)->group(function () {
                 Route::post('/institute-create', 'create')->name('management.institute.create');

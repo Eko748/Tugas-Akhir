@@ -24,4 +24,3 @@ Route::get('/auth/{provider}/callback', [SocialiteController::class, 'handleProv
 require __DIR__.'/auth.php';
 require __DIR__ . '/leader.php ';
 require __DIR__ . '/member.php';
-// require __DIR__ . '/institute.php';
