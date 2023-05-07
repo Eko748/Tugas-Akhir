@@ -1,10 +1,12 @@
 <div class="sidebar-wrapper">
     <div>
         <div class="logo-wrapper">
-            <a href="/"><img class="img-fluid for-light" style="width:300%; height:300%"
+            <a href="/">
+                <img class="img-fluid for-light" style="width:300%; height:300%"
                     src="{{ asset('assets/images/logo/slr.png') }}" alt="" />
                 <img class="img-fluid for-dark" style="width:300%; height:300%"
-                    src="{{ asset('assets/images/logo/logo-dark.png') }}" alt="" /></a>
+                    src="{{ asset('assets/images/logo/logo-dark.png') }}" alt="" />
+            </a>
             <div class="back-btn"><i class="fa fa-angle-left"></i></div>
         </div>
         <div class="logo-icon-wrapper">
@@ -38,7 +40,8 @@
                         <h4></h4>
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
-                            <a title="Log Out" class="cool btn btn-secondary btn-outline-dark" href="{{ route('logout') }}"
+                            <a title="Log Out" class="cool btn btn-secondary btn-outline-dark"
+                                href="{{ route('logout') }}"
                                 onclick="event.preventDefault();
                 this.closest('form').submit();">
                                 <i class="fa fa-sign-out"></i>

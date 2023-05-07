@@ -1,4 +1,4 @@
-<div class="product-wrapper-grid">
+<div class="product-wrapper-grid mb-5">
     <div class="row ms-1 me-1">
         @if (isset($search))
             @foreach ($path as $key)
@@ -11,7 +11,7 @@
             <center>
                 <img id="img-scrap" class="text-center img-fluid" src="{{ asset('images/Search-Scraping.png') }}"
                     style="width:300px" alt="">
-                <p>Klik untuk beralih ke halaman <a href="https://ieeexplore.ieee.org/document/6606614"><b
+                <p>Klik untuk beralih ke halaman <a target="_blank" href="https://ieeexplore.ieee.org/document/6606614"><b
                             class="text-primary"><u>IEEE Xplore</u></b></a></p>
             </center>
         @endif

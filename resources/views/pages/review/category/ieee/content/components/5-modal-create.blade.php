@@ -11,15 +11,6 @@
                     @csrf
                     <input type="hidden" class="slr-code" name="reference_source">
                     <div class="modal-body">
-                        {{-- <div class="row g-2">
-                            <div class="mb-3 col-md-12">
-                                <label for="project">List Project</label>
-                                <div class="input-group">
-                                    <select id="getProject" name="project_id" class="getProject form-select">
-                                    </select>
-                                </div>
-                            </div>
-                        </div> --}}
                         <div class="row g-3">
                             <div class="mb-3 col-md-4">
                                 <x-input-label for="title" :value="__('Title')" />
@@ -105,8 +96,8 @@
                             <div class="mb-3 col-md-12">
                                 <label for="abstract">Abstract</label>
                                 <div class="input-group">
-                                    <textarea class="create" placeholder="" value="" name="abstracts"
-                                        id="abstracts-{{ $key['article_number'] }}" cols="150" rows="5" disabled>{{ $key['abstract'] }}</textarea>
+                                    <textarea class="create" placeholder="" value="" name="abstracts" id="abstracts-{{ $key['article_number'] }}"
+                                        cols="150" rows="5" disabled>{{ $key['abstract'] }}</textarea>
                                 </div>
                             </div>
                         </div>
