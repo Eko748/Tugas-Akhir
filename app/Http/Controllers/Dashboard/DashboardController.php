@@ -21,7 +21,7 @@ class DashboardController extends Controller
         $this->data = $data;
     }
 
-    public function index()
+    public function showDashboard()
     {
         $review = $this->requestChartReview();
         $member = $this->requestChartCommit();

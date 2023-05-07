@@ -2,8 +2,8 @@
     <div class="modal-dialog modal-xl modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="title-review">Create Review</h4>
-                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title text-dark" id="title-review"><i class="fa fa-plus-circle"></i> <strong>Create Review</strong></h5>
+                <button class="btn-close text-dark btn-outline-danger" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="product-details col-lg-16 text-justify">
                 <form id="formCreateProjectData" class="formCreateProjectData theme-form needs-validation"
@@ -13,7 +13,7 @@
                         <div class="row g-3">
                             <div class="mb-3 col-md-4">
                                 <x-input-label for="title" :value="__('Title')" />
-                                <div class="input-group"><span class="input-group-text"><i class="icon-user"></i></span>
+                                <div class="input-group">
                                     <x-text-input placeholder="" value="{{ $key['title'] }}" id="title"
                                         class="create form-control" type="text" name="title" :value="$key['title']"
                                         disabled />
@@ -25,7 +25,7 @@
                             </div>
                             <div class="mb-3 col-md-4">
                                 <x-input-label for="name" :value="__('Publisher')" />
-                                <div class="input-group"><span class="input-group-text"><i class="icon-user"></i></span>
+                                <div class="input-group">
                                     <x-text-input placeholder="{{ $key['publisher'] }}" value="{{ $key['publisher'] }}"
                                         id="publisher" class="create form-control" type="text" name="publisher"
                                         :value="$key['publisher']" disabled />
@@ -37,7 +37,7 @@
                             </div>
                             <div class="mb-3 col-md-4">
                                 <x-input-label for="type" :value="__('Type')" />
-                                <div class="input-group"><span class="input-group-text"><i class="icon-user"></i></span>
+                                <div class="input-group">
                                     <x-text-input placeholder="{{ $key['type'] }}" value="{{ $key['type'] }}"
                                         id="type" class="create form-control" type="text" name="type"
                                         :value="$key['type']" disabled />
@@ -51,7 +51,7 @@
                         <div class="row g-3">
                             <div class="mb-3 col-md-4">
                                 <x-input-label for="publication" :value="__('Publication Title')" />
-                                <div class="input-group"><span class="input-group-text"><i class="icon-user"></i></span>
+                                <div class="input-group">
                                     <x-text-input placeholder="{{ $key['publication'] }}"
                                         value="{{ $key['publication'] }}" id="publication" class="create form-control"
                                         type="text" name="publication" :value="$key['publication']" disabled />
@@ -63,7 +63,7 @@
                             </div>
                             <div class="mb-3 col-md-4">
                                 <x-input-label for="year" :value="__('Publication Year')" />
-                                <div class="input-group"><span class="input-group-text"><i class="icon-user"></i></span>
+                                <div class="input-group">
                                     <x-text-input placeholder="{{ $key['year'] }}" value="{{ $key['year'] }}"
                                         id="year" class="create form-control" type="text" name="year"
                                         :value="$key['year']" disabled />
@@ -132,9 +132,11 @@
                         @endif
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="ml-3 btn btn-load btn-primary btn-block">
-                            Submit
+                        <button class="btn btn-sm btn-outline-dark text-white btn-danger" type="button" data-bs-dismiss="modal">
+                            <i class="fa fa-times-circle"></i> Close
+                        </button>
+                        <button type="submit" class="btn btn-sm btn-outline-dark text-white btn-success btn-load btn-block">
+                            <i class="fa fa-save"></i> Submit
                         </button>
                     </div>
                 </form>

@@ -3,14 +3,13 @@
 namespace App\Http\Controllers\Recycle;
 
 use App\Http\Controllers\Controller;
-use App\Models\ProjectSLR;
 use App\Models\Review;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class RecycleController extends Controller
 {
-    protected string $parent = 'Recycle';
+    protected string $page = 'Recycle';
 
     public function recycleMember()
     {

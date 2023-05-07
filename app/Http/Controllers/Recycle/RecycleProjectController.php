@@ -9,7 +9,7 @@ use Yajra\DataTables\Facades\DataTables;
 
 class RecycleProjectController extends RecycleController implements RecycleData
 {
-    private string $child = 'Project';
+    private string $label = 'Project';
     private array $data;
 
     public function __construct(array $data = [])
@@ -20,8 +20,8 @@ class RecycleProjectController extends RecycleController implements RecycleData
     public function showRecycleData()
     {
         $this->data = [
-            'parent' => $this->parent,
-            'child' => $this->child,
+            'parent' => $this->page,
+            'child' => $this->label,
         ];
         return view('pages.recycle.project.index', $this->data);
     }

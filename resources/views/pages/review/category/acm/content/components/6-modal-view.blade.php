@@ -1,7 +1,12 @@
-<div class="container-fluid modal fade" id="modalView-acm">
+<div class="modal fade" id="modalView-acm">
     <div class="modal-dialog modal-xl modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
+                <h5 class="modal-title text-dark" id="title-review"><i class="fa fa-folder-open"></i> <strong>Detail Review</strong></h5>
+                <button class="btn-close text-dark btn-outline-danger" type="button" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
                 <div class="product-box row">
                     <div class="product-img col-lg-1">
                         <img class="img-fluid" style="width: 70px; height: 70px"
@@ -70,7 +75,7 @@
                                 <span>
                                     <small>
                                         @foreach ($key['references'] as $references)
-                                        <div class="row">
+                                            <div class="row">
                                                 <div class="col-md-1" style="text-align: center;">
                                                     <p class="text-justify pull-right">
                                                         {{ $no++ }}.
@@ -81,7 +86,7 @@
                                                         {{ $references }}
                                                     </p>
                                                 </div>
-                                        </div>
+                                            </div>
                                         @endforeach
                                     </small>
                                 </span>
@@ -91,7 +96,6 @@
                     <div class="col-lg-1">
                     </div>
                 </div>
-                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
         </div>
     </div>

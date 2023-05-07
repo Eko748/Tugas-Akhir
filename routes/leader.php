@@ -1,29 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\{
-    Auth\AuthController,
-    Dashboard\DashboardController,
-    Exception\PageHandlingController,
-    ProfileController
-};
-use App\Http\Controllers\Auth\NewPasswordController;
-use App\Http\Controllers\Management\{
-    InstituteController,
-    MemberController,
-    ProjectController,
-    ProjectSLRController
-};
-use App\Http\Controllers\Recycle\RecycleMemberController;
-use App\Http\Controllers\Recycle\RecycleProjectController;
-use App\Http\Controllers\Review\{
-    IeeeController,
-    AcmController,
-    CiteSeerxController,
-    ReviewMasterController,
-    ScienceDirectController,
-    SpringerController
-};
+use App\Http\Controllers\{Auth\AuthController, Dashboard\DashboardController, Exception\PageHandlingController};
+use App\Http\Controllers\Management\{InstituteController, MemberController, ProjectController,};
+use App\Http\Controllers\Recycle\{RecycleMemberController, RecycleProjectController};
+use App\Http\Controllers\Review\{ReviewMasterController, IeeeController, AcmController, SpringerController,};
 
 Route::middleware('auth')->group(function () {
     // Login
@@ -31,7 +12,7 @@ Route::middleware('auth')->group(function () {
     // Leader Route
     Route::middleware(['1', 'auth'])->group(function () {
         // Dashboard
-        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+        Route::get('/dashboard', [DashboardController::class, 'showDashboard'])->name('dashboard.index');
         // Management
         Route::prefix("management")->group(function () {
             // Member
@@ -55,9 +36,6 @@ Route::middleware('auth')->group(function () {
                     Route::get('/detail', 'showModalDetail')->name('management.project.modalDetail');
                     Route::post('/delete', 'deleteProjectSLR')->name('management.projectSLR.delete');
                 });
-                // Route::controller(ProjectSLRController::class)->group(function () {
-                //     Route::get('/uu/{uuid_project}', 'showProjectDetail')->name('management.project.detail');
-                // });
             });
             Route::controller(InstituteController::class)->group(function () {
                 Route::post('/institute-create', 'create')->name('management.institute.create');
@@ -89,15 +67,6 @@ Route::middleware('auth')->group(function () {
             Route::controller(SpringerController::class)->group(function () {
                 Route::get('/springer', 'showReviewData')->name('review.springer.index');
                 Route::get('/springer-request', 'requestReviewData')->name('review.springer.request');
-            });
-            // ScienceDirect
-            Route::controller(ScienceDirectController::class)->group(function () {
-                Route::get('/sciencedirect', 'showReviewScienceDirect')->name('review.sciencedirect.index');
-                Route::get('/sciencedirect-request', 'requestScienceDirectData')->name('review.sciencedirect.request');
-            });
-            // CiteSeerx
-            Route::controller(CiteSeerxController::class)->group(function () {
-                Route::get('/citeseerx', 'showReviewCiteSeerx')->name('review.citeseerx.index');
             });
         });
         // Recycle

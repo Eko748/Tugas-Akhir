@@ -5,8 +5,8 @@
                 <div class="text-start">
                     <div class="row">
                         <div class="col-md-2 col-sm-2 col-xs-1">
-                            <img class="img-fluid" style="width: 100px;"
-                                src="https://brand-experience.ieee.org/favicon-32x32.png" alt="">
+                            <img class="img-fluid" style="width: 90px; height: 60px"
+                                src="{{ asset('assets/images/logo/ieee.png') }}" alt="">
                         </div>
                         <div class="col-md-8 ms-2 me-1 col-sm-9 col-xs-4">
                             <div class="product-price mt-2">
