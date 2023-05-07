@@ -4,9 +4,9 @@
             <tr>
                 <th class="align-baseline text-center">No</th>
                 <th class="align-baseline">Nama</th>
-                <th id="email" class="align-baseline">Email</th>
-                <th id="status" class="align-baseline">Status</th>
-                <th id="ip_login" class="align-baseline">Last Login</th>
+                <th class="align-baseline">Email</th>
+                <th class="align-baseline">Info</th>
+                <th class="align-baseline">Last Login</th>
                 <th class="align-baseline text-center">
                     <i class="fa fa-tags"></i>
                 </th>

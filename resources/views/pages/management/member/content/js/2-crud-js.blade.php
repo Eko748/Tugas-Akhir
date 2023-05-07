@@ -1,6 +1,6 @@
 <script type="text/javascript">
     function addMember() {
-        $('#modalHeadingCreateMember').html("Create Member");
+        $('#modalHeadingCreateMember').html("New Member");
         $('#member').modal('show');
 
         $('.modal .modal-dialog').attr('class', 'modal-dialog  fadeInLeft  animated');

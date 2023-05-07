@@ -90,16 +90,15 @@ class MemberController extends ManagementController implements ValidationData
         }
     }
 
-    public function searchMemberData(Request $req)
+    public function searchMemberData(Request $request)
     {
-        $search = $req->q;
-        $projects = Member::where('created_by', Auth::user()->id)
-            ->with('getUser')->whereHas('getUser', function ($q) use ($search) {
-                $q->where('created_by', Auth::user()->id)->orWhere('name', 'LIKE', '%' . $search . '%')
+        $search = $request->q;
+        $auth = Auth::user()->hasLeader->first();
+        $projects = Member::where('created_by', $auth->id)
+            ->whereHas('getUser', function ($q) use ($search) {
+                $q->where('name', 'LIKE', '%' . $search . '%')
                     ->orWhere('code', 'LIKE', '%' . $search . '%');
-            })
-            ->orderBy('created_at', 'ASC')
-            ->get();
+            })->orderBy('created_at', 'ASC')->get();
 
         $response = [];
         foreach ($projects as $project) {
@@ -210,7 +209,7 @@ class MemberController extends ManagementController implements ValidationData
                 }
             }
             if (!$edit) {
-                return response()->json(['error' => 'User not found.'], 404);
+                return response()->json(['error' => 'Pengguna tidak ditemukan'], 404);
             }
             $email = $edit->email;
             $string = explode('.', $email, 2);
