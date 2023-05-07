@@ -51,7 +51,7 @@ class MemberController extends ManagementController implements ValidationData
                                 </button>
                                 <button title="Edit" class="mb-2 review-go btn-warning btn-outline-dark"
                                  onclick="editMember(' . $data->id . ')" type="button" data-bs-toggle="modal" data-bs-target="#updateMember">
-                                    <i class="fa fa-pencil"></i>
+                                    <i class="fa fa-edit"></i>
                                 </button>
                                 <button title="Delete" class="review-go btn-danger btn-outline-dark"
                                  onclick="deleteMember(' . $data->id . ')">

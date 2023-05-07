@@ -55,12 +55,12 @@ class ProjectController extends ManagementController
                 ->addIndexColumn()
                 ->addColumn('action', function ($data) {
                     $btn = '<div style="text-align: center; vertical-align: middle;">
-                    <button title="Backward Snowballing" class="mb-2 review-go btn-warning btn-outline-dark" onclick="snowBalling(' . $data->id . ')">
+                    <button title="View Detail" class="mb-2 review-go btn-info btn-outline-dark" onclick="showDetail(' . $data->id . ')">
                         <i class="fa fa-address-book"></i>
                     </button>
-                            <button title="View Detail" class="mb-2 review-go btn-info btn-outline-dark" onclick="showDetail(' . $data->id . ')">
-                                <i class="fa fa-eye"></i>
-                            </button>
+                    <button title="Backward Snowballing" class="mb-2 review-go btn-warning btn-outline-dark" onclick="snowBalling(' . $data->id . ')">
+                        <i class="fa fa-book"></i>
+                    </button>
                             <button title="Delete" class="review-go btn-danger btn-outline-dark" id="deleteSLR" data-id="' . $data->id . '">
                                 <i class="fa fa-trash"></i>
                             </button>
@@ -90,8 +90,8 @@ class ProjectController extends ManagementController
             $institute = Institute::with('getUser')->where('created_by', Auth::user()->id)->first();
         } else {
             $project = Project::whereHas('getLeader', function ($q) {
-                    $q->where('id', Auth::user()->created_by);
-                })
+                $q->where('id', Auth::user()->created_by);
+            })
                 ->firstOrFail();
             $institute = Institute::with('getUser', 'getLeader')
                 ->whereHas('getLeader', function ($q) {

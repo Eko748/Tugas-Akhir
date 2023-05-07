@@ -17,13 +17,13 @@
                                 $(api.column(colIdx).header()).index()
                             );
                             $(cell).html(
-                                '<a href="{{ Auth::user()->role_id == 1 ? route('management.project.export') : route('project.export') }}" title="Export Project" class="text-center review-go btn-success hovering"><i class="fa fa-file-text"></i></a>');
+                                '<a href="{{ Auth::user()->role_id == 1 ? route('management.project.export') : route('project.export') }}" title="Export Project ke Excel" class="text-center review-go btn-success hovering"><i class="fa fa-download"></i></a>');
                         } else if (colIdx == 7) {
                             let cell = $('.filters th').eq(
                                 $(api.column(colIdx).header()).index()
                             );
                             $(cell).html(
-                                '<a href="{{ Auth::user()->role_id == 1 ? route('review.master.index') : route('review.index') }}" title="Go To Review" class="text-center review-go btn btn-primary hovering"><i class="fa fa-plus"></i></a>'
+                                '<a href="{{ Auth::user()->role_id == 1 ? route('review.master.index') : route('review.index') }}" title="Go To Review" class="text-center review-go btn btn-primary hovering"><i class="fa fa-plus-circle"></i></a>'
                                 );
                         } else if (colIdx == 3) {
                             let cell = $('.filters th').eq(

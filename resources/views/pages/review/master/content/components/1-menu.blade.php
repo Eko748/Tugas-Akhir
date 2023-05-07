@@ -27,7 +27,9 @@
                                 paling favorit bagi para penulis jurnal.
                             </div>
                         </div>
-                        <a href="{{ route('review.ieee.index') }}" class="review-go btn-success pull-right me-1 mt-1 mb-1">Go</a>
+                        <a href="{{ route('review.ieee.index') }}" title="Review IEEE" class="review-go btn-success pull-right me-1 mt-1 mb-1">
+                        <i class="fa fa-paper-plane"></i>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -52,7 +54,9 @@
                                 pertama di dunia yang didirikan pada tahun 1947.
                             </div>
                         </div>
-                        <a href="{{ route('review.acm.index') }}" class="review-go btn-success pull-right me-1 mt-1 mb-1">Go</a>
+                        <a href="{{ route('review.acm.index') }}" title="Review ACM" class="review-go btn-success pull-right me-1 mt-1 mb-1">
+                            <i class="fa fa-paper-plane"></i>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -77,7 +81,9 @@
                                 dan medis (STM).
                             </div>
                         </div>
-                        <a href="{{ route('review.springer.index') }}" class="review-go btn-success pull-right me-1 mt-1 mb-1">Go</a>
+                        <a href="{{ route('review.springer.index') }}" title="Review Springer" class="review-go btn-success pull-right me-1 mt-1 mb-1">
+                            <i class="fa fa-paper-plane"></i>
+                        </a>
                     </div>
                 </div>
             </div>
