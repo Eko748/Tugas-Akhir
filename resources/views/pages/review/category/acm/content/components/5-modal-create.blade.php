@@ -77,7 +77,7 @@
                                 <x-input-label for="cited" :value="__('Cited')" />
                                 <div class="input-group"><span class="input-group-text"><i
                                             class="icon-user"></i></span>
-                                    <x-text-input placeholder="0" value="0" id="cited"
+                                    <x-text-input placeholder="0" value="{{ $key['cited'] }}" id="cited"
                                         class="create form-control" type="text" name="cited" :value="0"
                                         disabled />
                                     <x-input-error :messages="$errors->get('cited')" class="mt-2" />

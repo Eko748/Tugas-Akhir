@@ -7,8 +7,10 @@
             </div>
             <div class="modal-body">
                 <div class="product-box row">
-                    <div class="product-img col-lg-1"><img class="img-fluid"
-                            src="https://brand-experience.ieee.org/favicon-32x32.png" alt=""></div>
+                    <div class="product-img col-lg-1">
+                        <img class="img-fluid" style="width: 90px; height: 60px"
+                            src="{{ asset('assets/images/logo/ieee.png') }}" alt="">
+                    </div>
                     <div class="product-details col-lg-10 text-justify"><a href="product-page.html">
                             <h4>Publisher: {{ $key['publisher'] }}</h4>
                         </a>
@@ -19,8 +21,11 @@
                             </p>
                         </div>
                         <div class="product-price">
+                            <span>Publication Title: {{ $key['publication_title'] }}</span>
+                        </div>
+                        <div class="product-price">
                             @if (array_key_exists('publication_date', $key))
-                                <span>Publication: {{ $key['publication_date'] }}</span>
+                                <span>Publication Date: {{ $key['publication_date'] }}</span>
                             @else
                                 <span>Tidak ada</span>
                             @endif
@@ -76,11 +81,7 @@
                             @php
                                 $crawler = $client->request('GET', $references . $key['article_number']);
                                 $text = $crawler->filter('body')->text();
-                                
-                                // memisahkan teks ke dalam array yang terpisah per item
                                 $items = preg_split('/\s+\d+\.\s(?=[a-zA-Z])/u', $text);
-                                
-                                // membersihkan setiap item dari spasi di awal dan akhir, dan menghapus baris kosong
                                 foreach ($items as $key => $value) {
                                     $value = trim($value);
                                     if (empty($value)) {
@@ -90,7 +91,6 @@
                                     }
                                 }
                             @endphp
-
                             <div class="row">
                                 <div class="col-12">
                                     <span>
@@ -108,7 +108,7 @@
                                                         </div>
                                                         <div class="col-md-11">
                                                             <p class="text-justify">
-                                                            {{ preg_replace('/\d+\.\s/', '', $item) }}<br>
+                                                                {{ preg_replace('/\d+\.\s/', '', $item) }}<br>
                                                             </p>
                                                         </div>
                                                     @else
@@ -119,7 +119,7 @@
                                                         </div>
                                                         <div class="col-md-11">
                                                             <p class="text-justify">
-                                                            {{ preg_replace('/\s+(\d+\.\s)(?=[a-zA-Z])/', "<br class='mb-2'>\$1", trim(preg_replace('/1\. /', '', $item))) }}<br>
+                                                                {{ preg_replace('/\s+(\d+\.\s)(?=[a-zA-Z])/', "<br class='mb-2'>\$1", trim(preg_replace('/1\. /', '', $item))) }}<br>
                                                             </p>
                                                         </div>
                                                     @endif
@@ -132,12 +132,10 @@
                         </div>
                     </div>
                     <div class="col-lg-1">
-
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-
             </div>
         </div>
     </div>

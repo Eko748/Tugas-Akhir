@@ -9,7 +9,7 @@ use Illuminate\{Http\Request, Support\Str, Support\Facades\Auth};
 
 class ReviewMasterController extends ReviewController implements ValidationData
 {
-    private string $child = 'Master';
+    private string $label = 'Master';
     private array $data;
 
     public function __construct(array $data = [])
@@ -20,8 +20,8 @@ class ReviewMasterController extends ReviewController implements ValidationData
     public function showReview()
     {
         $this->data = [
-            'parent' => $this->parent,
-            'child' => $this->child,
+            'parent' => $this->page,
+            'child' => $this->label,
         ];
         return view('pages.review.master.index', $this->data);
     }

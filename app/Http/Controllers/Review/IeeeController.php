@@ -11,7 +11,7 @@ use Kavist\RajaOngkir\RajaOngkir;
 
 class IeeeController extends ReviewMasterController implements ReviewData
 {
-    private string $child = 'IEEE';
+    private string $label = 'IEEE';
     private array $data;
 
     public function __construct(array $data = [])
@@ -22,8 +22,8 @@ class IeeeController extends ReviewMasterController implements ReviewData
     public function showReviewData()
     {
         $this->data = [
-            'parent' => $this->parent,
-            'child' => $this->child,
+            'parent' => $this->page,
+            'child' => $this->label,
         ];
         return view('pages.review.category.ieee.index', $this->data);
     }

@@ -8,7 +8,7 @@ use GuzzleHttp\Client;
 
 class SpringerController extends ReviewMasterController implements ReviewData
 {
-    private string $child = 'Springer';
+    private string $label = 'Springer';
     private array $data;
 
     public function __construct(array $data = [])
@@ -19,8 +19,8 @@ class SpringerController extends ReviewMasterController implements ReviewData
     public function showReviewData()
     {
         $this->data = [
-            'parent' => $this->parent,
-            'child' => $this->child,
+            'parent' => $this->page,
+            'child' => $this->label,
         ];
         return view('pages.review.category.springer.index', $this->data);
     }

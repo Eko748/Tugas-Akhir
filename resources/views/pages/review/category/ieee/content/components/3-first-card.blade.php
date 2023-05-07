@@ -25,7 +25,6 @@
                                 <i class="icon-eye"></i>
                             </a>
                         </li>
-
                         <li>
                             <a data-bs-toggle="modal" title="Tambahkan Data Review ke Project" onclick="addData()"
                                 data-bs-placement="bottom" data-bs-target="#modalCreate-{{ $key['article_number'] }}">
@@ -98,8 +97,14 @@
                     {{ $key['content_type'] }}: {{ $key['publication_year'] }}
                     <p class="pull-right text-primary">Cited: {{ $key['citing_paper_count'] }}</p>
                 </div>
-                <a href="{{ $key['pdf_url'] }}" class="btn btn-sm btn-outline-dark btn-danger">
-                    <i class="fa fa-file-pdf-o"></i>
+                <a href="{{ $key['pdf_url'] }}" target="_blank" title="Lihat tautan asli"
+                    class="cool text-white btn btn-sm btn-outline-dark btn-danger">
+                    <i class="fa fa-paper-plane"></i>
+                </a>
+                <a data-bs-toggle="modal" title="Tambahkan Data Review ke Project" onclick="addData()"
+                    data-bs-placement="bottom" data-bs-target="#modalCreate-{{ $key['article_number'] }}"
+                    class="pull-right cool text-white btn btn-sm btn-outline-dark btn-success">
+                    <i class="fa fa-plus-circle"></i>
                 </a>
             </div>
         </div>

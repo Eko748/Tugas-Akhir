@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 
 class AcmController extends ReviewMasterController implements ReviewData
 {
-    private string $child = 'ACM';
+    private string $label = 'ACM';
     private array $data;
 
     public function __construct(array $data = [])
@@ -20,8 +20,8 @@ class AcmController extends ReviewMasterController implements ReviewData
     public function showReviewData()
     {
         $this->data = [
-            'parent' => $this->parent,
-            'child' => $this->child,
+            'parent' => $this->page,
+            'child' => $this->label,
         ];
         return view('pages.review.category.acm.index', $this->data);
     }
@@ -48,7 +48,6 @@ class AcmController extends ReviewMasterController implements ReviewData
             $delay = 2000;
             $maxRequestsPerMinute = 30;
             $query = $request->input('search');
-            // $query = str_replace('https://dl.acm.org/doi/', '', $query);
             $client = new Client();
             $options = [
                 'headers' => [

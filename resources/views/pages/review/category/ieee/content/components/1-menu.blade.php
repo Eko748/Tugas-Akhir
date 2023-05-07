@@ -2,10 +2,10 @@
     <div class="row m-b-10">
         <div class="col-md-3 col-sm-2 products-total">
             <div class="square-product-setting d-inline-block"><a class="icon-grid grid-layout-view"
-                    href="javascript:void(0)" data-original-title="" title=""><i data-feather="grid"></i></a>
+                    href="#card" data-original-title="" title=""><i data-feather="grid"></i></a>
             </div>
             <div class="square-product-setting d-inline-block"><a class="icon-grid m-0 list-layout-view"
-                    href="javascript:void(0)" data-original-title="" title=""><i data-feather="list"></i></a>
+                    href="#list" data-original-title="" title=""><i data-feather="list"></i></a>
             </div>
         </div>
     </div>

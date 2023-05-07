@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 
 class ReviewController extends Controller
 {
-    protected string $parent = 'Review';
+    protected string $page = 'Review';
 
     protected function getProjectReview(Request $request)
     {
