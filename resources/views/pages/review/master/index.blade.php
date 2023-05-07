@@ -1,15 +1,12 @@
 @extends('main')
-
 @section('title')
     {{ $parent }} {{ $child }}
 @endsection
-
-@section('content')
 @section('css')
 @endsection
-@include('pages.review.master.content.master')
-
+@section('content')
+    @include('pages.review.master.content.master')
+@endsection
 @push('js')
     <script src="{{ asset('assets/js/sidebar-menu.js') }}"></script>
 @endpush
-@endsection

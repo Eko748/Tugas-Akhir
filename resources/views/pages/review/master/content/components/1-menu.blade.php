@@ -27,8 +27,9 @@
                                 paling favorit bagi para penulis jurnal.
                             </div>
                         </div>
-                        <a href="{{ route('review.ieee.index') }}" title="Review IEEE" class="review-go btn-success pull-right me-1 mt-1 mb-1">
-                        <i class="fa fa-paper-plane"></i>
+                        <a href="{{ route('review.ieee.index') }}" title="Review IEEE"
+                            class="review-go btn-success pull-right me-1 mt-1 mb-1">
+                            <i class="fa fa-paper-plane"></i>
                         </a>
                     </div>
                 </div>
@@ -54,7 +55,8 @@
                                 pertama di dunia yang didirikan pada tahun 1947.
                             </div>
                         </div>
-                        <a href="{{ route('review.acm.index') }}" title="Review ACM" class="review-go btn-success pull-right me-1 mt-1 mb-1">
+                        <a href="{{ route('review.acm.index') }}" title="Review ACM"
+                            class="review-go btn-success pull-right me-1 mt-1 mb-1">
                             <i class="fa fa-paper-plane"></i>
                         </a>
                     </div>
@@ -72,8 +74,8 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-2 col-sm-2 col-xs-2 text-center">
-                                <img style="width: 80px; height: 30px" src="{{ asset('assets/images/logo/springer.png') }}"
-                                    alt="">
+                                <img style="width: 80px; height: 30px"
+                                    src="{{ asset('assets/images/logo/springer.png') }}" alt="">
                             </div>
                             <div class="col-md-10">
                                 Springer adalah perusahaan penerbitan global yang menerbitkan buku, buku
@@ -81,7 +83,8 @@
                                 dan medis (STM).
                             </div>
                         </div>
-                        <a href="{{ route('review.springer.index') }}" title="Review Springer" class="review-go btn-success pull-right me-1 mt-1 mb-1">
+                        <a href="{{ route('review.springer.index') }}" title="Review Springer"
+                            class="review-go btn-success pull-right me-1 mt-1 mb-1">
                             <i class="fa fa-paper-plane"></i>
                         </a>
                     </div>
