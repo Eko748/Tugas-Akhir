@@ -14,7 +14,7 @@ use Yajra\DataTables\Facades\DataTables;
 
 class ProjectController extends ManagementController
 {
-    private string $page = 'Project';
+    private string $label = 'Project';
     private array $data;
 
     public function __construct(array $data = [])
@@ -25,10 +25,10 @@ class ProjectController extends ManagementController
     public function showProject()
     {
         $this->data = [
-            'parent' => $this->parent,
-            'child' => $this->page,
+            'parent' => $this->page,
+            'child' => $this->label,
         ];
-        return view('pages.management.project-slr.index', $this->data);
+        return view('pages.management.project.index', $this->data);
     }
 
     public function requestReviewData(Request $request)
@@ -59,7 +59,7 @@ class ProjectController extends ManagementController
                         <i class="fa fa-address-book"></i>
                     </button>
                     <button title="Backward Snowballing" class="mb-2 review-go btn-warning btn-outline-dark" onclick="snowBalling(' . $data->id . ')">
-                        <i class="fa fa-book"></i>
+                        <i class="fa fa-share-square-o"></i>
                     </button>
                             <button title="Delete" class="review-go btn-danger btn-outline-dark" id="deleteSLR" data-id="' . $data->id . '">
                                 <i class="fa fa-trash"></i>
@@ -113,14 +113,14 @@ class ProjectController extends ManagementController
     public function showModalSnowballing(Request $request)
     {
         if ($request->ajax()) {
-            return view('pages.management.project-slr.content.components.4-modal-snowballing', $this->getDetailData($request));
+            return view('pages.management.project.content.components.4-modal-snowballing', $this->getDetailData($request));
         }
     }
 
     public function showModalDetail(Request $request)
     {
         if ($request->ajax()) {
-            return view('pages.management.project-slr.content.components.5-modal-detail', $this->getDetailData($request));
+            return view('pages.management.project.content.components.5-modal-detail', $this->getDetailData($request));
         }
     }
 
@@ -132,21 +132,21 @@ class ProjectController extends ManagementController
                 ->get();
             $detail = null;
             foreach ($views as $view) {
-                $hash = hash('sha256', $view->id); // hashing nilai id pengguna untuk membandingkan dengan nilai hash yang diterima
+                $hash = hash('sha256', $view->id);
                 if ($hash === $hashedId) {
                     $detail = $view;
                     break;
                 }
             }
             if (!$detail) {
-                return response()->json(['error' => 'User not found.'], 404);
+                return response()->json(['error' => 'Project Tidak ditemukan'], 404);
             }
             $data = [
                 'views' => $detail,
             ];
             return $data;
         } catch (\Exception $e) {
-            return response()->json(['error' => 'Something went wrong.'], 500);
+            return response()->json(['error' => 'Terjadi Kesalahan'], 500);
         }
     }
 

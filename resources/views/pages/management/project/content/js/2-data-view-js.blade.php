@@ -1,6 +1,7 @@
 <script>
     function snowBalling(id) {
         $('#modalHeadingViewProject').html("Backward Snowballing");
+        $('.info').show();
         $('#modal-content-detail').hide();
         $('#modal-content-snowballing').show();
         let hashedId = CryptoJS.SHA256(id.toString()).toString();
@@ -22,7 +23,8 @@
     }
 
     function showDetail(id) {
-        $('#modalHeadingViewProject').html("Detail Data");
+        $('#modalHeadingViewProject').html("Detail Review");
+        $('.info').hide();
         $('#modal-content-snowballing').hide();
         $('#modal-content-detail').show();
         let hashedId = CryptoJS.SHA256(id.toString()).toString();
@@ -50,7 +52,7 @@
             text: "Mohon Konfirmasi!",
             type: "warning",
             showCancelButton: !0,
-            confirmButtonText: "Hapus Data!",
+            confirmButtonText: "Hapus!",
             cancelButtonText: "Batalkan!",
             reverseButtons: !0,
             confirmButtonColor: "#ff0000"

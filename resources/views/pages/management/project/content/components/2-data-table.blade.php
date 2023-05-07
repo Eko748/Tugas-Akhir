@@ -21,7 +21,7 @@
                         </tr>
                     </thead>
                 </table>
-                @include('pages.management.project-slr.content.components.3-modal-view')
+                @include('pages.management.project.content.components.3-modal-view')
             </div>
         </div>
     </div>

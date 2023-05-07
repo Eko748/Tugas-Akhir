@@ -19,7 +19,7 @@ use Yajra\DataTables\Facades\DataTables;
 
 class MemberController extends ManagementController implements ValidationData
 {
-    private string $child = 'Member';
+    private string $label = 'Member';
     private array $data;
 
     public function __construct(array $data = [])
@@ -30,8 +30,8 @@ class MemberController extends ManagementController implements ValidationData
     public function showMember()
     {
         $this->data = [
-            'parent' => $this->parent,
-            'child' => $this->child,
+            'parent' => $this->page,
+            'child' => $this->label,
             'institute' => $this->getMemberData()['institute'],
         ];
         return view('pages.management.member.index', $this->data);

@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-md-12 footer-copyright text-center">
         <p class="mb-0">
-          <img class="img-fluid" width="20%" src="{{ asset('assets/images/logo/slr.png') }}"
+          <img class="img-fluid" style="width: 250px; height: 50px" src="{{ asset('assets/images/logo/slr.png') }}"
           alt="" /></p>
       </div>
     </div>

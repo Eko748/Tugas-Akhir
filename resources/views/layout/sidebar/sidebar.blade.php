@@ -38,10 +38,10 @@
                         <h4></h4>
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
-                            <a class="btn btn-secondary btn-outline-dark" href="{{ route('logout') }}"
+                            <a title="Log Out" class="cool btn btn-secondary btn-outline-dark" href="{{ route('logout') }}"
                                 onclick="event.preventDefault();
                 this.closest('form').submit();">
-                                <span>Log out</span> <i class="fa fa-sign-out"></i>
+                                <i class="fa fa-sign-out"></i>
                             </a>
                         </form>
                     </div>

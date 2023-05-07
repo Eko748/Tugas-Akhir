@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 
 class ManagementController extends Controller
 {
-    protected string $parent = 'Management';
+    protected string $page = 'Management';
 
     protected function getMemberData()
     {
