@@ -1,22 +1,31 @@
-<div class="container-fluid modal fade" id="modalView-{{ $key['article_number'] }}">
+<div class="modal fade" id="modalView-springer">
     <div class="modal-dialog modal-xl modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
+                <h5 class="modal-title text-dark" id="title-review"><i class="fa fa-folder-open"></i> <strong>Detail Review</strong></h5>
+                <button class="btn-close text-dark btn-outline-danger" type="button" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
                 <div class="product-box row">
-                    <div class="product-img col-lg-1"><img style="width: 80px; height: 30px"
+                    <div class="product-img col-lg-1">
+                        <img class="img-fluid" style="width: 80px; height: 30px"
                             src="{{ asset('assets/images/logo/springer.png') }}" alt="">
                     </div>
                     <div class="product-details col-lg-10 text-justify"><a href="product-page.html">
                             <h4>Publisher: {{ $key['publisher'] }}</h4>
                         </a>
                         <div class="product-price">
-                            <span>Type: {{ $key['content_type'] }}</span>
-                            <p class="pull-right">
-                                Cited: {{ $key['citing_paper_count'] }}
-                            </p>
+                            <span>Type: {{ $key['publicationType'] }}</span>
+                            {{-- <p class="pull-right">
+                                Cited: {{ $key['cited'] }}
+                            </p> --}}
                         </div>
                         <div class="product-price">
-                            <span>Publication: {{ $key['publication_date'] }}</span>
+                            <span>Publication Title: {{ $key['publicationName'] }}</span>
+                        </div>
+                        <div class="product-price">
+                            <span>Publication Date: {{ $key['publicationDate'] }}</span>
                         </div>
                         <div class="product-view mb-2">
                             <div class="product-price">
@@ -33,22 +42,16 @@
                                 @endif
                             </p>
                         </div>
-                        @php
-                            $a = [];
-                            foreach ($key['index_terms'] as $keyword) {
-                                $a = $keyword['terms'];
-                            }
-                        @endphp
                         <div class="col-xl-4 col-sm-4 xl-4 mb-1">
                             <b>
                                 <span>Keywords:</span>
                             </b>
                         </div>
                         <div class="row mb-3">
-                            @if ($a == null)
+                            @if ($key['keyword'] == null)
                                 <span>Tidak Ada</span>
                             @else
-                                @foreach ($a as $keywords)
+                                @foreach ($key['keyword'] as $keywords)
                                     <div class="col-xl-1 col-sm-0 xl-1">
                                     </div>
                                     <div class="col-xl-5 col-sm-8 xl-6 mb-2">
@@ -61,44 +64,38 @@
                                 @endforeach
                             @endif
                         </div>
-                        <div class="product-view row mb-3">
+                        {{-- <div class="product-view row mb-3">
                             <div class="">
                                 <span><b>References:</b></span>
                             </div>
-                            @php
-                                $crawler = $client->request('GET', $references . $key['article_number']);
-                                $text = $crawler->filterXPath('//body/text()[1]')->text();
-                                $text = $crawler->filter('body')->text();
-                                
-                                // menghapus karakter \n dan \r
-                                $text = str_replace(["\r", "\n"], '', $text);
-                                
-                                // memisahkan teks ke dalam array yang terpisah per item
-                                $items = preg_split('/(?<=\d\.)/', $text);
-                                
-                                // membersihkan setiap item dari spasi di awal dan akhir, dan menghapus baris kosong
-                                foreach ($items as $key => $value) {
-                                    $value = trim($value);
-                                    if (empty($value)) {
-                                        unset($items[$key]);
-                                    } else {
-                                        $items[$key] = $value;
-                                    }
-                                }
-                            @endphp
-                            <span>
-                                <small>
-                                    @foreach ($items as $item)
-                                        {{ $item }}
-                                    @endforeach
-                                </small>
-                            </span>
-                        </div>
+                            @if (isset($key['references']))
+                                @php
+                                    $no = 1;
+                                @endphp
+                                <span>
+                                    <small>
+                                        @foreach ($key['references'] as $references)
+                                            <div class="row">
+                                                <div class="col-md-1" style="text-align: center;">
+                                                    <p class="text-justify pull-right">
+                                                        {{ $no++ }}.
+                                                    </p>
+                                                </div>
+                                                <div class="col-md-11">
+                                                    <p class="text-justify">
+                                                        {{ $references }}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </small>
+                                </span>
+                            @endif
+                        </div> --}}
                     </div>
                     <div class="col-lg-1">
                     </div>
                 </div>
-                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
         </div>
     </div>

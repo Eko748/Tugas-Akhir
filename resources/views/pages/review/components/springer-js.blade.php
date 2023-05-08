@@ -96,17 +96,17 @@
     }
 
     function showFullAbstract() {
-        document.querySelectorAll('.show')[0].style.display = 'inline';
-        document.querySelectorAll('.hide')[0].style.display = 'none';
-        document.querySelectorAll('.read-more')[0].style.display = 'none';
-        document.querySelectorAll('.read-less')[0].style.display = 'inline';
+        document.querySelectorAll('.show')[1].style.display = 'inline';
+        document.querySelectorAll('.hide')[1].style.display = 'none';
+        document.querySelectorAll('.read-more')[1].style.display = 'none';
+        document.querySelectorAll('.read-less')[1].style.display = 'inline';
     }
 
     function hideFullAbstract() {
-        document.querySelectorAll('.show')[0].style.display = 'none';
-        document.querySelectorAll('.hide')[0].style.display = 'inline';
-        document.querySelectorAll('.read-more')[0].style.display = 'inline';
-        document.querySelectorAll('.read-less')[0].style.display = 'none';
+        document.querySelectorAll('.show')[1].style.display = 'none';
+        document.querySelectorAll('.hide')[1].style.display = 'inline';
+        document.querySelectorAll('.read-more')[1].style.display = 'inline';
+        document.querySelectorAll('.read-less')[1].style.display = 'none';
     }
 
     function toggleItems() {

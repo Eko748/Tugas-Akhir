@@ -1,4 +1,4 @@
-<div class="product-wrapper-grid">
+<div class="product-wrapper-grid mb-5">
     <div class="row ms-1 me-1">
         @if (isset($search))
             @foreach ($path as $key)

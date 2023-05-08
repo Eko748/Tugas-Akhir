@@ -64,23 +64,23 @@
                                             @if ($counter < 5)
                                                 <div class="row">
                                                     @if ($key == 0)
-                                                        <div class="col-md-1 text-justify" style="text-align: center;">
+                                                        <div class="col-md-2 col-sm-2 text-justify" style="text-align: center;">
                                                             <p class="text-justify">
                                                                 {{ ++$counter }}.
                                                             </p>
                                                         </div>
-                                                        <div class="col-md-11">
+                                                        <div class="col-md-10 col-sm-10">
                                                             <p class="text-justify">
                                                                 {{ preg_replace('/\d+\.\s/', '', $item) }}<br>
                                                             </p>
                                                         </div>
                                                     @else
-                                                        <div class="col-md-1" style="text-align: center;">
+                                                        <div class="col-md-2 col-sm-2" style="text-align: center;">
                                                             <p class="text-justify">
                                                                 {{ ++$counter }}.
                                                             </p>
                                                         </div>
-                                                        <div class="col-md-11">
+                                                        <div class="col-md-10 col-sm-10">
                                                             <p class="text-justify">
                                                                 {{ preg_replace('/\s+(\d+\.\s)(?=[a-zA-Z])/', "<br class='mb-2'>\$1", trim(preg_replace('/1\. /', '', $item))) }}<br>
                                                             </p>
@@ -91,14 +91,14 @@
                                                 @php
                                                     $remaining_items .=
                                                         '<div class="row">' .
-                                                        '<div class="col-md-1" style="text-align: center;">
+                                                        '<div class="col-md-2 col-sm-2" style="text-align: center;">
                                                         ' .
-                                                        '<p class="text-justify pull-right">' .
-                                                        ++$counter .
+                                                        '<p class="text-justify">' .
+                                                        ++$counter . '.' .
                                                         '</p>' .
                                                         '</div>
                                                         ' .
-                                                        '<div class="col-md-11">' .
+                                                        '<div class="col-md-10 col-sm-10">' .
                                                         '<p class="text-justify">' .
                                                         $item .
                                                         '</p>' .

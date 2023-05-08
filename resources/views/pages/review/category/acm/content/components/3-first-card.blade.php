@@ -40,11 +40,11 @@
                 <hr>
                 <span>
                     <b class="text-primary">Authors:</b>
-                </span>
+                </span><br>
                 @foreach ($key['authors'] as $author)
-                    <p>
-                        - {{ $author }}
-                    </p>
+                    <span>
+                        <small>- {{ $author }}</small>
+                    </span><br>
                 @endforeach
                 <hr>
                 <div class="rating">
@@ -63,21 +63,36 @@
                         style="display:none;"><small><i class="fa fa-chevron-circle-left"></i></small></a>
                     <br>
                 </div>
+                <hr>
                 <div class="product-price mb-2">
-                    Type: {{ $key['type'] }}
-                    <p class="pull-right">Date: {{ $key['year'] }}</p>
+                    <div class="row">
+                        <div class="col-md-6 col-sm-3">
+                            <span><small class="text-primary">Type: </small><small>{{ $key['type'] }}</small></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12">
+                            <span><small class="text-primary">Publication Date: </small><small>{{ $key['year'] }}</small></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-sm-3">
+                            <span><small class="text-primary">Cited: </small><small>{{ $key['cited'] }}</small></span>
+                        </div>
+                    </div>
                 </div>
-                <a href="{{ $search }}" target="_blank" title="Lihat tautan asli"
-                    class="cool text-white btn btn-sm btn-outline-dark btn-danger">
-                    <i class="fa fa-paper-plane"></i>
-                </a>
-                @auth
-                    <a data-bs-toggle="modal" title="Tambahkan Data Review ke Project" onclick="addData()"
-                        data-bs-placement="bottom" data-bs-target="#modalCreate-acm"
-                        class="pull-right cool text-white btn btn-sm btn-outline-dark btn-success">
-                        <i class="fa fa-plus-circle"></i>
+                <hr>
+                    <a href="{{ $search }}" target="_blank" title="Lihat tautan asli"
+                        class="cool text-white btn btn-sm btn-outline-dark btn-danger">
+                        <i class="fa fa-paper-plane"></i>
                     </a>
-                @endauth
+                    @auth
+                        <a data-bs-toggle="modal" title="Tambahkan Data Review ke Project" onclick="addData()"
+                            data-bs-placement="bottom" data-bs-target="#modalCreate-acm"
+                            class="pull-right cool text-white btn btn-sm btn-outline-dark btn-success">
+                            <i class="fa fa-plus-circle"></i>
+                        </a>
+                    @endauth
             </div>
         </div>
     </div>

@@ -68,7 +68,7 @@
                                                             '<div class="col-md-2 col-xl-2 col-lg-2 col-sm-2" style="text-align: center;">
                                                         ' .
                                                             '<p class="text-justify">' .
-                                                            ++$counter .
+                                                            ++$counter . '.' .
                                                             '</p>' .
                                                             '</div>
                                                         ' .
