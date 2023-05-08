@@ -3,8 +3,9 @@
         <div class="modal-content">
             <div class="modal-header">
                 <div class="product-box row">
-                    <div class="product-img col-lg-1"><img class="img-fluid"
-                            src="https://brand-experience.ieee.org/favicon-32x32.png" alt=""></div>
+                    <div class="product-img col-lg-1"><img style="width: 80px; height: 30px"
+                            src="{{ asset('assets/images/logo/springer.png') }}" alt="">
+                    </div>
                     <div class="product-details col-lg-10 text-justify"><a href="product-page.html">
                             <h4>Publisher: {{ $key['publisher'] }}</h4>
                         </a>
@@ -87,7 +88,7 @@
                             @endphp
                             <span>
                                 <small>
-                                    @foreach($items as $item)
+                                    @foreach ($items as $item)
                                         {{ $item }}
                                     @endforeach
                                 </small>

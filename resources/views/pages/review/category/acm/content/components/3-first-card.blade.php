@@ -71,11 +71,13 @@
                     class="cool text-white btn btn-sm btn-outline-dark btn-danger">
                     <i class="fa fa-paper-plane"></i>
                 </a>
-                <a data-bs-toggle="modal" title="Tambahkan Data Review ke Project" onclick="addData()"
-                    data-bs-placement="bottom" data-bs-target="#modalCreate-acm"
-                    class="pull-right cool text-white btn btn-sm btn-outline-dark btn-success">
-                    <i class="fa fa-plus-circle"></i>
-                </a>
+                @auth
+                    <a data-bs-toggle="modal" title="Tambahkan Data Review ke Project" onclick="addData()"
+                        data-bs-placement="bottom" data-bs-target="#modalCreate-acm"
+                        class="pull-right cool text-white btn btn-sm btn-outline-dark btn-success">
+                        <i class="fa fa-plus-circle"></i>
+                    </a>
+                @endauth
             </div>
         </div>
     </div>

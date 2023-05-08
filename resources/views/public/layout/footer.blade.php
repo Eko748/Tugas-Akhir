@@ -36,11 +36,11 @@
             <span>About</span>
             Sebagai alat tinjauan literatur sistematis</p>
         <div class="footer-icons">
-            <a href="#" class="btn-outline-dark"><i class="fa fa-facebook"></i></a>
-            <a href="#" class="btn-outline-dark"><i class="fa fa-twitter"></i></a>
-            <a href="#" class="btn-outline-dark"><i class="fa fa-instagram"></i></a>
-            <a href="https://www.linkedin.com/in/eko-permana-243800275/" class="btn-outline-dark"><i class="fa fa-linkedin"></i></a>
-            <a href="https://www.youtube.com/@ekopermana3887/about" class="btn-outline-dark"><i class="fa fa-youtube"></i></a>
+            <a target="_blank" href="https://www.facebook.com/violet.isme.52" class="btn-outline-dark"><i class="fa fa-facebook"></i></a>
+            <a target="_blank" href="https://eko748.github.io/" class="btn-outline-dark"><i class="fa fa-github"></i></a>
+            <a target="_blank" href="https://www.instagram.com/anamrepoke_/" class="btn-outline-dark"><i class="fa fa-instagram"></i></a>
+            <a target="_blank" href="https://www.linkedin.com/in/eko-permana-243800275/" class="btn-outline-dark"><i class="fa fa-linkedin"></i></a>
+            <a target="_blank" href="https://www.youtube.com/@ekopermana3887/about" class="btn-outline-dark"><i class="fa fa-youtube"></i></a>
         </div>
     </div>
 </footer>

@@ -4,9 +4,8 @@
             <div class="product-img">
                 <div class="mt-3">
                     <div class="text-start mb-2">
-                        <img class="img-fluid ms-3" style="width: 100%;"
-                            src="https://link.springer.com/static/0ec8b27393b8fa28d3a17e3ebe39646d1d6540e9/sites/link/images/logo_high_res.png"
-                            alt="">
+                        <img class="img-fluid" style="width: 80px; height: 30px"
+                                    src="{{ asset('assets/images/logo/springer.png') }}" alt="">
                     </div>
                     <p class="ms-3 ps-3"><small class="text-dark">{{ $key['identifier'] }}</small></p>
                     <div class="product-hover">

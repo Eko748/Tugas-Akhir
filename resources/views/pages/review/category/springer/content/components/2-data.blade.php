@@ -9,7 +9,7 @@
             <center>
                 <img id="img-scrap" class="text-center img-fluid" src="{{ asset('images/Search-Scraping.png') }}"
                     style="width:300px" alt="">
-                <p>Klik untuk beralih ke halaman <a
+                <p>Klik untuk beralih ke halaman <a target="_blank"
                         href="https://link.springer.com/article/10.1007/s10118-023-2956-9"><b
                             class="text-primary"><u>Springer Link</u></b></a></p>
             </center>

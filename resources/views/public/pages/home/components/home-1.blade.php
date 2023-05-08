@@ -5,13 +5,6 @@
             <div class="row">
                 <div class="col-12">
                     <div class="landing-home-contain mb-5">
-                        {{-- <div>
-                            <ul class="landing-icon">
-                                <li><a href=""><img class="img-fluid me-2"
-                                            src="{{ asset('assets/images/logo/slr-logo.png') }}" alt=""></a>
-                                </li>
-                            </ul>
-                        </div> --}}
                     </div>
                 </div>
             </div>

@@ -1,4 +1,3 @@
-<!-- demo section start-->
 <section class="demo-section section-py-space mb-5" id="review">
     <div class="title">
         <h1>Review</h1>
@@ -31,4 +30,3 @@
         </div>
     </div>
 </section>
-<!-- demo section end-->

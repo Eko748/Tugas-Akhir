@@ -9,8 +9,10 @@
                         <li class="nav-item menu-back">back<i class="fa fa-angle-right"></i></li>
                         <li class="nav-item"><a class="nav-link" href="#home"><i class="fa fa-home"></i>Home</a></li>
                         <li class="nav-item"><a class="nav-link" href="#review"><i class="fa fa-file-text"></i>Review</a></li>
+                        @guest
                         <li class="nav-item"><a class="nav-link" href="#demo"><i class="fa fa-search"></i>Demo</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#about"><i class="fa fa-info"></i>About</a></li>
+                        @endguest
+                        <li class="nav-item"><a class="nav-link" href="#about"><i class="fa fa-info-circle"></i>About</a></li>
                     </ul>
                     <div class="buy-block"><a class="btn-landing btn-outline-dark btn-white" href="{{ route('login') }}"
                             target="_blank"><i class="fa fa-sign-in"></i> <span>Login</span></a>
