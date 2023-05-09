@@ -11,19 +11,25 @@ use Illuminate\View\View;
 
 class ProfileController extends Controller
 {
-    /**
-     * Display the user's profile form.
-     */
-    public function edit(Request $request): View
+    private string $page = 'Profile';
+    private string $label;
+    private array $data;
+
+    public function __construct(array $data = [])
     {
-        return view('profile.edit', [
-            'user' => $request->user(),
-        ]);
+        $this->data = $data;
     }
 
-    /**
-     * Update the user's profile information.
-     */
+    public function edit(Request $request): View
+    {
+        $this->data = [
+            'parent' => $this->page,
+            'child' => Auth::user()->name,
+            'user' => $request->user(),
+        ];
+        return view('pages.profile.index', $this->data);
+    }
+
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
         $request->user()->fill($request->validated());
@@ -37,9 +43,6 @@ class ProfileController extends Controller
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }
 
-    /**
-     * Delete the user's account.
-     */
     public function destroy(Request $request): RedirectResponse
     {
         $request->validateWithBag('userDeletion', [
