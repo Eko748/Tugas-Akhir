@@ -54,18 +54,24 @@ class ProjectController extends ManagementController
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($data) {
-                    $btn = '<div style="text-align: center; vertical-align: middle;">
-                    <button title="View Detail" class="mb-2 review-go btn-info btn-outline-dark" onclick="showDetail(' . $data->id . ')">
+                    $delete = '<button title="Delete" class="ms-1 me-1 mb-2 review-go btn-danger btn-outline-dark" id="deleteSLR" data-id="' . $data->id . '"><i class="fa fa-trash"></i></button>';
+                    if (Auth::user()->role_id == 2) {
+                        if ($data->created_by == Auth::user()->id) {
+                            $btn_delete = $delete;
+                        } else {
+                            $btn_delete = '';
+                        }
+                    } elseif (Auth::user()->role_id == 1) {
+                        $btn_delete = $delete;
+                    }
+                    $btn = '
+                    <button title="View Detail" class="ms-1 me-1 mb-2 review-go btn-info btn-outline-dark" onclick="showDetail(' . $data->id . ')">
                         <i class="fa fa-address-book"></i>
-                    </button>
-                    <button title="Backward Snowballing" class="mb-2 review-go btn-warning btn-outline-dark" onclick="snowBalling(' . $data->id . ')">
+                    </button><button title="Backward Snowballing" class="ms-1 me-1 mb-2 review-go btn-warning btn-outline-dark" onclick="snowBalling(' . $data->id . ')">
                         <i class="fa fa-share-square-o"></i>
-                    </button>
-                            <button title="Delete" class="review-go btn-danger btn-outline-dark" id="deleteSLR" data-id="' . $data->id . '">
-                                <i class="fa fa-trash"></i>
-                            </button>
-                        </div>';
-                    return $btn;
+                    </button>';
+                    $button = '<div style="text-align: center; vertical-align: middle;">' . $btn . $btn_delete . '</div>';
+                    return $button;
                 })->addColumn('article', function ($data) {
                     $title = $data->title;
                     return $title;

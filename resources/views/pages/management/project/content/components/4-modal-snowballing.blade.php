@@ -2,18 +2,13 @@
     <div class="card-header">
         <div class="row text-center">
             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 text-center">
-                @if (Auth::user()->role_id == 1)
-                    <a href="{{ route('review.ieee.index') }}?slr_id={{ $views->uuid_review }}&slr_code={{ $views->code }}"
+                    <a href="{{ Auth::user()->role_id == 1 ? route('review.ieee.index') : route('ieee.index') }}?slr_id={{ $views->uuid_review }}&slr_code={{ $views->code }}"
                         class="button btn-info review-go hovering mb-2"><i class="fa fa-paper-plane"></i> IEEE</a>
-                    <a href="{{ route('review.acm.index') }}?slr_id={{ $views->uuid_review }}&slr_code={{ $views->code }}"
+                    <a href="{{ Auth::user()->role_id == 1 ? route('review.acm.index') : route('acm.index') }}?slr_id={{ $views->uuid_review }}&slr_code={{ $views->code }}"
                         class="button btn-success review-go hovering mb-2"><i class="fa fa-paper-plane"></i> ACM</a>
-                    <a href="{{ route('review.springer.index') }}?slr_id={{ $views->uuid_review }}&slr_code={{ encrypt($views->code) }}"
+                    <a href="{{ Auth::user()->role_id == 1 ? route('review.springer.index') : route('springer.index') }}?slr_id={{ $views->uuid_review }}&slr_code={{ encrypt($views->code) }}"
                         class="button btn-warning review-go hovering mb-2"><i class="fa fa-paper-plane"></i>
                         Springer</a>
-                @elseif (Auth::user()->role_id == 2)
-                    <a href="{{ route('ieee.index') }}?slr_id={{ $views->uuid_review }}&slr_code={{ encrypt($views->code) }}"
-                        class="button btn-info review-go hovering mb-2">IEEE</a>
-                @endif
             </div>
         </div>
     </div>
@@ -67,18 +62,13 @@
             <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2">
             </div>
             <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8">
-                @if (Auth::user()->role_id == 1)
-                    <a href="{{ route('review.ieee.index') }}?slr_id={{ $views->uuid_review }}&slr_code={{ $views->code }}"
-                        class="button btn-info review-go hovering mb-2"><i class="fa fa-paper-plane"></i> IEEE</a>
-                    <a href="{{ route('review.acm.index') }}?slr_id={{ $views->uuid_review }}&slr_code={{ $views->code }}"
-                        class="button btn-success review-go hovering mb-2"><i class="fa fa-paper-plane"></i> ACM</a>
-                    <a href="{{ route('review.springer.index') }}?slr_id={{ $views->uuid_review }}&slr_code={{ encrypt($views->code) }}"
-                        class="button btn-warning review-go hovering mb-2"><i class="fa fa-paper-plane"></i>
-                        Springer</a>
-                @elseif (Auth::user()->role_id == 2)
-                    <a href="{{ route('ieee.index') }}?slr_id={{ $views->uuid_review }}&slr_code={{ encrypt($views->code) }}"
-                        class="button btn-info review-go hovering mb-2">IEEE</a>
-                @endif
+                <a href="{{ Auth::user()->role_id == 1 ? route('review.ieee.index') : route('ieee.index') }}?slr_id={{ $views->uuid_review }}&slr_code={{ $views->code }}"
+                    class="button btn-info review-go hovering mb-2"><i class="fa fa-paper-plane"></i> IEEE</a>
+                <a href="{{ Auth::user()->role_id == 1 ? route('review.acm.index') : route('acm.index') }}?slr_id={{ $views->uuid_review }}&slr_code={{ $views->code }}"
+                    class="button btn-success review-go hovering mb-2"><i class="fa fa-paper-plane"></i> ACM</a>
+                <a href="{{ Auth::user()->role_id == 1 ? route('review.springer.index') : route('springer.index') }}?slr_id={{ $views->uuid_review }}&slr_code={{ encrypt($views->code) }}"
+                    class="button btn-warning review-go hovering mb-2"><i class="fa fa-paper-plane"></i>
+                    Springer</a>
             </div>
             <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2">
             </div>

@@ -145,7 +145,7 @@
                         </svg>
                     </div>
                     <ul class="profile-dropdown onhover-show-div">
-                        <li><a href="{{ route('profile.edit') }}"><span><i class="fa fa-user"></i>  Profile</span></a></li>
+                        <li><a href="{{ route('profile.index') }}"><span><i class="fa fa-user"></i>  Profile</span></a></li>
                         <li>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf

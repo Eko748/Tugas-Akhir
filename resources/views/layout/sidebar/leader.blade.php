@@ -30,86 +30,12 @@
             </g>
         </svg><span class="management">Management</span></a>
     <ul class="sidebar-submenu">
-        @php
-            $auth = Auth::user()->id;
-            $m = App\Models\Project::where('created_by', $auth)->first();
-            $project = $m->uuid_project;
-        @endphp
         <li>
             <a href="{{ route('management.member.index') }}">Member</a>
         </li>
         <li>
             <a href="{{ route('management.project.index') }}">Project</a>
         </li>
-        {{-- <li>
-            <a class="project-master" href="{{ route('management.project.index') }}">
-                Project Master
-                @if ($projects->count() > 0)
-                    <sup class="mt-2 text-primary"><b>{{ $projects->count() }}</b></sup>
-                @endif
-            </a>
-        </li> --}}
-        {{-- @if (!empty($projects)) --}}
-        {{-- @if ($cv) --}}
-        {{-- <li>
-                <a class="submenu-title" href="#">Up Coming<span class="sub-arrow"><i
-                            class="fa fa-angle-right"></i></span></a>
-                <ul class="nav-sub-childmenu submenu-content">
-                    @if (!empty($p))
-                        @foreach ($p as $pr)
-                            @php
-                                $start_h = \Carbon\Carbon::parse($pr->start_date)->setTimezone('Asia/Jakarta');
-                                $end_h = \Carbon\Carbon::parse($pr->end_date)->setTimezone('Asia/Jakarta');
-                                $current_h = \Carbon\Carbon::now()->setTimezone('Asia/Jakarta');
-                                $g = $current_h < $start_h && $current_h < $end_h;
-                            @endphp
-
-                            @if ($g)
-                                <li>
-                                    <a href="{{ route('management.project.detail', ['uuid_project' => $pr->uuid_project]) }}"
-                                        data-bs-trigger="hover" data-container="body" data-bs-toggle="popover"
-                                        data-bs-placement="right" data-offset="-5px -5px"
-                                        data-bs-content="{{ $pr->description }}" title="{{ $pr->subject }}">
-                                        <small class="">{{ $pr['subject'] }}</small>
-                                    </a>
-                                </li>
-                            @endif
-                        @endforeach
-                    @endif
-                </ul>
-            </li> --}}
-        {{-- @endif --}}
-        {{-- @if ($c) --}}
-        {{-- <li>
-                <a class="submenu-title" href="#">Doing <span class="sub-arrow"><i
-                            class="fa fa-angle-right"></i></span></a>
-                <ul class="nav-sub-childmenu submenu-content">
-                    @if (!empty($projects))
-                        @foreach ($projects as $project)
-                            @php
-                                $start_date = \Carbon\Carbon::parse($project->start_date)->setTimezone('Asia/Jakarta');
-                                $end_date = \Carbon\Carbon::parse($project->end_date)->setTimezone('Asia/Jakarta');
-                                $current_time = \Carbon\Carbon::now()->setTimezone('Asia/Jakarta');
-                                $h = $current_time > $start_date && $current_time < $end_date;
-                            @endphp
-
-                            @if ($h)
-                                <li>
-                                    <a href="{{ route('management.project.detail', ['uuid_project' => $project->uuid_project]) }}"
-                                        data-bs-trigger="hover" data-container="body" data-bs-toggle="popover"
-                                        data-bs-placement="right" data-offset="-5px -5px"
-                                        data-bs-content="{{ $project->description }}" title="{{ $project->subject }}">
-                                        <small class="">{{ $project['subject'] }}</small>
-                                    </a>
-                                </li>
-                            @endif
-                        @endforeach
-                    @endif
-                </ul>
-            </li> --}}
-        {{-- @endif --}}
-        {{-- @endif --}}
-
     </ul>
 </li>
 <li class="sidebar-list">
@@ -163,7 +89,7 @@
     </ul>
 </li>
 <li class="sidebar-list">
-    <a class="sidebar-link" href="{{ route('dashboard.index') }}">
+    <a class="sidebar-link" href="{{ route('profile.index') }}">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g>
                 <g>

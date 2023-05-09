@@ -2,19 +2,11 @@
 
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Dashboard\DashboardController;
-use App\Http\Controllers\Exception\PageHandlingController;
-use App\Http\Controllers\Management\ProductController;
 use App\Http\Controllers\Management\ProjectController;
-use App\Http\Controllers\Management\ProjectSLRController;
-use App\Http\Controllers\Management\SLRController;
 use App\Http\Controllers\Review\AcmController;
-use App\Http\Controllers\Review\CiteSeerxController;
 use App\Http\Controllers\Review\IeeeController;
 use App\Http\Controllers\Review\ReviewMasterController;
-use App\Http\Controllers\Review\ScienceDirectController;
 use App\Http\Controllers\Review\SpringerController;
-use App\Http\Controllers\Scraping\CategoryController;
-use App\Http\Controllers\Scraping\ReviewController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth')->group(function () {
@@ -35,9 +27,8 @@ Route::middleware('auth')->group(function () {
                     Route::post('/delete', 'deleteProjectSLR')->name('projectSLR.delete');
                 });
             });
-
+            // Master
             Route::prefix("review")->group(function () {
-                // Master
                 Route::controller(ReviewMasterController::class)->group(function () {
                     Route::get('/', 'showReview')->name('master.index');
                     Route::post('/post-data', 'createReview')->name('master.create');
@@ -63,6 +54,6 @@ Route::middleware('auth')->group(function () {
                 });
             });
         });
-        Route::fallback([PageHandlingController::class, 'showPage404']);
+        // Route::fallback([PageHandlingController::class, 'showPage404']);
     });
 });

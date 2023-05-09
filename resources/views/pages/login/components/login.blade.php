@@ -21,7 +21,6 @@
                     novalidate="">
                     @csrf
                     <h4 class="text-dark mb-3">Login</h4>
-                    {{-- <h6>Welcome back! Log in to your account.</h6> --}}
                     <div class="form-group">
                         <x-input-label class="text-dark" for="email" :value="__('Email')" />
                         <div class="input-group"><span class="input-group-text"><i class="icon-email"></i></span>

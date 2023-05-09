@@ -23,7 +23,7 @@
                                 $(api.column(colIdx).header()).index()
                             );
                             $(cell).html(
-                                '<a href="{{ Auth::user()->role_id == 1 ? route('review.master.index') : route('review.index') }}" title="Go To Review" class="text-center review-go btn btn-primary hovering"><i class="fa fa-plus-circle"></i></a>'
+                                '<a href="{{ Auth::user()->role_id == 1 ? route('review.master.index') : route('master.index') }}" title="Go To Review" class="text-center review-go btn btn-primary hovering"><i class="fa fa-plus-circle"></i></a>'
                                 );
                         } else if (colIdx == 3) {
                             let cell = $('.filters th').eq(

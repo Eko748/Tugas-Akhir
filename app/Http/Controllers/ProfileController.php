@@ -20,7 +20,7 @@ class ProfileController extends Controller
         $this->data = $data;
     }
 
-    public function edit(Request $request): View
+    public function showProfile(Request $request): View
     {
         $this->data = [
             'parent' => $this->page,
@@ -30,7 +30,7 @@ class ProfileController extends Controller
         return view('pages.profile.index', $this->data);
     }
 
-    public function update(ProfileUpdateRequest $request): RedirectResponse
+    public function updateProfile(ProfileUpdateRequest $request): RedirectResponse
     {
         $request->user()->fill($request->validated());
 
@@ -40,10 +40,10 @@ class ProfileController extends Controller
 
         $request->user()->save();
 
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+        return Redirect::route('profile.index')->with('status', 'profile-updated');
     }
 
-    public function destroy(Request $request): RedirectResponse
+    public function deleteProfile(Request $request): RedirectResponse
     {
         $request->validateWithBag('userDeletion', [
             'password' => ['required', 'current-password'],
