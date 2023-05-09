@@ -78,8 +78,7 @@
                             </div>
                             <div class="mb-3 col-md-4">
                                 <x-input-label for="citing_paper_count" :value="__('Cited')" />
-                                <div class="input-group"><span class="input-group-text"><i
-                                            class="icon-user"></i></span>
+                                <div class="input-group">
                                     <x-text-input placeholder="0" value="0" id="citing_paper_count"
                                         class="create form-control" type="text" name="cited" :value="0"
                                         disabled />

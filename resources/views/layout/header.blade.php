@@ -212,9 +212,6 @@
         if (route === 'Dashboard') {
             window.location.href = '{{ route('dashboard.member') }}';
             return;
-        } else if (route === 'Member') {
-            window.location.href = '{{ route('member.index') }}';
-            return;
         } else if (route === 'Project') {
             window.location.href = '{{ route('project.index') }}';
             return;

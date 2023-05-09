@@ -24,7 +24,7 @@ class DashboardController extends Controller
     public function showDashboard()
     {
         $review = $this->requestChartReview();
-        $member = $this->requestChartCommit();
+        $member = $this->requestChartByCode();
         $this->page = Auth::user()->getRole->role_name;
         $this->data = [
             'parent' => $this->label,
@@ -41,18 +41,16 @@ class DashboardController extends Controller
 
     private function requestChartReview()
     {
-        $auth = Auth::user()->id;
-        $reviews = Review::whereHas('getProject', function ($q) use ($auth) {
-            $q->where('created_by', $auth);
-        })->get();
-        $categoryCounts = $reviews->countBy('category_id');
+        $get = $this->getReviewData();
+
+        $categoryCounts = $get['reviews']->countBy('category_id');
         $categoryLabels = ['IEEE', 'ACM', 'Springer'];
         $categoryData = [
             $categoryCounts->get(1, 0),
             $categoryCounts->get(2, 0),
             $categoryCounts->get(3, 0)
         ];
-        $totalReviews = $reviews->count();
+        $totalReviews = $get['reviews']->count();
         $data = [
             'categoryLabels' => $categoryLabels,
             'categoryData' => $categoryData,
@@ -61,34 +59,58 @@ class DashboardController extends Controller
         return $data;
     }
 
-    private function requestChartCommit()
+    private function requestChartByCode()
     {
-        $leader = Auth::user()->hasLeader->first();
-        $members = Auth::user()->created_by;
         if (Auth::user()->role_id == 1) {
+            $leader = Auth::user()->hasLeader->first();
             $member = Member::whereHas('getLeader', function ($q) use ($leader) {
                 $q->where('created_by', $leader->id);
             })->count();
             $user = $member + 1;
-        } elseif (Auth::user()->role_id ==2) {
+        } elseif (Auth::user()->role_id == 2) {
+            $members = Auth::user()->created_by;
             $member = User::where('created_by', $members)->count();
             $user = $member + 1;
         }
 
-        $auth = Auth::user()->id;
-        $reviews = Review::whereHas('getProject', function ($q) use ($auth) {
-            $q->where('created_by', $auth);
-        })->get();
-        $userCount = $reviews->countBy('created_by');
+        $get = $this->getReviewData();
+        $userCount = $get['reviews']->countBy('created_by');
         $userLabels = $userCount->keys()->map(function ($key) {
-            return User::find($key)->code;
-        });
-        $userData = $userCount->values();
-        
+            return User::orderBy('code', 'asc')->find($key)->code;
+        })->sort();
+
+        $userLabels = $userLabels->sort();
+        $indexA = $userLabels->search('A');
+        if ($indexA !== false && $indexA !== 0) {
+            $userLabels->prepend($userLabels->pull($indexA));
+        }
+        $userData = $userCount->sortBy(function ($value, $key) use ($userLabels) {
+            return $userLabels->search(User::find($key)->code);
+        })->values();
+
+
         $data = [
-            'userLabels' => $userLabels, 
+            'userLabels' => $userLabels,
             'userData' => $userData,
             'totalUsers' => $user
+        ];
+        return $data;
+    }
+
+    private function getReviewData()
+    {
+        if (Auth::user()->role_id == 1) {
+            $reviews = Review::whereHas('getProject.getLeader', function ($q) {
+                $q->where('user_id', Auth::user()->id);
+            })->get();
+        } elseif (Auth::user()->role_id == 2) {
+            $reviews = Review::whereHas('getProject.getLeader', function ($q) {
+                $q->where('leader_id', Auth::user()->created_by);
+            })->get();
+        }
+
+        $data = [
+            'reviews' => $reviews
         ];
         return $data;
     }

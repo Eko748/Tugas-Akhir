@@ -12,7 +12,7 @@
                     .columns()
                     .eq(0)
                     .each(function(colIdx) {
-                        if (colIdx == 7) {
+                        if (colIdx == 6) {
                             let cell = $('.filters th').eq(
                                 $(api.column(colIdx).header()).index()
                             );
@@ -66,7 +66,7 @@
                     });
             },
             order: [
-                [6, 'desc']
+                [5, 'desc']
             ],
             processing: true,
             serverSide: true,
@@ -99,10 +99,6 @@
                     name: 'DT_RowIndex',
                     orderable: false,
                     searchable: false
-                },
-                {
-                    data: 'sub',
-                    name: 'sub'
                 },
                 {
                     data: 'code',

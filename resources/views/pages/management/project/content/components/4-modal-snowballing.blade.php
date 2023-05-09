@@ -1,7 +1,7 @@
 <div class="card">
     <div class="card-header">
         <div class="row text-center">
-            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 text-center">
                 @if (Auth::user()->role_id == 1)
                     <a href="{{ route('review.ieee.index') }}?slr_id={{ $views->uuid_review }}&slr_code={{ $views->code }}"
                         class="button btn-info review-go hovering mb-2"><i class="fa fa-paper-plane"></i> IEEE</a>

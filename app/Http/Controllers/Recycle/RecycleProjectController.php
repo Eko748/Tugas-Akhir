@@ -36,7 +36,7 @@ class RecycleProjectController extends RecycleController implements RecycleData
                     $btn =
                         '<div style="text-align: center; vertical-align: middle;">
                             <button title="View Detail" class="mb-2 review-go btn-info btn-outline-dark" onclick="showDetail(' . $data->id . ')">
-                                <i class="fa fa-eye"></i>
+                                <i class="fa fa-share"></i>
                             </button>
                             <button title="Delete" class="review-go btn-danger btn-outline-dark" id="deleteSLR" data-id="' . $data->id . '">
                                 <i class="fa fa-trash"></i>

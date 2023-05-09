@@ -1,9 +1,7 @@
 @extends('main')
-
 @section('title')
     Dashboard
 @endsection
-
 @section('css')
 @endsection
 @section('content')

@@ -75,8 +75,7 @@
                             </div>
                             <div class="mb-3 col-md-4">
                                 <x-input-label for="cited" :value="__('Cited')" />
-                                <div class="input-group"><span class="input-group-text"><i
-                                            class="icon-user"></i></span>
+                                <div class="input-group">
                                     <x-text-input placeholder="0" value="{{ $key['cited'] }}" id="cited"
                                         class="create form-control" type="text" name="cited" :value="0"
                                         disabled />

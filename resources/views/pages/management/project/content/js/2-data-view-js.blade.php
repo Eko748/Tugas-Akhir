@@ -1,6 +1,6 @@
 <script>
     function snowBalling(id) {
-        $('#modalHeadingViewProject').html("Backward Snowballing");
+        $('#modalHeadingViewProject').html("Snowballing");
         $('.info').show();
         $('#modal-content-detail').hide();
         $('#modal-content-snowballing').show();

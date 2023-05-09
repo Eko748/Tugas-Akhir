@@ -1,5 +1,4 @@
 <li class="sidebar-list">
-    {{-- <label class="badge badge-light-primary">2</label --}}
     <a class="sidebar-link" href="{{ route('dashboard.member') }}">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g>
@@ -12,7 +11,6 @@
                 </g>
             </g>
         </svg><span class="dashboard">Dashboard </span></a>
-
 </li>
 <li class="sidebar-list">
     <a class="sidebar-link sidebar-title" href="#">
@@ -61,10 +59,8 @@
                         class="fa fa-angle-right"></i></span></a>
             <ul class="nav-sub-childmenu submenu-content">
                 <li><a href="{{ route('ieee.index') }}">IEEE</a></li>
-                <li><a href="{{ route('sciencedirect.index') }}">Science Direct</a></li>
-                <li><a href="{{ route('springer.index') }}">Springer</a></li>
                 <li><a href="{{ route('acm.index') }}">ACM</a></li>
-                <li><a href="{{ route('citeseerx.index') }}">CiterX</a></li>
+                <li><a href="{{ route('springer.index') }}">Springer</a></li>
             </ul>
         </li>
     </ul>

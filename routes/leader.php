@@ -34,7 +34,7 @@ Route::middleware('auth')->group(function () {
                     Route::get('/project-export', 'exportProjectData')->name('management.project.export');
                     Route::get('/snowballing', 'showModalSnowballing')->name('management.project.snowBalling');
                     Route::get('/detail', 'showModalDetail')->name('management.project.modalDetail');
-                    Route::post('/delete', 'deleteProjectSLR')->name('management.projectSLR.delete');
+                    Route::post('/delete', 'deleteReview')->name('management.projectSLR.delete');
                 });
             });
             Route::controller(InstituteController::class)->group(function () {
