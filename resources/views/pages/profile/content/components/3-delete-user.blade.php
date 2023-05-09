@@ -24,22 +24,23 @@
                             {{ __('Menghapus akun akan menghilangkan semua data yang berkaitan dengan akun anda') }}
                         </p>
 
-                        <div class="mt-6 mb-3">
-                            <x-input-label for="password" value="{{ __('Password') }}" class="sr-only form-label" />
-
-                            <x-text-input id="password" name="password" type="password"
-                                class="form-control mt-1 block w-3/4" placeholder="{{ __('Password') }}" />
-
-                            <x-input-error class="text-danger mt-2" :messages="$errors->userDeletion->get('password')" />
+                        <div class="form-group mt-6 mb-3">
+                            <x-input-label for="pass" value="{{ __('Konfirmasi Password') }}" class="form-label" />
+                            <div class="input-group"><span class="input-group-text"><i class="icon-lock"></i></span>
+                                <x-text-input id="pass" name="password" type="password"
+                                    class="form-control"
+                                    placeholder="{{ __('Konfirmasi Password') }}" />
+                                <x-input-error class="text-danger mt-2" :messages="$errors->userDeletion->get('password')" />
+                            </div>
                         </div>
 
                         <div class="mt-6 flex justify-end">
-                            <x-secondary-button class="btn bt-xs btn-warning btn-outline-dark"
+                            <x-secondary-button class="btn btn-xs btn-warning btn-outline-dark"
                                 x-on:click="$dispatch('close')">
                                 <i class="fa fa-times-circle"></i> {{ __('Cancel') }}
                             </x-secondary-button>
 
-                            <x-danger-button class="btn bt-xs btn-danger btn-outline-dark ml-3">
+                            <x-danger-button class="btn btn-xs btn-danger btn-outline-dark ml-3">
                                 <i class="fa fa-warning"></i> {{ __('Delete') }}
                             </x-danger-button>
                         </div>
