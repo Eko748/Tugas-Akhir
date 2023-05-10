@@ -11,6 +11,7 @@ class Leader extends Model
     protected $table = 'leader';
     public $incrementing = false;
     protected $guarded = [];
+    public $timestamps = false;
 
     public function getUser()
     {

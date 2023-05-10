@@ -16,6 +16,7 @@ class Project extends Model
         'uuid_project', 'leader_id',
         'created_by', 'created_at'
     ];
+    public $timestamps = false;
 
     public function getUser()
     {

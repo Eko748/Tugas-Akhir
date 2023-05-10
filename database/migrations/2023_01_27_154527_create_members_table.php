@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('member', function (Blueprint $table) {
             $table->integer('id')->primary();
             $table->integer('user_id');
-            $table->integer('role_id');
             $table->integer('created_by');
             $table->timestamp('created_at')->nullable();
             $table->integer('updated_by')->nullable();

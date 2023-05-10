@@ -26,7 +26,7 @@ return new class extends Migration
             // $table->timestamp('end_date')->nullable();
             $table->integer('created_by');
             $table->timestamp('created_at')->nullable();
-            $table->timestamp('updated_at')->nullable();
+            // $table->timestamp('updated_at')->nullable();
             // $table->integer('updated_by')->nullable();
             // $table->integer('deleted_by')->nullable();
             // $table->timestamp('deleted_at')->nullable();

@@ -11,6 +11,7 @@ class Institute extends Model
     protected $table = 'institute';
     public $incrementing = false;
     protected $guarded = [];
+    public $timestamps = false;
 
     public function getUser()
     {

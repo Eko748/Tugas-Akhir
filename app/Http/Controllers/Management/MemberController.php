@@ -162,6 +162,7 @@ class MemberController extends ManagementController implements ValidationData
                 'email' => $string,
                 'password' => Hash::make($v_data['password']),
                 'created_by' => $auth->id,
+                'created_at' => now(),
                 'remember_token' => $token
             ]
         );
@@ -170,7 +171,6 @@ class MemberController extends ManagementController implements ValidationData
             [
                 'id' => random_int(1000000, 9999999),
                 'user_id' => $userCreate->id,
-                'role_id' => 2,
                 'created_by' => $auth->id,
             ]
         );

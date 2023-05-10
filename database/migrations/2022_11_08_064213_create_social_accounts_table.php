@@ -18,7 +18,7 @@ return new class extends Migration
             $table->bigInteger('user_id');
             $table->string('provider_id')->unique();
             $table->string('provider_name');
-            $table->timestamps();
+            $table->timestamp('created_at')->nullable();
         });
     }
 

@@ -26,31 +26,22 @@ class SocialiteController extends Controller
         } catch (\Exception $e) {
             return redirect()->back();
         }
-        // find or create user and send params user get from socialite and provider
         $authUser = $this->findOrCreateUser($user, $provider);
 
-        // login user
         Auth()->login($authUser, true);
 
-        // setelah login redirect ke dashboard
         return redirect()->route('dashboard.index');
     }
 
     public function findOrCreateUser($socialUser, $provider)
     {
-        // Get Social Account
         $socialAccount = SocialAccount::where('provider_id', $socialUser->getId())
             ->where('provider_name', $provider)
             ->first();
 
-        // Jika sudah ada
         if ($socialAccount) {
-            // return user
             return $socialAccount->user;
-
-            // Jika belum ada
         } else {
-
             $user = User::where('email', $socialUser->getEmail())->first();
             if (!$user) {
                 $user = User::create([
@@ -68,7 +59,7 @@ class SocialiteController extends Controller
                     [
                         'id' => random_int(1000000, 9999999),
                         'user_id' => $user->id,
-                        'role_id' => $user->role_id,
+                        'created_at' => now()
                     ]
                 );
 
@@ -78,6 +69,7 @@ class SocialiteController extends Controller
                         'leader_id' => $leader->id,
                         'uuid_project' => Str::uuid(),
                         'created_by' => $user->id,
+                        'created_at' => now()
                     ]
                 );
             }
@@ -85,7 +77,8 @@ class SocialiteController extends Controller
             $user->socialAccounts()->create([
                 'id' => random_int(1000000, 9999999),
                 'provider_id'   => $socialUser->getId(),
-                'provider_name' => $provider
+                'provider_name' => $provider,
+                'created_at' => now()
             ]);
 
             return $user;

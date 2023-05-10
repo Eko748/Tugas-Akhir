@@ -11,6 +11,7 @@ class SocialAccount extends Model
     protected $table = 'social_account';
     public $incrementing = false;
     protected $guarded = [];
+    public $timestamps = false;
 
     public function user()
     {

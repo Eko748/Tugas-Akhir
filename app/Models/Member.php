@@ -12,6 +12,7 @@ class Member extends Model
     public $table = 'member';
     public $incrementing = false;
     protected $guarded = [];
+    public $timestamps = false;
 
     public function getUser()
     {

@@ -10,6 +10,7 @@ class Category extends Model
     use HasFactory;
     protected $table = 'category';
     protected $guarded = [];
+    public $timestamps = false;
 
     public function hasProjectSLR()
     {
