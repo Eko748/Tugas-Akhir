@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Management;
 
-use App\Http\Controllers\{Controller, Interface\ValidationData};
+use App\Http\Controllers\Interface\ValidationData;
 use App\Models\{Institute, Leader};
 use Illuminate\{Http\Request, Support\Facades\Auth};
 
-class InstituteController extends Controller implements ValidationData
+class InstituteController extends ManagementController implements ValidationData
 {
     public function createInstituteData(Request $request)
     {

@@ -27,7 +27,8 @@ class MemberController extends ManagementController implements ValidationData
         $this->data = [
             'parent' => $this->page,
             'child' => $this->label,
-            'institute' => $this->getMemberData()['institute'],
+            'institute' => $this->getInstituteData(),
+            'member' => $this->getMemberData()
         ];
         return view('pages.management.member.index', $this->data);
     }
@@ -48,7 +49,7 @@ class MemberController extends ManagementController implements ValidationData
                                  onclick="editMember(' . $data->id . ')" type="button" data-bs-toggle="modal" data-bs-target="#updateMember">
                                     <i class="fa fa-edit"></i>
                                 </button>
-                                <button title="Delete '. $data->id .'" class="delete-member review-go btn-danger btn-outline-dark" data-id="' . $data->id . '">
+                                <button title="Delete ' . $data->id . '" class="delete-member review-go btn-danger btn-outline-dark" data-id="' . $data->id . '">
                                 <i class="fa fa-trash"></i>
                                 </button>
                             </div>';
@@ -108,14 +109,11 @@ class MemberController extends ManagementController implements ValidationData
 
     public function createMember(Request $request)
     {
-        $get = $this->getMemberData();
-
-        $user = $get['institute'];
-
+        $user = $this->getInstituteData();
         if ($user == null) {
             return redirect()->route('management.member.index');
         } else {
-            $ins = $user->hasInstitute->institute_name;
+            $ins = $user->institute_name;
             $ins_array = explode(' ', $ins);
             $institute = Str::of($ins_array[0])->slug('');
         }
@@ -125,27 +123,59 @@ class MemberController extends ManagementController implements ValidationData
         $auth = Auth::user()->hasLeader->first();
         $token = Str::random(64);
 
-        $last_member = User::where('created_by', $auth->id)->orderBy('code', 'desc')->latest()->first();
+        $last_member = User::where('created_by', $auth->id)->orderBy('code', 'desc')->first();
 
         if ($last_member) {
             $last_code = $last_member->code;
             $last_character = substr($last_code, 0, 1);
             $last_number = substr($last_code, 1);
 
-            if ($last_character === 'Z') {
-                $new_character = 'A';
-                $new_number = $last_number + 1;
-            } else {
-                $new_character = chr(ord($last_character) + 1);
+            $missing_character = null;
+            $next_character = $last_character;
+            while ($next_character !== 'A') {
+                $prev_character = chr(ord($next_character) - 1);
+                if ($prev_character === 'A') {
+                    break;
+                }
+                $prev_code = $prev_character . str_pad($last_number, strlen($last_number), '0', STR_PAD_LEFT);
+                $code_exists = User::where('created_by', $auth->id)->where('code', $prev_code)->exists();
+                if (!$code_exists) {
+                    $missing_character = $prev_character;
+                    break;
+                }
+                $next_character = $prev_character;
+            }
+
+            if ($missing_character !== null) {
+                $new_character = $missing_character;
                 $new_number = $last_number;
+            } else {
+                if ($last_character === 'Z') {
+                    return response()->json(['error' => 'Anggota sudah mencapai batas Maksimum']);
+                } else {
+                    $new_character = chr(ord($last_character) + 1);
+                    $new_number = $last_number;
+                }
             }
 
             $new_code = $new_character . str_pad($new_number, strlen($last_number), '0', STR_PAD_LEFT);
+
+            if ($last_number > 1 && $new_character !== 'B') {
+                $missing_number = null;
+                for ($i = 1; $i < $last_number; $i++) {
+                    $code_exists = User::where('created_by', $auth->id)->where('code', $new_character . str_pad($i, strlen($last_number), '0', STR_PAD_LEFT))->exists();
+                    if (!$code_exists) {
+                        $missing_number = $i;
+                        break;
+                    }
+                }
+                if ($missing_number !== null) {
+                    $new_code = $new_character . str_pad($missing_number, strlen($last_number), '0', STR_PAD_LEFT);
+                }
+            }
         } else {
             $new_code = 'B';
         }
-
-        $code = $new_code;
 
         $v_data = $this->validateDataCreate($request);
         $userCreate = User::create(
@@ -153,7 +183,7 @@ class MemberController extends ManagementController implements ValidationData
                 'id' => random_int(1000000, 9999999),
                 'uuid_user' => Str::uuid(),
                 'role_id' => 2,
-                'code' => $code,
+                'code' => $new_code,
                 'name' => $v_data['name'],
                 'email' => $string,
                 'password' => Hash::make($v_data['password']),
@@ -223,12 +253,11 @@ class MemberController extends ManagementController implements ValidationData
     public function updateMember(Request $request)
     {
         try {
-            $get = $this->getMemberData();
-            $user = $get['institute'];
+            $user = $this->getInstituteData();
             if (!$user) {
                 return redirect()->route('management.member.index');
             }
-            $ins = $user->hasInstitute->institute_name;
+            $ins = $user->institute_name;
             $ins_array = explode(' ', $ins);
             $institute = Str::of($ins_array[0])->slug('');
             $string = $institute . '.' . $request->email;

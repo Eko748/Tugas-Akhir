@@ -153,15 +153,19 @@
         swal({
             title: "Export?",
             text: "Dapatkan data berupa file Excel!",
-            type: "warning",
-            showCancelButton: !0,
-            confirmButtonText: "Ya, export!",
-            cancelButtonText: "Tidak, batalkan!",
-            reverseButtons: !0
+            type: "question",
+            showCancelButton: true,
+            confirmButtonText: "OK",
+            cancelButtonText: "Batalkan!",
+            reverseButtons: true
         }).then((result) => {
-            window.location = "{{ route('management.member.export') }}";
+            if (result.dismiss || result.cancel) {
+            } else {
+                window.location = "{{ route('management.member.export') }}";
+            }
         });
     }
+
 
     function addInstitute() {
         $('#modalHeadingInstitute').html("Instansi");

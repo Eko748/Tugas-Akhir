@@ -17,7 +17,8 @@
                                 $(api.column(colIdx).header()).index()
                             );
                             $(cell).html(
-                                '<a href="{{ Auth::user()->role_id == 1 ? route('management.project.export') : route('project.export') }}" title="Export Project ke Excel" class="text-center review-go btn-success hovering"><i class="fa fa-download"></i></a>');
+                                '<button onclick="exportData()" title="Export Project Review" class="btn btn-success me-1 ms-1 btn-sm button cool btn-outline-dark hovering shadow-sm"><i class="fa fa-download"></i></button>'
+                            );
                         } else if (colIdx == 7) {
                             let cell = $('.filters th').eq(
                                 $(api.column(colIdx).header()).index()

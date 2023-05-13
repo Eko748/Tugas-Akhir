@@ -6,6 +6,7 @@ use App\Exports\ProjectsExport;
 use App\Models\{Institute, Project, Review};
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\Facades\DataTables;
@@ -20,7 +21,7 @@ class ProjectController extends ManagementController
         $this->data = $data;
     }
 
-    public function showProject()
+    public function showProjectReview()
     {
         $this->data = [
             'parent' => $this->page,
@@ -29,7 +30,7 @@ class ProjectController extends ManagementController
         return view('pages.management.project.index', $this->data);
     }
 
-    public function requestReviewData(Request $request)
+    public function requestProjectReviewData(Request $request)
     {
         if ($request->ajax()) {
             if (Auth::user()->role_id == 1) {
@@ -86,75 +87,36 @@ class ProjectController extends ManagementController
         }
     }
 
-    public function exportProjectData()
+    public function exportProjectReviewData()
     {
-        if (Auth::user()->role_id == '1') {
-            $project = Project::where('created_by', Auth::user()->id)
-                ->firstOrFail();
-            $institute = Institute::with('getUser')->where('created_by', Auth::user()->id)->first();
+        if ($this->getInstituteData()) {
+            $ins = $this->getInstituteData()->institute_name;
+            $ins_array = explode(' ', $ins);
+            $prefix = Str::of($ins_array[0])->slug('');
         } else {
-            $project = Project::whereHas('getLeader', function ($q) {
-                $q->where('id', Auth::user()->created_by);
-            })
-                ->firstOrFail();
-            $institute = Institute::with('getUser', 'getLeader')
-                ->whereHas('getLeader', function ($q) {
-                    $q->where('id', Auth::user()->created_by);
-                })
-                ->first();
-        }
-        if ($institute == null) {
             $prefix = 'review';
-        } else {
-            $prefix = $institute->institute_slug;
         }
 
         $fileName = $prefix . '-project.xlsx';
-        $print = Excel::download(new ProjectsExport($project), $fileName);
+        $print = Excel::download(new ProjectsExport($this->getProjectData()), $fileName);
         return $print;
     }
 
-    public function showModalSnowballing(Request $request)
+    public function getProjectReviewSnowballing(Request $request)
     {
         if ($request->ajax()) {
-            return view('pages.management.project.content.components.4-modal-snowballing', $this->getDetailData($request));
+            return view('pages.management.project.content.components.4-modal-snowballing', $this->getProjectReviewData($request));
         }
     }
 
-    public function showModalDetail(Request $request)
+    public function getProjectReviewDetail(Request $request)
     {
         if ($request->ajax()) {
-            return view('pages.management.project.content.components.5-modal-detail', $this->getDetailData($request));
+            return view('pages.management.project.content.components.5-modal-detail', $this->getProjectReviewData($request));
         }
     }
 
-    private function getDetailData(Request $request)
-    {
-        try {
-            $hashedId = $request->code;
-            $views = Review::with('getProject', 'getCategory')
-                ->get();
-            $detail = null;
-            foreach ($views as $view) {
-                $hash = hash('sha256', $view->id);
-                if ($hash === $hashedId) {
-                    $detail = $view;
-                    break;
-                }
-            }
-            if (!$detail) {
-                return response()->json(['error' => 'Project Tidak ditemukan'], 404);
-            }
-            $data = [
-                'views' => $detail,
-            ];
-            return $data;
-        } catch (\Exception $e) {
-            return response()->json(['error' => 'Terjadi Kesalahan'], 500);
-        }
-    }
-
-    public function deleteReview(Request $request)
+    public function deleteProjectReviewData(Request $request)
     {
         $delete = Review::find($request->id)->update([
             'deleted_by' => Auth::user()->id,

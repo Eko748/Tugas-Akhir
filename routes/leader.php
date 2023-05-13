@@ -31,12 +31,12 @@ Route::middleware('auth')->group(function () {
             // Project
             Route::prefix("project")->group(function () {
                 Route::controller(ProjectController::class)->group(function () {
-                    Route::get('/', 'showProject')->name('management.project.index');
-                    Route::get('/request', 'requestReviewData')->name('management.project.getTable');
-                    Route::get('/export', 'exportProjectData')->name('management.project.export');
-                    Route::get('/snowballing', 'showModalSnowballing')->name('management.project.snowBalling');
-                    Route::get('/detail', 'showModalDetail')->name('management.project.modalDetail');
-                    Route::post('/delete', 'deleteReview')->name('management.projectSLR.delete');
+                    Route::get('/', 'showProjectReview')->name('management.project.index');
+                    Route::get('/request', 'requestProjectReviewData')->name('management.project.getTable');
+                    Route::get('/export', 'exportProjectReviewData')->name('management.project.export');
+                    Route::get('/snowballing', 'getProjectReviewSnowballing')->name('management.project.snowBalling');
+                    Route::get('/detail', 'getProjectReviewDetail')->name('management.project.modalDetail');
+                    Route::post('/delete', 'deleteProjectReviewData')->name('management.projectSLR.delete');
                 });
             });
             Route::controller(InstituteController::class)->group(function () {

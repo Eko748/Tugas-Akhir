@@ -19,7 +19,11 @@
                             $(cell).html('@if ($institute == null)' +
                                 '' +
                                 '@else' +
+                                '@if ($member >= 25)' +
+                                '<strong><small>Data Maksimum</small></strong>' +
+                                '@else' +
                                 '<button title="Create Member" class="row btn btn-primary me-1 ms-1 btn-xs button cool btn-outline-dark hovering shadow-sm" onclick="addMember()" data-bs-toggle="modal" data-bs-target="#member" id="createMember"><i class="fa fa-plus-circle"></i> <small></small></button>' +
+                                '@endif' +
                                 '@endif');
                         } else if (colIdx == 0) {
                             let cell = $('.filters th').eq(
@@ -144,8 +148,8 @@
             serverSide: true,
             searchable: true,
             lengthMenu: [
-                [5, 10, 15, 30],
-                [5, 10, 15, 30]
+                [5, 10, 15, 20, 25],
+                [5, 10, 15, 20, 25]
             ],
             oLanguage: {
                 sProcessing: '<button class="btn btn-primary" type="button" disabled><span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span><span class="visually-hidden">Loading...</span></button>',

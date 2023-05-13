@@ -81,4 +81,21 @@
             }
         });
     });
+
+    function exportData() {
+        swal({
+            title: "Export?",
+            text: "Dapatkan data berupa file Excel!",
+            type: "question",
+            showCancelButton: true,
+            confirmButtonText: "OK",
+            cancelButtonText: "Batalkan!",
+            reverseButtons: true
+        }).then((result) => {
+            if (result.dismiss || result.cancel) {
+            } else {
+                window.location = "{{ Auth::user()->role_id == 1 ? route('management.project.export') : route('project.export') }}";
+            }
+        });
+    }
 </script>

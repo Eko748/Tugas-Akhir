@@ -20,7 +20,7 @@ class ProjectsExport implements FromView
     {
         $this->project = $project;
         $this->data = [
-            'projects' => $this->logicExportProject()['projects']
+            'projects' => $this->exportProjectReview()['projects']
         ];
     }
 
@@ -29,7 +29,7 @@ class ProjectsExport implements FromView
         return view('exports.projects', $this->data);
     }
 
-    private function logicExportProject()
+    private function exportProjectReview()
     {
         $user_id = Auth::user()->created_by;
 

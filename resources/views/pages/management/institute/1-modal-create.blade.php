@@ -28,7 +28,7 @@
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-danger btn-sm" type="reset">
-                        Batal
+                        <i class="fa fa-times-circle"></i> Batal
                     </button>
                     <button type="submit" class="btn btn-primary btn-sm">
                         <i class="fa fa-plus-circle"></i> Tambah
