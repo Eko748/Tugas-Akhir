@@ -17,6 +17,7 @@ return new class extends Migration
             $table->integer('id')->primary();
             $table->integer('user_id');
             $table->timestamp('created_at')->nullable();
+            $table->foreign('user_id')->references('id')->on('user')->onDelete('cascade');
         });
     }
 

@@ -39,8 +39,7 @@
                                 x-on:click="$dispatch('close')">
                                 <i class="fa fa-times-circle"></i> {{ __('Cancel') }}
                             </x-secondary-button>
-
-                            <x-danger-button class="btn btn-xs btn-danger btn-outline-dark ml-3">
+                            <x-danger-button type="submit" class="btn btn-xs btn-danger btn-outline-dark ml-3">
                                 <i class="fa fa-warning"></i> {{ __('Delete') }}
                             </x-danger-button>
                         </div>

@@ -15,10 +15,11 @@ return new class extends Migration
     {
         Schema::create('social_account', function (Blueprint $table) {
             $table->integer('id')->primary();
-            $table->bigInteger('user_id');
-            $table->string('provider_id')->unique();
-            $table->string('provider_name');
+            $table->integer('user_id');
+            $table->string('provider_id', 50)->unique();
+            $table->string('provider_name', 10);
             $table->timestamp('created_at')->nullable();
+            $table->foreign('user_id')->references('id')->on('user')->onDelete('cascade');
         });
     }
 

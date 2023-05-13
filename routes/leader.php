@@ -16,29 +16,31 @@ Route::middleware('auth')->group(function () {
         // Management
         Route::prefix("management")->group(function () {
             // Member
-            Route::controller(MemberController::class)->group(function () {
-                Route::get('/member', 'showMember')->name('management.member.index');
-                Route::get('/member-data', 'requestMemberData')->name('management.member.table');
-                Route::get('/member-search', 'searchMemberData')->name('management.member.getUser');
-                Route::post('/member-create', 'createMember')->name('management.member.create');
-                Route::get('/member-edit', 'editMember')->name('management.member.edit');
-                Route::put('/member-update', 'updateMember')->name('management.member.update');
-                Route::post('/member-delete/{id}', 'deleteMember')->name('management.member.delete');
-                Route::get('/member-export', 'exportMemberData')->name('management.member.export');
+            Route::prefix("member")->group(function () {
+                Route::controller(MemberController::class)->group(function () {
+                    Route::get('/', 'showMember')->name('management.member.index');
+                    Route::get('/data', 'requestMemberData')->name('management.member.table');
+                    Route::get('/search', 'searchMemberData')->name('management.member.getUser');
+                    Route::post('/create', 'createMember')->name('management.member.create');
+                    Route::get('/edit', 'editMember')->name('management.member.edit');
+                    Route::put('/update', 'updateMember')->name('management.member.update');
+                    Route::post('/delete/{id}', 'deleteMember')->name('management.member.delete');
+                    Route::get('/export', 'exportMemberData')->name('management.member.export');
+                });
             });
             // Project
             Route::prefix("project")->group(function () {
                 Route::controller(ProjectController::class)->group(function () {
                     Route::get('/', 'showProject')->name('management.project.index');
-                    Route::get('/project-request', 'requestReviewData')->name('management.project.getTable');
-                    Route::get('/project-export', 'exportProjectData')->name('management.project.export');
+                    Route::get('/request', 'requestReviewData')->name('management.project.getTable');
+                    Route::get('/export', 'exportProjectData')->name('management.project.export');
                     Route::get('/snowballing', 'showModalSnowballing')->name('management.project.snowBalling');
                     Route::get('/detail', 'showModalDetail')->name('management.project.modalDetail');
                     Route::post('/delete', 'deleteReview')->name('management.projectSLR.delete');
                 });
             });
             Route::controller(InstituteController::class)->group(function () {
-                Route::post('/institute-create', 'create')->name('management.institute.create');
+                Route::post('/institute-create', 'createInstituteData')->name('management.institute.create');
             });
         });
         // Review
@@ -47,11 +49,6 @@ Route::middleware('auth')->group(function () {
             Route::controller(ReviewMasterController::class)->group(function () {
                 Route::get('/', 'showReview')->name('review.master.index');
                 Route::post('/post-data', 'createReview')->name('review.master.create');
-                Route::post('/category-post', 'createCategory')->name('review.category.create');
-                Route::get('/list-category', 'getCategory')->name('review.category.get');
-                Route::get('/list-project', 'getProject')->name('review.project.getProject');
-                Route::get('/list-ongkir', 'ongkir')->name('review.ongkir');
-                Route::get('/list-project-detail', 'getProjectDetail')->name('review.project.getProjectDetail');
             });
             // IEEE
             Route::controller(IeeeController::class)->group(function () {
@@ -71,13 +68,21 @@ Route::middleware('auth')->group(function () {
         });
         // Recycle
         Route::prefix("recycle")->group(function () {
-            Route::controller(RecycleMemberController::class)->group(function () {
-                Route::get('/member', 'showRecycleData')->name('recycle.member');
-                Route::get('/member-request', 'requestRecycleData')->name('recycle.member.request');
+            Route::prefix("member")->group(function () {
+                Route::controller(RecycleMemberController::class)->group(function () {
+                    Route::get('/', 'showRecycleData')->name('recycle.member');
+                    Route::get('/request', 'requestRecycleData')->name('recycle.member.request');
+                    Route::post('/restore', 'restoreRecycleData')->name('recycle.member.restore');
+                    Route::post('/delete', 'deleteRecycleData')->name('recycle.member.delete');
+                });
             });
-            Route::controller(RecycleProjectController::class)->group(function () {
-                Route::get('/project', 'showRecycleData')->name('recycle.project');
-                Route::get('/project-request', 'requestRecycleData')->name('recycle.project.request');
+            Route::prefix("project")->group(function () {
+                Route::controller(RecycleProjectController::class)->group(function () {
+                    Route::get('/', 'showRecycleData')->name('recycle.project');
+                    Route::get('/request', 'requestRecycleData')->name('recycle.project.request');
+                    Route::post('/restore', 'restoreRecycleData')->name('recycle.project.restore');
+                    Route::post('/delete', 'deleteRecycleData')->name('recycle.project.delete');
+                });
             });
         });
         // To do

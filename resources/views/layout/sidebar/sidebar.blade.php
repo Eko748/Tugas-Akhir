@@ -7,7 +7,7 @@
                 <img class="img-fluid for-dark" style="width:300%; height:300%"
                     src="{{ asset('assets/images/logo/logo-dark.png') }}" alt="" />
             </a>
-            <div class="back-btn"><i class="fa fa-angle-left"></i></div>
+            {{-- <div class="back-btn"><i class="fa fa-angle-left"></i></div> --}}
         </div>
         <div class="logo-icon-wrapper">
             <a href="/"><img class="img-fluid" src="{{ asset('assets/images/logo/slr.png') }}"
@@ -50,9 +50,9 @@
                     </div>
                 </div>
             </div>
-            <div class="right-arrow" id="right-arrow">
+            {{-- <div class="right-arrow" id="right-arrow">
                 <i data-feather="arrow-right"></i>
-            </div>
+            </div> --}}
         </nav>
     </div>
 </div>

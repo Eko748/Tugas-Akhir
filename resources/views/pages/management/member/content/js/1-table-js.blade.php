@@ -154,8 +154,8 @@
                 sZeroRecords: '<span class="badge badge-light-danger"></i><p>Kata kunci salah</p></span>',
                 sEmptyTable: '<span class="badge badge-light-danger"></i><p>Tidak ada data</p></span>',
                 sLengthMenu: '<i class="btn-outline-primary hovering fa fa-th-list"></i> _MENU_ ',
-                sInfo: '<span class="btn badge-light-primary mb-2 pull-left">_START_ to _END_ of _TOTAL_ <i class="fa fa-user"></i></span>',
-                sInfoEmpty: '<span class="btn badge-light-primary"><i class="fa fa-folder-open"></i> 0 to 0 of 0 <i class="fa fa-user"></i></span>',
+                sInfo: '<span class="btn badge-light-primary mb-2 pull-left"><i class="fa fa-folder-open"></i> _START_ to _END_ of _TOTAL_ <i class="fa fa-user"></i></span>',
+                sInfoEmpty: '<span class="btn badge-light-primary"><i class="fa fa-folder"></i> 0 to 0 of 0 <i class="fa fa-user"></i></span>',
                 sInfoFiltered: '<span class="badge badge-light-primary">from _MAX_ <i class="fa fa-users"></i></span>',
                 oPaginate: {
                     sFirst: '',

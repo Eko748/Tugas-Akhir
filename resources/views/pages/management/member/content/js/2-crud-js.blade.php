@@ -47,7 +47,7 @@
     function editMember(id) {
         let hashedId = CryptoJS.SHA256(id.toString()).toString(); // menggunakan CryptoJS untuk menghitung hash SHA-256
         $.ajax({
-            url: "{{ url('/management/member-edit') }}",
+            url: "{{ route('management.member.edit') }}",
             type: "GET",
             data: {
                 id: hashedId

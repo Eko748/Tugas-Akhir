@@ -11,7 +11,6 @@
     <link rel="icon" href="{{ asset('assets/images/logo/slr-logo.png') }}" type="image/x-icon">
     <link rel="shortcut icon" href="{{ asset('assets/images/logo/slr-logo.png') }}" type="image/x-icon">
     <title>@yield('title')</title>
-    <!-- Google font-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
     <link
@@ -28,6 +27,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/scrollbar.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/bootstrap.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/footer.css') }}" />
     <link id="color" rel="stylesheet" type="text/css" href="{{ asset('assets/css/color-1.css') }}"
         media="screen" />
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/responsive.css') }}" />

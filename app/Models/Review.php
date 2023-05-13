@@ -14,7 +14,7 @@ class Review extends Model
     protected $guarded = [];
 
     protected $hidden = [
-        'uuid_review', 'project_id', 'category_id',
+        'id', 'uuid_review', 'project_id', 'category_id',
         'created_by', 'created_at', 'updated_by', 'updated_at',
         'deleted_by', 'deleted_at',
     ];

@@ -2,19 +2,14 @@
 
 namespace App\Http\Controllers\Management;
 
-use App\Models\Member;
-use Carbon\Carbon;
-use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rules;
-use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\UsersExport;
 use App\Http\Controllers\Interface\ValidationData;
-use Illuminate\Validation\Rule;
+use App\Models\{Member, User};
+use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Support\{Str, Facades\Auth, Facades\Cache, Facades\Hash};
+use Illuminate\Validation\{Rules, Rule};
+use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\Facades\DataTables;
 
 class MemberController extends ManagementController implements ValidationData
@@ -121,7 +116,9 @@ class MemberController extends ManagementController implements ValidationData
         if ($user == null) {
             return redirect()->route('management.member.index');
         } else {
-            $institute = $user->hasInstitute->institute_slug;
+            $ins = $user->hasInstitute->institute_name;
+            $ins_array = explode(' ', $ins);
+            $institute = Str::of($ins_array[0])->slug('');
         }
 
         $array = array($institute, $request->email);
@@ -172,6 +169,7 @@ class MemberController extends ManagementController implements ValidationData
                 'id' => random_int(1000000, 9999999),
                 'user_id' => $userCreate->id,
                 'created_by' => $auth->id,
+                'created_at' => now()
             ]
         );
         return response()->json(['success' => 'Anggota berhasil ditambahkan']);
@@ -223,7 +221,6 @@ class MemberController extends ManagementController implements ValidationData
         }
     }
 
-
     public function updateMember(Request $request)
     {
         try {
@@ -232,7 +229,10 @@ class MemberController extends ManagementController implements ValidationData
             if (!$user) {
                 return redirect()->route('management.member.index');
             }
-            $string = $user->hasInstitute->institute_slug . '.' . $request->email;
+            $ins = $user->hasInstitute->institute_name;
+            $ins_array = explode(' ', $ins);
+            $institute = Str::of($ins_array[0])->slug('');
+            $string = $institute . '.' . $request->email;
             $request->validate([
                 'name' => ['required', 'string', 'max:255'],
                 'email' => ['required', 'string', 'email', 'max:255', Rule::unique('user')->ignore($request->id)],
@@ -240,9 +240,11 @@ class MemberController extends ManagementController implements ValidationData
             try {
                 User::where('id', $request->id)->update([
                     'name' => $request->name,
-                    'email' => $string
+                    'email' => $string,
+                    'updated_by' => Auth::user()->id,
+                    'updated_at' => now()
                 ]);
-                return response()->json(['success' => 'Data berhasil diupdate!']);
+                return response()->json(['success' => 'Data berhasil diperbarui!']);
             } catch (\Illuminate\Database\QueryException $ex) {
                 $error_code = $ex->errorInfo[1];
                 if ($error_code == 1062) {
@@ -256,7 +258,6 @@ class MemberController extends ManagementController implements ValidationData
             return response()->json(['error' => $e->getMessage()]);
         }
     }
-
 
     public function deleteMember(Request $request)
     {
@@ -278,7 +279,9 @@ class MemberController extends ManagementController implements ValidationData
     public function exportMemberData()
     {
         $get = $this->getMemberData();
-        $institute = $get['institute']->hasInstitute()->first()->institute_slug;
+        $ins = $get['institute']->hasInstitute()->first()->institute_name;
+        $ins_array = explode(' ', $ins);
+        $institute = Str::of($ins_array[0])->slug('');
         $member = $get['member'];
         $fileName = $member . '-member-' . $institute . '.xlsx';
         return Excel::download(new UsersExport(), $fileName);

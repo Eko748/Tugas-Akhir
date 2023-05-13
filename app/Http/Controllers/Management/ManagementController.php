@@ -3,10 +3,7 @@
 namespace App\Http\Controllers\Management;
 
 use App\Http\Controllers\Controller;
-use App\Models\Leader;
-use App\Models\Member;
-use App\Models\Project;
-use App\Models\User;
+use App\Models\{Leader, Member, Project, User};
 use Illuminate\Support\Facades\Auth;
 
 class ManagementController extends Controller

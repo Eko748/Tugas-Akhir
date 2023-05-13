@@ -3,17 +3,13 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Models\Member;
-use App\Models\Project;
-use App\Models\Review;
-use App\Models\User;
-use Carbon\Carbon;
+use App\Models\{Member, Review, User};
 use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
-    private string $label = 'Dashboard';
-    private string $page;
+    private string $page = 'Dashboard';
+    private string $label;
     private array $data;
 
     public function __construct(array $data = [])
@@ -25,10 +21,10 @@ class DashboardController extends Controller
     {
         $review = $this->requestChartReview();
         $member = $this->requestChartByCode();
-        $this->page = Auth::user()->getRole->role_name;
+        $this->label = Auth::user()->getRole->role_name;
         $this->data = [
-            'parent' => $this->label,
-            'child' => $this->page,
+            'parent' => $this->page,
+            'child' => $this->label,
             'categoryLabels' => $review['categoryLabels'],
             'categoryData' => $review['categoryData'],
             'totalReviews' => $review['totalReviews'],

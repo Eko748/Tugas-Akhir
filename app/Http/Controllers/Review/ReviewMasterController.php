@@ -3,8 +3,7 @@
 namespace App\Http\Controllers\Review;
 
 use App\Http\Controllers\Interface\ValidationData;
-use App\Models\Project;
-use App\Models\Review;
+use App\Models\{Project, Review};
 use Illuminate\{Http\Request, Support\Str, Support\Facades\Auth};
 
 class ReviewMasterController extends ReviewController implements ValidationData
@@ -75,7 +74,6 @@ class ReviewMasterController extends ReviewController implements ValidationData
             return response()->json(['error' => 'Gagal, silahkan coba lagi', 'message' => $e->getMessage()]);
         }
     }
-
 
     public function validateDataCreate(Request $request)
     {

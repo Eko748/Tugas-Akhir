@@ -54,24 +54,12 @@ class RecycleMemberController extends RecycleController implements RecycleData
         }
     }
 
-    // public function showModalDetail(Request $request)
-    // {
-    //     if ($request->ajax()) {
-    //         return view('pages.recycle.project.content.components.5-modal-detail', $this->getDetailData($request));
-    //     }
-    // }
+    public function restoreRecycleData(Request $request)
+    {
+        
+    }
 
-    // private function getDetailData(Request $request)
-    // {
-    //     $views = ProjectSLR::with('getProject', 'getUser', 'getCategory')
-    //         ->where('id', $request->code)->first();
-    //     $data = [
-    //         'views' => $views,
-    //     ];
-    //     return $data;
-    // }
-
-    // public function deleteProjectSLR(Request $request)
-    // {
-    // }
+    public function deleteRecycleData(Request $request)
+    {
+    }
 }

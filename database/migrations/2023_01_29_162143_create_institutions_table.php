@@ -16,12 +16,10 @@ return new class extends Migration
         Schema::create('institute', function (Blueprint $table) {
             $table->integer('id')->primary();
             $table->integer('leader_id');
-            $table->string('institute_name', 100);
-            $table->string('institute_slug', 100)->unique();
+            $table->string('institute_name', 50);
             $table->integer('created_by');
             $table->timestamp('created_at')->nullable();
-            $table->integer('updated_by')->nullable();
-            $table->timestamp('updated_at')->nullable();
+            $table->foreign('leader_id')->references('id')->on('leader')->onDelete('cascade');
         });
     }
 

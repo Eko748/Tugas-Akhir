@@ -3,9 +3,7 @@
 namespace App\Http\Controllers\Management;
 
 use App\Exports\ProjectsExport;
-use App\Models\Institute;
-use App\Models\Project;
-use App\Models\Review;
+use App\Models\{Institute, Project, Review};
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;

@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers\Review;
 
-use App\Http\Controllers\Interface\ReviewData;
-use App\Http\Controllers\Review\ReviewMasterController;
+use App\Http\Controllers\{Interface\ReviewData, Review\ReviewMasterController};
 use Goutte\Client;
 use Illuminate\Http\Request;
 

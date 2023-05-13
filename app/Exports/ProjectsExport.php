@@ -47,6 +47,7 @@ class ProjectsExport implements FromView
                         $l->where('id', $user_id);
                     });
                 })
+                ->where('deleted_by', null)
                 ->orderBy('code', 'ASC')
                 ->get();
         }

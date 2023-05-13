@@ -3,8 +3,7 @@
 namespace App\Http\Controllers\Review;
 
 use App\Http\Controllers\Controller;
-use App\Models\Category;
-use App\Models\Project;
+use App\Models\{Category, Project};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 

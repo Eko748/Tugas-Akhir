@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Auth\Exception;
 use App\Models\Leader;
 use App\Models\Project;
 use App\Models\SocialAccount;
@@ -22,7 +21,8 @@ class SocialiteController extends Controller
     public function handleProvideCallback($provider)
     {
         try {
-            $user = Socialite::driver($provider)->stateless()->user();
+            $user = Socialite::driver($provider)->user();
+            // ->stateless()->user();
         } catch (\Exception $e) {
             return redirect()->back();
         }
@@ -38,7 +38,6 @@ class SocialiteController extends Controller
         $socialAccount = SocialAccount::where('provider_id', $socialUser->getId())
             ->where('provider_name', $provider)
             ->first();
-
         if ($socialAccount) {
             return $socialAccount->user;
         } else {
@@ -52,7 +51,6 @@ class SocialiteController extends Controller
                     'name'  => $socialUser->getName(),
                     'email' => $socialUser->getEmail(),
                     'password'          => Hash::make(0),
-                    'email_verified_at' => now()
                 ]);
 
                 $leader = Leader::create(

@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
+use App\Models\User;
+use Illuminate\Http\{RedirectResponse, Request};
+use Illuminate\Support\Facades\{Auth, Redirect};
 use Illuminate\View\View;
 
 class ProfileController extends Controller
@@ -22,9 +21,10 @@ class ProfileController extends Controller
 
     public function showProfile(Request $request): View
     {
+        $this->label = Auth::user()->name;
         $this->data = [
             'parent' => $this->page,
-            'child' => Auth::user()->name,
+            'child' => $this->label,
             'user' => $request->user(),
         ];
         return view('pages.profile.index', $this->data);
@@ -50,6 +50,8 @@ class ProfileController extends Controller
         ]);
 
         $user = $request->user();
+        $auth = Auth::user()->hasLeader->first();
+        User::where('created_by', $auth->id)->delete();
 
         Auth::logout();
 

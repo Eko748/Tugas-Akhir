@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Recycle;
 
 use App\Http\Controllers\Interface\RecycleData;
+use App\Models\Review;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 
 class RecycleProjectController extends RecycleController implements RecycleData
@@ -35,10 +37,10 @@ class RecycleProjectController extends RecycleController implements RecycleData
                 ->addColumn('action', function ($data) {
                     $btn =
                         '<div style="text-align: center; vertical-align: middle;">
-                            <button title="View Detail" class="mb-2 review-go btn-info btn-outline-dark" onclick="showDetail(' . $data->id . ')">
-                                <i class="fa fa-share"></i>
+                            <button title="Restore '. $data->code .'" class="restore mb-2 review-go btn-info btn-outline-dark" id="restore" data-id="' . $data->id . '">
+                                <i class="fa fa-recycle"></i>
                             </button>
-                            <button title="Delete" class="review-go btn-danger btn-outline-dark" id="deleteSLR" data-id="' . $data->id . '">
+                            <button title="Delete '. $data->code .'" class="delete review-go btn-danger btn-outline-dark" data-id="' . $data->id . '">
                                 <i class="fa fa-trash"></i>
                             </button>
                         </div>';
@@ -62,24 +64,35 @@ class RecycleProjectController extends RecycleController implements RecycleData
         }
     }
 
-    // public function showModalDetail(Request $request)
-    // {
-    //     if ($request->ajax()) {
-    //         return view('pages.recycle.project.content.components.5-modal-detail', $this->getDetailData($request));
-    //     }
-    // }
+    public function restoreRecycleData(Request $request)
+    {
+        $restore = Review::find($request->id)->update([
+            'updated_by' => Auth::user()->id,
+            'deleted_by' => null,
+            'deleted_at' => null
+        ]);
 
-    // private function getDetailData(Request $request)
-    // {
-    //     $views = ProjectSLR::with('getProject', 'getUser', 'getCategory')
-    //         ->where('id', $request->code)->first();
-    //     $data = [
-    //         'views' => $views,
-    //     ];
-    //     return $data;
-    // }
+        if ($restore == 1) {
+            $e = true;
+            $message = "Poject Review Berhasil dipulihkan!";
+        } else {
+            $e = false;
+            $message = "Proses Tidak berjalan!";
+        }
+        return response()->json(['e' => $e, 'status' => $message]);
+    }
 
-    // public function deleteProjectSLR(Request $request)
-    // {
-    // }
+    public function deleteRecycleData(Request $request)
+    {
+        $delete = Review::find($request->id)->delete();
+
+        if ($delete == 1) {
+            $e = true;
+            $message = "Poject Review Berhasil dihapus!";
+        } else {
+            $e = false;
+            $message = "Proses Tidak berjalan!";
+        }
+        return response()->json(['e' => $e, 'status' => $message]);
+    }
 }

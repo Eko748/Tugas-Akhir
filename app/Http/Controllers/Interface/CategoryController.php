@@ -7,6 +7,5 @@ use Illuminate\Http\Request;
 interface CategoryController
 {
     public function createCategory(Request $request);
-
-    public function getCategory(Request $req);
+    public function getCategory(Request $request);
 }

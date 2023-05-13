@@ -22,6 +22,7 @@ return new class extends Migration
             $table->timestamp('updated_at')->nullable();
             $table->integer('deleted_by')->nullable();
             $table->timestamp('deleted_at')->nullable();
+            $table->foreign('created_by')->references('id')->on('leader')->onDelete('cascade');
         });
     }
 

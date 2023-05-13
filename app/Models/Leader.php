@@ -12,7 +12,7 @@ class Leader extends Model
     public $incrementing = false;
     protected $guarded = [];
     public $timestamps = false;
-
+                          
     public function getUser()
     {
         return $this->belongsTo(User::class, 'user_id', 'id');

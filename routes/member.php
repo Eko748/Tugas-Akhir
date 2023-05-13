@@ -20,11 +20,11 @@ Route::middleware('auth')->group(function () {
             Route::prefix("project")->group(function () {
                 Route::controller(ProjectController::class)->group(function () {
                     Route::get('/', 'showProject')->name('project.index');
-                    Route::get('/project-request', 'requestReviewData')->name('project.getTable');
-                    Route::get('/project-export', 'exportProjectData')->name('project.export');
+                    Route::get('/request', 'requestReviewData')->name('project.getTable');
+                    Route::get('/export', 'exportProjectData')->name('project.export');
                     Route::get('/snowballing', 'showModalSnowballing')->name('project.snowBalling');
                     Route::get('/detail', 'showModalDetail')->name('project.modalDetail');
-                    Route::post('/delete', 'deleteProjectSLR')->name('projectSLR.delete');
+                    Route::post('/delete', 'deleteReview')->name('projectSLR.delete');
                 });
             });
             // Master
@@ -32,10 +32,6 @@ Route::middleware('auth')->group(function () {
                 Route::controller(ReviewMasterController::class)->group(function () {
                     Route::get('/', 'showReview')->name('master.index');
                     Route::post('/post-data', 'createReview')->name('master.create');
-                    Route::post('/category-post', 'createCategory')->name('category.create');
-                    Route::get('/list-category', 'getCategory')->name('category.get');
-                    Route::get('/list-project', 'getProject')->name('project.getProject');
-                    Route::get('/list-project-detail', 'getProjectDetail')->name('project.getProjectDetail');
                 });
                 // IEEE
                 Route::controller(IeeeController::class)->group(function () {

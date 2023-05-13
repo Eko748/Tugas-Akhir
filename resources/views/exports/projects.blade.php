@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 
 <head>
-
 </head>
 
 <body>
@@ -21,7 +20,8 @@
                 <th style="text-align: center; vertical-align: middle; background-color:aqua;"><b>References</b></th>
                 <th style="text-align: center; vertical-align: middle; background-color:aqua;"><b>Cited</b></th>
                 <th style="text-align: center; vertical-align: middle; background-color:aqua;"><b>Citing</b></th>
-                <th style="text-align: center; vertical-align: middle; background-color:aqua;"><b>Reference Source</b></th>
+                <th style="text-align: center; vertical-align: middle; background-color:aqua;"><b>Reference Source</b>
+                </th>
                 <th style="text-align: center; vertical-align: middle; background-color:aqua;"><b>Created At</b></th>
             </tr>
         </thead>

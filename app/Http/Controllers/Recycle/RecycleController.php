@@ -3,8 +3,7 @@
 namespace App\Http\Controllers\Recycle;
 
 use App\Http\Controllers\Controller;
-use App\Models\Review;
-use App\Models\User;
+use App\Models\{Review, User};
 use Illuminate\Support\Facades\Auth;
 
 class RecycleController extends Controller
