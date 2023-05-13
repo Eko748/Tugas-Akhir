@@ -162,16 +162,13 @@ class ProjectController extends ManagementController
         ]);
 
         if ($delete == 1) {
-            $success = true;
+            $e = true;
             $message = "Project Berhasil dihapus";
         } else {
-            $success = false;
+            $e = false;
             $message = "Proses Tidak berjalan!";
         }
 
-        return response()->json([
-            's' => $success,
-            'e' => $message,
-        ]);
+        return response()->json(['e' => $e, 'status' => $message]);
     }
 }

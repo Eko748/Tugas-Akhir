@@ -16,4 +16,5 @@
     <script src="{{ asset('assets/css/vendors/sweetalert2/dist/sweetalert2.all.min.js') }}"></script>
     <script src="{{ asset('assets/js/crypto.min.js') }}"></script>
     @include('pages.recycle.member.content.js.1-data-table-js')
+    @include('pages.recycle.member.content.js.2-data-function-js')
 @endpush

@@ -24,7 +24,7 @@ Route::middleware('auth')->group(function () {
                     Route::post('/create', 'createMember')->name('management.member.create');
                     Route::get('/edit', 'editMember')->name('management.member.edit');
                     Route::put('/update', 'updateMember')->name('management.member.update');
-                    Route::post('/delete/{id}', 'deleteMember')->name('management.member.delete');
+                    Route::post('/delete', 'deleteMember')->name('management.member.delete');
                     Route::get('/export', 'exportMemberData')->name('management.member.export');
                 });
             });

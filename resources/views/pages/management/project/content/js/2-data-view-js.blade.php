@@ -68,10 +68,10 @@
                     },
                     dataType: 'JSON',
                     success: function(results) {
-                        if (results.s === true) {
-                            swal("Done!", results.e, "success");
+                        if (results.e === true) {
+                            swal("Done!", results.status, "success");
                         } else {
-                            swal("Error!", results.e, "error");
+                            swal("Error!", results.status, "error");
                         }
                         $('#table-project').DataTable().ajax.reload()
                     },

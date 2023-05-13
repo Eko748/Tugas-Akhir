@@ -5,7 +5,7 @@
         </div>
         <div class="card-body">
             <div class="table-responsive custom-scrollbar">
-                <table class="table-project dataTable project table-hover table" id="table-project">
+                <table class="table-member dataTable member table-hover table" id="table-member">
                     <thead class="table-primary">
                         <tr>
                             <th class="align-baseline text-center">No</th>

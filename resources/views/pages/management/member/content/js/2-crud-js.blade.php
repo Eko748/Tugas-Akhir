@@ -112,13 +112,14 @@
         });
     }
 
-    function deleteMember(id) {
+    $('body').on('click', '.delete-member', function() {
+        let id = $(this).data('id');
         swal({
             title: "Hapus?",
             text: "Mohon Konfirmasi!",
             type: "warning",
             showCancelButton: !0,
-            confirmButtonText: "Hapus Data!",
+            confirmButtonText: "Hapus!",
             cancelButtonText: "Batalkan!",
             reverseButtons: !0,
             confirmButtonColor: "#ff0000"
@@ -126,9 +127,10 @@
             if (e.value === true) {
                 let CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
                 $.ajax({
-                    url: "{{ url('/management/member-delete') }}/" + id,
+                    url: '{{ route('management.member.delete') }}',
                     type: 'POST',
                     data: {
+                        id: id,
                         _token: CSRF_TOKEN
                     },
                     dataType: 'JSON',
@@ -138,14 +140,14 @@
                         } else {
                             swal("Error!", results.status, "error");
                         }
-                        $("#table-member").DataTable().ajax.reload();
-                    }
+                        $('#table-member').DataTable().ajax.reload()
+                    },
                 });
             } else {
                 e.dismiss;
             }
         });
-    }
+    });
 
     function exportData() {
         swal({

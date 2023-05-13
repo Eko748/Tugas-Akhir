@@ -48,10 +48,9 @@ class MemberController extends ManagementController implements ValidationData
                                  onclick="editMember(' . $data->id . ')" type="button" data-bs-toggle="modal" data-bs-target="#updateMember">
                                     <i class="fa fa-edit"></i>
                                 </button>
-                                <button title="Delete" class="review-go btn-danger btn-outline-dark"
-                                 onclick="deleteMember(' . $data->id . ')">
-                                    <i class="fa fa-trash"></i>
-                                </button>  
+                                <button title="Delete '. $data->id .'" class="delete-member review-go btn-danger btn-outline-dark" data-id="' . $data->id . '">
+                                <i class="fa fa-trash"></i>
+                                </button>
                             </div>';
                     return $btn;
                 })->addColumn('info', function ($data) {

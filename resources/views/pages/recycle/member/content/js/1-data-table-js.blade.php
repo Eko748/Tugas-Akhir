@@ -1,10 +1,10 @@
 <script type="text/javascript">
     $(document).ready(function() {
-        $('#table-project thead tr')
+        $('#table-member thead tr')
             .clone(true)
             .addClass('filters')
-            .appendTo('#table-project thead');
-        $('#table-project').DataTable({
+            .appendTo('#table-member thead');
+        $('#table-member').DataTable({
             orderCellsTop: true,
             initComplete: function() {
                 let api = this.api();
