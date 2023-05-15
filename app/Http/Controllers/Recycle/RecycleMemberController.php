@@ -31,7 +31,7 @@ class RecycleMemberController extends RecycleController implements RecycleData
     public function requestRecycleData(Request $request)
     {
         if ($request->ajax()) {
-            $data = $this->recycleMember();
+            $data = $this->getRecycleMember();
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($data) {

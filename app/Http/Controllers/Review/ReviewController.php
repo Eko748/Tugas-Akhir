@@ -3,45 +3,42 @@
 namespace App\Http\Controllers\Review;
 
 use App\Http\Controllers\Controller;
-use App\Models\{Category, Project};
-use Illuminate\Http\Request;
+use App\Models\{Category, Project, Review};
 use Illuminate\Support\Facades\Auth;
 
 class ReviewController extends Controller
 {
     protected string $page = 'Review';
 
-    protected function getProjectReview(Request $request)
+    protected function getProjectReview()
     {
-        $search = $request->q;
-        $id = $request->id;
-
-        if (Auth::user()->role_id == '1') {
-            $projects = Project::whereHas('getLeader', function ($query) use ($id) {
-                $query->where('user_id', $id);
-            })
-                ->where('subject', 'LIKE', '%' . $search . '%')
-                ->orWhere('priority', 'LIKE', '%' . $search . '%')
-                ->where('start_date', '<=', now())
-                ->where('end_date', '>=', now())
-                ->orderBy('priority', 'asc')
-                ->get();
-        } else {
-            $projects = Project::where('subject', 'LIKE', '%' . $search . '%')
-                ->orWhere('priority', 'LIKE', '%' . $search . '%')
-                ->orderBy('priority', 'asc')
-                ->get();
+        if (Auth::user()->role_id == 1) {
+            $project = Project::where('created_by', Auth::user()->id)
+                ->orderBy('created_at', 'desc')->first();
+        } elseif (Auth::user()->role_id == 2) {
+            $project = Project::whereHas('getLeader', function ($q) {
+                $q->where('id', Auth::user()->created_by);
+            })->orderBy('created_at', "desc")->first();
         }
-        return $projects;
+        $last_review = Review::where('created_by', Auth::user()->id)
+            ->orderBy('created_at', 'desc')
+            ->first();
+
+        $code_suffix = $last_review ? ((int) substr($last_review->code, 2)) + 1 : 1;
+        if ($code_suffix > 999) {
+            $code_suffix = 1;
+        }
+
+        $data = [
+            'project' => $project,
+            'code' => $code_suffix,
+        ];
+
+        return $data;
     }
 
-    protected function getCategoryReview(Request $request)
+    protected function getCategoryReview()
     {
-        $search = $request->q;
-        $category = Category::where('category_code', 'LIKE', '%' . $search . '%')
-            ->orWhere('category_name', 'LIKE', '%' . $search . '%')
-            ->orderBy('category_code', 'asc')
-            ->get();
-        return $category;
+        return Category::all();
     }
 }

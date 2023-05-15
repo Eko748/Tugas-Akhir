@@ -10,7 +10,7 @@ class RecycleController extends Controller
 {
     protected string $page = 'Recycle';
 
-    public function recycleMember()
+    protected function getRecycleMember()
     {
         $auth = Auth::user()->hasLeader->first();
         $data = User::where('created_by', $auth->id)
@@ -18,7 +18,7 @@ class RecycleController extends Controller
         return $data;
     }
 
-    public function recycleProject()
+    protected function getRecycleProjectReview()
     {
         $data = Review::whereHas('getProject', function ($q) {
             $q->where('created_by', Auth::user()->id);

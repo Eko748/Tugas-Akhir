@@ -30,7 +30,7 @@ class ProjectController extends ManagementController
         return view('pages.management.project.index', $this->data);
     }
 
-    public function requestProjectReviewData(Request $request)
+    public function requestProjectReview(Request $request)
     {
         if ($request->ajax()) {
             if (Auth::user()->role_id == 1) {
@@ -87,36 +87,21 @@ class ProjectController extends ManagementController
         }
     }
 
-    public function exportProjectReviewData()
-    {
-        if ($this->getInstituteData()) {
-            $ins = $this->getInstituteData()->institute_name;
-            $ins_array = explode(' ', $ins);
-            $prefix = Str::of($ins_array[0])->slug('');
-        } else {
-            $prefix = 'review';
-        }
-
-        $fileName = $prefix . '-project.xlsx';
-        $print = Excel::download(new ProjectsExport($this->getProjectData()), $fileName);
-        return $print;
-    }
-
-    public function getProjectReviewSnowballing(Request $request)
+    public function getReviewSnowballing(Request $request)
     {
         if ($request->ajax()) {
             return view('pages.management.project.content.components.4-modal-snowballing', $this->getProjectReviewData($request));
         }
     }
 
-    public function getProjectReviewDetail(Request $request)
+    public function getReviewDetail(Request $request)
     {
         if ($request->ajax()) {
             return view('pages.management.project.content.components.5-modal-detail', $this->getProjectReviewData($request));
         }
     }
 
-    public function deleteProjectReviewData(Request $request)
+    public function deleteProjectReview(Request $request)
     {
         $delete = Review::find($request->id)->update([
             'deleted_by' => Auth::user()->id,
@@ -132,5 +117,20 @@ class ProjectController extends ManagementController
         }
 
         return response()->json(['e' => $e, 'status' => $message]);
+    }
+
+    public function exportProjectReview()
+    {
+        if ($this->getInstituteData()) {
+            $ins = $this->getInstituteData()->institute_name;
+            $ins_array = explode(' ', $ins);
+            $prefix = Str::of($ins_array[0])->slug('');
+        } else {
+            $prefix = 'review';
+        }
+
+        $fileName = $prefix . '-project.xlsx';
+        $print = Excel::download(new ProjectsExport($this->getProjectData()), $fileName);
+        return $print;
     }
 }

@@ -11,6 +11,19 @@ class ManagementController extends Controller
 {
     protected string $page = 'Management';
 
+    protected function getInstituteData()
+    {
+        if (Auth::user()->role_id == '1') {
+            $institute = Institute::where('created_by', Auth::user()->id)->first();
+        } else {
+            $institute = Institute::whereHas('getLeader', function ($q) {
+                    $q->where('id', Auth::user()->created_by);
+                })
+                ->first();
+        }
+        return $institute;
+    }
+    
     protected function getMemberData()
     {
         $leader = Leader::where('user_id', Auth::user()->id)->first();
@@ -30,19 +43,6 @@ class ManagementController extends Controller
         }
 
         return $projects;
-    }
-
-    protected function getInstituteData()
-    {
-        if (Auth::user()->role_id == '1') {
-            $institute = Institute::where('created_by', Auth::user()->id)->first();
-        } else {
-            $institute = Institute::whereHas('getLeader', function ($q) {
-                    $q->where('id', Auth::user()->created_by);
-                })
-                ->first();
-        }
-        return $institute;
     }
 
     protected function getProjectReviewData(Request $request)

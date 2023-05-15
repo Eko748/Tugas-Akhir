@@ -18,9 +18,9 @@
                         <div class="row">
                             <div class="col-md-12">
                                 Systematic Literature Review ini memiliki kode unik yang dapat mewakili setiap website
-                                <li>IEEE = A</li>
-                                <li>ACM = B</li>
-                                <li>Springer = C</li>
+                                @foreach ($category as $tag)
+                                    <li>{{ $tag['category_name'] }} = {{ $tag['category_code'] }}</li>
+                                @endforeach
                             </div>
                         </div>
                     </div>

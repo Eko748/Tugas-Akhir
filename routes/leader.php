@@ -19,28 +19,28 @@ Route::middleware('auth')->group(function () {
             Route::prefix("member")->group(function () {
                 Route::controller(MemberController::class)->group(function () {
                     Route::get('/', 'showMember')->name('management.member.index');
-                    Route::get('/data', 'requestMemberData')->name('management.member.table');
-                    Route::get('/search', 'searchMemberData')->name('management.member.getUser');
+                    Route::get('/request', 'requestMember')->name('management.member.table');
+                    Route::get('/search', 'searchMember')->name('management.member.getUser');
                     Route::post('/create', 'createMember')->name('management.member.create');
                     Route::get('/edit', 'editMember')->name('management.member.edit');
                     Route::put('/update', 'updateMember')->name('management.member.update');
                     Route::post('/delete', 'deleteMember')->name('management.member.delete');
-                    Route::get('/export', 'exportMemberData')->name('management.member.export');
+                    Route::get('/export', 'exportMember')->name('management.member.export');
                 });
             });
             // Project
             Route::prefix("project")->group(function () {
                 Route::controller(ProjectController::class)->group(function () {
                     Route::get('/', 'showProjectReview')->name('management.project.index');
-                    Route::get('/request', 'requestProjectReviewData')->name('management.project.getTable');
-                    Route::get('/export', 'exportProjectReviewData')->name('management.project.export');
-                    Route::get('/snowballing', 'getProjectReviewSnowballing')->name('management.project.snowBalling');
-                    Route::get('/detail', 'getProjectReviewDetail')->name('management.project.modalDetail');
-                    Route::post('/delete', 'deleteProjectReviewData')->name('management.projectSLR.delete');
+                    Route::get('/request', 'requestProjectReview')->name('management.project.getTable');
+                    Route::get('/export', 'exportProjectReview')->name('management.project.export');
+                    Route::get('/snowballing', 'getReviewSnowballing')->name('management.project.snowBalling');
+                    Route::get('/detail', 'getReviewDetail')->name('management.project.modalDetail');
+                    Route::post('/delete', 'deleteProjectReview')->name('management.projectSLR.delete');
                 });
             });
             Route::controller(InstituteController::class)->group(function () {
-                Route::post('/institute-create', 'createInstituteData')->name('management.institute.create');
+                Route::post('/institute-create', 'createInstitute')->name('management.institute.create');
             });
         });
         // Review

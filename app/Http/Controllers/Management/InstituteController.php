@@ -8,7 +8,7 @@ use Illuminate\{Http\Request, Support\Facades\Auth};
 
 class InstituteController extends ManagementController implements ValidationData
 {
-    public function createInstituteData(Request $request)
+    public function createInstitute(Request $request)
     {
         $user = Leader::where('user_id', Auth::user()->id)->first();
         $v_data = $this->validateDataCreate($request);

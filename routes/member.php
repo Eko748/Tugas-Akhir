@@ -19,12 +19,12 @@ Route::middleware('auth')->group(function () {
             // Project
             Route::prefix("project")->group(function () {
                 Route::controller(ProjectController::class)->group(function () {
-                    Route::get('/', 'showProject')->name('project.index');
-                    Route::get('/request', 'requestReviewData')->name('project.getTable');
-                    Route::get('/export', 'exportProjectData')->name('project.export');
-                    Route::get('/snowballing', 'showModalSnowballing')->name('project.snowBalling');
-                    Route::get('/detail', 'showModalDetail')->name('project.modalDetail');
-                    Route::post('/delete', 'deleteReview')->name('projectSLR.delete');
+                    Route::get('/', 'showProjectReview')->name('project.index');
+                    Route::get('/request', 'requestProjectReview')->name('project.getTable');
+                    Route::get('/export', 'exportProjectReview')->name('project.export');
+                    Route::get('/snowballing', 'getReviewSnowballing')->name('project.snowBalling');
+                    Route::get('/detail', 'getReviewDetail')->name('project.modalDetail');
+                    Route::post('/delete', 'deleteProjectReview')->name('projectSLR.delete');
                 });
             });
             // Master

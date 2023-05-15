@@ -33,7 +33,7 @@ class MemberController extends ManagementController implements ValidationData
         return view('pages.management.member.index', $this->data);
     }
 
-    public function requestMemberData(Request $request)
+    public function requestMember(Request $request)
     {
         if ($request->ajax()) {
             $auth = Auth::user()->hasLeader->first();
@@ -85,7 +85,7 @@ class MemberController extends ManagementController implements ValidationData
         }
     }
 
-    public function searchMemberData(Request $request)
+    public function searchMember(Request $request)
     {
         $search = $request->q;
         $auth = Auth::user()->hasLeader->first();
@@ -304,7 +304,7 @@ class MemberController extends ManagementController implements ValidationData
         return response()->json(['e' => $e, 'status' => $message]);
     }
 
-    public function exportMemberData()
+    public function exportMember()
     {
         $get = $this->getMemberData();
         $ins = $get['institute']->hasInstitute()->first()->institute_name;
