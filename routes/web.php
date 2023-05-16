@@ -1,7 +1,6 @@
 <?php
 
-use App\Http\Controllers\Auth\SocialiteController;
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Auth\SocialAccountController;
 use App\Http\Controllers\Public\HomeController;
 use App\Http\Controllers\Review\AcmController;
 use Illuminate\Support\Facades\Route;
@@ -20,9 +19,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'showHomePage'])->name('home');
 Route::get('/demo', [AcmController::class, 'requestReviewData'])->name('home.demo');
 
-
-Route::get('/auth/{provider}', [SocialiteController::class, 'redirectToProvider'])->name('auth.google');
-Route::get('/auth/{provider}/callback', [SocialiteController::class, 'handleProvideCallback']);
+Route::get('/auth/{provider}', [SocialAccountController::class, 'redirectToProvider'])->name('auth.google');
+Route::get('/auth/{provider}/callback', [SocialAccountController::class, 'handleProvideCallback']);
 
 require __DIR__.'/auth.php';
 require __DIR__.'/leader.php';

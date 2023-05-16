@@ -27,16 +27,17 @@
                         <div class="form-group mt-6 mb-3">
                             <x-input-label for="pass" value="{{ __('Konfirmasi Password') }}" class="form-label" />
                             <div class="input-group"><span class="input-group-text"><i class="icon-lock"></i></span>
-                                <x-text-input id="pass" name="password" type="password"
-                                    class="form-control"
+                                <x-text-input id="pass" name="password" type="password" class="form-control"
                                     placeholder="{{ __('Konfirmasi Password') }}" />
-                                <x-input-error class="text-danger mt-2" :messages="$errors->userDeletion->get('password')" />
                             </div>
+                            <small>
+                                <x-input-error class="text-danger mt-2" :messages="$errors->userDeletion->get('password')" />
+                            </small>
                         </div>
 
                         <div class="mt-6 flex justify-end">
                             <x-secondary-button class="btn btn-xs btn-warning btn-outline-dark"
-                                x-on:click="$dispatch('close')">
+                                x-on:click="$dispatch('close')" type="button" data-bs-dismiss="modal">
                                 <i class="fa fa-times-circle"></i> {{ __('Cancel') }}
                             </x-secondary-button>
                             <x-danger-button type="submit" class="btn btn-xs btn-danger btn-outline-dark ml-3">

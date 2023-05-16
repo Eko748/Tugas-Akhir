@@ -8,19 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Leader extends Model
 {
     use HasFactory;
-    protected $table = 'leader';
+    public $table = 'leader';
     public $incrementing = false;
-    protected $guarded = [];
     public $timestamps = false;
+    protected $guarded = [];
                           
     public function getUser()
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
-    }
-
-    public function getRole()
-    {
-        return $this->belongsTo(Role::class, 'role_id', 'id');
     }
 
     public function hasProject()

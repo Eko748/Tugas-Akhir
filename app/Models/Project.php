@@ -9,14 +9,14 @@ use Illuminate\Database\Eloquent\Model;
 class Project extends Model
 {
     use HasFactory;
-    protected $table = 'project';
+    public $table = 'project';
     public $incrementing = false;
+    public $timestamps = false;
     protected $guarded = [];
     protected $hidden = [
         'uuid_project', 'leader_id',
         'created_by', 'created_at'
     ];
-    public $timestamps = false;
 
     public function getUser()
     {
@@ -28,18 +28,9 @@ class Project extends Model
         return $this->belongsTo(Leader::class, 'leader_id', 'id');
     }
 
-    public function hasProject()
+    public function hasReview()
     {
         return $this->hasMany(Review::class, 'project_id');
     }
 
-    public static function deleteOldRecycle()
-    {
-        $projects = Project::where('deleted_at', '<', Carbon::now()->subWeek())
-                    ->get();
-        
-        foreach ($projects as $project) {
-            $project->delete();
-        }
-    }
 }

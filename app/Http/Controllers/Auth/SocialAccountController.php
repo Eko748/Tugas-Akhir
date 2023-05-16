@@ -11,7 +11,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Socialite\Facades\Socialite;
 
-class SocialiteController extends Controller
+class SocialAccountController extends Controller
 {
     public function redirectToProvider($provider)
     {

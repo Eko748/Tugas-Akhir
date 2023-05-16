@@ -14,8 +14,7 @@
                         @endguest
                         <li class="nav-item"><a class="nav-link" href="#about"><i class="fa fa-info-circle"></i>About</a></li>
                     </ul>
-                    <div class="buy-block"><a class="btn-landing btn-outline-dark btn-white" href="{{ route('login') }}"
-                            target="_blank"><i class="fa fa-sign-in"></i> <span>Login</span></a>
+                    <div class="buy-block"><a class="btn-landing btn-outline-dark btn-white" href="{{ route('login') }}"><i class="fa fa-sign-in"></i> <span>Login</span></a>
                         <div class="toggle-menu"><i class="fa fa-bars"></i></div>
                     </div>
                 </nav>

@@ -8,10 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Institute extends Model
 {
     use HasFactory;
-    protected $table = 'institute';
+    public $table = 'institute';
     public $incrementing = false;
-    protected $guarded = [];
     public $timestamps = false;
+    protected $guarded = [];
 
     public function getUser()
     {

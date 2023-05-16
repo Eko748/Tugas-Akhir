@@ -8,11 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
     use HasFactory;
-    protected $table = 'category';
-    protected $guarded = [];
+    public $table = 'category';
     public $timestamps = false;
+    protected $guarded = [];
 
-    public function hasProjectSLR()
+    public function hasReview()
     {
         return $this->hasMany(Review::class, 'project_id');
     }

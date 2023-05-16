@@ -9,6 +9,4 @@
 @endsection
 @push('js')
     <script src="{{ asset('assets/js/sidebar-menu.js') }}"></script>
-    {{-- <script src="{{ asset('assets/js/chart/apex-chart/apex-chart.js') }}"></script> --}}
-    {{-- @include('pages.dashboard.components.3-chart-js') --}}
 @endpush

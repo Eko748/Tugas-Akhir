@@ -19,8 +19,8 @@ class DashboardController extends Controller
 
     public function showDashboard()
     {
-        $review = $this->requestChartReview();
-        $member = $this->requestChartByCode();
+        $review = $this->getChartReview();
+        $member = $this->getChartCreated();
         $this->label = Auth::user()->getRole->role_name;
         $this->data = [
             'parent' => $this->page,
@@ -35,9 +35,9 @@ class DashboardController extends Controller
         return view('pages.dashboard.index', $this->data);
     }
 
-    private function requestChartReview()
+    private function getChartReview()
     {
-        $get = $this->getReviewData();
+        $get = $this->getCountReview();
 
         $categoryCounts = $get['reviews']->countBy('category_id');
         $categoryLabels = ['IEEE', 'ACM', 'Springer'];
@@ -55,7 +55,7 @@ class DashboardController extends Controller
         return $data;
     }
 
-    private function requestChartByCode()
+    private function getChartCreated()
     {
         if (Auth::user()->role_id == 1) {
             $leader = Auth::user()->hasLeader->first();
@@ -69,7 +69,7 @@ class DashboardController extends Controller
             $user = $member + 1;
         }
 
-        $get = $this->getReviewData();
+        $get = $this->getCountReview();
         $userCount = $get['reviews']->countBy('created_by');
         $userLabels = $userCount->keys()->map(function ($key) {
             return User::orderBy('code', 'asc')->find($key)->code;
@@ -93,7 +93,7 @@ class DashboardController extends Controller
         return $data;
     }
 
-    private function getReviewData()
+    private function getCountReview()
     {
         if (Auth::user()->role_id == 1) {
             $reviews = Review::whereHas('getProject.getLeader', function ($q) {

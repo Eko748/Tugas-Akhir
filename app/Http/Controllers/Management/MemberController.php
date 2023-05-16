@@ -206,18 +206,21 @@ class MemberController extends ManagementController implements ValidationData
 
     public function validateDataCreate(Request $request)
     {
-        return $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:user'],
-            'password' => ['required', Rules\Password::defaults()],
-        ], [
-            'required' => 'Kolom :attribute harus diisi.',
-            'string' => 'Kolom :attribute harus berupa teks.',
-            'email' => 'Kolom :attribute harus diisi dengan format email.',
-            'unique' => 'Kolom :attribute sudah ada data ini.',
-            'max' => 'Kolom :attribute tidak boleh lebih dari :max karakter.',
-            'integer' => 'Kolom :attribute harus diisi dengan angka.'
-        ]);
+        return $request->validate(
+            [
+                'name' => ['required', 'string', 'max:40'],
+                'email' => ['required', 'string', 'email', 'max:100', 'unique:user'],
+                'password' => ['required', Rules\Password::defaults()],
+            ],
+            [
+                'required' => 'Kolom :attribute harus diisi.',
+                'string' => 'Kolom :attribute harus berupa teks.',
+                'email' => 'Kolom :attribute harus diisi dengan format email.',
+                'unique' => 'Kolom :attribute sudah ada data ini.',
+                'max' => 'Kolom :attribute tidak boleh lebih dari :max karakter.',
+                'integer' => 'Kolom :attribute harus diisi dengan angka.'
+            ]
+        );
     }
 
     public function editMember(Request $request)
