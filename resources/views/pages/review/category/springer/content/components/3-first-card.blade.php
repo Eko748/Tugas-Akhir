@@ -97,7 +97,7 @@
                     <div class="pull-right col-md-6 col-sm-6">
                         <a data-bs-toggle="modal" title="Tambahkan Data Review ke Project" onclick="addData()"
                             data-bs-placement="bottom"
-                            data-bs-target="#modalCreate-{{ str_replace([':', '.', '/', '-'], '', $key['identifier']) }}"
+                            data-bs-target="#modalCreate-springer"
                             class="pull-right cool text-white btn btn-sm btn-outline-dark btn-success">
                             <i class="fa fa-plus-circle"></i>
                         </a>

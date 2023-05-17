@@ -210,7 +210,7 @@
 
         const route = e.target.route.value;
         if (route === 'Dashboard') {
-            window.location.href = '{{ route('dashboard.member') }}';
+            window.location.href = '{{ route('dashboard.index') }}';
             return;
         } else if (route === 'Project') {
             window.location.href = '{{ route('project.index') }}';

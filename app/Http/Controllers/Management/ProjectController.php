@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Management;
 
 use App\Exports\ProjectsExport;
-use App\Models\{Institute, Project, Review};
+use App\Models\ScrapedData;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -13,7 +13,7 @@ use Yajra\DataTables\Facades\DataTables;
 
 class ProjectController extends ManagementController
 {
-    private string $label = 'Project';
+    private string $label = 'Scraping';
     private array $data;
 
     public function __construct(array $data = [])
@@ -21,7 +21,7 @@ class ProjectController extends ManagementController
         $this->data = $data;
     }
 
-    public function showProjectReview()
+    public function showProjectScraping()
     {
         $this->data = [
             'parent' => $this->page,
@@ -30,19 +30,19 @@ class ProjectController extends ManagementController
         return view('pages.management.project.index', $this->data);
     }
 
-    public function requestProjectReview(Request $request)
+    public function requestProjectScraping(Request $request)
     {
         if ($request->ajax()) {
             if (Auth::user()->role_id == 1) {
                 $auth = Auth::user()->id;
-                $data = Review::whereHas('getProject', function ($q) use ($auth) {
+                $data = ScrapedData::whereHas('getProject', function ($q) use ($auth) {
                     $q->where('created_by', $auth);
                 })
                     ->where('deleted_by', null)
                     ->orderBy('created_at', 'DESC')->get();
             } else {
                 $auth = Auth::user()->created_by;
-                $data = Review::whereHas('getProject', function ($q) use ($auth) {
+                $data = ScrapedData::whereHas('getProject', function ($q) use ($auth) {
                     $q->where('leader_id', $auth);
                 })->whereHas('getProject.getLeader', function ($q) {
                     $q->where('id', Auth::user()->created_by);
@@ -87,23 +87,23 @@ class ProjectController extends ManagementController
         }
     }
 
-    public function getReviewSnowballing(Request $request)
+    public function getSnowballScraping(Request $request)
     {
         if ($request->ajax()) {
-            return view('pages.management.project.content.components.4-modal-snowballing', $this->getProjectReviewData($request));
+            return view('pages.management.project.content.components.4-modal-snowballing', $this->getProjectScrapingData($request));
         }
     }
 
-    public function getReviewDetail(Request $request)
+    public function getDetailScraping(Request $request)
     {
         if ($request->ajax()) {
-            return view('pages.management.project.content.components.5-modal-detail', $this->getProjectReviewData($request));
+            return view('pages.management.project.content.components.5-modal-detail', $this->getProjectScrapingData($request));
         }
     }
 
-    public function deleteProjectReview(Request $request)
+    public function deleteProjectScraping(Request $request)
     {
-        $delete = Review::find($request->id)->update([
+        $delete = ScrapedData::find($request->id)->update([
             'deleted_by' => Auth::user()->id,
             'deleted_at' => now()
         ]);
@@ -119,14 +119,14 @@ class ProjectController extends ManagementController
         return response()->json(['e' => $e, 'status' => $message]);
     }
 
-    public function exportProjectReview()
+    public function exportProjectScraping()
     {
         if ($this->getInstituteData()) {
             $ins = $this->getInstituteData()->institute_name;
             $ins_array = explode(' ', $ins);
             $prefix = Str::of($ins_array[0])->slug('');
         } else {
-            $prefix = 'review';
+            $prefix = 'slr';
         }
 
         $fileName = $prefix . '-project.xlsx';

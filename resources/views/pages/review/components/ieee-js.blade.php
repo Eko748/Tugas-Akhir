@@ -52,15 +52,24 @@
     });
 
     function addData() {
-        $("body").on("submit", ".formCreateProjectData", function(e) {
+        $(document).on("submit", ".formCreateProjectData", function(e) {
             e.preventDefault();
             $('.formCreateProjectData button[type="submit"]').attr('disabled', true);
             let formData = new FormData(this);
             let CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             formData.append('code', 'A');
             formData.append('category_id', '1');
+
+            const params = new URLSearchParams(window.location.search);
+            let slr_code = null;
+            if (params !== null) {
+                slr_code = params.get('slr_code');
+                formData.append('reference_source', slr_code);
+            }
+
             let url =
-                '{{ Auth::user()->role_id == 1 ? route('review.master.create') : route('master.create') }}'
+                '{{ Auth::user()->role_id == 1 ? route('review.master.create') : route('master.create') }}';
+
             $.ajax({
                 url: url,
                 dataType: "JSON",

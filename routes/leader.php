@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{Auth\AuthController, Dashboard\DashboardController, Exception\PageHandlingController};
 use App\Http\Controllers\Management\{InstituteController, MemberController, ProjectController,};
 use App\Http\Controllers\Recycle\{RecycleMemberController, RecycleProjectController};
-use App\Http\Controllers\Review\{ReviewMasterController, IeeeController, AcmController, SpringerController,};
+use App\Http\Controllers\Scraping\{ScrapingMasterController, IeeeController, AcmController, SpringerController};
 
 Route::middleware('auth')->group(function () {
     // Login
@@ -12,7 +12,7 @@ Route::middleware('auth')->group(function () {
     // Leader Route
     Route::middleware(['1', 'auth'])->group(function () {
         // Dashboard
-        Route::get('/dashboard', [DashboardController::class, 'showDashboard'])->name('dashboard.index');
+        // Route::get('/dashboard', [DashboardController::class, 'showDashboard'])->name('dashboard.index');
         // Management
         Route::prefix("management")->group(function () {
             // Member
@@ -29,14 +29,14 @@ Route::middleware('auth')->group(function () {
                 });
             });
             // Project
-            Route::prefix("project")->group(function () {
+            Route::prefix("project-scraping")->group(function () {
                 Route::controller(ProjectController::class)->group(function () {
-                    Route::get('/', 'showProjectReview')->name('management.project.index');
-                    Route::get('/request', 'requestProjectReview')->name('management.project.getTable');
-                    Route::get('/export', 'exportProjectReview')->name('management.project.export');
-                    Route::get('/snowballing', 'getReviewSnowballing')->name('management.project.snowBalling');
-                    Route::get('/detail', 'getReviewDetail')->name('management.project.modalDetail');
-                    Route::post('/delete', 'deleteProjectReview')->name('management.projectSLR.delete');
+                    Route::get('/', 'showProjectScraping')->name('management.project.index');
+                    Route::get('/request', 'requestProjectScraping')->name('management.project.getTable');
+                    Route::get('/export', 'exportProjectScraping')->name('management.project.export');
+                    Route::get('/snowballing', 'getSnowballScraping')->name('management.project.snowBalling');
+                    Route::get('/detail', 'getDetailScraping')->name('management.project.modalDetail');
+                    Route::post('/delete', 'deleteProjectScraping')->name('management.projectSLR.delete');
                 });
             });
             Route::controller(InstituteController::class)->group(function () {
@@ -44,26 +44,26 @@ Route::middleware('auth')->group(function () {
             });
         });
         // Review
-        Route::prefix("review")->group(function () {
+        Route::prefix("scraping")->group(function () {
             // Master
-            Route::controller(ReviewMasterController::class)->group(function () {
-                Route::get('/', 'showReview')->name('review.master.index');
-                Route::post('/post-data', 'createReview')->name('review.master.create');
+            Route::controller(ScrapingMasterController::class)->group(function () {
+                Route::get('/', 'showScraping')->name('review.master.index');
+                Route::post('/post-data', 'createScraping')->name('review.master.create');
             });
             // IEEE
             Route::controller(IeeeController::class)->group(function () {
-                Route::get('/article-ieee', 'showReviewData')->name('review.ieee.index');
-                Route::get('/article-ieee-request', 'requestReviewData')->name('review.ieee.request');
+                Route::get('/article-ieee', 'showScrapingData')->name('review.ieee.index');
+                Route::get('/article-ieee-request', 'requestScrapingData')->name('review.ieee.request');
             });
             // ACM
             Route::controller(AcmController::class)->group(function () {
-                Route::get('/acm', 'showReviewData')->name('review.acm.index');
-                Route::get('/acm-request', 'requestReviewData')->name('review.acm.request');
+                Route::get('/acm', 'showScrapingData')->name('review.acm.index');
+                Route::get('/acm-request', 'requestScrapingData')->name('review.acm.request');
             });
             // Springer
             Route::controller(SpringerController::class)->group(function () {
-                Route::get('/springer', 'showReviewData')->name('review.springer.index');
-                Route::get('/springer-request', 'requestReviewData')->name('review.springer.request');
+                Route::get('/springer', 'showScrapingData')->name('review.springer.index');
+                Route::get('/springer-request', 'requestScrapingData')->name('review.springer.request');
             });
         });
         // Recycle

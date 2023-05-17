@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Review;
+namespace App\Http\Controllers\Scraping;
 
-use App\Http\Controllers\{Interface\ReviewData, Review\ReviewMasterController};
+use App\Http\Controllers\Interface\ScrapingData;
 use Goutte\Client;
 use Illuminate\Http\Request;
 
-class IeeeController extends ReviewMasterController implements ReviewData
+class IeeeController extends ScrapingMasterController implements ScrapingData
 {
     private string $label = 'IEEE';
     private array $data;
@@ -16,7 +16,7 @@ class IeeeController extends ReviewMasterController implements ReviewData
         $this->data = $data;
     }
 
-    public function showReviewData()
+    public function showScrapingData()
     {
         $this->data = [
             'parent' => $this->page,
@@ -25,10 +25,10 @@ class IeeeController extends ReviewMasterController implements ReviewData
         return view('pages.review.category.ieee.index', $this->data);
     }
 
-    public function requestReviewData(Request $request)
+    public function requestScrapingData(Request $request)
     {
         try {
-            $ieee = $this->searchReviewData($request);
+            $ieee = $this->searchScrapingData($request);
             $this->data = [
                 'search' => $ieee['search'],
                 'path' => $ieee['path'],
@@ -43,7 +43,7 @@ class IeeeController extends ReviewMasterController implements ReviewData
         }
     }
 
-    public function searchReviewData($request)
+    public function searchScrapingData($request)
     {
         $search = $request->input('search');
         $article_number = str_replace('https://ieeexplore.ieee.org/document/', '', $search);

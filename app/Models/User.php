@@ -68,14 +68,14 @@ class User extends Authenticatable
         return $this->hasMany(Project::class, 'created_by');
     }
 
-    public function hasReview()
+    public function hasScrapedData()
     {
-        return $this->hasMany(Review::class, 'created_by');
+        return $this->hasMany(ScrapedData::class, 'created_by');
     }
 
-    public function hasDataReview()
+    public function hasDataScrapedData()
     {
-        return $this->hasMany(Review::class, 'deleted_by');
+        return $this->hasMany(ScrapedData::class, 'deleted_by');
     }
 
 }

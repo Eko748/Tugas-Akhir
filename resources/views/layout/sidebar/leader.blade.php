@@ -34,7 +34,7 @@
             <a href="{{ route('management.member.index') }}">Member</a>
         </li>
         <li>
-            <a href="{{ route('management.project.index') }}">Project</a>
+            <a href="{{ route('management.project.index') }}">Project Scraping</a>
         </li>
     </ul>
 </li>
@@ -51,9 +51,9 @@
                         stroke="#130F26" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
                 </g>
             </g>
-        </svg><span class="">Review</span></a>
+        </svg><span class="">Scraping</span></a>
     <ul class="sidebar-submenu">
-        <li><a href="{{ route('review.master.index') }}">Review Master</a></li>
+        <li><a href="{{ route('review.master.index') }}">Scraping Master</a></li>
         <li>
             <a class="submenu-title" href="#">Category<span class="sub-arrow"><i
                         class="fa fa-angle-right"></i></span></a>
@@ -85,7 +85,7 @@
         </svg><span class="recycle">Recycle</span></a>
     <ul class="sidebar-submenu">
         <li><a href="{{ route('recycle.member') }}">Member</a></li>
-        <li><a href="{{ route('recycle.project') }}">Project</a></li>
+        <li><a href="{{ route('recycle.project') }}">Project Scraping</a></li>
     </ul>
 </li>
 <li class="sidebar-list">

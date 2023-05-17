@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Review;
+namespace App\Http\Controllers\Scraping;
 
-use App\Http\Controllers\Interface\ReviewData;
+use App\Http\Controllers\Interface\ScrapingData;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 
-class SpringerController extends ReviewMasterController implements ReviewData
+class SpringerController extends ScrapingMasterController implements ScrapingData
 {
     private string $label = 'Springer';
     private array $data;
@@ -16,7 +16,7 @@ class SpringerController extends ReviewMasterController implements ReviewData
         $this->data = $data;
     }
 
-    public function showReviewData()
+    public function showScrapingData()
     {
         $this->data = [
             'parent' => $this->page,
@@ -25,10 +25,10 @@ class SpringerController extends ReviewMasterController implements ReviewData
         return view('pages.review.category.springer.index', $this->data);
     }
 
-    public function requestReviewData(Request $request)
+    public function requestScrapingData(Request $request)
     {
         try {
-            $springer = $this->searchReviewData($request);
+            $springer = $this->searchScrapingData($request);
             $this->data = [
                 'search' => $springer['query'],
                 'client' => $springer['client'],
@@ -42,7 +42,7 @@ class SpringerController extends ReviewMasterController implements ReviewData
         }
     }
 
-    public function searchReviewData($request)
+    public function searchScrapingData($request)
     {
         $query = $request->query('search');
         $query = str_replace('https://link.springer.com/article/', '', $query);

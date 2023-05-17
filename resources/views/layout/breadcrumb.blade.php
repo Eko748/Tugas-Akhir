@@ -6,7 +6,7 @@
         if (Auth::user()->role_id == 1) {
             $dashboard = route('dashboard.index');
         } elseif (Auth::user()->role_id == 2) {
-            $dashboard = route('dashboard.member');
+            $dashboard = route('dashboard.index');
         }
     @endphp
     <ol class="pull-right text-right breadcrumb">

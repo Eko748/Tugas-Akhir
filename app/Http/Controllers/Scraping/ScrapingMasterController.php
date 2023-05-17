@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Review;
+namespace App\Http\Controllers\Scraping;
 
 use App\Http\Controllers\Interface\ValidationData;
-use App\Models\Review;
+use App\Models\ScrapedData;
 use Illuminate\{Http\Request, Support\Str, Support\Facades\Auth};
 
-class ReviewMasterController extends ReviewController implements ValidationData
+class ScrapingMasterController extends ScrapingController implements ValidationData
 {
     private string $label = 'Master';
     private array $data;
@@ -16,27 +16,26 @@ class ReviewMasterController extends ReviewController implements ValidationData
         $this->data = $data;
     }
 
-    public function showReview()
+    public function showScraping()
     {
         $this->data = [
             'parent' => $this->page,
             'child' => $this->label,
-            'category' => $this->getCategoryReview()
+            'category' => $this->getData()['category']
         ];
         return view('pages.review.master.index', $this->data);
     }
 
-    public function createReview(Request $request)
+    public function createScraping(Request $request)
     {
         try {
-            $reference_source = $request->has('reference_source') ? $request->reference_source : null;
-            Review::create(
+            ScrapedData::create(
                 [
                     'id' => random_int(1000000, 9999999),
                     'uuid_review' => Str::uuid(),
-                    'project_id' => $this->getProjectReview()['project']->id,
+                    'project_id' => $this->getData()['project']->id,
                     'category_id' => $request->category_id,
-                    'code' => $request->code . Auth::user()->code . $this->getProjectReview()['code'],
+                    'code' => $request->code . Auth::user()->code . $this->getData()['code'],
                     'title' => $request->title,
                     'publisher' => $request->publisher,
                     'publication' => $request->publication,
@@ -47,7 +46,7 @@ class ReviewMasterController extends ReviewController implements ValidationData
                     'authors' => $request->authors,
                     'keywords' => $request->keywords,
                     'references' => $request->references,
-                    'reference_source' => $reference_source,
+                    'reference_source' => $request->reference_source,
                     'created_by' => Auth::user()->id,
                 ]
             );
@@ -72,5 +71,4 @@ class ReviewMasterController extends ReviewController implements ValidationData
             ]
         );
     }
-
 }

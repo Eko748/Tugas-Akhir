@@ -3,10 +3,7 @@
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Management\ProjectController;
-use App\Http\Controllers\Review\AcmController;
-use App\Http\Controllers\Review\IeeeController;
-use App\Http\Controllers\Review\ReviewMasterController;
-use App\Http\Controllers\Review\SpringerController;
+use App\Http\Controllers\Scraping\{ScrapingMasterController, IeeeController, AcmController, SpringerController};
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth')->group(function () {
@@ -15,38 +12,39 @@ Route::middleware('auth')->group(function () {
     Route::middleware(['2', 'auth'])->group(function () {
         Route::prefix("m")->group(function () {
             // Dashboard
-            Route::get('/dashboard', [DashboardController::class, 'showDashboard'])->name('dashboard.member');
+            // Route::get('/dashboard', [DashboardController::class, 'showDashboard'])->name('dashboard.member');
             // Project
-            Route::prefix("project")->group(function () {
+            Route::prefix("project-scraping")->group(function () {
                 Route::controller(ProjectController::class)->group(function () {
-                    Route::get('/', 'showProjectReview')->name('project.index');
-                    Route::get('/request', 'requestProjectReview')->name('project.getTable');
-                    Route::get('/export', 'exportProjectReview')->name('project.export');
-                    Route::get('/snowballing', 'getReviewSnowballing')->name('project.snowBalling');
-                    Route::get('/detail', 'getReviewDetail')->name('project.modalDetail');
-                    Route::post('/delete', 'deleteProjectReview')->name('projectSLR.delete');
+                    Route::get('/', 'showProjectScraping')->name('project.index');
+                    Route::get('/request', 'requestProjectScraping')->name('project.getTable');
+                    Route::get('/export', 'exportProjectScraping')->name('project.export');
+                    Route::get('/snowballing', 'getSnowballScraping')->name('project.snowBalling');
+                    Route::get('/detail', 'getDetailScraping')->name('project.modalDetail');
+                    Route::post('/delete', 'deleteProjectScraping')->name('projectSLR.delete');
                 });
             });
             // Master
-            Route::prefix("review")->group(function () {
-                Route::controller(ReviewMasterController::class)->group(function () {
-                    Route::get('/', 'showReview')->name('master.index');
-                    Route::post('/post-data', 'createReview')->name('master.create');
+            Route::prefix("scraping")->group(function () {
+                // Master
+                Route::controller(ScrapingMasterController::class)->group(function () {
+                    Route::get('/', 'showScraping')->name('master.index');
+                    Route::post('/post-data', 'createScraping')->name('master.create');
                 });
                 // IEEE
                 Route::controller(IeeeController::class)->group(function () {
-                    Route::get('/article-ieee', 'showReviewData')->name('ieee.index');
-                    Route::get('/article-ieee-request', 'requestReviewData')->name('ieee.request');
+                    Route::get('/article-ieee', 'showScrapingData')->name('ieee.index');
+                    Route::get('/article-ieee-request', 'requestScrapingData')->name('ieee.request');
                 });
                 // ACM
                 Route::controller(AcmController::class)->group(function () {
-                    Route::get('/acm', 'showReviewData')->name('acm.index');
-                    Route::get('/acm-request', 'requestReviewData')->name('acm.request');
+                    Route::get('/acm', 'showScrapingData')->name('acm.index');
+                    Route::get('/acm-request', 'requestScrapingData')->name('acm.request');
                 });
                 // Springer
                 Route::controller(SpringerController::class)->group(function () {
-                    Route::get('/springer', 'showReviewData')->name('springer.index');
-                    Route::get('/springer-request', 'requestReviewData')->name('springer.request');
+                    Route::get('/springer', 'showScrapingData')->name('springer.index');
+                    Route::get('/springer-request', 'requestScrapingData')->name('springer.request');
                 });
             });
         });

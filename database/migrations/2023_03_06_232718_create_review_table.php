@@ -13,9 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('review', function (Blueprint $table) {
+        Schema::create('scraped_data', function (Blueprint $table) {
             $table->integer('id')->primary();
-            $table->uuid('uuid_review');
+            $table->uuid('uuid_scrape');
             $table->integer('project_id');
             $table->integer('category_id');
             $table->string('code', 5);
@@ -29,7 +29,7 @@ return new class extends Migration
             $table->text('abstracts');
             $table->text('keywords');
             $table->text('references')->nullable();
-            $table->enum('snowball', ['yes', 'no'])->default('no');
+            // $table->enum('snowball', ['yes', 'no'])->default('no');
             $table->string('reference_source', 10)->nullable();
             $table->integer('created_by');
             $table->timestamp('created_at')->nullable();

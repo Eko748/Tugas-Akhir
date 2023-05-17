@@ -17,7 +17,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="product-hover">
+                {{-- <div class="product-hover">
                     <ul>
                         <li>
                             <a data-bs-toggle="modal" title="Lihat Detail"
@@ -32,7 +32,7 @@
                             </a>
                         </li>
                     </ul>
-                </div>
+                </div> --}}
             </div>
             @include('pages.review.category.ieee.content.components.5-modal-create')
             @include('pages.review.category.ieee.content.components.6-modal-view')
@@ -111,14 +111,14 @@
                     </div>
                 </div>
                 <hr>
-                <a href="{{ $key['pdf_url'] }}" target="_blank" title="Lihat tautan asli"
-                    class="cool text-white btn btn-sm btn-outline-dark btn-danger">
-                    <i class="fa fa-paper-plane"></i>
-                </a>
-                <a data-bs-toggle="modal" title="Tambahkan Data Review ke Project" onclick="addData()"
+                {{-- <a href="{{ $key['pdf_url'] }}" target="_blank" title="Lihat tautan asli"
+                    class="cool text-white btn btn-sm btn-outline-dark btn-info">
+                    <i class="fa fa-paper-plane"></i> Kunjungi tautan
+                </a> --}}
+                <a data-bs-toggle="modal" title="Tambahkan Data Scraping ke Database" onclick="addData()"
                     data-bs-placement="bottom" data-bs-target="#modalCreate-{{ $key['article_number'] }}"
-                    class="pull-right cool text-white btn btn-sm btn-outline-dark btn-success">
-                    <i class="fa fa-plus-circle"></i>
+                    class="pull-right mb-3 review-go text-white btn btn-sm btn-outline-dark btn-success">
+                    <i class="fa fa-plus-circle"></i> Tambahkan ke Database
                 </a>
             </div>
         </div>

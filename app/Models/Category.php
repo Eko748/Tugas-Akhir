@@ -12,8 +12,8 @@ class Category extends Model
     public $timestamps = false;
     protected $guarded = [];
 
-    public function hasReview()
+    public function hasScrapedData()
     {
-        return $this->hasMany(Review::class, 'project_id');
+        return $this->hasMany(ScrapedData::class, 'project_id');
     }
 }

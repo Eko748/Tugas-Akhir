@@ -6,7 +6,7 @@
                         class="button btn-info review-go hovering mb-2"><i class="fa fa-paper-plane"></i> IEEE</a>
                     <a href="{{ Auth::user()->role_id == 1 ? route('review.acm.index') : route('acm.index') }}?slr_id={{ $views->uuid_review }}&slr_code={{ $views->code }}"
                         class="button btn-success review-go hovering mb-2"><i class="fa fa-paper-plane"></i> ACM</a>
-                    <a href="{{ Auth::user()->role_id == 1 ? route('review.springer.index') : route('springer.index') }}?slr_id={{ $views->uuid_review }}&slr_code={{ encrypt($views->code) }}"
+                    <a href="{{ Auth::user()->role_id == 1 ? route('review.springer.index') : route('springer.index') }}?slr_id={{ $views->uuid_review }}&slr_code={{ $views->code }}"
                         class="button btn-warning review-go hovering mb-2"><i class="fa fa-paper-plane"></i>
                         Springer</a>
             </div>

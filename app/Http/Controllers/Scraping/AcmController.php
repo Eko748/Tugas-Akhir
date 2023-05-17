@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Review;
+namespace App\Http\Controllers\Scraping;
 
-use App\Http\Controllers\{Interface\ReviewData, Review\ReviewMasterController};
+use App\Http\Controllers\Interface\ScrapingData;
 use Goutte\Client;
 use Illuminate\Http\Request;
 
-class AcmController extends ReviewMasterController implements ReviewData
+class AcmController extends ScrapingMasterController implements ScrapingData
 {
     private string $label = 'ACM';
     private array $data;
@@ -16,7 +16,7 @@ class AcmController extends ReviewMasterController implements ReviewData
         $this->data = $data;
     }
 
-    public function showReviewData()
+    public function showScrapingData()
     {
         $this->data = [
             'parent' => $this->page,
@@ -25,10 +25,10 @@ class AcmController extends ReviewMasterController implements ReviewData
         return view('pages.review.category.acm.index', $this->data);
     }
 
-    public function requestReviewData(Request $request)
+    public function requestScrapingData(Request $request)
     {
         try {
-            $acm = $this->searchReviewData($request);
+            $acm = $this->searchScrapingData($request);
             $this->data = [
                 'search' => $acm['query'],
                 'key' => $acm['key']
@@ -41,7 +41,7 @@ class AcmController extends ReviewMasterController implements ReviewData
         }
     }
 
-    public function searchReviewData($request)
+    public function searchScrapingData($request)
     {
         try {
             $delay = 2000;

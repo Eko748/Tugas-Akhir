@@ -11,7 +11,6 @@
                 <form id="" class="formCreateProjectData theme-form needs-validation" method="post"
                     onsubmit="enableInput()" action="" novalidate="">
                     @csrf
-                    <input type="hidden" class="slr-code" name="reference_source">
                     <div class="modal-body">
                         <div class="row g-3">
                             <div class="mb-3 col-md-4">

@@ -14,13 +14,13 @@ class ScienceDirectController extends ReviewMasterController
     private string $child = 'ScienceDirect';
     private array $data;
 
-    public function __construct()
-    {
-        $this->data = [
-            'parent' => $this->parent,
-            'child' => $this->child,
-        ];
-    }
+    // public function __construct()
+    // {
+    //     $this->data = [
+    //         'parent' => $this->parent,
+    //         'child' => $this->child,
+    //     ];
+    // }
 
     public function showReviewScienceDirect()
     {
@@ -54,21 +54,21 @@ class ScienceDirectController extends ReviewMasterController
 
     //    return view('pages.review.category.science.index', $this->data);
 
-    public function requestScienceDirectData(Request $request)
-    {
-        try {
-            $science = $this->searchScienceDirectData($request);
-            $this->data = [
-                'search' => $science['query'],
-                'key' => $science['key']
-            ];
-            if ($request->ajax()) {
-                return view('pages.review.category.science.content.components.2-data', $this->data)->render();
-            }
-        } catch (\Exception $e) {
-            return response()->json(['error' => 'Terjadi kesalahan saat mengambil data ScienceDirect'], 500);
-        }
-    }
+    // public function requestScienceDirectData(Request $request)
+    // {
+    //     try {
+    //         $science = $this->searchScienceDirectData($request);
+    //         $this->data = [
+    //             'search' => $science['query'],
+    //             'key' => $science['key']
+    //         ];
+    //         if ($request->ajax()) {
+    //             return view('pages.review.category.science.content.components.2-data', $this->data)->render();
+    //         }
+    //     } catch (\Exception $e) {
+    //         return response()->json(['error' => 'Terjadi kesalahan saat mengambil data ScienceDirect'], 500);
+    //     }
+    // }
 
     // private function searchScienceDirectData(Request $request)
     // {

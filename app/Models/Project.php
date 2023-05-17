@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -28,9 +27,9 @@ class Project extends Model
         return $this->belongsTo(Leader::class, 'leader_id', 'id');
     }
 
-    public function hasReview()
+    public function hasScrapedData()
     {
-        return $this->hasMany(Review::class, 'project_id');
+        return $this->hasMany(ScrapedData::class, 'project_id');
     }
 
 }

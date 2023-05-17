@@ -1,5 +1,5 @@
 <div class="modal fade modalCreate" data-key="{{ str_replace([':', '.', '/', '-'], '', $key['identifier']) }}"
-    id="modalCreate-{{ str_replace([':', '.', '/', '-'], '', $key['identifier']) }}">
+    id="modalCreate-springer">
     <div class="modal-dialog modal-xl modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">

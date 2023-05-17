@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Review;
+namespace App\Http\Controllers\Scraping;
 
 class XPLORE
  {

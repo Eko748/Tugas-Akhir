@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Recycle;
 
 use App\Http\Controllers\Controller;
-use App\Models\{Review, User};
+use App\Models\{ScrapedData, User};
 use Illuminate\Support\Facades\Auth;
 
 class RecycleController extends Controller
@@ -20,7 +20,7 @@ class RecycleController extends Controller
 
     protected function getRecycleProjectReview()
     {
-        $data = Review::whereHas('getProject', function ($q) {
+        $data = ScrapedData::whereHas('getProject', function ($q) {
             $q->where('created_by', Auth::user()->id);
         })->whereNotNull('deleted_by')->get();
         return $data;

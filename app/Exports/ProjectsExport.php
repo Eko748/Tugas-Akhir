@@ -3,11 +3,9 @@
 namespace App\Exports;
 
 use App\Models\Project;
-use App\Models\Review;
+use App\Models\ScrapedData;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
 use Maatwebsite\Excel\Concerns\FromView;
 
 
@@ -20,7 +18,7 @@ class ProjectsExport implements FromView
     {
         $this->project = $project;
         $this->data = [
-            'projects' => $this->exportProjectReview()['projects']
+            'projects' => $this->exportProjectScraping()['projects']
         ];
     }
 
@@ -29,18 +27,18 @@ class ProjectsExport implements FromView
         return view('exports.projects', $this->data);
     }
 
-    private function exportProjectReview()
+    private function exportProjectScraping()
     {
         $user_id = Auth::user()->created_by;
 
         if (Auth::user()->role_id == '1') {
-            $projects = Review::with('getProject', 'getUser', 'getCategory')
+            $projects = ScrapedData::with('getProject', 'getUser', 'getCategory')
                 ->where('project_id', $this->project->id)
                 ->where('deleted_by', null)
                 ->orderBy('code', 'ASC')
                 ->get();
         } else {
-            $projects = Review::with('getProject.getLeader', 'getUser', 'getCategory')
+            $projects = ScrapedData::with('getProject.getLeader', 'getUser', 'getCategory')
                 ->where('project_id', $this->project->id)
                 ->whereHas('getProject', function ($q) use ($user_id) {
                     $q->whereHas('getLeader', function ($l) use ($user_id) {

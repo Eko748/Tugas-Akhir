@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Recycle;
 
 use App\Http\Controllers\Interface\RecycleData;
-use App\Models\Review;
+use App\Models\ScrapedData;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -66,7 +66,7 @@ class RecycleProjectController extends RecycleController implements RecycleData
 
     public function restoreRecycleData(Request $request)
     {
-        $restore = Review::find($request->id)->update([
+        $restore = ScrapedData::find($request->id)->update([
             'updated_by' => Auth::user()->id,
             'deleted_by' => null,
             'deleted_at' => null
@@ -84,7 +84,7 @@ class RecycleProjectController extends RecycleController implements RecycleData
 
     public function deleteRecycleData(Request $request)
     {
-        $delete = Review::find($request->id)->delete();
+        $delete = ScrapedData::find($request->id)->delete();
 
         if ($delete == 1) {
             $e = true;

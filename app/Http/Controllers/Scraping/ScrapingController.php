@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Http\Controllers\Review;
+namespace App\Http\Controllers\Scraping;
 
 use App\Http\Controllers\Controller;
-use App\Models\{Category, Project, Review};
+use App\Models\{Category, Project, ScrapedData};
 use Illuminate\Support\Facades\Auth;
 
-class ReviewController extends Controller
+class ScrapingController extends Controller
 {
     protected string $page = 'Review';
 
-    protected function getProjectReview()
+    protected function getData()
     {
         if (Auth::user()->role_id == 1) {
             $project = Project::where('created_by', Auth::user()->id)
@@ -20,7 +20,7 @@ class ReviewController extends Controller
                 $q->where('id', Auth::user()->created_by);
             })->orderBy('created_at', "desc")->first();
         }
-        $last_review = Review::where('created_by', Auth::user()->id)
+        $last_review = ScrapedData::where('created_by', Auth::user()->id)
             ->orderBy('created_at', 'desc')
             ->first();
 
@@ -29,16 +29,15 @@ class ReviewController extends Controller
             $code_suffix = 1;
         }
 
+        $category = Category::all();
+
         $data = [
             'project' => $project,
             'code' => $code_suffix,
+            'category' => $category
         ];
 
         return $data;
     }
 
-    protected function getCategoryReview()
-    {
-        return Category::all();
-    }
 }

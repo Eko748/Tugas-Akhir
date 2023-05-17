@@ -59,6 +59,14 @@
             let CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             formData.append('code', 'C');
             formData.append('category_id', '3');
+            
+            const params = new URLSearchParams(window.location.search);
+            let slr_code = null;
+            if (params !== null) {
+                slr_code = params.get('slr_code');
+                formData.append('reference_source', slr_code);
+            }
+
             let url =
                 '{{ Auth::user()->role_id == 1 ? route('review.master.create') : route('master.create') }}'
             $.ajax({

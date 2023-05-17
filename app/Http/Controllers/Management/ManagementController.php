@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Management;
 
 use App\Http\Controllers\Controller;
-use App\Models\{Institute, Leader, Member, Project, Review, User};
+use App\Models\{Institute, Leader, Member, Project, ScrapedData};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -45,11 +45,11 @@ class ManagementController extends Controller
         return $projects;
     }
 
-    protected function getProjectReviewData(Request $request)
+    protected function getProjectScrapingData(Request $request)
     {
         try {
             $hashedId = $request->code;
-            $views = Review::with('getProject', 'getCategory')
+            $views = ScrapedData::with('getProject', 'getCategory')
                 ->get();
             $detail = null;
             foreach ($views as $view) {

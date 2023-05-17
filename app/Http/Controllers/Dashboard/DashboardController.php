@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Models\{Member, Review, User};
+use App\Models\{Member, ScrapedData, User};
 use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
@@ -19,7 +19,7 @@ class DashboardController extends Controller
 
     public function showDashboard()
     {
-        $review = $this->getChartReview();
+        $review = $this->getChartScraping();
         $member = $this->getChartCreated();
         $this->label = Auth::user()->getRole->role_name;
         $this->data = [
@@ -35,9 +35,9 @@ class DashboardController extends Controller
         return view('pages.dashboard.index', $this->data);
     }
 
-    private function getChartReview()
+    private function getChartScraping()
     {
-        $get = $this->getCountReview();
+        $get = $this->getCountScraping();
 
         $categoryCounts = $get['reviews']->countBy('category_id');
         $categoryLabels = ['IEEE', 'ACM', 'Springer'];
@@ -69,7 +69,7 @@ class DashboardController extends Controller
             $user = $member + 1;
         }
 
-        $get = $this->getCountReview();
+        $get = $this->getCountScraping();
         $userCount = $get['reviews']->countBy('created_by');
         $userLabels = $userCount->keys()->map(function ($key) {
             return User::orderBy('code', 'asc')->find($key)->code;
@@ -93,14 +93,14 @@ class DashboardController extends Controller
         return $data;
     }
 
-    private function getCountReview()
+    private function getCountScraping()
     {
         if (Auth::user()->role_id == 1) {
-            $reviews = Review::whereHas('getProject.getLeader', function ($q) {
+            $reviews = ScrapedData::whereHas('getProject.getLeader', function ($q) {
                 $q->where('user_id', Auth::user()->id);
             })->get();
         } elseif (Auth::user()->role_id == 2) {
-            $reviews = Review::whereHas('getProject.getLeader', function ($q) {
+            $reviews = ScrapedData::whereHas('getProject.getLeader', function ($q) {
                 $q->where('leader_id', Auth::user()->created_by);
             })->get();
         }
