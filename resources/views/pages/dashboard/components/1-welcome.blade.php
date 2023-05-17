@@ -15,8 +15,8 @@
                                         src="{{ asset('assets/images/logo/slr-logo.png') }}" alt="">
                                 </div>
                             </div>
-                            <a class="btn btn-outline-white_color mt-3" href="{{ route('review.master.index') }}">Get
-                                Review<i class="icon-arrow-right"> </i></a>
+                            <a class="btn btn-outline-white_color mt-3" href="{{ route('management.project.index') }}">
+                                Get Scraping Data<i class="icon-arrow-right"> </i></a>
                         </div>
                     </div>
                 </div>
@@ -60,7 +60,7 @@
                 <div class="card-body">
                     <div class="media static-widget">
                         <div class="media-body">
-                            <h6 class="font-roboto">Total Review</h6>
+                            <h6 class="font-roboto">Data Scraping</h6>
                             <h4 class="mb-0 counter">{{ $totalReviews }}</h4>
                         </div>
                         <svg class="fill-primary" width="44" height="46" viewBox="0 0 44 46"

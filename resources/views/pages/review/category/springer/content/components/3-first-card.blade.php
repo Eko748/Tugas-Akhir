@@ -10,11 +10,8 @@
                     <p class="ms-3 ps-3"><small class="text-dark">{{ $key['identifier'] }}</small></p>
                     <div class="product-hover">
                         <ul>
-                            <li><a data-bs-toggle="modal" data-bs-target="#modalView-springer"><i
+                            <li class="mb-3"><a data-bs-toggle="modal" data-bs-target="#modalView-springer"><i
                                         class="icon-eye"></i></a></li>
-                            <li><a title="Review Project" data-bs-toggle="modal" onclick="addData()"
-                                    data-bs-target="#modalCreate-{{ str_replace([':', '.', '/', '-'], '', $key['identifier']) }}">
-                                    <i class="icon-plus"></i></a></li>
                         </ul>
                     </div>
                 </div>
@@ -89,19 +86,21 @@
                     </div>
                 </div>
                 <hr>
-                <a href="{{ $key['url'][0]['value'] }}" target="_blank" title="Lihat tautan asli"
+                {{-- <a href="{{ $key['url'][0]['value'] }}" target="_blank" title="Lihat tautan asli"
                     class="cool text-white btn btn-sm btn-outline-dark btn-danger">
-                    <i class="fa fa-paper-plane"></i>
-                </a>
+                    <i class="fa fa-paper-plane"></i> --}}
+                {{-- </a> --}}
                 @auth
-                    <div class="pull-right col-md-6 col-sm-6">
-                        <a data-bs-toggle="modal" title="Tambahkan Data Review ke Project" onclick="addData()"
-                            data-bs-placement="bottom"
-                            data-bs-target="#modalCreate-springer"
-                            class="pull-right cool text-white btn btn-sm btn-outline-dark btn-success">
-                            <i class="fa fa-plus-circle"></i>
+                    <div class="text-center">
+                        <a data-bs-toggle="modal" title="Tambahkan Data Scraping ke Database" onclick="addData()"
+                            data-bs-placement="bottom" data-bs-target="#modalCreate-springer"
+                            class="text-center mb-3 review-go text-white btn btn-sm btn-outline-dark btn-success">
+                            <i class="fa fa-plus-circle"></i> Tambahkan ke Database
                         </a>
                     </div>
+                    <a data-bs-toggle="modal" onclick="addData()" data-bs-target="#modalCreate-springer"
+                        title="Tambahkan Data Scraping ke
+            Database" class="float">+</a>
                 @endauth
             </div>
         </div>

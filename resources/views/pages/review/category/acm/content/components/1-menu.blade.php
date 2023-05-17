@@ -18,7 +18,7 @@
                             <button class="btn btn-outline-primary" type="button" id="submit-review"><i
                                     class="fa fa-search"></i></button>
                             <input id="search" type="text" class="form-control"
-                                placeholder="Search..." aria-label="Example text with button addon"
+                                placeholder="Search: https://dl.acm.org/doi/10.1145/2018567.2018569" aria-label="Example text with button addon"
                                 aria-describedby="button-addon1">
                             <button class="btn btn-outline-primary" data-bs-trigger="hover" data-container="body"
                                 data-bs-toggle="popover" data-bs-placement="right" data-offset="-5px -5px"

@@ -6,10 +6,10 @@
     </div>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-8 col-xl-8">
+            <div class="col-md-9 col-xl-9">
                 @include('pages.review.master.content.components.1-menu')
             </div>
-            <div class="col-md-4 col-xl-4">
+            <div class="col-md-3 col-xl-3">
                 @include('pages.review.master.content.components.2-category')
             </div>
         </div>

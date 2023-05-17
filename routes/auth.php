@@ -22,7 +22,7 @@ Route::middleware('guest')->group(function () {
     Route::post('login', [AuthController::class, 'getLogin']);
 });
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'check_login'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'showDashboard'])->name('dashboard.index');
     Route::get('/profile', [ProfileController::class, 'showProfile'])->name('profile.index');
     Route::patch('/profile', [ProfileController::class, 'updateProfile'])->name('profile.update');

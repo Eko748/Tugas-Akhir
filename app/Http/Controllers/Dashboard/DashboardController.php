@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Models\{Member, ScrapedData, User};
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
@@ -17,7 +18,7 @@ class DashboardController extends Controller
         $this->data = $data;
     }
 
-    public function showDashboard()
+    public function showDashboard(Request $request)
     {
         $review = $this->getChartScraping();
         $member = $this->getChartCreated();

@@ -9,4 +9,5 @@
 @endsection
 @push('js')
     <script src="{{ asset('assets/js/sidebar-menu.js') }}"></script>
+    <script src="{{ asset('assets/js/tooltip-init.js') }}"></script>
 @endpush

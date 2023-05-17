@@ -54,21 +54,21 @@
     function addData() {
         $(document).on("submit", ".formCreateProjectData", function(e) {
             e.preventDefault();
-            $('.formCreateProjectData button[type="submit"]').attr('disabled', true);
+            $(".formCreateProjectData button[type='submit']").attr("disabled", true);
             let formData = new FormData(this);
-            let CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-            formData.append('code', 'A');
-            formData.append('category_id', '1');
+            let CSRF_TOKEN = $('meta[name="csrf-token"]').attr("content");
+            formData.append("code", "A");
+            formData.append("category_id", "1");
 
             const params = new URLSearchParams(window.location.search);
             let slr_code = null;
             if (params !== null) {
-                slr_code = params.get('slr_code');
-                formData.append('reference_source', slr_code);
+                slr_code = params.get("slr_code");
+                formData.append("reference_source", slr_code);
             }
 
             let url =
-                '{{ Auth::user()->role_id == 1 ? route('review.master.create') : route('master.create') }}';
+                "{{ Auth::user()->role_id == 1 ? route('review.master.create') : route('master.create') }}";
 
             $.ajax({
                 url: url,
@@ -79,11 +79,23 @@
                 processData: false,
                 contentType: false,
                 success: function(result) {
-                    swal("Done!", "Data berhasil ditambahkan", "success")
-                        .then((value) => {
-                            $(".formCreateProjectData").trigger("reset");
-                            $(".modalCreate").modal("hide");
-                        });
+                    var html =
+                        '<hr>' +
+                        '<span class="mb-3 text-center">Scraping Data Lain?</span>' + '<br><br>' + 
+                        '<a class="ms-1 me-1 text-white review-go btn btn-sm btn-success btn-outline-primary" href="{{ route('management.project.index') }}" title="Lihat Hasil" id="button1">Lihat List</a>' +
+                        '<a id="button-acm" class="ms-1 me-1 text-white review-go btn btn-sm btn-info btn-outline-primary" href="{{ Auth::user()->role_id == 1 ? route('review.acm.index') : route('acm.index') }}" title="Scraping data ACM" id="button1">ACM</a>' +
+                        '<a class="ms-1 me-1 text-white review-go btn btn-sm btn-warning btn-outline-primary" href="{{ Auth::user()->role_id == 1 ? route('review.springer.index') : route('springer.index') }}" title="Scraping data Springer" id="button1">Springer</a>' +
+                        '<br>';
+                    swal({
+                        title: "Data Tersimpan!",
+                        html: html,
+                        showCloseButton: !0,
+                        showConfirmButton: !1,
+                        type: "success",
+                    }).then((value) => {
+                        $(".formCreateProjectData").trigger("reset");
+                        $(".modalCreate").modal("hide");
+                    });
                 },
                 error: function(result) {
                     swal("Error!", "Data sudah ada atau yang lainnya", "error");
@@ -92,12 +104,13 @@
                     return false;
                 },
                 complete: function() {
-                    $('.formCreateProjectData button[type="submit"]').attr('disabled', false);
-                }
+                    $(".formCreateProjectData button[type='submit']").attr("disabled", false);
+                },
             });
             abort();
         });
     }
+
 
     function enableInput() {
         document.querySelectorAll('.create').forEach(function(el) {

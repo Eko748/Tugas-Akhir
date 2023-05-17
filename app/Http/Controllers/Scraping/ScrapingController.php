@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 class ScrapingController extends Controller
 {
-    protected string $page = 'Review';
+    protected string $page = 'Scraping';
 
     protected function getData()
     {

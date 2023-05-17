@@ -9,11 +9,11 @@
                     <h5 class="mb-0">
                         <button class="btn btn-link text-white bg-primary" data-bs-toggle="collapse"
                             data-bs-target="#data-code" aria-expanded="true" aria-controls="collapse11">
-                            Code Review
+                            Code ?
                         </button>
                     </h5>
                 </div>
-                <div class="collapse show" id="data-code" aria-labelledby="collapseicon" data-bs-parent="#code">
+                <div class="collapse" id="data-code" aria-labelledby="collapseicon" data-bs-parent="#code">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-12">

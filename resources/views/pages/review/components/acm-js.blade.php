@@ -79,11 +79,23 @@
                 processData: false,
                 contentType: false,
                 success: function(result) {
-                    swal("Done!", "Data berhasil ditambahkan", "success")
-                        .then((value) => {
-                            $(".formCreateProjectData").trigger("reset");
-                            $(".modalCreate").modal("hide");
-                        });
+                    var html =
+                        '<hr>' +
+                        '<span class="mb-3 text-center">Scraping Data Lain?</span>' + '<br><br>' + 
+                        '<a class="ms-1 me-1 text-white review-go btn btn-sm btn-success btn-outline-primary" href="{{ route('management.project.index') }}" title="Lihat Hasil" id="button1">Lihat List</a>' +
+                        '<a class="ms-1 me-1 text-white review-go btn btn-sm btn-warning btn-outline-primary" href="{{ Auth::user()->role_id == 1 ? route('review.springer.index') : route('springer.index') }}" title="Scraping data Springer" id="button1">Springer</a>' +
+                        '<a id="button-acm" class="ms-1 me-1 text-white review-go btn btn-sm btn-info btn-outline-primary" href="{{ Auth::user()->role_id == 1 ? route('review.ieee.index') : route('ieee.index') }}" title="Scraping data IEEE" id="button1">IEEE</a>' +
+                        '<br>';
+                    swal({
+                        title: "Data Tersimpan!",
+                        html: html,
+                        showCloseButton: !0,
+                        showConfirmButton: !1,
+                        type: "success",
+                    }).then((value) => {
+                        $(".formCreateProjectData").trigger("reset");
+                        $(".modalCreate").modal("hide");
+                    });
                 },
                 error: function(result) {
                     swal("Error!", "Data sudah ada atau yang lainnya", "error");

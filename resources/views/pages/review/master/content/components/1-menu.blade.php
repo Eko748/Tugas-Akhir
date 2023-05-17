@@ -1,9 +1,83 @@
 <div class="ribbon-wrapper card">
     <div class="card-body">
         <div class="ribbon ribbon-clip ribbon-secondary">
-            <b>About</b>
+            <b>Scraping Data</b>
         </div>
-        <div class="default-according style-1" id="accordionoc">
+        <div class="row">
+            <div class="col-md-4 col-sm-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="widget-card">
+                            <div class="media-body">
+                                <div class="row mb-3">
+                                    <div class="col-md-12 col-sm-12 col-xs-12 text-center">
+                                        <img style="width: 100px; height: 70px"
+                                            src="{{ asset('assets/images/logo/ieee.png') }}" alt="">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 text-center">
+                                        <a href="{{ Auth::user()->role_id == 1 ? route('review.ieee.index') : route('ieee.index') }}"
+                                            title="Scraping IEEE" class="btn btn-outline-primary" data-bs-placement="bottom">
+                                            IEEE <i class="fa fa-paper-plane"> </i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="widget-card">
+                            <div class="media-body">
+                                <div class="row mb-3">
+                                    <div class="col-md-12 col-sm-12 col-xs-12 text-center">
+                                        <img style="width: 70px; height: 70px"
+                                            src="{{ asset('assets/images/logo/acm.png') }}" alt="">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12 text-center">
+                                        <a href="{{ Auth::user()->role_id == 1 ? route('review.acm.index') : route('acm.index') }}"
+                                            title="Scraping ACM" class="btn btn-outline-primary" data-bs-placement="bottom">
+                                            ACM <i class="fa fa-paper-plane"> </i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="widget-card">
+                            <div class="media-body">
+                                <div class="row mb-3">
+                                    <div class="col-md-12 col-sm-12 col-xs-12 text-center">
+                                        <img style="width: 130px; height: 70px"
+                                            src="{{ asset('assets/images/logo/springer.png') }}" alt="">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12 text-center">
+                                        <a href="{{ Auth::user()->role_id == 1 ? route('review.springer.index') : route('springer.index') }}"
+                                            title="Scraping Springer" class="btn btn-outline-primary" data-bs-placement="bottom">
+                                            <small>Springer</small> <i class="fa fa-paper-plane"> </i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{-- <div class="default-according style-1" id="accordionoc">
             <div class="card">
                 <div class="card-header pb-0">
                     <h5 class="mb-0">
@@ -27,8 +101,8 @@
                                 paling favorit bagi para penulis jurnal.
                             </div>
                         </div>
-                        <a href="{{ Auth::user()->role_id == 1 ? route('review.ieee.index') : route('ieee.index') }}" title="Review IEEE"
-                            class="review-go btn-success pull-right me-1 mt-1 mb-1">
+                        <a href="{{ Auth::user()->role_id == 1 ? route('review.ieee.index') : route('ieee.index') }}"
+                            title="Review IEEE" class="review-go btn-success me-1 mt-1 mb-1">
                             <i class="fa fa-paper-plane"></i>
                         </a>
                     </div>
@@ -55,8 +129,8 @@
                                 pertama di dunia yang didirikan pada tahun 1947.
                             </div>
                         </div>
-                        <a href="{{ Auth::user()->role_id == 1 ? route('review.acm.index') : route('acm.index') }}" title="Review ACM"
-                            class="review-go btn-success pull-right me-1 mt-1 mb-1">
+                        <a href="{{ Auth::user()->role_id == 1 ? route('review.acm.index') : route('acm.index') }}"
+                            title="Review ACM" class="review-go btn-success me-1 mt-1 mb-1">
                             <i class="fa fa-paper-plane"></i>
                         </a>
                     </div>
@@ -83,13 +157,13 @@
                                 dan medis (STM).
                             </div>
                         </div>
-                        <a href="{{ Auth::user()->role_id == 1 ? route('review.springer.index') : route('springer.index') }}" title="Review Springer"
-                            class="review-go btn-success pull-right me-1 mt-1 mb-1">
+                        <a href="{{ Auth::user()->role_id == 1 ? route('review.springer.index') : route('springer.index') }}"
+                            title="Review Springer" class="review-go btn-success me-1 mt-1 mb-1">
                             <i class="fa fa-paper-plane"></i>
                         </a>
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
     </div>
 </div>

@@ -32,7 +32,7 @@ class ScrapingMasterController extends ScrapingController implements ValidationD
             ScrapedData::create(
                 [
                     'id' => random_int(1000000, 9999999),
-                    'uuid_review' => Str::uuid(),
+                    'uuid_scrape' => Str::uuid(),
                     'project_id' => $this->getData()['project']->id,
                     'category_id' => $request->category_id,
                     'code' => $request->code . Auth::user()->code . $this->getData()['code'],

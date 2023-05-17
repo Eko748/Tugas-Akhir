@@ -11,7 +11,7 @@ use Yajra\DataTables\Facades\DataTables;
 
 class RecycleProjectController extends RecycleController implements RecycleData
 {
-    private string $label = 'Project';
+    private string $label = 'Scraping Data';
     private array $data;
 
     public function __construct(array $data = [])

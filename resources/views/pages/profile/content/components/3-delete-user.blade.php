@@ -21,7 +21,7 @@
                         </h2>
 
                         <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                            {{ __('Menghapus akun akan menghilangkan semua data yang berkaitan dengan akun anda') }}
+                            {{ __('Menghapus akun akan menghilangkan semua data yang berkaitan dengan akun anda dan tidak bisa dipulihkan') }}
                         </p>
 
                         <div class="form-group mt-6 mb-3">

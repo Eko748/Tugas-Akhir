@@ -17,7 +17,7 @@
                         </div>
                     </div>
                 </div>
-                {{-- <div class="product-hover">
+                <div class="product-hover">
                     <ul>
                         <li>
                             <a data-bs-toggle="modal" title="Lihat Detail"
@@ -25,14 +25,8 @@
                                 <i class="icon-eye"></i>
                             </a>
                         </li>
-                        <li>
-                            <a data-bs-toggle="modal" title="Tambahkan Data Review ke Project" onclick="addData()"
-                                data-bs-placement="bottom" data-bs-target="#modalCreate-{{ $key['article_number'] }}">
-                                <i class="icon-plus"></i>
-                            </a>
-                        </li>
                     </ul>
-                </div> --}}
+                </div>
             </div>
             @include('pages.review.category.ieee.content.components.5-modal-create')
             @include('pages.review.category.ieee.content.components.6-modal-view')
@@ -96,30 +90,34 @@
                 <div class="product-price mb-2">
                     <div class="row">
                         <div class="col-md-6 col-sm-3">
-                            <span><small class="text-primary">Type: </small><small>{{ $key['content_type'] }}</small></span>
+                            <span><small class="text-primary">Type:
+                                </small><small>{{ $key['content_type'] }}</small></span>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12 col-sm-12">
-                            <span><small class="text-primary">Publication Date: </small><small>{{ $key['publication_year'] }}</small></span>
+                            <span><small class="text-primary">Publication Date:
+                                </small><small>{{ $key['publication_year'] }}</small></span>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6 col-sm-3">
-                            <span><small class="text-primary">Cited: </small><small>{{ $key['citing_paper_count'] }}</small></span>
+                            <span><small class="text-primary">Cited:
+                                </small><small>{{ $key['citing_paper_count'] }}</small></span>
                         </div>
                     </div>
                 </div>
                 <hr>
-                {{-- <a href="{{ $key['pdf_url'] }}" target="_blank" title="Lihat tautan asli"
-                    class="cool text-white btn btn-sm btn-outline-dark btn-info">
-                    <i class="fa fa-paper-plane"></i> Kunjungi tautan
-                </a> --}}
-                <a data-bs-toggle="modal" title="Tambahkan Data Scraping ke Database" onclick="addData()"
+                <div class="text-center">
+                    <a data-bs-toggle="modal" title="Tambahkan Data Scraping ke Database" onclick="addData()"
                     data-bs-placement="bottom" data-bs-target="#modalCreate-{{ $key['article_number'] }}"
-                    class="pull-right mb-3 review-go text-white btn btn-sm btn-outline-dark btn-success">
+                    class="text-center mb-3 review-go text-white btn btn-sm btn-outline-dark btn-success">
                     <i class="fa fa-plus-circle"></i> Tambahkan ke Database
                 </a>
+                </div>
+                <a data-bs-toggle="modal" onclick="addData()"
+                    data-bs-target="#modalCreate-{{ $key['article_number'] }}" title="Tambahkan Data Scraping ke
+                    Database" class="float">+</a>
             </div>
         </div>
     </div>

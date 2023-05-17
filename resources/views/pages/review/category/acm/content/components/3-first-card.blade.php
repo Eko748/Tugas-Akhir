@@ -10,10 +10,8 @@
                     @auth
                         <div class="product-hover">
                             <ul>
-                                <li><a data-bs-toggle="modal" onclick="addData()" data-bs-target="#modalView-acm">
+                                <li class="mb-3"><a data-bs-toggle="modal" onclick="addData()" data-bs-target="#modalView-acm">
                                         <i class="icon-eye"></i></a></li>
-                                <li><a data-bs-toggle="modal" onclick="addData()" data-bs-target="#modalCreate-acm">
-                                        <i class="icon-plus"></i></a></li>
                             </ul>
                         </div>
                     @endauth
@@ -72,7 +70,8 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12 col-sm-12">
-                            <span><small class="text-primary">Publication Date: </small><small>{{ $key['year'] }}</small></span>
+                            <span><small class="text-primary">Publication Date:
+                                </small><small>{{ $key['year'] }}</small></span>
                         </div>
                     </div>
                     <div class="row">
@@ -82,17 +81,18 @@
                     </div>
                 </div>
                 <hr>
-                    <a href="{{ $search }}" target="_blank" title="Lihat tautan asli"
-                        class="cool text-white btn btn-sm btn-outline-dark btn-danger">
-                        <i class="fa fa-paper-plane"></i>
-                    </a>
-                    @auth
-                        <a data-bs-toggle="modal" title="Tambahkan Data Review ke Project" onclick="addData()"
+                @auth
+                    <div class="text-center">
+                        <a data-bs-toggle="modal" title="Tambahkan Data Scraping ke Database" onclick="addData()"
                             data-bs-placement="bottom" data-bs-target="#modalCreate-acm"
-                            class="pull-right cool text-white btn btn-sm btn-outline-dark btn-success">
-                            <i class="fa fa-plus-circle"></i>
+                            class="text-center mb-3 review-go text-white btn btn-sm btn-outline-dark btn-success">
+                            <i class="fa fa-plus-circle"></i> Tambahkan ke Database
                         </a>
-                    @endauth
+                    </div>
+                    <a data-bs-toggle="modal" onclick="addData()" data-bs-target="#modalCreate-acm"
+                        title="Tambahkan Data Scraping ke
+                    Database" class="float">+</a>
+                @endauth
             </div>
         </div>
     </div>
