@@ -112,6 +112,43 @@
         });
     }
 
+    $('body').on('click', '.set-pass', function() {
+        let id = $(this).data('id');
+        swal({
+            title: "Atur Ulang Password?",
+            text: "Password Default: 12345678",
+            type: "question",
+            showCancelButton: !0,
+            confirmButtonText: "Konfirmasi",
+            cancelButtonText: "Batalkan!",
+            reverseButtons: !0,
+            confirmButtonColor: "#0000ff"
+        }).then(function(e) {
+            if (e.value === true) {
+                let CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+                $.ajax({
+                    url: '{{ route('management.member.password') }}',
+                    type: 'POST',
+                    data: {
+                        id: id,
+                        _token: CSRF_TOKEN
+                    },
+                    dataType: 'JSON',
+                    success: function(results) {
+                        if (results.e === true) {
+                            swal("Done!", results.status, "success");
+                        } else {
+                            swal("Error!", results.status, "error");
+                        }
+                        $('#table-member').DataTable().ajax.reload()
+                    },
+                });
+            } else {
+                e.dismiss;
+            }
+        });
+    });
+
     $('body').on('click', '.delete-member', function() {
         let id = $(this).data('id');
         swal({

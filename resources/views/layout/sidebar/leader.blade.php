@@ -39,7 +39,7 @@
     </ul>
 </li>
 <li class="sidebar-list">
-    <a class="sidebar-link sidebar-title" href="#review">
+    <a class="sidebar-link sidebar-title" href="#scraping">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g>
                 <g>
@@ -55,7 +55,7 @@
     <ul class="sidebar-submenu">
         <li><a href="{{ route('review.master.index') }}">Scraping Master</a></li>
         <li>
-            <a class="submenu-title" href="#">Category<span class="sub-arrow"><i
+            <a class="submenu-title">Category<span class="sub-arrow"><i
                         class="fa fa-angle-right"></i></span></a>
             <ul class="nav-sub-childmenu submenu-content">
                 <li><a href="{{ route('review.ieee.index') }}">IEEE</a></li>

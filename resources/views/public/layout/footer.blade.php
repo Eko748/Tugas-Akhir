@@ -7,9 +7,11 @@
           <p class="footer-links">
               <a href="#home">Home</a>
               |
-              <a href="#review">Review</a>
+              <a href="#scraping">Scraping</a>
+              @guest
               |
               <a href="#demo">Demo</a>
+              @endguest
           </p>
 
           <p class="footer-company-name text-white">©{{ date('Y') }} {{ config('app.name') }}</p>

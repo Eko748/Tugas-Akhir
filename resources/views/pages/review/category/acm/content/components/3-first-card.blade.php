@@ -89,7 +89,7 @@
                             <i class="fa fa-plus-circle"></i> Tambahkan ke Database
                         </a>
                     </div>
-                    <a data-bs-toggle="modal" onclick="addData()" data-bs-target="#modalCreate-acm"
+                    <a data-bs-toggle="modal" href="#create" onclick="addData()" data-bs-target="#modalCreate-acm"
                         title="Tambahkan Data Scraping ke
                     Database" class="float">+</a>
                 @endauth

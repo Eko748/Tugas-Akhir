@@ -31,7 +31,7 @@ class RecycleProjectController extends RecycleController implements RecycleData
     public function requestRecycleData(Request $request)
     {
         if ($request->ajax()) {
-            $data = $this->getRecycleProjectReview();
+            $data = $this->getRecycleProjectScraping();
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($data) {

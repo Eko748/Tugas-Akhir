@@ -2,8 +2,8 @@
     <div class="modal-dialog modal-xl modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title text-dark" id="title-review"><i class="fa fa-plus-circle"></i> <strong>Create
-                        Review</strong></h5>
+                <h5 class="modal-title text-dark" id="title-review"><i class="fa fa-plus-circle"></i> <strong>Tambah Data
+                        Scraping</strong></h5>
                 <button class="btn-close text-dark btn-outline-danger" type="button" data-bs-dismiss="modal"
                     aria-label="Close"></button>
             </div>
@@ -116,7 +116,11 @@
                                     <label for="authors">Authors</label>
                                     <div class="input-group">
                                         <textarea class="create" value="" name="authors" id="authors-{{ $key['article_number'] }}" cols="150"
-                                            rows="2" required disabled>@foreach ($authors as $author){{ trim($author['full_name']) }};@endforeach</textarea>
+                                            rows="2" required disabled>
+@foreach ($authors as $author)
+{{ trim($author['full_name']) }};
+@endforeach
+</textarea>
                                 @endif
                             </div>
                         </div>
@@ -133,7 +137,11 @@
                                 <label for="keywords">Keywords</label>
                                 <div class="input-group">
                                     <textarea class="create" value="" name="keywords" id="keywords-{{ $key['article_number'] }}" cols="150"
-                                        rows="3" disabled>@foreach ($a as $value){{ trim($value) }};@endforeach</textarea>
+                                        rows="3" disabled>
+@foreach ($a as $value)
+{{ trim($value) }};
+@endforeach
+</textarea>
                             @endif
                         </div>
                     </div>

@@ -76,7 +76,7 @@ class AuthController extends Controller
     }
     public function verifyAccount($token)
     {
-        $verifyUser = UserVerify::where('token', $token)->first();
+        // $verifyUser = UserVerify::where('token', $token)->first();
   
         $message = 'Sorry your email cannot be identified.';
   

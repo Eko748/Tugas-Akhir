@@ -3,13 +3,13 @@
         let id = $(this).data('id');
         swal({
             title: "Restore?",
-            text: "Mohon Konfirmasi!",
-            type: "warning",
+            text: "Data akan dipulihkan!",
+            type: "question",
             showCancelButton: !0,
-            confirmButtonText: "Restore Data!",
+            confirmButtonText: "Restore!",
             cancelButtonText: "Batalkan!",
             reverseButtons: !0,
-            confirmButtonColor: "#00ff00"
+            confirmButtonColor: "#0000ff"
         }).then(function(e) {
             if (e.value === true) {
                 let CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');

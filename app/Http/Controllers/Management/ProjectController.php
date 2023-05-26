@@ -13,7 +13,7 @@ use Yajra\DataTables\Facades\DataTables;
 
 class ProjectController extends ManagementController
 {
-    private string $label = 'Scraping';
+    private string $label = 'Project Scraping';
     private array $data;
 
     public function __construct(array $data = [])

@@ -7,7 +7,6 @@
                         <img class="img-fluid" style="width: 90px; height: 30px"
                             src="{{ asset('assets/images/logo/springer.png') }}" alt="">
                     </div>
-                    <p class="ms-3 ps-3"><small class="text-dark">{{ $key['identifier'] }}</small></p>
                     <div class="product-hover">
                         <ul>
                             <li class="mb-3"><a data-bs-toggle="modal" data-bs-target="#modalView-springer"><i
@@ -98,7 +97,7 @@
                             <i class="fa fa-plus-circle"></i> Tambahkan ke Database
                         </a>
                     </div>
-                    <a data-bs-toggle="modal" onclick="addData()" data-bs-target="#modalCreate-springer"
+                    <a data-bs-toggle="modal" href="#create" onclick="addData()" data-bs-target="#modalCreate-springer"
                         title="Tambahkan Data Scraping ke
             Database" class="float">+</a>
                 @endauth

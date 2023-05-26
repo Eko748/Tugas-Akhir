@@ -3,23 +3,16 @@
         <div class="product-box">
             <div class="product-img mb-2">
                 <div class="text-start">
-                    <div class="row">
+                    <div class="row mt-3">
                         <div class="col-md-3 col-sm-3 col-xs-3">
                             <img class="img-fluid" style="width: 120px; height: 60px"
                                 src="{{ asset('assets/images/logo/ieee.png') }}" alt="">
-                        </div>
-                        <div class="col-md-9 ms-3 me-1 col-sm-9 col-xs-4">
-                            <div class="product-price mt-2">
-                                <span>
-                                    No. {{ $key['article_number'] }}
-                                </span>
-                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="product-hover">
                     <ul>
-                        <li>
+                        <li class="mb-3">
                             <a data-bs-toggle="modal" title="Lihat Detail"
                                 data-bs-target="#modalView-{{ $key['article_number'] }}">
                                 <i class="icon-eye"></i>
@@ -115,7 +108,7 @@
                     <i class="fa fa-plus-circle"></i> Tambahkan ke Database
                 </a>
                 </div>
-                <a data-bs-toggle="modal" onclick="addData()"
+                <a data-bs-toggle="modal" onclick="addData()" href="#create"
                     data-bs-target="#modalCreate-{{ $key['article_number'] }}" title="Tambahkan Data Scraping ke
                     Database" class="float">+</a>
             </div>

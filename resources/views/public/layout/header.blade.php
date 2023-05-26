@@ -8,7 +8,7 @@
                     <ul class="landing-menu nav nav-pills">
                         <li class="nav-item menu-back">back<i class="fa fa-angle-right"></i></li>
                         <li class="nav-item"><a class="nav-link" href="#home"><i class="fa fa-home"></i>Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#review"><i class="fa fa-file-text"></i>Review</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#scraping"><i class="fa fa-file-text"></i>Scraping</a></li>
                         @guest
                         <li class="nav-item"><a class="nav-link" href="#demo"><i class="fa fa-search"></i>Demo</a></li>
                         @endguest

@@ -41,6 +41,8 @@
     </div>
     <script src="{{ asset('assets/js/jquery-3.6.0.min.js') }}"></script>
     <script src="{{ asset('assets/js/bootstrap/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('assets/js/icons/feather-icon/feather.min.js') }}"></script>
+    <script src="{{ asset('assets/js/icons/feather-icon/feather-icon.js') }}"></script>
     <script src="{{ asset('assets/js/landing_sticky.js') }}"></script>
     <script src="{{ asset('assets/js/popover-custom.js') }}"></script>
     <script src="{{ asset('assets/js/script.js') }}"></script>

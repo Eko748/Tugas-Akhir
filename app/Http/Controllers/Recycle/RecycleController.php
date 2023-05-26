@@ -18,7 +18,7 @@ class RecycleController extends Controller
         return $data;
     }
 
-    protected function getRecycleProjectReview()
+    protected function getRecycleProjectScraping()
     {
         $data = ScrapedData::whereHas('getProject', function ($q) {
             $q->where('created_by', Auth::user()->id);

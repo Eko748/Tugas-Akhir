@@ -41,15 +41,14 @@ class MemberController extends ManagementController implements ValidationData
             return DataTables::of($data)
                 ->addIndexColumn()->addColumn('action', function ($data) {
                     $btn = '<div class="text-center">
-                                <button title="Detail" class="mb-2 review-go btn-info btn-outline-dark"
-                                 onclick="detailMember(' . $data->id . ')" type="button">
-                                    <i class="fa fa-address-book"></i>
+                                <button title="Atur ulang password ' . $data->name . '" class="set-pass review-go btn-info btn-outline-dark" data-id="' . $data->id . '">
+                                <i class="fa fa-key"></i>
                                 </button>
-                                <button title="Edit" class="mb-2 review-go btn-warning btn-outline-dark"
+                                <button title="Edit ' . $data->name . '" class="mb-2 review-go btn-warning btn-outline-dark"
                                  onclick="editMember(' . $data->id . ')" type="button" data-bs-toggle="modal" data-bs-target="#updateMember">
                                     <i class="fa fa-edit"></i>
                                 </button>
-                                <button title="Delete ' . $data->id . '" class="delete-member review-go btn-danger btn-outline-dark" data-id="' . $data->id . '">
+                                <button title="Delete ' . $data->name . '" class="delete-member review-go btn-danger btn-outline-dark" data-id="' . $data->id . '">
                                 <i class="fa fa-trash"></i>
                                 </button>
                             </div>';
@@ -288,6 +287,23 @@ class MemberController extends ManagementController implements ValidationData
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()]);
         }
+    }
+
+    public function setPasswordMember(Request $request)
+    {
+        $set = User::find($request->id)->update([
+            'password' => Hash::make('12345678'),
+            'deleted_at' => now()
+        ]);
+
+        if ($set == 1) {
+            $e = true;
+            $message = "Password Member berhasil diperbarui!";
+        } else {
+            $e = false;
+            $message = "Proses Tidak berjalan!";
+        }
+        return response()->json(['e' => $e, 'status' => $message]);
     }
 
     public function deleteMember(Request $request)

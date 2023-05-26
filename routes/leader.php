@@ -24,6 +24,7 @@ Route::middleware('auth')->group(function () {
                     Route::post('/create', 'createMember')->name('management.member.create');
                     Route::get('/edit', 'editMember')->name('management.member.edit');
                     Route::put('/update', 'updateMember')->name('management.member.update');
+                    Route::post('/password', 'setPasswordMember')->name('management.member.password');
                     Route::post('/delete', 'deleteMember')->name('management.member.delete');
                     Route::get('/export', 'exportMember')->name('management.member.export');
                 });
@@ -88,5 +89,5 @@ Route::middleware('auth')->group(function () {
         // To do
     });
 
-    // Route::fallback([PageHandlingController::class, 'showPage404']);
+    Route::fallback([PageHandlingController::class, 'showPage404']);
 });
