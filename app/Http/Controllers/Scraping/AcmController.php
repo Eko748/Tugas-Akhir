@@ -29,9 +29,11 @@ class AcmController extends ScrapingMasterController implements ScrapingData
     {
         try {
             $acm = $this->searchScrapingData($request);
+            $exist = $this->getData()['exists'];
             $this->data = [
                 'search' => $acm['query'],
-                'key' => $acm['key']
+                'key' => $acm['key'],
+                'exist' => $exist
             ];
             if ($request->ajax()) {
                 return view('pages.review.category.acm.content.components.2-data', $this->data)->render();

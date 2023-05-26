@@ -11,7 +11,6 @@
 @push('js')
     @include('pages.review.components.ieee-js')
     <script src="{{ asset('assets/js/sidebar-menu.js') }}"></script>
-    <script src="{{ asset('assets/js/tooltip-init.js') }}"></script>
     <script src="{{ asset('assets/css/vendors/sweetalert2/dist/sweetalert2.all.min.js') }}"></script>
     <script src="{{ asset('assets/js/product-tab.js') }}"></script>
     <script src="{{ asset('assets/js/crypto-js/crypto-js.js') }}"></script>

@@ -10,7 +10,8 @@
                     @auth
                         <div class="product-hover">
                             <ul>
-                                <li class="mb-3"><a data-bs-toggle="modal" onclick="addData()" data-bs-target="#modalView-acm">
+                                <li class="mb-3"><a data-bs-toggle="modal" onclick="addData()"
+                                        data-bs-target="#modalView-acm">
                                         <i class="icon-eye"></i></a></li>
                             </ul>
                         </div>
@@ -23,7 +24,7 @@
             @endauth
             <div class="product-details">
                 <div class="product-price">
-                    <h4 class="show text-primary">{{ $key['title'] }}</h4>
+                    <h4 class="text-primary">{{ $key['title'] }}</h4>
                 </div>
                 <hr>
                 <div class="rating">
@@ -52,13 +53,15 @@
                     <p class="show" style="display:none;">
                         {{ $key['abstract'] }}
                     </p>
-                    <p class="hide">
+                    <p class="hide" style="display:inline;">
                         {{ Str::words($key['abstract'], 10, '...') }}
                     </p>
-                    <a href="javascript:void(0)" class="read-more" onclick="showFullAbstract()">
-                        <small><i class="fa fa-chevron-circle-right"></i></small></a>
-                    <a href="javascript:void(0)" class="read-less" onclick="hideFullAbstract()"
-                        style="display:none;"><small><i class="fa fa-chevron-circle-left"></i></small></a>
+                    <a href="javascript:void(0)" class="read-more" onclick="showFullAbstract()" style="display:inline;">
+                        <small><i class="fa fa-chevron-circle-right"></i></small>
+                    </a>
+                    <a href="javascript:void(0)" class="read-less" onclick="hideFullAbstract()" style="display:none;">
+                        <small><i class="fa fa-chevron-circle-left"></i></small>
+                    </a>
                     <br>
                 </div>
                 <hr>
@@ -82,16 +85,21 @@
                 </div>
                 <hr>
                 @auth
-                    <div class="text-center">
-                        <a data-bs-toggle="modal" title="Tambahkan Data Scraping ke Database" onclick="addData()"
-                            data-bs-placement="bottom" data-bs-target="#modalCreate-acm"
-                            class="text-center mb-3 review-go text-white btn btn-sm btn-outline-dark btn-success">
-                            <i class="fa fa-plus-circle"></i> Tambahkan ke Database
-                        </a>
-                    </div>
-                    <a data-bs-toggle="modal" href="#create" onclick="addData()" data-bs-target="#modalCreate-acm"
-                        title="Tambahkan Data Scraping ke
-                    Database" class="float">+</a>
+                    @if ($exist->contains($key['title']))
+                        <div class="text-center">
+                            <p><strong><i>Data Sudah Ditambahkan</i></strong> </p>
+                        </div>
+                    @else
+                        <div class="text-center">
+                            <a data-bs-toggle="modal" title="Tambahkan Data Scraping ke Database" onclick="addData()"
+                                data-bs-placement="bottom" data-bs-target="#modalCreate-acm"
+                                class="text-center mb-3 review-go text-white btn btn-sm btn-outline-dark btn-success">
+                                <i class="fa fa-plus-circle"></i> Tambahkan ke Database
+                            </a>
+                        </div>
+                        <a data-bs-toggle="modal" href="#create" onclick="addData()" data-bs-target="#modalCreate-acm"
+                            title="Tambahkan Data Scraping ke Database" class="float">+</a>
+                    @endif
                 @endauth
             </div>
         </div>

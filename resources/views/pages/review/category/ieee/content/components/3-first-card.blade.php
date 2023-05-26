@@ -25,7 +25,7 @@
             @include('pages.review.category.ieee.content.components.6-modal-view')
             <div class="product-details">
                 <div class="product-price">
-                    <h4 class="show text-primary">{{ $key['title'] }}</h4>
+                    <h4 class="text-primary">{{ $key['title'] }}</h4>
                 </div>
                 <hr>
                 <div class="rating">
@@ -73,9 +73,9 @@
                     <p class="hide">
                         {{ Str::words($key['abstract'], 10, '...') }}
                     </p>
-                    <a href="javascript:void(0)" class="read-more" onclick="showFullAbstract()">
+                    <a href="#more-abstract" class="read-more" onclick="showFullAbstract()">
                         <small><i class="fa fa-chevron-circle-right"></i></small></a>
-                    <a href="javascript:void(0)" class="read-less" onclick="hideFullAbstract()"
+                    <a href="#less-abstract" class="read-less" onclick="hideFullAbstract()"
                         style="display:none;"><small><i class="fa fa-chevron-circle-left"></i></small></a>
                     <br>
                 </div>
@@ -101,16 +101,22 @@
                     </div>
                 </div>
                 <hr>
-                <div class="text-center">
-                    <a data-bs-toggle="modal" title="Tambahkan Data Scraping ke Database" onclick="addData()"
-                    data-bs-placement="bottom" data-bs-target="#modalCreate-{{ $key['article_number'] }}"
-                    class="text-center mb-3 review-go text-white btn btn-sm btn-outline-dark btn-success">
-                    <i class="fa fa-plus-circle"></i> Tambahkan ke Database
-                </a>
-                </div>
-                <a data-bs-toggle="modal" onclick="addData()" href="#create"
-                    data-bs-target="#modalCreate-{{ $key['article_number'] }}" title="Tambahkan Data Scraping ke
-                    Database" class="float">+</a>
+                @if ($exist->contains($key['title']))
+                    <div class="text-center">
+                        <p><strong><i>Data Sudah Ditambahkan</i></strong> </p>
+                    </div>
+                @else
+                    <div class="text-center">
+                        <a data-bs-toggle="modal" title="Tambahkan Data Scraping ke Database" onclick="addData()"
+                            data-bs-placement="bottom" data-bs-target="#modalCreate-{{ $key['article_number'] }}"
+                            class="text-center mb-3 review-go text-white btn btn-sm btn-outline-dark btn-success">
+                            <i class="fa fa-plus-circle"></i> Tambahkan ke Database
+                        </a>
+                    </div>
+                    <a data-bs-toggle="modal" onclick="addData()" href="#create"
+                        data-bs-target="#modalCreate-{{ $key['article_number'] }}"
+                        title="Tambahkan Data Scraping ke Database" class="float">+</a>
+                @endif
             </div>
         </div>
     </div>

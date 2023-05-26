@@ -29,11 +29,13 @@ class IeeeController extends ScrapingMasterController implements ScrapingData
     {
         try {
             $ieee = $this->searchScrapingData($request);
+            $exist = $this->getData()['exists'];
             $this->data = [
                 'search' => $ieee['search'],
                 'path' => $ieee['path'],
                 'client' => $ieee['client'],
                 'references' => $ieee['references'],
+                'exist' => $exist
             ];
             if ($request->ajax()) {
                 return view('pages.review.category.ieee.content.components.2-data', $this->data)->render();
@@ -46,7 +48,8 @@ class IeeeController extends ScrapingMasterController implements ScrapingData
     public function searchScrapingData($request)
     {
         $search = $request->input('search');
-        $article_number = str_replace('https://ieeexplore.ieee.org/document/', '', $search);
+        $article_number = str_ireplace('https://ieeexplore.ieee.org/abstract/document/', '', $search);
+        $article_number = str_ireplace('https://ieeexplore.ieee.org/document/', '', $article_number);
         $client = new Client();
         $token1 = '6gt3qk5zbgegvb9zb7epynjy';
         $token2 = 'psqph6ps5ehvbrd2zgp4w6dq';

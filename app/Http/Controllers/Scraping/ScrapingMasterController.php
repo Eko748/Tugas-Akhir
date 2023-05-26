@@ -56,6 +56,7 @@ class ScrapingMasterController extends ScrapingController implements ValidationD
         }
     }
 
+
     public function validateDataCreate(Request $request)
     {
         return $request->validate(
@@ -71,4 +72,5 @@ class ScrapingMasterController extends ScrapingController implements ValidationD
             ]
         );
     }
+
 }

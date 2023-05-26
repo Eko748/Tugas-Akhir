@@ -82,9 +82,10 @@
                     var html =
                         '<hr>' +
                         '<span class="mb-3 text-center">Scraping Data Lain?</span>' + '<br><br>' + 
-                        '<a class="ms-1 me-1 text-white review-go btn btn-sm btn-success btn-outline-primary" href="{{ route('management.project.index') }}" title="Lihat Hasil" id="button1">Lihat List</a>' +
-                        '<a id="button-acm" class="ms-1 me-1 text-white review-go btn btn-sm btn-info btn-outline-primary" href="{{ Auth::user()->role_id == 1 ? route('review.acm.index') : route('acm.index') }}" title="Scraping data ACM" id="button1">ACM</a>' +
-                        '<a class="ms-1 me-1 text-white review-go btn btn-sm btn-warning btn-outline-primary" href="{{ Auth::user()->role_id == 1 ? route('review.springer.index') : route('springer.index') }}" title="Scraping data Springer" id="button1">Springer</a>' +
+                        '<a class="ms-1 me-1 text-white review-go btn btn-sm btn-secondary btn-outline-primary" href="{{ route('management.project.index') }}" title="Lihat Hasil" id="button1">Lihat Hasil</a>' +
+                        '<a class="ms-1 me-1 text-white review-go btn btn-sm btn-info btn-outline-primary" href="{{ Auth::user()->role_id == 1 ? route('review.ieee.index') : route('ieee.index') }}" title="Scraping data IEEE">IEEE</a>' +
+                        '<a class="ms-1 me-1 text-white review-go btn btn-sm btn-success btn-outline-primary" href="{{ Auth::user()->role_id == 1 ? route('review.acm.index') : route('acm.index') }}" title="Scraping data ACM">ACM</a>' +
+                        '<a class="ms-1 me-1 text-white review-go btn btn-sm btn-warning btn-outline-primary" href="{{ Auth::user()->role_id == 1 ? route('review.springer.index') : route('springer.index') }}" title="Scraping data Springer">Springer</a>' +
                         '<br>';
                     swal({
                         title: "Data Tersimpan!",
@@ -119,17 +120,17 @@
     }
 
     function showFullAbstract() {
-        document.querySelectorAll('.show')[0].style.display = 'inline';
-        document.querySelectorAll('.hide')[0].style.display = 'none';
-        document.querySelectorAll('.read-more')[0].style.display = 'none';
-        document.querySelectorAll('.read-less')[0].style.display = 'inline';
+        document.querySelector('.show').style.display = 'inline';
+        document.querySelector('.hide').style.display = 'none';
+        document.querySelector('.read-more').style.display = 'none';
+        document.querySelector('.read-less').style.display = 'inline';
     }
 
     function hideFullAbstract() {
-        document.querySelectorAll('.show')[0].style.display = 'none';
-        document.querySelectorAll('.hide')[0].style.display = 'inline';
-        document.querySelectorAll('.read-more')[0].style.display = 'inline';
-        document.querySelectorAll('.read-less')[0].style.display = 'none';
+        document.querySelector('.show').style.display = 'none';
+        document.querySelector('.hide').style.display = 'inline';
+        document.querySelector('.read-more').style.display = 'inline';
+        document.querySelector('.read-less').style.display = 'none';
     }
 
     function toggleItems() {

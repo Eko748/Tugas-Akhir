@@ -2,13 +2,13 @@
     <div class="card-header">
         <div class="row text-center">
             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 text-center">
-                    <a href="{{ Auth::user()->role_id == 1 ? route('review.ieee.index') : route('ieee.index') }}?slr_id={{ $views->uuid_review }}&slr_code={{ $views->code }}"
-                        class="button btn-info review-go hovering mb-2"><i class="fa fa-paper-plane"></i> IEEE</a>
-                    <a href="{{ Auth::user()->role_id == 1 ? route('review.acm.index') : route('acm.index') }}?slr_id={{ $views->uuid_review }}&slr_code={{ $views->code }}"
-                        class="button btn-success review-go hovering mb-2"><i class="fa fa-paper-plane"></i> ACM</a>
-                    <a href="{{ Auth::user()->role_id == 1 ? route('review.springer.index') : route('springer.index') }}?slr_id={{ $views->uuid_review }}&slr_code={{ $views->code }}"
-                        class="button btn-warning review-go hovering mb-2"><i class="fa fa-paper-plane"></i>
-                        Springer</a>
+                <a href="{{ Auth::user()->role_id == 1 ? route('review.ieee.index') : route('ieee.index') }}?slr_id={{ $views->uuid_review }}&slr_code={{ $views->code }}"
+                    class="button btn-info review-go hovering mb-2"><i class="fa fa-paper-plane"></i> IEEE</a>
+                <a href="{{ Auth::user()->role_id == 1 ? route('review.acm.index') : route('acm.index') }}?slr_id={{ $views->uuid_review }}&slr_code={{ $views->code }}"
+                    class="button btn-success review-go hovering mb-2"><i class="fa fa-paper-plane"></i> ACM</a>
+                <a href="{{ Auth::user()->role_id == 1 ? route('review.springer.index') : route('springer.index') }}?slr_id={{ $views->uuid_review }}&slr_code={{ $views->code }}"
+                    class="button btn-warning review-go hovering mb-2"><i class="fa fa-paper-plane"></i>
+                    Springer</a>
             </div>
         </div>
     </div>
@@ -43,9 +43,18 @@
                                     <div class="col-md-11 col-sm-11 col-xs-11">
                                         <p class="text-justify">
                                             @if (preg_match('/^\d\.\s/', $item))
-                                                {{ preg_replace('/^\d\.\s/', '', $item) }}
+                                                @php
+                                                    $modifiedItem = preg_replace('/^\d\.\s/', '', $item);
+                                                    $modifiedItemHref = str_replace(' ', '+', $modifiedItem);
+                                                    $fullHref = 'https://scholar.google.com/scholar?hl=id&as_sdt=0%2C5&q=' . $modifiedItemHref;
+                                                @endphp
+                                                <a href="{{ $fullHref }}" target="_blank">{{ $modifiedItem }}</a>
                                             @else
-                                                {{ $item }}
+                                                @php
+                                                    $modifiedItemHref = str_replace(' ', '+', $item);
+                                                    $fullHref = 'https://scholar.google.com/scholar?hl=id&as_sdt=0%2C5&q=' . $modifiedItemHref;
+                                                @endphp
+                                                <a href="{{ $fullHref }}" target="_blank">{{ $item }}</a>
                                             @endif
                                         </p>
                                     </div>
@@ -66,7 +75,7 @@
                     class="button btn-info review-go hovering mb-2"><i class="fa fa-paper-plane"></i> IEEE</a>
                 <a href="{{ Auth::user()->role_id == 1 ? route('review.acm.index') : route('acm.index') }}?slr_id={{ $views->uuid_review }}&slr_code={{ $views->code }}"
                     class="button btn-success review-go hovering mb-2"><i class="fa fa-paper-plane"></i> ACM</a>
-                <a href="{{ Auth::user()->role_id == 1 ? route('review.springer.index') : route('springer.index') }}?slr_id={{ $views->uuid_review }}&slr_code={{ encrypt($views->code) }}"
+                <a href="{{ Auth::user()->role_id == 1 ? route('review.springer.index') : route('springer.index') }}?slr_id={{ $views->uuid_review }}&slr_code={{ $views->code }}"
                     class="button btn-warning review-go hovering mb-2"><i class="fa fa-paper-plane"></i>
                     Springer</a>
             </div>

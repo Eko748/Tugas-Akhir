@@ -12,13 +12,21 @@ class ScrapingController extends Controller
 
     protected function getData()
     {
+        $auth = Auth::user()->id;
+        $member = Auth::user()->created_by;
         if (Auth::user()->role_id == 1) {
             $project = Project::where('created_by', Auth::user()->id)
                 ->orderBy('created_at', 'desc')->first();
+            $exists = ScrapedData::whereHas('getProject', function ($q) use ($auth) {
+                $q->where('created_by', $auth);
+            })->pluck('title');
         } elseif (Auth::user()->role_id == 2) {
             $project = Project::whereHas('getLeader', function ($q) {
                 $q->where('id', Auth::user()->created_by);
             })->orderBy('created_at', "desc")->first();
+            $exists = ScrapedData::whereHas('getProject', function ($q) use ($member) {
+                $q->where('created_by', $member);
+            })->pluck('title');
         }
         $last_review = ScrapedData::where('created_by', Auth::user()->id)
             ->orderBy('created_at', 'desc')
@@ -34,10 +42,10 @@ class ScrapingController extends Controller
         $data = [
             'project' => $project,
             'code' => $code_suffix,
-            'category' => $category
+            'category' => $category,
+            'exists' => $exists
         ];
 
         return $data;
     }
-
 }

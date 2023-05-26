@@ -29,10 +29,12 @@ class SpringerController extends ScrapingMasterController implements ScrapingDat
     {
         try {
             $springer = $this->searchScrapingData($request);
+            $exist = $this->getData()['exists'];
             $this->data = [
                 'search' => $springer['query'],
                 'client' => $springer['client'],
                 'path' => $springer['path']['records'],
+                'exist' => $exist
             ];
             if ($request->ajax()) {
                 return view('pages.review.category.springer.content.components.2-data', $this->data)->render();

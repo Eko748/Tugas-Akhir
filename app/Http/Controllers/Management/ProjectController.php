@@ -129,7 +129,8 @@ class ProjectController extends ManagementController
             $prefix = 'slr';
         }
 
-        $fileName = $prefix . '-project.xlsx';
+        $currentDateTime = date('His-dmY');
+        $fileName = $prefix . '-scraping-' . $currentDateTime . '.xlsx';
         $print = Excel::download(new ProjectsExport($this->getProjectData()), $fileName);
         return $print;
     }

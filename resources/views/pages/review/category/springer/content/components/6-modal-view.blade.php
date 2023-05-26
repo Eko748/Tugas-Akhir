@@ -2,7 +2,8 @@
     <div class="modal-dialog modal-xl modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title text-dark" id="title-review"><i class="fa fa-folder-open"></i> <strong>Detail Review</strong></h5>
+                <h5 class="modal-title text-dark" id="title-review"><i class="fa fa-folder-open"></i> <strong>Detail
+                        Review</strong></h5>
                 <button class="btn-close text-dark btn-outline-danger" type="button" data-bs-dismiss="modal"
                     aria-label="Close"></button>
             </div>
@@ -64,34 +65,58 @@
                                 @endforeach
                             @endif
                         </div>
-                        {{-- <div class="product-view row mb-3">
+                        <div class="product-view row mb-3">
                             <div class="">
                                 <span><b>References:</b></span>
                             </div>
-                            @if (isset($key['references']))
-                                @php
-                                    $no = 1;
-                                @endphp
-                                <span>
-                                    <small>
-                                        @foreach ($key['references'] as $references)
-                                            <div class="row">
-                                                <div class="col-md-1" style="text-align: center;">
-                                                    <p class="text-justify pull-right">
-                                                        {{ $no++ }}.
-                                                    </p>
+                            @php
+                                use Symfony\Component\DomCrawler\Crawler;
+                                
+                                $ref = $key['url'][0]['value'];
+                                $response = $client->request('GET', $ref);
+                                $html = (string) $response->getBody();
+                                $crawler = new Crawler($html);
+                                $counter = 0;
+                                $items = $crawler->evaluate('//p[@class="c-article-references__text"]')->each(function ($node) use (&$counter) {
+                                    return $node->text();
+                                });
+                            @endphp
+                            <div class="row">
+                                <div class="col-12">
+                                    <span>
+                                        <small>
+                                            @foreach ($items as $key => $item)
+                                                <div class="row">
+                                                    @if ($key == 0)
+                                                        <div class="col-md-1 text-justify" style="text-align: center;">
+                                                            <p class="text-justify pull-right">
+                                                                {{ ++$counter }}.
+                                                            </p>
+                                                        </div>
+                                                        <div class="col-md-11">
+                                                            <p class="text-justify">
+                                                                {{ preg_replace('/\d+\.\s/', '', $item) }}<br>
+                                                            </p>
+                                                        </div>
+                                                    @else
+                                                        <div class="col-md-1" style="text-align: center;">
+                                                            <p class="text-justify pull-right">
+                                                                {{ ++$counter }}.
+                                                            </p>
+                                                        </div>
+                                                        <div class="col-md-11">
+                                                            <p class="text-justify">
+                                                                {{ preg_replace('/\s+(\d+\.\s)(?=[a-zA-Z])/', "<br class='mb-2'>\$1", trim(preg_replace('/1\. /', '', $item))) }}<br>
+                                                            </p>
+                                                        </div>
+                                                    @endif
                                                 </div>
-                                                <div class="col-md-11">
-                                                    <p class="text-justify">
-                                                        {{ $references }}
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        @endforeach
-                                    </small>
-                                </span>
-                            @endif
-                        </div> --}}
+                                            @endforeach
+                                        </small>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="col-lg-1">
                     </div>

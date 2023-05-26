@@ -49,8 +49,7 @@ class ManagementController extends Controller
     {
         try {
             $hashedId = $request->code;
-            $views = ScrapedData::with('getProject', 'getCategory')
-                ->get();
+            $views = ScrapedData::get();
             $detail = null;
             foreach ($views as $view) {
                 $hash = hash('sha256', $view->id);

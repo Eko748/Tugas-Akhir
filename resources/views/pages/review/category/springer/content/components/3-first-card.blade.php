@@ -4,7 +4,7 @@
             <div class="product-img">
                 <div class="mt-3">
                     <div class="text-start ms-1 mb-2">
-                        <img class="img-fluid" style="width: 90px; height: 30px"
+                        <img class="img-fluid mb-3 mt-3" style="width: 90px; height: 30px"
                             src="{{ asset('assets/images/logo/springer.png') }}" alt="">
                     </div>
                     <div class="product-hover">
@@ -19,7 +19,7 @@
             @include('pages.review.category.springer.content.components.6-modal-view')
             <div class="product-details">
                 <div class="product-price">
-                    <h4 class="show text-primary" id="product-title-full-{{ $key['identifier'] }}">{{ $key['title'] }}
+                    <h4 class="text-primary">{{ $key['title'] }}
                     </h4>
                 </div>
                 <hr>
@@ -85,21 +85,22 @@
                     </div>
                 </div>
                 <hr>
-                {{-- <a href="{{ $key['url'][0]['value'] }}" target="_blank" title="Lihat tautan asli"
-                    class="cool text-white btn btn-sm btn-outline-dark btn-danger">
-                    <i class="fa fa-paper-plane"></i> --}}
-                {{-- </a> --}}
                 @auth
-                    <div class="text-center">
-                        <a data-bs-toggle="modal" title="Tambahkan Data Scraping ke Database" onclick="addData()"
-                            data-bs-placement="bottom" data-bs-target="#modalCreate-springer"
-                            class="text-center mb-3 review-go text-white btn btn-sm btn-outline-dark btn-success">
-                            <i class="fa fa-plus-circle"></i> Tambahkan ke Database
-                        </a>
-                    </div>
-                    <a data-bs-toggle="modal" href="#create" onclick="addData()" data-bs-target="#modalCreate-springer"
-                        title="Tambahkan Data Scraping ke
-            Database" class="float">+</a>
+                    @if ($exist->contains($key['title']))
+                        <div class="text-center">
+                            <p><strong><i>Data Sudah Ditambahkan</i></strong> </p>
+                        </div>
+                    @else
+                        <div class="text-center">
+                            <a data-bs-toggle="modal" title="Tambahkan Data Scraping ke Database" onclick="addData()"
+                                data-bs-placement="bottom" data-bs-target="#modalCreate-springer"
+                                class="text-center mb-3 review-go text-white btn btn-sm btn-outline-dark btn-success">
+                                <i class="fa fa-plus-circle"></i> Tambahkan ke Database
+                            </a>
+                        </div>
+                        <a data-bs-toggle="modal" href="#create" onclick="addData()" data-bs-target="#modalCreate-springer"
+                            title="Tambahkan Data Scraping ke Database" class="float">+</a>
+                    @endif
                 @endauth
             </div>
         </div>
