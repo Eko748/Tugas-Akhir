@@ -64,12 +64,12 @@
                                             @if ($counter < 5)
                                                 <div class="row">
                                                     @if ($key == 0)
-                                                        <div class="col-md-2 col-sm-2 text-justify" style="text-align: center;">
+                                                        <div class="col-md-2 col-xl-2 col-lg-2 col-sm-2 text-justify" style="text-align: center;">
                                                             <p class="text-justify">
                                                                 {{ ++$counter }}.
                                                             </p>
                                                         </div>
-                                                        <div class="col-md-10 col-sm-10">
+                                                        <div class="col-md-10 col-xl-10 col-lg-10 col-sm-10">
                                                             <p class="text-justify">
                                                                 {{ preg_replace('/\d+\.\s/', '', $item) }}<br>
                                                             </p>
@@ -91,14 +91,14 @@
                                                 @php
                                                     $remaining_items .=
                                                         '<div class="row">' .
-                                                        '<div class="col-md-2 col-sm-2" style="text-align: center;">
+                                                        '<div class="col-md-2 col-xl-2 col-lg-2 col-sm-2" style="text-align: center;">
                                                         ' .
                                                         '<p class="text-justify">' .
                                                         ++$counter . '.' .
                                                         '</p>' .
                                                         '</div>
                                                         ' .
-                                                        '<div class="col-md-10 col-sm-10">' .
+                                                        '<div class="col-md-10 col-xl-10 col-lg-10 col-sm-10">' .
                                                         '<p class="text-justify">' .
                                                         $item .
                                                         '</p>' .
@@ -108,7 +108,7 @@
                                             @endif
                                         @endforeach
                                         @if ($remaining_items != '')
-                                            <a onclick="toggleItems()" id="read-more"><i
+                                            <a class="ms-3" href="#read-reference" onclick="toggleItems()" id="read-more"><i
                                                     class="fa fa-chevron-circle-right"></i></a>
                                         @endif
 
@@ -116,7 +116,7 @@
                                             {!! $limited_items !!}
                                             {!! $remaining_items !!}
                                         </div>
-                                        <a class="d-none" onclick="toggleItems()" id="read-less"><i
+                                        <a class="ms-3 d-none" onclick="toggleItems()" id="read-less"><i
                                                 class="fa fa-chevron-circle-left"></i></a>
 
                                     </small>

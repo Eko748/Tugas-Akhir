@@ -95,6 +95,7 @@
                     }).then((value) => {
                         $(".formCreateProjectData").trigger("reset");
                         $(".modalCreate").modal("hide");
+                        $(".c-data").remove();
                     });
                 },
                 error: function(result) {

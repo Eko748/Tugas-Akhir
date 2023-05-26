@@ -29,6 +29,7 @@ class ScrapingMasterController extends ScrapingController implements ValidationD
     public function createScraping(Request $request)
     {
         try {
+            $validate = $this->validateDataCreate($request);
             ScrapedData::create(
                 [
                     'id' => random_int(1000000, 9999999),
@@ -36,7 +37,7 @@ class ScrapingMasterController extends ScrapingController implements ValidationD
                     'project_id' => $this->getData()['project']->id,
                     'category_id' => $request->category_id,
                     'code' => $request->code . Auth::user()->code . $this->getData()['code'],
-                    'title' => $request->title,
+                    'title' => $validate['title'],
                     'publisher' => $request->publisher,
                     'publication' => $request->publication,
                     'year' => $request->year,
@@ -56,21 +57,17 @@ class ScrapingMasterController extends ScrapingController implements ValidationD
         }
     }
 
-
     public function validateDataCreate(Request $request)
     {
         return $request->validate(
-            [],
+            [
+                'title' => 'required|string|unique:scraped_data'
+            ],
             [
                 'required' => 'Kolom :attribute harus diisi.',
                 'string' => 'Kolom :attribute harus berupa teks.',
-                'alpha' => 'Kolom :attribute harus diisi dengan huruf saja.',
-                'size' => 'Kolom :attribute harus terdiri dari satu karakter.',
-                'uppercase' => 'Kolom :attribute harus diisi dengan huruf kapital.',
-                'max' => 'Kolom :attribute tidak boleh lebih dari :max karakter.',
-                'integer' => 'Kolom :attribute harus diisi dengan angka.'
+                'unique' => 'Kolom :attribute sudah tersimpan dalam proyek ini.',
             ]
         );
     }
-
 }

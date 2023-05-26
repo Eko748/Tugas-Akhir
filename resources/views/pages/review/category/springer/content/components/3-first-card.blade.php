@@ -67,7 +67,7 @@
                 <hr>
                 <div class="product-price mb-2">
                     <div class="row">
-                        <div class="col-md-6 col-sm-3">
+                        <div class="col-md-12 col-sm-12">
                             <span><small class="text-primary">Type:
                                 </small><small>{{ $key['publicationType'] }}</small></span>
                         </div>
@@ -79,7 +79,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6 col-sm-3">
+                        <div class="col-md-12 col-sm-12">
                             <span><small class="text-primary">Cited: </small><small>0</small></span>
                         </div>
                     </div>
@@ -94,12 +94,12 @@
                         <div class="text-center">
                             <a data-bs-toggle="modal" title="Tambahkan Data Scraping ke Database" onclick="addData()"
                                 data-bs-placement="bottom" data-bs-target="#modalCreate-springer"
-                                class="text-center mb-3 review-go text-white btn btn-sm btn-outline-dark btn-success">
+                                class="c-data text-center mb-3 review-go text-white btn btn-sm btn-outline-dark btn-success">
                                 <i class="fa fa-plus-circle"></i> Tambahkan ke Database
                             </a>
                         </div>
                         <a data-bs-toggle="modal" href="#create" onclick="addData()" data-bs-target="#modalCreate-springer"
-                            title="Tambahkan Data Scraping ke Database" class="float">+</a>
+                            title="Tambahkan Data Scraping ke Database" class="c-data float">+</a>
                     @endif
                 @endauth
             </div>

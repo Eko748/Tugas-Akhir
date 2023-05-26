@@ -65,7 +65,7 @@ class ProjectController extends ManagementController
                     }
                     $btn = '
                     <button title="View Detail" class="ms-1 me-1 mb-2 review-go btn-info btn-outline-dark" onclick="showDetail(' . $data->id . ')">
-                        <i class="fa fa-address-book"></i>
+                        <i class="fa fa-list-alt"></i>
                     </button><button title="Backward Snowballing" class="ms-1 me-1 mb-2 review-go btn-warning btn-outline-dark" onclick="snowBalling(' . $data->id . ')">
                         <i class="fa fa-share-square-o"></i>
                     </button>';

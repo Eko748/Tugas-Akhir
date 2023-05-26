@@ -134,7 +134,7 @@
                         <button class="btn btn-sm btn-outline-dark text-white btn-danger" type="button" data-bs-dismiss="modal">
                             <i class="fa fa-times-circle"></i> Close
                         </button>
-                        <button type="submit" class="btn btn-sm btn-outline-dark text-white btn-success btn-load btn-block">
+                        <button type="submit" class="c-data btn btn-sm btn-outline-dark text-white btn-success btn-load btn-block">
                             <i class="fa fa-save"></i> Submit
                         </button>
                     </div>
