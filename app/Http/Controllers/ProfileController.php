@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Interface\ValidationData;
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Institute;
 use App\Models\User;
 use Illuminate\Http\{RedirectResponse, Request};
 use Illuminate\Support\Facades\{Auth, Redirect};
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules\Password;
 
 class ProfileController extends Controller implements ValidationData
 {
@@ -39,7 +41,7 @@ class ProfileController extends Controller implements ValidationData
         return Redirect::route('profile.index')->with('status', 'profile-updated');
     }
 
-    public function updatePassword(Request $request): RedirectResponse
+    public function updatePassword(Request $request)
     {
         $v_data = $this->validateDataCreate($request);
         $request->user()->update([
@@ -69,6 +71,51 @@ class ProfileController extends Controller implements ValidationData
 
         return $password;
     }
+
+    public function updateInstitute(Request $request): RedirectResponse
+    {
+        $request->validate(
+            [
+                'institute' => ['required']
+            ],
+            [
+                'required' => 'Kolom :attribute harus diisi.'
+            ]
+        );
+
+        $request->validateWithBag('userDeletion', [
+            'password' => ['required', 'current-password'],
+        ]);
+
+        $ins = Auth::user()->id;
+        $institute = Institute::where('created_by', $ins)->first();
+        $instituteName = strtolower(trim($institute->institute_name));
+        $words = explode(' ', $instituteName);
+        $instituteName = $words[0];
+
+        $ins_member = strtolower(trim($request->input('institute')));
+        $member_index = explode(' ', $ins_member);
+        $index = $member_index[0];
+
+        $institute->institute_name = $request->input('institute');
+        $institute->save();
+
+        $leader = Auth::user()->hasLeader;
+        $id = $leader[0]['id'];
+        $users = User::where('created_by', $id)->get();
+        foreach ($users as $user) {
+            $emailParts = explode('.', $user->email);
+            if (strtolower($emailParts[0]) === $instituteName) {
+                $emailParts[0] = $index;
+                $newEmail = implode('.', $emailParts);
+                $user->email = $newEmail;
+                $user->save();
+            }
+        }
+
+        return back()->with('status', 'institute-updated');
+    }
+
 
     public function deleteProfile(Request $request): RedirectResponse
     {

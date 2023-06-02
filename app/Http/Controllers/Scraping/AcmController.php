@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Scraping;
 use App\Http\Controllers\Interface\ScrapingData;
 use Goutte\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AcmController extends ScrapingMasterController implements ScrapingData
 {
@@ -29,7 +30,11 @@ class AcmController extends ScrapingMasterController implements ScrapingData
     {
         try {
             $acm = $this->searchScrapingData($request);
-            $exist = $this->getData()['exists'];
+            if (Auth::check()) {
+                $exist = $this->getData()['exists'];
+            } else {
+                $exist = 'Tidak ada';
+            }
             $this->data = [
                 'search' => $acm['query'],
                 'key' => $acm['key'],

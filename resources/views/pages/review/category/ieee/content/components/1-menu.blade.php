@@ -23,7 +23,7 @@
                                 data-bs-toggle="popover" data-bs-placement="right" data-offset="-5px -5px"
                                 title="Tutorial {{ $parent }} {{ $child }}"
                                 data-bs-content="Terapkan url seperti pada tautan (https://ieeexplore.ieee.org/document/6606614) kedalam kolom pencarian">
-                                <i class="fa fa-info"></i>
+                                <i class="fa fa-question-circle"></i>
                             </button>
                         </div>
                     </div>

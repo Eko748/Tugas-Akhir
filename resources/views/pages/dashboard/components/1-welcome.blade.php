@@ -15,7 +15,7 @@
                                         src="{{ asset('assets/images/logo/slr-logo.png') }}" alt="">
                                 </div>
                             </div>
-                            <a class="btn btn-outline-white_color mt-3" href="{{ route('management.project.index') }}">
+                            <a class="btn btn-outline-white_color mt-3" href="{{ route('review.master.index') }}">
                                 Get Scraping Data<i class="icon-arrow-right"> </i></a>
                         </div>
                     </div>

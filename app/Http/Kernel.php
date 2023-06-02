@@ -51,9 +51,6 @@ class Kernel extends HttpKernel
             'throttle:api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
-        'auth' => [
-            \App\Http\Middleware\AuthenticateSession::class,
-        ],
     ];
 
     /**
@@ -66,7 +63,6 @@ class Kernel extends HttpKernel
     protected $routeMiddleware = [
         'auth' => \App\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
-        'auth.token' => \App\Http\Middleware\CheckAuthToken::class,
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
@@ -75,7 +71,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         // 'is_verify_email' => \App\Http\Middleware\IsVerifyEmail::class,
-        'check_login' => \App\Http\Middleware\CheckLogin::class,
         '1' => \App\Http\Middleware\IsLeader::class,
         '2' => \App\Http\Middleware\IsMember::class,
         'role' => \App\Http\Middleware\CheckRole::class,

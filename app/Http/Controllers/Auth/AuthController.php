@@ -19,21 +19,21 @@ class AuthController extends Controller
         return view('auth.pages.login.index');
     }
 
-    public function authenticate(Request $request)
-    {
-        $credentials = $request->only('email', 'password');
+    // public function authenticate(Request $request)
+    // {
+    //     $credentials = $request->only('email', 'password');
 
-        if (Auth::attempt($credentials)) {
-            // Authentication passed...
-            $user = Auth::user();
-            Session::put('user', $user);
-            return redirect()->intended('/dashboard');
-        } else {
-            return back()->withErrors([
-                'email' => 'The provided credentials do not match our records.',
-            ]);
-        }
-    }
+    //     if (Auth::attempt($credentials)) {
+    //         // Authentication passed...
+    //         $user = Auth::user();
+    //         Session::put('user', $user);
+    //         return redirect()->intended('/dashboard');
+    //     } else {
+    //         return back()->withErrors([
+    //             'email' => 'The provided credentials do not match our records.',
+    //         ]);
+    //     }
+    // }
 
 
     public function getLogin(LoginRequest $request): RedirectResponse

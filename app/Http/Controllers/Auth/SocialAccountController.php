@@ -30,8 +30,13 @@ class SocialAccountController extends Controller
 
         Auth()->login($authUser, true);
 
+        if ($authUser->wasRecentlyCreated) {
+            session()->flash('status', 'new-user');
+        }
+
         return redirect()->route('dashboard.index');
     }
+
 
     public function findOrCreateUser($socialUser, $provider)
     {
@@ -50,7 +55,7 @@ class SocialAccountController extends Controller
                     'role_id' => 1,
                     'name'  => $socialUser->getName(),
                     'email' => $socialUser->getEmail(),
-                    'password'          => Hash::make(0),
+                    'password' => Hash::make(12345678),
                 ]);
 
                 $leader = Leader::create(

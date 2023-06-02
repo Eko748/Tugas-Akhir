@@ -52,24 +52,19 @@
         }
     });
 
-    function enableInput() {
-        document.querySelectorAll('.create').forEach(function(el) {
-            el.disabled = false;
-        });
-    }
 
     function showFullAbstract() {
-        document.querySelectorAll('.show')[1].style.display = 'inline';
-        document.querySelectorAll('.hide')[1].style.display = 'none';
-        document.querySelectorAll('.read-more')[1].style.display = 'none';
-        document.querySelectorAll('.read-less')[1].style.display = 'inline';
+        document.querySelector('.show').style.display = 'inline';
+        document.querySelector('.hide').style.display = 'none';
+        document.querySelector('.read-more').style.display = 'none';
+        document.querySelector('.read-less').style.display = 'inline';
     }
 
     function hideFullAbstract() {
-        document.querySelectorAll('.show')[1].style.display = 'none';
-        document.querySelectorAll('.hide')[1].style.display = 'inline';
-        document.querySelectorAll('.read-more')[1].style.display = 'inline';
-        document.querySelectorAll('.read-less')[1].style.display = 'none';
+        document.querySelector('.show').style.display = 'none';
+        document.querySelector('.hide').style.display = 'inline';
+        document.querySelector('.read-more').style.display = 'inline';
+        document.querySelector('.read-less').style.display = 'none';
     }
 
     function toggleItems() {

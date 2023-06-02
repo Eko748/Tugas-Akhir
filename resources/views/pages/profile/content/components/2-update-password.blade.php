@@ -3,6 +3,12 @@
         @csrf
         @method('put')
 
+        {{-- @if (session('password') === '12345678')
+        <h4>
+            Password default anda {{ $password }}
+        </h4>
+        @endif --}}
+
         <div class="form-group mb-3">
             <x-input-label class="form-label" for="current_password" :value="__('Current Password')" />
             <div class="input-group"><span class="input-group-text"><i class="icon-lock"></i></span>
@@ -38,7 +44,7 @@
 
         <div class="flex items-center gap-4">
             <x-primary-button class="btn btn-xs btn-success btn-outline-dark"><i class="fa fa-save"></i>
-                {{ __('Save') }}</x-primary-button>
+                {{ __('Submit') }}</x-primary-button>
         </div>
     </form>
 </section>

@@ -23,7 +23,7 @@
                                 data-bs-toggle="popover" data-bs-placement="right" data-offset="-5px -5px"
                                 title="Tutorial {{ $parent }} {{ $child }}"
                                 data-bs-content="Terapkan url seperti pada tautan (https://link.springer.com/article/10.1007/s10118-023-2956-9) atau (https://link.springer.com/chapter) kedalam kolom pencarian">
-                                <i class="fa fa-info"></i>
+                                <i class="fa fa-question-circle"></i>
                             </button>
                         </div>
                     </div>

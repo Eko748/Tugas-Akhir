@@ -23,7 +23,7 @@
             <div class="row">
                 <div class="col-md-6 col-sm-6">
                     <x-primary-button class="btn btn-xs btn-success btn-outline-dark"><i class="fa fa-save"></i>
-                        {{ __('Save') }}</x-primary-button>
+                        {{ __('Submit') }}</x-primary-button>
                 </div>                
             </div>
         </div>
