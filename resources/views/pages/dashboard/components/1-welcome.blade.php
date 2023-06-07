@@ -23,6 +23,7 @@
             </div>
         </div>
     </div>
+    @if ($scrape['reviews']->count() != '0')
     <div class="row">
         <div class="col-sm-6 col-md-6 col-xl-6 col-lg-6">
             <div class="card o-hidden">
@@ -84,4 +85,5 @@
             </div>
         </div>
     </div>
+    @endif
 </div>

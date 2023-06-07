@@ -20,6 +20,7 @@ class DashboardController extends Controller
 
     public function showDashboard()
     {
+        $scrape = $this->getCountScraping();
         $review = $this->getChartScraping();
         $member = $this->getChartCreated();
         $this->label = Auth::user()->getRole->role_name;
@@ -32,6 +33,7 @@ class DashboardController extends Controller
             'userLabels' => $member['userLabels'],
             'userData' => $member['userData'],
             'totalUser' => $member['totalUsers'],
+            'scrape' => $scrape,
         ];
         return view('pages.dashboard.index', $this->data);
     }
@@ -51,7 +53,7 @@ class DashboardController extends Controller
         $data = [
             'categoryLabels' => $categoryLabels,
             'categoryData' => $categoryData,
-            'totalReviews' => $totalReviews
+            'totalReviews' => $totalReviews,
         ];
         return $data;
     }

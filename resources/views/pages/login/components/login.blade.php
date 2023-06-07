@@ -25,7 +25,7 @@
                         <x-input-label class="text-dark" for="email" :value="__('Email')" />
                         <div class="input-group"><span class="input-group-text"><i class="icon-email"></i></span>
                             <x-text-input id="email" class="form-control block mt-1 w-full" type="email"
-                                name="email" :value="old('email')" required autofocus />
+                                name="email" :value="old('email')" placeholder="Masukkan Email Anda" required autofocus />
                             <x-input-error :messages="$errors->get('email')" class="mt-2" />
                             <div class="invalid-tooltip">Please enter proper email.</div>
                         </div>
@@ -34,7 +34,7 @@
                         <x-input-label class="text-dark" for="password" :value="__('Password')" />
                         <div class="input-group"><span class="input-group-text"><i class="icon-lock"></i></span>
                             <x-text-input id="password" class="form-control block mt-1 w-full" type="password"
-                                name="password" required autocomplete="current-password" />
+                                name="password" placeholder="Masukkan Password Anda" required autocomplete="current-password" />
                             <x-input-error :messages="$errors->get('password')" class="mt-2" />
                             <div class="invalid-tooltip">Please enter password.</div>
                         </div>

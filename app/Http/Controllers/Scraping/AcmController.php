@@ -17,7 +17,7 @@ class AcmController extends ScrapingMasterController implements ScrapingData
         $this->data = $data;
     }
 
-    public function showScrapingData()
+    public function showScrapingData() 
     {
         $this->data = [
             'parent' => $this->page,

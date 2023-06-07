@@ -1,6 +1,6 @@
 <div class="card">
     <div class="card-header">
-        <div class="row text-center">
+        <div class="row text-center mb-3">
             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 text-center">
                 <a href="{{ Auth::user()->role_id == 1 ? route('review.ieee.index') : route('ieee.index') }}?slr_id={{ $views->uuid_review }}&slr_code={{ $views->code }}"
                     class="button btn-info review-go hovering mb-2"><i class="fa fa-paper-plane"></i> IEEE</a>

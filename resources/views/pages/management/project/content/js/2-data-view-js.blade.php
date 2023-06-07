@@ -23,7 +23,7 @@
     }
 
     function showDetail(id) {
-        $('#modalHeadingViewProject').html("Detail Review");
+        $('#modalHeadingViewProject').html("Detail Data Scraping");
         $('.info').hide();
         $('#modal-content-snowballing').hide();
         $('#modal-content-detail').show();

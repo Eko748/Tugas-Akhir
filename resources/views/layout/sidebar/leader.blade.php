@@ -55,7 +55,7 @@
     <ul class="sidebar-submenu">
         <li><a href="{{ route('review.master.index') }}">Scraping Master</a></li>
         <li>
-            <a class="submenu-title">Category<span class="sub-arrow"><i
+            <a class="submenu-title" href="#category">Category<span class="sub-arrow"><i
                         class="fa fa-angle-right"></i></span></a>
             <ul class="nav-sub-childmenu submenu-content">
                 <li><a href="{{ route('review.ieee.index') }}">IEEE</a></li>

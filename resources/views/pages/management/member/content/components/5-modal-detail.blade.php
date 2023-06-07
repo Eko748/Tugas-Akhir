@@ -5,7 +5,6 @@
                 <h5 class="modal-title" id="modalHeadingDetail"></h5>
                 <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            
         </div>
     </div>
 </div>
