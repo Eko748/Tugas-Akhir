@@ -3,13 +3,13 @@
         let id = $(this).data('id');
         swal({
             title: "Restore?",
-            text: "Data akan dipulihkan!",
+            text: "Data Scraping akan dipulihkan!",
             type: "question",
             showCancelButton: !0,
             confirmButtonText: "Restore!",
             cancelButtonText: "Batalkan!",
             reverseButtons: !0,
-            confirmButtonColor: "#0000ff"
+            confirmButtonColor: "#3B71CA"
         }).then(function(e) {
             if (e.value === true) {
                 let CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
@@ -40,7 +40,7 @@
         let id = $(this).data('id');
         swal({
             title: "Hapus?",
-            text: "Data akan terhapus permanen!",
+            text: "Data Scraping akan terhapus permanen!",
             type: "warning",
             showCancelButton: !0,
             confirmButtonText: "Hapus!",

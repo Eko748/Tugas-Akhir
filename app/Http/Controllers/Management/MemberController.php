@@ -108,13 +108,11 @@ class MemberController extends ManagementController implements ValidationData
 
     public function createMember(Request $request)
     {
-        $user = $this->getInstituteData();
-        if ($user == null) {
+        $slug = $this->getInstituteData()['slug'];
+        if ($slug == null) {
             return redirect()->route('management.member.index');
         } else {
-            $ins = $user->institute_name;
-            $ins_array = explode(' ', $ins);
-            $institute = Str::of($ins_array[0])->slug('');
+            $institute = $slug;
         }
 
         $array = array($institute, $request->email);
@@ -255,13 +253,11 @@ class MemberController extends ManagementController implements ValidationData
     public function updateMember(Request $request)
     {
         try {
-            $user = $this->getInstituteData();
-            if (!$user) {
+            $slug = $this->getInstituteData()['slug'];
+            if (!$slug) {
                 return redirect()->route('management.member.index');
             }
-            $ins = $user->institute_name;
-            $ins_array = explode(' ', $ins);
-            $institute = Str::of($ins_array[0])->slug('');
+            $institute = $slug;
             $string = $institute . '.' . $request->email;
             $request->validate([
                 'name' => ['required', 'string', 'max:255'],

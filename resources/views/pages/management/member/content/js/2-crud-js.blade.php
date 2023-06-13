@@ -115,9 +115,9 @@
     $('body').on('click', '.set-pass', function() {
         let id = $(this).data('id');
         swal({
-            title: "Atur Ulang Password?",
+            title: "Atur Ulang Password",
             text: "Password Default: 12345678",
-            type: "question",
+            type: "info",
             showCancelButton: !0,
             confirmButtonText: "Konfirmasi",
             cancelButtonText: "Batalkan!",
@@ -156,7 +156,7 @@
             text: "Mohon Konfirmasi!",
             type: "warning",
             showCancelButton: !0,
-            confirmButtonText: "Hapus!",
+            confirmButtonText: "Konfirmasi",
             cancelButtonText: "Batalkan!",
             reverseButtons: !0,
             confirmButtonColor: "#ff0000"
@@ -188,8 +188,8 @@
 
     function exportData() {
         swal({
-            title: "Export?",
-            text: "Dapatkan data berupa file Excel!",
+            title: "Export Data Member",
+            text: "Dapatkan data berupa file Excel",
             type: "question",
             showCancelButton: true,
             confirmButtonText: "OK",

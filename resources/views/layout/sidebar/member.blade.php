@@ -28,10 +28,10 @@
                         stroke="#130F26" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
                 </g>
             </g>
-        </svg><span class="project">Project </span></a>
+        </svg><span class="management">Management </span></a>
 </li>
 <li class="sidebar-list">
-    <a class="sidebar-link sidebar-title" href="#">
+    <a class="sidebar-link sidebar-title" href="#scraping">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g>
                 <g>
@@ -43,11 +43,11 @@
                         stroke="#130F26" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
                 </g>
             </g>
-        </svg><span class="">Review</span></a>
+        </svg><span class="">Scraping</span></a>
     <ul class="sidebar-submenu">
-        <li><a href="{{ route('master.index') }}">Review Master</a></li>
+        <li><a href="{{ route('master.index') }}">Scraping Master</a></li>
         <li>
-            <a class="submenu-title" href="#">Category<span class="sub-arrow"><i
+            <a class="submenu-title" href="#category">Category<span class="sub-arrow"><i
                         class="fa fa-angle-right"></i></span></a>
             <ul class="nav-sub-childmenu submenu-content">
                 <li><a href="{{ route('ieee.index') }}">IEEE</a></li>

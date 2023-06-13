@@ -1,4 +1,4 @@
-<div class="error-wrapper error-page1">
+<div class="">
     <div class="container">
         <div class="svg-wrraper">
             <svg class="svg-45" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 500 500">
@@ -354,10 +354,6 @@
                     </g>
                 </g>
             </svg>
-        </div>
-        <div class="col-md-8 offset-md-2">
-            <h2>Halaman yang anda cari Tidak tersedia</h2>
-            <a class="btn btn-sm btn-primary btn-outline-dark text-white" href=""><i class="fa fa-home"></i> Back to Dashboard</a>
         </div>
     </div>
 </div>

@@ -50,8 +50,11 @@ class RecycleMemberController extends RecycleController implements RecycleData
                     $parse = Carbon::parse($info)->isoFormat('LLLL');
                     $info = '<span class="badge btn-outline-primary hovering badge-light-primary">' . $parse . '</span>';
                     return $info;
+                })->addColumn('member', function ($data) {
+                    $member = '(' . $data->code . ') ' . $data->name;
+                    return $member;
                 })
-                ->rawColumns(['action', 'info'])
+                ->rawColumns(['action', 'info', 'member'])
                 ->make(true);
         }
     }

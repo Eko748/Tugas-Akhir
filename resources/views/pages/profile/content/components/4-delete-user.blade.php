@@ -24,7 +24,7 @@
                             {{ __('Menghapus akun akan menghilangkan semua data yang berkaitan dengan akun anda dan tidak bisa dipulihkan') }}
                         </p>
 
-                        <div class="form-group mt-6 mb-3">
+                        <div class="form-group mt-6 mb-5">
                             <x-input-label for="pass" value="{{ __('Konfirmasi Password') }}" class="form-label" />
                             <div class="input-group"><span class="input-group-text"><i class="icon-lock"></i></span>
                                 <x-text-input id="pass" name="password" type="password" class="form-control"

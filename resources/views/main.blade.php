@@ -43,7 +43,7 @@
 
 </head>
 
-<body class="">
+<body>
     <div class="loader-wrapper">
         <div class="loader">
             <div class="loader-bar"></div>
@@ -74,7 +74,23 @@
     <script src="{{ asset('assets/js/script.js') }}"></script>
     <script src="{{ asset('assets/js/theme-customizer/customizer.js') }}"></script>
     <script src="{{ asset('assets/js/popover-custom.js') }}"></script>
+    {{-- <script>
+        window.addEventListener('load', function() {
+            var pageBody = document.querySelector('.page-body');
+            var sidebarWrapper = document.querySelector('.sidebar-wrapper');
 
+            function setSidebarHeight() {
+                sidebarWrapper.style.height = pageBody.offsetHeight + 'px';
+            }
+
+            setSidebarHeight(); // Panggil fungsi saat halaman dimuat
+
+            // Panggil fungsi saat ukuran jendela berubah
+            window.addEventListener('resize', function() {
+                setSidebarHeight();
+            });
+        });
+    </script> --}}
     @yield('darkLayoutScript')
     @stack('js')
 

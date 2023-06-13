@@ -66,7 +66,7 @@
                     });
             },
             order: [
-                [0, 'desc']
+                [4, 'desc']
             ],
             processing: true,
             serverSide: true,
@@ -97,12 +97,16 @@
                 {
                     data: 'DT_RowIndex',
                     name: 'DT_RowIndex',
+                    searchable: false,
                     orderable: false,
-                    searchable: false
+                    render: function(data) {
+                        return '<div class="text-primary text-center">' + data + '.' +
+                            '</div>';
+                    },
                 },
                 {
-                    data: 'name',
-                    name: 'name'
+                    data: 'member',
+                    name: 'member'
                 },
                 {
                     data: 'email',

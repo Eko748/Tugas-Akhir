@@ -21,7 +21,7 @@
                         </h2>
 
                         <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                            {{ __('Memperbarui nama instansi dapat mengubah semua index email pada akun anggota anda') }}
+                            {{ __('Memperbarui nama instansi dapat mengubah indeks email pada semua akun anggota anda') }}
                         </p>
 
                         <div class="form-group mt-6 mb-4">

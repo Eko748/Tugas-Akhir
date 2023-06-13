@@ -20,7 +20,7 @@
 
                     <!-- Email Address -->
                     <div class="form-group">
-                        <label for="email">Email <span class="text-danger">*</span></label>
+                        <label for="email">Email <span class="text-danger">*</span> <sup><i class="fa fa-question-circle hovering" title="Indeks tambahan Instansi: {{ $institute['slug'] }}"></i></sup></label>
                         <div class="input-group"><span class="input-group-text"><i class="icon-email"></i></span>
                             <x-text-input id="email" class="form-control" placeholder="Input Email..." type="email" name="email"
                                 :value="old('email')" required />

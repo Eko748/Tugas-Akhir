@@ -14,10 +14,20 @@
                 </ol>
             </div>
         </div>
-        @include('pages.error.404.content.svg')
-    </div>
-    <div class="container-fluid">
-        <div class="row"> 
+        <div class="row">
+            <div class="col-md-6">
+                @include('pages.error.404.content.svg')
+            </div>
+            <div class="col-md-4 mt-5 mb-5">
+                <div class="mt-5">
+                    <h2>Halaman yang anda cari Tidak tersedia</h2>
+                    <a class="btn btn-sm btn-primary btn-outline-dark text-white" href="{{ route('dashboard.index') }}"><i class="fa fa-home"></i> Back to Dashboard</a>
+                </div>
+            </div>
         </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row"> 
     </div>
 </div>

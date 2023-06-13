@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Management;
 use App\Http\Controllers\Controller;
 use App\Models\{Institute, Leader, Member, Project, ScrapedData};
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 
 class ManagementController extends Controller
@@ -17,13 +18,20 @@ class ManagementController extends Controller
             $institute = Institute::where('created_by', Auth::user()->id)->first();
         } else {
             $institute = Institute::whereHas('getLeader', function ($q) {
-                    $q->where('id', Auth::user()->created_by);
-                })
+                $q->where('id', Auth::user()->created_by);
+            })
                 ->first();
         }
-        return $institute;
+        $ins = $institute->institute_name;
+        $ins_array = explode(' ', $ins);
+        $slug = Str::of($ins_array[0])->slug('');
+        $data = [
+            'slug' => $slug,
+            'institute' => $institute
+        ];
+        return $data;
     }
-    
+
     protected function getMemberData()
     {
         $leader = Leader::where('user_id', Auth::user()->id)->first();
@@ -69,5 +77,4 @@ class ManagementController extends Controller
             return response()->json(['error' => 'Terjadi Kesalahan'], 500);
         }
     }
-    
 }

@@ -20,18 +20,18 @@
                                 autofocus></x-text-input>
                             <x-input-error :messages="$errors->get('institute_name')" class="mt-2">
                                 <div class="invalid-tooltip">
-                                    Please enter name
+                                    Please enter institute name
                                 </div>
                             </x-input-error>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-danger btn-sm" type="reset">
+                    <button class="btn btn-danger btn-sm" type="reset" data-bs-dismiss="modal" aria-label="Close">
                         <i class="fa fa-times-circle"></i> Batal
                     </button>
-                    <button type="submit" class="btn btn-primary btn-sm">
-                        <i class="fa fa-plus-circle"></i> Tambah
+                    <button type="submit" class="btn btn-success btn-sm">
+                        <i class="fa fa-save"></i> Submit
                     </button>
                 </div>
             </form>

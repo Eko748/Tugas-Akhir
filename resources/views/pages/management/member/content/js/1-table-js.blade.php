@@ -16,7 +16,7 @@
                             let cell = $('.filters th').eq(
                                 $(api.column(colIdx).header()).index()
                             );
-                            $(cell).html('@if ($institute == null)' +
+                            $(cell).html('@if ($institute['institute'] == null)' +
                                 '' +
                                 '@else' +
                                 '@if ($member >= 25)' +
