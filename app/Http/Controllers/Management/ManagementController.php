@@ -26,10 +26,10 @@ class ManagementController extends Controller
             $ins_array = explode(' ', $ins);
             $slug = Str::of($ins_array[0])->slug('');
             $data['slug'] = $slug;
+        } elseif ($institute == null) {
+            $data['slug'] = null;
         }
-        $data = [
-            'institute' => $institute
-        ];
+        $data['institute'] = $institute;
         return $data;
     }
 
