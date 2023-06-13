@@ -16,17 +16,18 @@ class ManagementController extends Controller
     {
         if (Auth::user()->role_id == '1') {
             $institute = Institute::where('created_by', Auth::user()->id)->first();
-        } else {
+        } elseif (Auth::user()->role_id == '2') {
             $institute = Institute::whereHas('getLeader', function ($q) {
                 $q->where('id', Auth::user()->created_by);
-            })
-                ->first();
+            })->first();
         }
-        $ins = $institute->institute_name;
-        $ins_array = explode(' ', $ins);
-        $slug = Str::of($ins_array[0])->slug('');
+        if ($institute != null) {
+            $ins = $institute->institute_name;
+            $ins_array = explode(' ', $ins);
+            $slug = Str::of($ins_array[0])->slug('');
+            $data['slug'] = $slug;
+        }
         $data = [
-            'slug' => $slug,
             'institute' => $institute
         ];
         return $data;

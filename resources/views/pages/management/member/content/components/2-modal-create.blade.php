@@ -5,6 +5,7 @@
                 <h5 class="modal-title"><i class="fa fa-plus-circle"></i> <strong id="modalHeadingCreateMember"></strong></h5>
                 <button class="btn-close btn-outline-danger" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+            @if (isset($institute['slug']))
             <form id="formCreateMember" class="theme-form needs-validation" method="POST" novalidate="">
                 @csrf
                 <div class="modal-body mt-3">
@@ -50,6 +51,7 @@
                     </button>
                 </div>
             </form>
+            @endif
         </div>
     </div>
 </div>

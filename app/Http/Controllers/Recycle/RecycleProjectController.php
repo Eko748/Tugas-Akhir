@@ -74,7 +74,7 @@ class RecycleProjectController extends RecycleController implements RecycleData
 
         if ($restore == 1) {
             $e = true;
-            $message = "Poject Review Berhasil dipulihkan!";
+            $message = "Project Scraping Berhasil dipulihkan!";
         } else {
             $e = false;
             $message = "Proses Tidak berjalan!";
@@ -88,7 +88,7 @@ class RecycleProjectController extends RecycleController implements RecycleData
 
         if ($delete == 1) {
             $e = true;
-            $message = "Poject Review Berhasil dihapus!";
+            $message = "Project Scraping Berhasil dihapus!";
         } else {
             $e = false;
             $message = "Proses Tidak berjalan!";
