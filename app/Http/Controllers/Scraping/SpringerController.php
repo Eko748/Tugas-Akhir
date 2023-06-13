@@ -27,7 +27,7 @@ class SpringerController extends ScrapingMasterController implements ScrapingDat
 
     public function requestScrapingData(Request $request)
     {
-        try {
+        // try {
             $springer = $this->searchScrapingData($request);
             $exist = $this->getData()['exists'];
             $this->data = [
@@ -39,9 +39,9 @@ class SpringerController extends ScrapingMasterController implements ScrapingDat
             if ($request->ajax()) {
                 return view('pages.review.category.springer.content.components.2-data', $this->data)->render();
             }
-        } catch (\Exception $e) {
-            return response()->json(['error' => 'Terjadi kesalahan saat mengambil data Springer'], 500);
-        }
+        // } catch (\Exception $e) {
+        //     return response()->json(['error' => 'Terjadi kesalahan saat mengambil data Springer'], 500);
+        // }
     }
 
     public function searchScrapingData($request)

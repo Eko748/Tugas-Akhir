@@ -71,11 +71,11 @@
             <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2">
             </div>
             <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8">
-                <a href="{{ Auth::user()->role_id == 1 ? route('review.ieee.index') : route('ieee.index') }}?slr_id={{ $views->uuid_review }}&slr_code={{ $views->code }}"
+                <a href="{{ Auth::user()->role_id == 1 ? route('review.ieee.index') : route('ieee.index') }}?slr_id={{ $views->uuid_scrape }}&slr_code={{ $views->code }}"
                     class="button btn-info review-go hovering mb-2"><i class="fa fa-paper-plane"></i> IEEE</a>
-                <a href="{{ Auth::user()->role_id == 1 ? route('review.acm.index') : route('acm.index') }}?slr_id={{ $views->uuid_review }}&slr_code={{ $views->code }}"
+                <a href="{{ Auth::user()->role_id == 1 ? route('review.acm.index') : route('acm.index') }}?slr_id={{ $views->uuid_scrape }}&slr_code={{ $views->code }}"
                     class="button btn-success review-go hovering mb-2"><i class="fa fa-paper-plane"></i> ACM</a>
-                <a href="{{ Auth::user()->role_id == 1 ? route('review.springer.index') : route('springer.index') }}?slr_id={{ $views->uuid_review }}&slr_code={{ $views->code }}"
+                <a href="{{ Auth::user()->role_id == 1 ? route('review.springer.index') : route('springer.index') }}?slr_id={{ $views->uuid_scrape }}&slr_code={{ $views->code }}"
                     class="button btn-warning review-go hovering mb-2"><i class="fa fa-paper-plane"></i>
                     Springer</a>
             </div>
