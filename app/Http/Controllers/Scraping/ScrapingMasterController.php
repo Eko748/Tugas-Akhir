@@ -51,7 +51,7 @@ class ScrapingMasterController extends ScrapingController implements ValidationD
                     'created_by' => Auth::user()->id,
                 ]
             );
-            return response()->json(['success' => 'Review berhasil ditambahkan ke Project']);
+            return response()->json(['success' => 'Scraping berhasil ditambahkan ke Project']);
         } catch (\Exception $e) {
             return response()->json(['error' => 'Gagal, silahkan coba lagi', 'message' => $e->getMessage()]);
         }

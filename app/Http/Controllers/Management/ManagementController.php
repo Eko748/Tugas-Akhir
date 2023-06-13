@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Management;
 
 use App\Http\Controllers\Controller;
-use App\Models\{Institute, Leader, Member, Project, ScrapedData};
+use App\Models\{Institute, Leader, Member, Project, ScrapedData, User};
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
@@ -36,8 +36,11 @@ class ManagementController extends Controller
     protected function getMemberData()
     {
         $leader = Leader::where('user_id', Auth::user()->id)->first();
-        $member = Member::where('created_by', $leader->id)->count();
-
+        if (User::where('created_by', $leader->id) != null) {
+            $member = User::where('created_by', $leader->id)->where('deleted_by', null)->count();
+        } else  {
+            $member = '0';
+        }
         return $member;
     }
 

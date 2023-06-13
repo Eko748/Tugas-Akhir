@@ -52,7 +52,6 @@ class ProjectsExport implements FromView
 
         $data = [
             'projects' => $projects,
-            'loop' => $projects,
         ];
 
         return $data;

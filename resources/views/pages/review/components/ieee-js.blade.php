@@ -61,10 +61,10 @@
             formData.append("category_id", "1");
 
             const params = new URLSearchParams(window.location.search);
-            let slr_code = null;
-            if (params !== null) {
-                slr_code = params.get("slr_code");
-                formData.append("reference_source", slr_code);
+            let slr_code = params.get('slr_code') || '';
+
+            if (slr_code !== '') {
+                formData.append('reference_source', slr_code);
             }
 
             let url =

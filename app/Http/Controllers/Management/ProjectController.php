@@ -121,16 +121,17 @@ class ProjectController extends ManagementController
 
     public function exportProjectScraping()
     {
-        if ($this->getInstituteData()) {
-            $ins = $this->getInstituteData()->institute_name;
-            $ins_array = explode(' ', $ins);
+        if (null !== $this->getInstituteData()['institute']) {
+            $ins = $this->getInstituteData()['institute'];
+            $institute = $ins['institute_name'];
+            $ins_array = explode(' ', $institute);
             $prefix = Str::of($ins_array[0])->slug('');
         } else {
             $prefix = 'slr';
         }
 
         $currentDateTime = date('His-dmY');
-        $fileName = $prefix . '-scraping-' . $currentDateTime . '.xlsx';
+        $fileName = $prefix . '-project-' . $currentDateTime . '.xlsx';
         $print = Excel::download(new ProjectsExport($this->getProjectData()), $fileName);
         return $print;
     }

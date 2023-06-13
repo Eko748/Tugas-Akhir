@@ -321,12 +321,17 @@ class MemberController extends ManagementController implements ValidationData
 
     public function exportMember()
     {
-        $get = $this->getMemberData();
-        $ins = $get['institute']->hasInstitute()->first()->institute_name;
-        $ins_array = explode(' ', $ins);
-        $institute = Str::of($ins_array[0])->slug('');
-        $member = $get['member'];
-        $fileName = $member . '-member-' . $institute . '.xlsx';
+        $member = $this->getMemberData();
+        if (null !== $this->getInstituteData()['institute']) {
+            $ins = $this->getInstituteData()['institute'];
+            $institute = $ins['institute_name'];
+            $ins_array = explode(' ', $institute);
+            $prefix = Str::of($ins_array[0])->slug('');
+        } else {
+            $prefix = 'slr';
+        }
+        $currentDateTime = date('His-dmY');
+        $fileName = $member . '-member-' . $prefix . '-' . $currentDateTime . '.xlsx';
         return Excel::download(new UsersExport(), $fileName);
     }
 }

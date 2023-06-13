@@ -2,7 +2,6 @@
     function addMember() {
         $('#modalHeadingCreateMember').html("New Member");
         $('#member').modal('show');
-
         $('.modal .modal-dialog').attr('class', 'modal-dialog  fadeInLeft  animated');
         $("body").on("submit", "#formCreateMember", function(e) {
             e.preventDefault();
@@ -45,7 +44,7 @@
     }
 
     function editMember(id) {
-        let hashedId = CryptoJS.SHA256(id.toString()).toString(); // menggunakan CryptoJS untuk menghitung hash SHA-256
+        let hashedId = CryptoJS.SHA256(id.toString()).toString();
         $.ajax({
             url: "{{ route('management.member.edit') }}",
             type: "GET",
@@ -224,7 +223,7 @@
                     swal({
                         type: "success",
                         title: "Done!",
-                        text: "Institute Berhasil Disimpan",
+                        text: "Instansi Berhasil Disimpan",
                     }).then(function() {
                         $("#formCreateInstitute").trigger("reset");
                         location.reload(true);
@@ -237,6 +236,7 @@
                     location.reload(true);
                 },
             });
+            abort();
         });
     }
 </script>
