@@ -27,7 +27,7 @@ class SpringerController extends ScrapingMasterController implements ScrapingDat
 
     public function requestScrapingData(Request $request)
     {
-        // try {
+        try {
             $springer = $this->searchScrapingData($request);
             $exist = $this->getData()['exists'];
             $this->data = [
@@ -39,16 +39,16 @@ class SpringerController extends ScrapingMasterController implements ScrapingDat
             if ($request->ajax()) {
                 return view('pages.review.category.springer.content.components.2-data', $this->data)->render();
             }
-        // } catch (\Exception $e) {
-        //     return response()->json(['error' => 'Terjadi kesalahan saat mengambil data Springer'], 500);
-        // }
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Terjadi kesalahan saat mengambil data Springer'], 500);
+        }
     }
 
     public function searchScrapingData($request)
     {
         $query = $request->query('search');
-        $query = str_replace('https://link.springer.com/article/', '', $query);
-        $query = str_replace('https://link.springer.com/chapter/', '', $query);
+        $query = str_ireplace('https://link.springer.com/article/', '', $query);
+        $query = str_ireplace('https://link.springer.com/chapter/', '', $query);
         $url = 'http://api.springernature.com/meta/v2/json?q=doi:' . urlencode($query) . '&api_key=' . 'f99e4740f3ccd28f81a8ea39ec4c3a79';
         $client = new Client();
         $response = $client->request('GET', $url);

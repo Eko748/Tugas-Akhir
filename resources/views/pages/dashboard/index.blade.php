@@ -6,9 +6,12 @@
 @endsection
 @section('content')
     <div class="page-body">
-        <div class="container-fluid default-dash">
+        <div class="container-fluid">
             <div class="row">
                 @include('layout.breadcrumb')
+            </div>
+        </div>
+        <div class="container-fluid default-dash">
                 <div class="row">
                     @include('pages.dashboard.components.1-welcome')
                     @include('pages.dashboard.components.2-chart')
@@ -16,7 +19,6 @@
                 @if (session('status') === 'new-user')
                     @include('pages.dashboard.components.3-alert')
                 @endif
-            </div>
         </div>
     </div>
 @endsection

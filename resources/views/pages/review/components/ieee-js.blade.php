@@ -8,6 +8,13 @@
         e.preventDefault();
         let search = $('#search').val();
 
+        if (search.trim() === "") {
+            $("#empty-search-message").show();
+            return;
+        }
+
+        $("#empty-search-message").hide();
+        
         showLoading();
 
         let xhr = $.ajax({
@@ -34,7 +41,7 @@
                 }
             });
             xhr.abort();
-        }, 60000);
+        }, 30000);
     });
 
     function cleanSearchQuery() {

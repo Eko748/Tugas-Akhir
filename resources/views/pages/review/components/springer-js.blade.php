@@ -8,6 +8,13 @@
         e.preventDefault();
         let search = $('#search').val();
 
+        if (search.trim() === "") {
+            $("#empty-search-message").show();
+            return;
+        }
+
+        $("#empty-search-message").hide();
+
         showLoading();
 
         let xhr = $.ajax({
@@ -34,7 +41,7 @@
                 }
             });
             xhr.abort();
-        }, 60000);
+        }, 30000);
     });
 
     function cleanSearchQuery() {
@@ -102,6 +109,7 @@
                     swal("Error!", "Data sudah ada atau yang lainnya", "error");
                     $(".formCreateProjectData").trigger("reset");
                     $(".modalCreate").modal("hide");
+                    return false;
                 },
                 complete: function() {
                     $('.formCreateProjectData button[type="submit"]').attr('disabled', false);

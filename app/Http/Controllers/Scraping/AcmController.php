@@ -30,11 +30,11 @@ class AcmController extends ScrapingMasterController implements ScrapingData
     {
         try {
             $acm = $this->searchScrapingData($request);
-            if (Auth::check()) {
+            // if (Auth::check()) {
                 $exist = $this->getData()['exists'];
-            } else {
-                $exist = 'Tidak ada';
-            }
+            // } else {
+            //     $exist = 'Tidak ada';
+            // }
             $this->data = [
                 'search' => $acm['query'],
                 'key' => $acm['key'],

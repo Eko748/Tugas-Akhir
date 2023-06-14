@@ -3,6 +3,7 @@
     {{ $parent }} {{ $child }}
 @endsection
 @section('css')
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/sweetalert2/dist/sweetalert2.min.css') }}">
 @endsection
 @section('content')
     @include('pages.review.category.acm.content.acm')

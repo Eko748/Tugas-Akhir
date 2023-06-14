@@ -14,6 +14,7 @@
             <div class="pro-filter-sec">
                 <div class="product-search">
                     <div class="form-group col-md-8">
+                        <span id="empty-search-message" style="display: none; color: red;">Mohon isi kolom pencarian</span>
                         <div class="input-group col-md-4 input-group-lg mb-3">
                             <button class="btn btn-outline-primary" type="button" id="submit-review"><i
                                     class="fa fa-search"></i></button>

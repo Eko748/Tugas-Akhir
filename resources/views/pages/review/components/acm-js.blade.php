@@ -8,6 +8,13 @@
         e.preventDefault();
         let search = $('#search').val();
 
+        if (search.trim() === "") {
+            $("#empty-search-message").show();
+            return;
+        }
+
+        $("#empty-search-message").hide();
+
         showLoading();
 
         let xhr = $.ajax({
@@ -34,20 +41,19 @@
                 }
             });
             xhr.abort();
-        }, 60000);
+        }, 30000);
     });
 
     function cleanSearchQuery() {
         const searchInput = document.getElementById("search");
         const query = searchInput.value;
-        const cleanedQuery = query;
+        const cleanedQuery = query.replace(/[^\w\s]/gi, "");
         searchInput.value = cleanedQuery;
     }
 
     document.getElementById("search").addEventListener("keyup", function(event) {
         if (event.keyCode === 13) {
             event.preventDefault();
-            cleanSearchQuery();
             document.getElementById("submit-review").click();
         }
     });
