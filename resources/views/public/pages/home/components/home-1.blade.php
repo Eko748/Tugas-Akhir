@@ -1,11 +1,9 @@
 <section class="landing-home" id="home">
     <img class="img-fluid bg-img-cover" src="{{ asset('assets/images/landing/landing-home/home-bg.png') }}" alt="">
-    <div class="row">
-        <div class="custom-container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="landing-home-contain mb-5">
-                    </div>
+    <div class="custom-container">
+        <div class="row">
+            <div class="col-12">
+                <div class="landing-home-contain mb-5">
                 </div>
             </div>
         </div>
