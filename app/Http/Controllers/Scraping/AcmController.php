@@ -41,21 +41,19 @@ class AcmController extends ScrapingMasterController implements ScrapingData
                 'exist' => $exist
             ];
             if ($request->ajax()) {
-                return $acm;
+                return view('pages.review.category.acm.content.components.2-data', $this->data)->render();
             }
         } catch (\Exception $e) {
-            $acm = $this->searchScrapingData($request);
-            return $acm;
-            // $this->data = [
-            //     'error' => 'Data ACM tidak ditemukan',
-            // ];
-            // return view('pages.review.category.acm.content.components.2-data', $this->data)->render();
+            $this->data = [
+                'error' => 'Data ACM tidak ditemukan',
+            ];
+            return view('pages.review.category.acm.content.components.2-data', $this->data)->render();
         }
     }
 
     public function searchScrapingData($request)
     {
-        // try {
+        try {
             $delay = 9000;
             $maxRequestsPerMinute = 30;
             $query = $request->input('search');
@@ -107,7 +105,6 @@ class AcmController extends ScrapingMasterController implements ScrapingData
                     }
                     $data = [
                         // 'query' => $query,
-                        'response' => $response,
                         'key' => [
                             'title' => $title,
                             'publisher' => $publisher,
@@ -124,8 +121,8 @@ class AcmController extends ScrapingMasterController implements ScrapingData
                 }
                 return $data;
             }
-        // } catch (\Exception $e) {
-        //     return $data;
-        // }
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Terjadi kesalahan saat mengambil data ACM'], 500);
+        }
     }
 }
