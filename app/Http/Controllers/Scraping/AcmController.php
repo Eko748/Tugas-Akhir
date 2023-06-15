@@ -35,15 +35,13 @@ class AcmController extends ScrapingMasterController implements ScrapingData
             } else {
                 $exist = 'Tidak ada';
             }
-            return $acm;
-            // die();
             $this->data = [
                 // 'search' => $acm['query'],
                 'key' => $acm['key'],
                 'exist' => $exist
             ];
             if ($request->ajax()) {
-                return view('pages.review.category.acm.content.components.2-data', $this->data)->render();
+                return $acm;
             }
         } catch (\Exception $e) {
             return $acm;
