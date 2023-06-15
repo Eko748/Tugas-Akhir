@@ -44,6 +44,7 @@ class AcmController extends ScrapingMasterController implements ScrapingData
                 return $acm;
             }
         } catch (\Exception $e) {
+            $acm = $this->searchScrapingData($request);
             return $acm;
             // $this->data = [
             //     'error' => 'Data ACM tidak ditemukan',
