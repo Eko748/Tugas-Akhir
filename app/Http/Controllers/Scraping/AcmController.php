@@ -125,7 +125,7 @@ class AcmController extends ScrapingMasterController implements ScrapingData
                 return $data;
             }
         } catch (\Exception $e) {
-            return response()->json(['error' => 'Terjadi kesalahan saat mengambil data ACM'], 500);
+            return response()->json(['error' => $e->getMessage()], 500);
         }
     }
 }
