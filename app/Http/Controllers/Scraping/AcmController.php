@@ -46,10 +46,11 @@ class AcmController extends ScrapingMasterController implements ScrapingData
                 return view('pages.review.category.acm.content.components.2-data', $this->data)->render();
             }
         } catch (\Exception $e) {
-            $this->data = [
-                'error' => 'Data ACM tidak ditemukan',
-            ];
-            return view('pages.review.category.acm.content.components.2-data', $this->data)->render();
+            return $acm;
+            // $this->data = [
+            //     'error' => 'Data ACM tidak ditemukan',
+            // ];
+            // return view('pages.review.category.acm.content.components.2-data', $this->data)->render();
         }
     }
 
