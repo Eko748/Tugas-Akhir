@@ -54,7 +54,7 @@ class AcmController extends ScrapingMasterController implements ScrapingData
     public function searchScrapingData($request)
     {
         try {
-            $delay = 2000;
+            $delay = 9000;
             $maxRequestsPerMinute = 30;
             $query = $request->input('search');
             $client = new Client();
