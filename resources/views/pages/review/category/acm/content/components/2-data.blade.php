@@ -6,7 +6,7 @@
         @else
             <center>
                 @if (isset($error))
-                    <div class="ms-1 col-md-6 col-lg-6 alert alert-danger inverse alert-dismissible fade show mb-3"
+                    <div class="col-md-6 col-lg-6 alert alert-danger inverse alert-dismissible fade show mb-3"
                         role="alert"><i class="icon-alert"></i>
                         <span>{{ $error }}</span>
                         <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
