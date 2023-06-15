@@ -6,6 +6,8 @@ use App\Http\Controllers\Interface\ScrapingData;
 use Goutte\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Symfony\Component\Validator\Constraints\Url;
+use Symfony\Component\Validator\Validation;
 
 class AcmController extends ScrapingMasterController implements ScrapingData
 {
@@ -17,7 +19,7 @@ class AcmController extends ScrapingMasterController implements ScrapingData
         $this->data = $data;
     }
 
-    public function showScrapingData() 
+    public function showScrapingData()
     {
         $this->data = [
             'parent' => $this->page,
@@ -36,7 +38,6 @@ class AcmController extends ScrapingMasterController implements ScrapingData
                 $exist = 'Tidak ada';
             }
             $this->data = [
-                // 'search' => $acm['query'],
                 'key' => $acm['key'],
                 'exist' => $exist
             ];
@@ -49,14 +50,24 @@ class AcmController extends ScrapingMasterController implements ScrapingData
             ];
             return view('pages.review.category.acm.content.components.2-data', $this->data)->render();
         }
+        return view('pages.review.category.acm.content.components.2-data', $this->data)->render();
     }
 
     public function searchScrapingData($request)
     {
+        $validator = Validation::createValidator();
+        $constraint = new Url();
+        $query = $request->input('search');
+        $errors = $validator->validate($query, $constraint);
+
+        if (count($errors) > 0) {
+            throw new \Exception('URL tidak valid');
+        }
+
         try {
             $delay = 9000;
             $maxRequestsPerMinute = 30;
-            $query = $request->input('search');
+
             $client = new Client();
             $options = [
                 'headers' => [
@@ -100,29 +111,30 @@ class AcmController extends ScrapingMasterController implements ScrapingData
                             }
                             $references[] = $node->text();
                         });
+
+                        $data = [
+                            'key' => [
+                                'title' => $title,
+                                'publisher' => $publisher,
+                                'publication' => $publication,
+                                'year' => $year,
+                                'type' => $type,
+                                'cited' => $cited,
+                                'authors' => $authors,
+                                'abstract' => $abstract,
+                                'keywords' => $keywords,
+                                'references' => $references,
+                            ]
+                        ];
+
+                        return $data;
                     } else {
-                        return response()->json(['error' => 'Terjadi kesalahan terhadap permintaan data'], 500);
+                        throw new \Exception('Terjadi kesalahan terhadap permintaan data');
                     }
-                    $data = [
-                        // 'query' => $query,
-                        'key' => [
-                            'title' => $title,
-                            'publisher' => $publisher,
-                            'publication' => $publication,
-                            'year' => $year,
-                            'type' => $type,
-                            'cited' => $cited,
-                            'authors' => $authors,
-                            'abstract' => $abstract,
-                            'keywords' => $keywords,
-                            'references' => $references,
-                        ]
-                    ];
                 }
-                return $data;
             }
         } catch (\Exception $e) {
-            return response()->json(['error' => 'Terjadi kesalahan saat mengambil data ACM'], 500);
+            throw new \Exception('Terjadi kesalahan saat mengambil data ACM');
         }
     }
 }

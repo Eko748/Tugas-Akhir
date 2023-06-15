@@ -1,18 +1,17 @@
-<?php
 
-namespace App\Http\Controllers\Review;
+// namespace App\Http\Controllers\Review;
 
-use App\Http\Controllers\Review\ReviewMasterController;
-use Goutte\Client;
-use Illuminate\Http\Request;
-use Symfony\Component\DomCrawler\Crawler;
-use ProxyManager\Factory\ProxyFactory;
-use ProxyManager\Proxy\VirtualProxyInterface;
+// use App\Http\Controllers\Review\ReviewMasterController;
+// use Goutte\Client;
+// use Illuminate\Http\Request;
+// use Symfony\Component\DomCrawler\Crawler;
+// use ProxyManager\Factory\ProxyFactory;
+// use ProxyManager\Proxy\VirtualProxyInterface;
 
-class ScienceDirectController extends ReviewMasterController
-{
-    private string $child = 'ScienceDirect';
-    private array $data;
+// class ScienceDirectController extends ReviewMasterController
+// {
+//     private string $child = 'ScienceDirect';
+//     private array $data;
 
     // public function __construct()
     // {
@@ -22,16 +21,16 @@ class ScienceDirectController extends ReviewMasterController
     //     ];
     // }
 
-    public function showReviewScienceDirect()
-    {
-        $client = new Client();
-        $options = [
-            'headers' => [
-                'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36',
-            ],
-        ];
-        $response = $client->request('GET', 'https://sciencedirect.com/science/article/abs/pii/S2214212621001939', $options);
-        echo $response->html();
+    // public function showReviewScienceDirect()
+    // {
+    //     $client = new Client();
+    //     $options = [
+    //         'headers' => [
+    //             'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36',
+    //         ],
+    //     ];
+    //     $response = $client->request('GET', 'https://sciencedirect.com/science/article/abs/pii/S2214212621001939', $options);
+    //     echo $response->html();
 
         // 'Content-Type' => 'text/html; charset=UTF-8',
         // 'Connection' => 'keep-alive',
@@ -143,4 +142,4 @@ class ScienceDirectController extends ReviewMasterController
     //         return response()->json(['error' => 'Terjadi kesalahan saat mengambil data ScienceDirect'], 500);
     //     }
     // }
-}
+// }
