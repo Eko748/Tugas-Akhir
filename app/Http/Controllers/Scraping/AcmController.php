@@ -35,6 +35,8 @@ class AcmController extends ScrapingMasterController implements ScrapingData
             } else {
                 $exist = 'Tidak ada';
             }
+            return $acm;
+            // die();
             $this->data = [
                 // 'search' => $acm['query'],
                 'key' => $acm['key'],
@@ -66,7 +68,6 @@ class AcmController extends ScrapingMasterController implements ScrapingData
             ];
             $requestCount = 0;
             $lastRequestTime = 0;
-
             while ($requestCount < $maxRequestsPerMinute) {
                 $timeSinceLastRequest = microtime(true) - $lastRequestTime;
                 if (!empty($query)) {
@@ -74,7 +75,6 @@ class AcmController extends ScrapingMasterController implements ScrapingData
                     if ($timeSinceLastRequest * 1000 >= $delay) {
                         $requestCount++;
                         $lastRequestTime = microtime(true);
-
                         $title_node = $response->filter('h1.citation__title');
                         if ($title_node->count() > 0) {
                             $title = $title_node->text();
@@ -107,6 +107,7 @@ class AcmController extends ScrapingMasterController implements ScrapingData
                     }
                     $data = [
                         // 'query' => $query,
+                        'response' => $response,
                         'key' => [
                             'title' => $title,
                             'publisher' => $publisher,
