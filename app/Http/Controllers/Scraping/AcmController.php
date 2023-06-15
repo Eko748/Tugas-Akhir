@@ -36,7 +36,7 @@ class AcmController extends ScrapingMasterController implements ScrapingData
                 $exist = 'Tidak ada';
             }
             $this->data = [
-                'search' => $acm['query'],
+                // 'search' => $acm['query'],
                 'key' => $acm['key'],
                 'exist' => $exist
             ];
@@ -106,7 +106,7 @@ class AcmController extends ScrapingMasterController implements ScrapingData
                         return response()->json(['error' => 'Terjadi kesalahan terhadap permintaan data'], 500);
                     }
                     $data = [
-                        'query' => $query,
+                        // 'query' => $query,
                         'key' => [
                             'title' => $title,
                             'publisher' => $publisher,

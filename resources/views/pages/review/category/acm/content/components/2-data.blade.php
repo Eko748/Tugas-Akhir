@@ -1,6 +1,6 @@
 <div class="product-wrapper-grid mb-3">
     <div class="row ms-1 me-1">
-        @if (isset($search))
+        @if (isset($key))
             @include('pages.review.category.acm.content.components.3-first-card')
             @include('pages.review.category.acm.content.components.4-second-card')
         @else
