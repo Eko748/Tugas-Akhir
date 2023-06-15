@@ -41,7 +41,10 @@ class IeeeController extends ScrapingMasterController implements ScrapingData
                 return view('pages.review.category.ieee.content.components.2-data', $this->data)->render();
             }
         } catch (\Exception $e) {
-            return response()->json(['error' => 'Terjadi kesalahan saat mengambil data IEEE'], 500);
+            $this->data = [
+                'error' => 'Data IEEE tidak ditemukan'
+            ];
+            return view('pages.review.category.ieee.content.components.2-data', $this->data)->render();
         }
     }
 

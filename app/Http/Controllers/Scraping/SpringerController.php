@@ -30,17 +30,34 @@ class SpringerController extends ScrapingMasterController implements ScrapingDat
         try {
             $springer = $this->searchScrapingData($request);
             $exist = $this->getData()['exists'];
-            $this->data = [
-                'search' => $springer['query'],
-                'client' => $springer['client'],
-                'path' => $springer['path']['records'],
-                'exist' => $exist
-            ];
-            if ($request->ajax()) {
+            if (empty($springer['path']['records'])) {
+                $this->data = [
+                    'error' => 'Data Springer tidak ditemukan'
+                ];
                 return view('pages.review.category.springer.content.components.2-data', $this->data)->render();
+            } else {
+                if (isset($springer['path']['records'])) {
+                    $this->data = [
+                        'search' => $springer['query'],
+                        'client' => $springer['client'],
+                        'path' => $springer['path']['records'],
+                        'exist' => $exist
+                    ];
+                } else {
+                    $this->data = [
+                        'error' => 'Data Springer tidak ditemukan'
+                    ];
+                }
+                if ($request->ajax()) {
+                    return view('pages.review.category.springer.content.components.2-data', $this->data)->render();
+                }
             }
+            
         } catch (\Exception $e) {
-            return response()->json(['error' => 'Terjadi kesalahan saat mengambil data Springer'], 500);
+            $this->data = [
+                'error' => 'Data Springer tidak ditemukan'
+            ];
+            return view('pages.review.category.springer.content.components.2-data', $this->data)->render();
         }
     }
 
@@ -53,10 +70,12 @@ class SpringerController extends ScrapingMasterController implements ScrapingDat
         $client = new Client();
         $response = $client->request('GET', $url);
         $path = json_decode($response->getBody()->getContents(), true);
-        return [
-            'query' => $query,
-            'path' => $path,
-            'client' => $client,
-        ];
+        if (isset($path)) {
+            return [
+                'query' => $query,
+                'path' => $path,
+                'client' => $client,
+            ];
+        }
     }
 }

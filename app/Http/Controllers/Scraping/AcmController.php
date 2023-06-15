@@ -11,12 +11,12 @@ class AcmController extends ScrapingMasterController implements ScrapingData
 {
     private string $label = 'ACM';
     private array $data;
-
+    
     public function __construct(array $data = [])
     {
         $this->data = $data;
     }
-
+    
     public function showScrapingData() 
     {
         $this->data = [
@@ -25,16 +25,19 @@ class AcmController extends ScrapingMasterController implements ScrapingData
         ];
         return view('pages.review.category.acm.index', $this->data);
     }
-
+    
     public function requestScrapingData(Request $request)
     {
         try {
+            
             $acm = $this->searchScrapingData($request);
-            // if (Auth::check()) {
+            
+            if (Auth::check()) {
                 $exist = $this->getData()['exists'];
-            // } else {
-            //     $exist = 'Tidak ada';
-            // }
+            } else {
+                $exist = 'Tidak ada';
+            }
+
             $this->data = [
                 'search' => $acm['query'],
                 'key' => $acm['key'],
@@ -44,10 +47,13 @@ class AcmController extends ScrapingMasterController implements ScrapingData
                 return view('pages.review.category.acm.content.components.2-data', $this->data)->render();
             }
         } catch (\Exception $e) {
-            return response()->json(['error' => 'Terjadi kesalahan terhadap request data ACM'], 500);
+            $this->data = [
+                'error' => 'Data ACM tidak ditemukan'
+            ];
+            return view('pages.review.category.acm.content.components.2-data', $this->data)->render();
         }
     }
-
+    
     public function searchScrapingData($request)
     {
         try {
@@ -63,65 +69,81 @@ class AcmController extends ScrapingMasterController implements ScrapingData
             ];
             $requestCount = 0;
             $lastRequestTime = 0;
-
+            $data = null;
+            
             while ($requestCount < $maxRequestsPerMinute) {
                 $timeSinceLastRequest = microtime(true) - $lastRequestTime;
+    
                 if (!empty($query)) {
-                    $response = $client->request('GET', $query, $options);
                     if ($timeSinceLastRequest * 1000 >= $delay) {
                         $requestCount++;
                         $lastRequestTime = microtime(true);
-
-                        $title_node = $response->filter('h1.citation__title');
-                        if ($title_node->count() > 0) {
-                            $title = $title_node->text();
-                        } else {
-                            $title = '';
+    
+                        try {
+                            $response = $client->request('GET', $query, $options);
+    
+                            $title_node = $response->filter('h1.citation__title');
+                            $title = ($title_node->count() > 0) ? $title_node->text() : '';
+    
+                            $publisher = $response->filter('.publisher__name')->text();
+                            $publication = $response->filter('span.epub-section__title')->text();
+                            $year = $response->filter('span.CitationCoverDate')->text();
+                            $type = $response->filter('a.content-navigation__btn--pre > span.type')->text();
+                            $cited = $response->filter('.citation > span.bold')->text();
+                            
+                            $authors = [];
+                            $response->filter('span.loa__author-name')->each(function ($node) use (&$authors) {
+                                $authors[] = $node->text();
+                            });
+    
+                            $abstract = $response->filter('div.abstractSection.abstractInFull')->text();
+    
+                            $keywords = [];
+                            $response->filter('.badge-type')->each(function ($node) use (&$keywords) {
+                                $keywords[] = $node->text();
+                            });
+    
+                            $references = [];
+                            $response->filter('.references__item')->each(function ($node) use (&$references) {
+                                foreach ($node->filter('.references__suffix') as $suffix) {
+                                    $suffix->parentNode->removeChild($suffix);
+                                }
+                                $references[] = $node->text();
+                            });
+    
+                            $data = [
+                                'query' => $query,
+                                'key' => [
+                                    'title' => $title,
+                                    'publisher' => $publisher,
+                                    'publication' => $publication,
+                                    'year' => $year,
+                                    'type' => $type,
+                                    'cited' => $cited,
+                                    'authors' => $authors,
+                                    'abstract' => $abstract,
+                                    'keywords' => $keywords,
+                                    'references' => $references,
+                                ]
+                            ];
+    
+                            break;
+                        } catch (\Exception $e) {
+                            return null;
                         }
-                        $publisher = $response->filter('.publisher__name')->text();
-                        $publication = $response->filter('span.epub-section__title')->text();
-                        $year = $response->filter('span.CitationCoverDate')->text();
-                        $type = $response->filter('a.content-navigation__btn--pre > span.type')->text();
-                        $cited = $response->filter('.citation > span.bold')->text();
-                        $authors = [];
-                        $response->filter('span.loa__author-name')->each(function ($node) use (&$authors) {
-                            $authors[] = $node->text();
-                        });
-                        $abstract = $response->filter('div.abstractSection.abstractInFull')->text();
-                        $keywords = [];
-                        $response->filter('.badge-type')->each(function ($node) use (&$keywords) {
-                            $keywords[] = $node->text();
-                        });
-                        $references = [];
-                        $response->filter('.references__item')->each(function ($node) use (&$references) {
-                            foreach ($node->filter('.references__suffix') as $suffix) {
-                                $suffix->parentNode->removeChild($suffix);
-                            }
-                            $references[] = $node->text();
-                        });
                     } else {
                         return response()->json(['error' => 'Terjadi kesalahan terhadap permintaan data'], 500);
                     }
-                    $data = [
-                        'query' => $query,
-                        'key' => [
-                            'title' => $title,
-                            'publisher' => $publisher,
-                            'publication' => $publication,
-                            'year' => $year,
-                            'type' => $type,
-                            'cited' => $cited,
-                            'authors' => $authors,
-                            'abstract' => $abstract,
-                            'keywords' => $keywords,
-                            'references' => $references,
-                        ]
-                    ];
                 }
-                return $data;
             }
+    
+            if (!$data) {
+                return response()->json(['error' => 'Data tidak ditemukan'], 500);
+            }
+    
+            return $data;
         } catch (\Exception $e) {
-            return response()->json(['error' => 'Terjadi kesalahan saat mengambil data ACM'], 500);
+            return null;
         }
     }
 }

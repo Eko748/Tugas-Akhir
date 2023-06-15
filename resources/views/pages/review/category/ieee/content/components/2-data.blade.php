@@ -9,10 +9,24 @@
             @endforeach
         @else
             <center>
-                <img id="img-scrap" class="text-center img-fluid" src="{{ asset('images/Search-Scraping.png') }}"
-                    style="width:300px" alt="">
-                <p>Klik untuk beralih ke halaman <a target="_blank" href="https://ieeexplore.ieee.org/document/6606614"><b
-                            class="text-primary"><u>IEEE Xplore</u></b></a></p>
+                @if (isset($error))
+                    <div class="ms-1 col-md-6 col-lg-6 alert alert-danger inverse alert-dismissible fade show mb-3"
+                        role="alert"><i class="icon-alert"></i>
+                        <span>{{ $error }}</span>
+                        <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    <img id="img-scrap" class="text-center img-fluid" src="{{ asset('images/Search-Scraping.png') }}"
+                        style="width:300px" alt="">
+                    <p>Klik untuk beralih ke halaman <a target="_blank"
+                            href="https://ieeexplore.ieee.org/document/6606614"><b class="text-primary"><u>IEEE
+                                    Xplore</u></b></a></p>
+                @else
+                    <img id="img-scrap" class="text-center img-fluid" src="{{ asset('images/Search-Scraping.png') }}"
+                        style="width:300px" alt="">
+                    <p>Klik untuk beralih ke halaman <a target="_blank"
+                            href="https://ieeexplore.ieee.org/document/6606614"><b class="text-primary"><u>IEEE
+                                    Xplore</u></b></a></p>
+                @endif
             </center>
         @endif
     </div>
