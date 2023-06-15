@@ -73,8 +73,11 @@ class AcmController extends ScrapingMasterController implements ScrapingData
                 'headers' => [
                     'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3 Edg/91.0.864.59',
                     'Accept-Language' => 'en-US,en;q=0.9',
+                    'Content-Type' => 'application/json',
+                    'Accept' => 'application/json',
                 ]
             ];
+            
             $requestCount = 0;
             $lastRequestTime = 0;
             while ($requestCount < $maxRequestsPerMinute) {
