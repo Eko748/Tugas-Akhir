@@ -32,6 +32,8 @@ class AcmController extends ScrapingMasterController implements ScrapingData
     {
         try {
             $acm = $this->searchScrapingData($request);
+            return $acm;
+            die();
             if (Auth::check()) {
                 $exist = $this->getData()['exists'];
             } else {
@@ -42,7 +44,6 @@ class AcmController extends ScrapingMasterController implements ScrapingData
                 'exist' => $exist
             ];
             if ($request->ajax()) {
-                return $acm;
                 // return view('pages.review.category.acm.content.components.2-data', $this->data)->render();
             }
         } catch (\Exception $e) {
