@@ -49,31 +49,31 @@ class AcmController extends ScrapingMasterController implements ScrapingData
         ];
         $response = $client->request('GET', $query, $options);
         $r = $response->html();
-        return redirect($r);
-        die();
-        try {
-            $acm = $this->searchScrapingData($request);
-            return $acm;
-            die();
-            if (Auth::check()) {
-                $exist = $this->getData()['exists'];
-            } else {
-                $exist = 'Tidak ada';
-            }
-            $this->data = [
-                'key' => $acm['key'],
-                'exist' => $exist
-            ];
-            if ($request->ajax()) {
-                // return view('pages.review.category.acm.content.components.2-data', $this->data)->render();
-            }
-        } catch (\Exception $e) {
-            $this->data = [
-                'error' => 'Data ACM tidak ditemukan',
-            ];
-            return view('pages.review.category.acm.content.components.2-data', $this->data)->render();
-        }
-        return view('pages.review.category.acm.content.components.2-data', $this->data)->render();
+        return $r;
+        // die();
+        // try {
+        //     $acm = $this->searchScrapingData($request);
+        //     return $acm;
+        //     die();
+        //     if (Auth::check()) {
+        //         $exist = $this->getData()['exists'];
+        //     } else {
+        //         $exist = 'Tidak ada';
+        //     }
+        //     $this->data = [
+        //         'key' => $acm['key'],
+        //         'exist' => $exist
+        //     ];
+        //     if ($request->ajax()) {
+        //         // return view('pages.review.category.acm.content.components.2-data', $this->data)->render();
+        //     }
+        // } catch (\Exception $e) {
+        //     $this->data = [
+        //         'error' => 'Data ACM tidak ditemukan',
+        //     ];
+        //     return view('pages.review.category.acm.content.components.2-data', $this->data)->render();
+        // }
+        // return view('pages.review.category.acm.content.components.2-data', $this->data)->render();
     }
 
     public function searchScrapingData($request)
