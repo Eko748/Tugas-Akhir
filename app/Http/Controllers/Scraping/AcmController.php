@@ -86,6 +86,7 @@ class AcmController extends ScrapingMasterController implements ScrapingData
                 $timeSinceLastRequest = microtime(true) - $lastRequestTime;
                 if (!empty($query)) {
                     $response = $client->request('GET', $query);
+                    $r = $response->html();
                     // if ($timeSinceLastRequest * 1000 >= $delay) {
                     //     $requestCount++;
                     //     $lastRequestTime = microtime(true);
@@ -136,7 +137,7 @@ class AcmController extends ScrapingMasterController implements ScrapingData
                     // } else {
                     //     throw new \Exception('Terjadi kesalahan terhadap permintaan data');
                     // }
-                    return $response;
+                    return $r;
                 }
             }
         } catch (\Exception $e) {
