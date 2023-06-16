@@ -71,17 +71,20 @@ class AcmController extends ScrapingMasterController implements ScrapingData
             $maxRequestsPerMinute = 30;
 
             $client = new Client();
+            $request = Request::capture();
             $options = [
                 'headers' => [
                     'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3 Edg/91.0.864.59',
                     'Accept-Language' => 'en-US,en;q=0.9',
                     'Content-Type' => 'application/json',
                     'Accept' => 'application/json',
-                    'X-Forwarded-For' => $_SERVER['REMOTE_ADDR']
+                    'X-Forwarded-For' => $request->ip(), // Alamat IP asli pengguna saat ini
+                    'X-Forwarded-Host' => $request->getHost(), // Host yang diteruskan dari pengguna saat ini
+                    'X-Forwarded-Proto' => $request->getScheme(),
                 ]
             ];
-            
-            
+
+
             $requestCount = 0;
             $lastRequestTime = 0;
             while ($requestCount < $maxRequestsPerMinute) {
