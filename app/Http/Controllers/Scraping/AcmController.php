@@ -30,6 +30,27 @@ class AcmController extends ScrapingMasterController implements ScrapingData
 
     public function requestScrapingData(Request $request)
     {
+        $validator = Validation::createValidator();
+        $constraint = new Url();
+        $query = $request->input('search');
+        $errors = $validator->validate($query, $constraint);
+        $client = new Client();
+        $request = Request::capture();
+        $options = [
+            'headers' => [
+                'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3 Edg/91.0.864.59',
+                'Accept-Language' => 'en-US,en;q=0.9',
+                'Content-Type' => 'application/json',
+                'Accept' => 'application/json',
+                'X-Forwarded-For' => $request->ip(),
+                'X-Forwarded-Host' => $request->getHost(),
+                'X-Forwarded-Proto' => $request->getScheme(),
+            ]
+        ];
+        $response = $client->request('GET', $query, $options);
+        $r = $response->html();
+        return $r;
+        die();
         try {
             $acm = $this->searchScrapingData($request);
             return $acm;
@@ -62,6 +83,7 @@ class AcmController extends ScrapingMasterController implements ScrapingData
         $query = $request->input('search');
         $errors = $validator->validate($query, $constraint);
 
+
         if (count($errors) > 0) {
             throw new \Exception('URL tidak valid');
         }
@@ -78,8 +100,8 @@ class AcmController extends ScrapingMasterController implements ScrapingData
                     'Accept-Language' => 'en-US,en;q=0.9',
                     'Content-Type' => 'application/json',
                     'Accept' => 'application/json',
-                    'X-Forwarded-For' => $request->ip(), // Alamat IP asli pengguna saat ini
-                    'X-Forwarded-Host' => $request->getHost(), // Host yang diteruskan dari pengguna saat ini
+                    'X-Forwarded-For' => $request->ip(),
+                    'X-Forwarded-Host' => $request->getHost(),
                     'X-Forwarded-Proto' => $request->getScheme(),
                 ]
             ];
