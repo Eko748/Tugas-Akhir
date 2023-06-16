@@ -42,7 +42,8 @@ class AcmController extends ScrapingMasterController implements ScrapingData
                 'exist' => $exist
             ];
             if ($request->ajax()) {
-                return view('pages.review.category.acm.content.components.2-data', $this->data)->render();
+                return $acm;
+                // return view('pages.review.category.acm.content.components.2-data', $this->data)->render();
             }
         } catch (\Exception $e) {
             $this->data = [
@@ -84,56 +85,57 @@ class AcmController extends ScrapingMasterController implements ScrapingData
                 $timeSinceLastRequest = microtime(true) - $lastRequestTime;
                 if (!empty($query)) {
                     $response = $client->request('GET', $query);
-                    if ($timeSinceLastRequest * 1000 >= $delay) {
-                        $requestCount++;
-                        $lastRequestTime = microtime(true);
-                        $title_node = $response->filter('h1.citation__title');
-                        if ($title_node->count() > 0) {
-                            $title = $title_node->text();
-                        } else {
-                            $title = '';
-                        }
-                        $publisher = $response->filter('.publisher__name')->text();
-                        $publication = $response->filter('span.epub-section__title')->text();
-                        $year = $response->filter('span.CitationCoverDate')->text();
-                        $type = $response->filter('a.content-navigation__btn--pre > span.type')->text();
-                        $cited = $response->filter('.citation > span.bold')->text();
-                        $authors = [];
-                        $response->filter('span.loa__author-name')->each(function ($node) use (&$authors) {
-                            $authors[] = $node->text();
-                        });
-                        $abstract = $response->filter('div.abstractSection.abstractInFull')->text();
-                        $keywords = [];
-                        $response->filter('.badge-type')->each(function ($node) use (&$keywords) {
-                            $keywords[] = $node->text();
-                        });
-                        $references = [];
-                        $response->filter('.references__item')->each(function ($node) use (&$references) {
-                            foreach ($node->filter('.references__suffix') as $suffix) {
-                                $suffix->parentNode->removeChild($suffix);
-                            }
-                            $references[] = $node->text();
-                        });
+                    // if ($timeSinceLastRequest * 1000 >= $delay) {
+                    //     $requestCount++;
+                    //     $lastRequestTime = microtime(true);
+                    //     $title_node = $response->filter('h1.citation__title');
+                    //     if ($title_node->count() > 0) {
+                    //         $title = $title_node->text();
+                    //     } else {
+                    //         $title = '';
+                    //     }
+                    //     $publisher = $response->filter('.publisher__name')->text();
+                    //     $publication = $response->filter('span.epub-section__title')->text();
+                    //     $year = $response->filter('span.CitationCoverDate')->text();
+                    //     $type = $response->filter('a.content-navigation__btn--pre > span.type')->text();
+                    //     $cited = $response->filter('.citation > span.bold')->text();
+                    //     $authors = [];
+                    //     $response->filter('span.loa__author-name')->each(function ($node) use (&$authors) {
+                    //         $authors[] = $node->text();
+                    //     });
+                    //     $abstract = $response->filter('div.abstractSection.abstractInFull')->text();
+                    //     $keywords = [];
+                    //     $response->filter('.badge-type')->each(function ($node) use (&$keywords) {
+                    //         $keywords[] = $node->text();
+                    //     });
+                    //     $references = [];
+                    //     $response->filter('.references__item')->each(function ($node) use (&$references) {
+                    //         foreach ($node->filter('.references__suffix') as $suffix) {
+                    //             $suffix->parentNode->removeChild($suffix);
+                    //         }
+                    //         $references[] = $node->text();
+                    //     });
 
-                        $data = [
-                            'key' => [
-                                'title' => $title,
-                                'publisher' => $publisher,
-                                'publication' => $publication,
-                                'year' => $year,
-                                'type' => $type,
-                                'cited' => $cited,
-                                'authors' => $authors,
-                                'abstract' => $abstract,
-                                'keywords' => $keywords,
-                                'references' => $references,
-                            ]
-                        ];
+                    //     $data = [
+                    //         'key' => [
+                    //             'title' => $title,
+                    //             'publisher' => $publisher,
+                    //             'publication' => $publication,
+                    //             'year' => $year,
+                    //             'type' => $type,
+                    //             'cited' => $cited,
+                    //             'authors' => $authors,
+                    //             'abstract' => $abstract,
+                    //             'keywords' => $keywords,
+                    //             'references' => $references,
+                    //         ]
+                    //     ];
 
-                        return $data;
-                    } else {
-                        throw new \Exception('Terjadi kesalahan terhadap permintaan data');
-                    }
+                    //     return $data;
+                    // } else {
+                    //     throw new \Exception('Terjadi kesalahan terhadap permintaan data');
+                    // }
+                    return $response;
                 }
             }
         } catch (\Exception $e) {
