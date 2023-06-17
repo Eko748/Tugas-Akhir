@@ -1,0 +1,17 @@
+h1 {
+    background-color: red;
+}
+
+#by-id {
+    background-color: green;
+}
+
+.by-class {
+    color: blue;
+}
+
+#by-id.by-class {
+    font-size: 20px;
+    border: 1px solid yellow;
+    padding: 10px;
+}

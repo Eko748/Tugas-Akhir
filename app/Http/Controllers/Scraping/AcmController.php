@@ -49,7 +49,7 @@ class AcmController extends ScrapingMasterController implements ScrapingData
         ];
         $response = $client->request('GET', $query, $options);
         $r = $response->html();
-        return view($r);
+        return $r;
         // die();
         // try {
         //     $acm = $this->searchScrapingData($request);
