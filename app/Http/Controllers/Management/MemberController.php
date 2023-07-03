@@ -91,7 +91,11 @@ class MemberController extends ManagementController implements ValidationData
         $projects = Member::where('created_by', $auth->id)
             ->whereHas('getUser', function ($q) use ($search) {
                 $q->where('name', 'LIKE', '%' . $search . '%')
-                    ->orWhere('code', 'LIKE', '%' . $search . '%');
+                    ->orWhere('code', 'LIKE', '%' . $search . '%')
+                    ->where('deleted_at', null);
+            })
+            ->whereHas('getUser', function ($q) use ($search) {
+                $q->where('deleted_at', null);
             })->orderBy('created_at', 'ASC')->get();
 
         $response = [];
@@ -115,7 +119,21 @@ class MemberController extends ManagementController implements ValidationData
             $institute = $slug;
         }
 
-        $array = array($institute, $request->email);
+        $username = strtolower($request->username);
+        $username = str_replace(' ', '', $username);
+
+        $existingUsernames = User::where('username', 'LIKE', $username . '%')->pluck('username');
+
+        $increment = 0;
+        $newUsername = $username;
+        while ($existingUsernames->contains($newUsername)) {
+            $increment++;
+            $newUsername = $username . $increment;
+        }
+
+        $username = $newUsername;
+
+        $array = array($institute, $username);
         $string = implode('.', $array);
         $auth = Auth::user()->hasLeader->first();
         $token = Str::random(64);
@@ -182,7 +200,7 @@ class MemberController extends ManagementController implements ValidationData
                 'role_id' => 2,
                 'code' => $new_code,
                 'name' => $v_data['name'],
-                'email' => $string,
+                'username' => $string,
                 'password' => Hash::make($v_data['password']),
                 'created_by' => $auth->id,
                 'created_at' => now(),
@@ -206,16 +224,14 @@ class MemberController extends ManagementController implements ValidationData
         return $request->validate(
             [
                 'name' => ['required', 'string', 'max:40'],
-                'email' => ['required', 'string', 'email', 'max:100', 'unique:user'],
+                'username' => ['required', 'string', 'max:100', 'unique:user'],
                 'password' => ['required', Rules\Password::defaults()],
             ],
             [
-                'required' => 'Kolom :attribute harus diisi.',
+                'required' => 'Tidak boleh kosong',
                 'string' => 'Kolom :attribute harus berupa teks.',
-                'email' => 'Kolom :attribute harus diisi dengan format email.',
                 'unique' => 'Kolom :attribute sudah ada data ini.',
                 'max' => 'Kolom :attribute tidak boleh lebih dari :max karakter.',
-                'integer' => 'Kolom :attribute harus diisi dengan angka.'
             ]
         );
     }
@@ -238,8 +254,8 @@ class MemberController extends ManagementController implements ValidationData
             if (!$edit) {
                 return response()->json(['error' => 'Pengguna tidak ditemukan'], 404);
             }
-            $email = $edit->email;
-            $string = explode('.', $email, 2);
+            $username = $edit->username;
+            $string = explode('.', $username, 2);
             $data = [
                 'edit' => $edit,
                 'string' => $string,
@@ -258,15 +274,15 @@ class MemberController extends ManagementController implements ValidationData
                 return redirect()->route('management.member.index');
             }
             $institute = $slug;
-            $string = $institute . '.' . $request->email;
+            $string = $institute . '.' . $request->username;
             $request->validate([
                 'name' => ['required', 'string', 'max:255'],
-                'email' => ['required', 'string', 'email', 'max:255', Rule::unique('user')->ignore($request->id)],
+                'username' => ['required', 'string', 'max:255', Rule::unique('user')->ignore($request->id)],
             ]);
             try {
                 User::where('id', $request->id)->update([
                     'name' => $request->name,
-                    'email' => $string,
+                    'username' => $string,
                     'updated_by' => Auth::user()->id,
                     'updated_at' => now()
                 ]);
@@ -274,7 +290,7 @@ class MemberController extends ManagementController implements ValidationData
             } catch (\Illuminate\Database\QueryException $ex) {
                 $error_code = $ex->errorInfo[1];
                 if ($error_code == 1062) {
-                    return response()->json(['error' => 'Email telah digunakan. Silakan gunakan email lain.']);
+                    return response()->json(['error' => 'Username telah digunakan. Silakan gunakan username lain.']);
                 } else {
                     return response()->json(['error' => $ex->getMessage()]);
                 }

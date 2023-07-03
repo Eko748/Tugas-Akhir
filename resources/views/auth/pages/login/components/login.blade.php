@@ -21,15 +21,14 @@
                     novalidate="">
                     @csrf
                     <h4 class="text-dark mb-3">Login</h4>
-                    {{-- <h6>Welcome back! Log in to your account.</h6> --}}
                     <div class="form-group">
-                        <x-input-label class="text-dark" for="email" :value="__('Email')" />
-                        <div class="input-group"><span class="input-group-text"><i class="icon-email"></i></span>
-                            <x-text-input id="email" class="form-control block mt-1 w-full" type="email"
-                                name="email" :value="old('email')" required autofocus />
-                            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-                            <div class="invalid-tooltip">Please enter proper email.</div>
+                        <x-input-label class="text-dark" for="email" :value="__('Username')" />
+                        <div class="input-group"><span class="input-group-text"><i class="icon-user"></i></span>
+                            <x-text-input id="username" class="form-control block mt-1 w-full" type="text"
+                                name="username" :value="old('username')" required autofocus />
+                            <div class="invalid-tooltip">Please enter proper username.</div>
                         </div>
+                        <x-input-error :messages="$errors->get('username')" class="mt-2 text-danger" />
                     </div>
                     <div class="form-group">
                         <x-input-label class="text-dark" for="password" :value="__('Password')" />
@@ -42,7 +41,7 @@
                     </div>
                     <div class="flex items-center justify-end mt-4">
                         <x-primary-button class="ml-3 btn btn-sm btn-primary btn-block btn-outline-dark">
-                          <i class="fa fa-sign-in"></i> {{ __('Log in') }}
+                            <i class="fa fa-sign-in"></i> {{ __('Log in') }}
                         </x-primary-button>
                     </div>
                     <div class="login-social-title">
@@ -53,8 +52,8 @@
                         <a class="text-center rounded-circle btn-outline-dark"
                             style="background-color: #F2F2F2; width: 50px; height: 50px; position: absolute; left: 50%; transform: translateX(-50%);"
                             href="{{ route('auth.google', ['provider' => 'google']) }}">
-                            <img class="mt-2" style="width: 30px;"
-                                src="{{ asset('assets/images/logo/google.png') }}" alt="">
+                            <img class="mt-2" style="width: 30px;" src="{{ asset('assets/images/logo/google.png') }}"
+                                alt="">
                         </a>
                     </div>
                 </form>

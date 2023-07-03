@@ -18,19 +18,15 @@
                             <div class="invalid-tooltip">Please enter name</div>
                         </div>
                     </div>
-
-                    <!-- Email Address -->
                     <div class="form-group">
-                        <label for="email">Email <span class="text-danger">*</span> <sup><i class="fa fa-question-circle hovering" title="Indeks tambahan Instansi: {{ $institute['slug'] }}"></i></sup></label>
-                        <div class="input-group"><span class="input-group-text"><i class="icon-email"></i></span>
-                            <x-text-input id="email" class="form-control" placeholder="Input Email..." type="email" name="email"
-                                :value="old('email')" required />
-                            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                        <label for="username">Username <span class="text-danger">*</span> <sup><i class="fa fa-question-circle hovering" title="Indeks tambahan awal untuk username: {{ $institute['slug'] }}"></i></sup></label>
+                        <div class="input-group"><span class="input-group-text"><i class="icon-user"></i></span>
+                            <x-text-input id="email" class="form-control" placeholder="Input Username..." type="text" name="username"
+                                :value="old('username')" required />
+                            <x-input-error :messages="$errors->get('username')" class="mt-2" />
                             <div class="invalid-tooltip">Please enter proper email</div>
                         </div>
                     </div>
-
-                    <!-- Password -->
                     <div class="form-group">
                         <label for="password">Password <span class="text-danger">*</span></label>
                         <div class="input-group"><span class="input-group-text"><i class="icon-lock"></i></span>

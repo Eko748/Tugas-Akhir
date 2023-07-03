@@ -34,11 +34,27 @@ class ProfileController extends Controller implements ValidationData
         return view('pages.profile.index', $this->data);
     }
 
-    public function updateProfile(ProfileUpdateRequest $request): RedirectResponse
+    public function updateProfile(Request $request): RedirectResponse
     {
-        $request->user()->fill($request->validated());
-        $request->user()->save();
-        return Redirect::route('profile.index')->with('status', 'profile-updated');
+        $request->validate(
+            [
+                'username' => 'required|string|unique:user,username,' . $request->user()->id,
+                'name' => 'required|string',
+            ],
+            [
+                'required' => ':attribute harus diisi.',
+                'string' => ':attribute harus berupa teks.',
+                'unique' => ':attribute sudah ada.',
+            ]
+        );
+        $username = $request->username;
+        $username = strtolower($username);
+        $username = str_replace(' ', '', $username);
+        $request->user()->update([
+            'name' => $request->name,
+            'username' => $username,
+        ]);
+        return back()->with('status', 'profile-updated');
     }
 
     public function updatePassword(Request $request)
@@ -60,8 +76,8 @@ class ProfileController extends Controller implements ValidationData
                 'password' => ['required', 'confirmed', 'string', 'min:8', 'regex:/[a-z]/', 'regex:/[A-Z]/', 'regex:/[0-9]/', 'regex:/[!@#$%^&*(),.?":{}|<>]/'],
             ],
             [
-                'current_password.required' => 'Kolom kata sandi saat ini harus diisi.',
-                'password.required' => 'Kolom kata sandi baru harus diisi.',
+                'current_password.required' => 'Tidak boleh kosong.',
+                'password.required' => 'Tidak boleh kosong.',
                 'password.confirmed' => 'Konfirmasi kata sandi baru tidak cocok.',
                 'password.string' => 'Kolom kata sandi harus berupa teks.',
                 'password.min' => 'Kata sandi harus terdiri dari setidaknya :min karakter.',

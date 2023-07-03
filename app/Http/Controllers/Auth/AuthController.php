@@ -36,12 +36,29 @@ class AuthController extends Controller
     // }
 
 
-    public function getLogin(LoginRequest $request): RedirectResponse
-    {
-        $request->authenticate();
-        $request->session()->regenerate();
+    // public function getLogin(LoginRequest $request): RedirectResponse
+    // {
+    //     $request->authenticate();
+    //     $request->session()->regenerate();
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+    //     return redirect()->intended(RouteServiceProvider::HOME);
+    // }
+    public function getLogin(Request $request): RedirectResponse
+    {
+        $request->validate([
+            'username' => 'required|string',
+            'password' => 'required|string',
+        ]);
+
+        $credentials = $request->only('username', 'password');
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+            return redirect()->intended(RouteServiceProvider::HOME);
+        }
+
+        return back()->withErrors([
+            'username' => 'Kesalahan kredensial.',
+        ]);
     }
 
     public function getTimeLogging()
@@ -53,14 +70,26 @@ class AuthController extends Controller
         return response()->json(['time' => $diff]);
     }
 
-    public function getLogout(Request $request)
+    // public function getLogout(Request $request)
+    // {
+    //     Auth::guard('web')->logout();
+
+    //     $request->session()->invalidate();
+    //     $request->session()->flush();
+    //     $request->session()->regenerateToken();
+    //     Auth::logout();
+    //     return redirect('/login');
+    // }
+    public function getLogout(Request $request): RedirectResponse
     {
+        // Logout dari guard web
         Auth::guard('web')->logout();
 
         $request->session()->invalidate();
         $request->session()->flush();
         $request->session()->regenerateToken();
-        Auth::logout();
+
+        // Redirect ke halaman login
         return redirect('/login');
     }
 }

@@ -4,7 +4,7 @@
             <tr>
                 <th class="align-baseline text-center">No</th>
                 <th class="align-baseline">Nama</th>
-                <th class="align-baseline">Email</th>
+                <th class="align-baseline">Username</th>
                 <th class="align-baseline">Info</th>
                 <th class="align-baseline">Last Login</th>
                 <th class="align-baseline text-center">

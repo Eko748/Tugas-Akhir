@@ -33,7 +33,7 @@ class User extends Authenticatable
         return $this->hasMany(Leader::class, 'user_id');
     }
     
-    public function socialAccounts()
+    public function hasSocialAccount()
     {
         return $this->hasMany(SocialAccount::class);
     }

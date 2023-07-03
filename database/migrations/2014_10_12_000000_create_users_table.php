@@ -19,7 +19,8 @@ return new class extends Migration
             $table->integer('role_id');
             $table->string('code', 3);
             $table->string('name', 40);
-            $table->string('email', 100)->unique();
+            $table->string('username', 100)->unique();
+            $table->string('email', 100)->unique()->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->string('last_seen_ip', 20)->nullable();

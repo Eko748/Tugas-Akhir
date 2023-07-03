@@ -37,7 +37,6 @@ class SocialAccountController extends Controller
         return redirect()->route('dashboard.index');
     }
 
-
     public function findOrCreateUser($socialUser, $provider)
     {
         $socialAccount = SocialAccount::where('provider_id', $socialUser->getId())
@@ -48,12 +47,27 @@ class SocialAccountController extends Controller
         } else {
             $user = User::where('email', $socialUser->getEmail())->first();
             if (!$user) {
+                $username = $socialUser->getName();
+                $username = strtolower($username);
+                $username = str_replace(' ', '', $username);
+
+                $existingUsernames = User::where('username', 'LIKE', $username . '%')->pluck('username');
+
+                $increment = 0;
+                $newUsername = $username;
+                while ($existingUsernames->contains($newUsername)) {
+                    $increment++;
+                    $newUsername = $username . $increment;
+                }
+
+                $username = $newUsername;
                 $user = User::create([
                     'id' => random_int(1000000, 9999999),
                     'uuid_user' => Str::uuid(),
                     'code' => 'A',
                     'role_id' => 1,
                     'name'  => $socialUser->getName(),
+                    'username'  => $username,
                     'email' => $socialUser->getEmail(),
                     'password' => Hash::make(12345678),
                 ]);
@@ -77,7 +91,7 @@ class SocialAccountController extends Controller
                 );
             }
 
-            $user->socialAccounts()->create([
+            $user->hasSocialAccount()->create([
                 'id' => random_int(1000000, 9999999),
                 'provider_id'   => $socialUser->getId(),
                 'provider_name' => $provider,

@@ -73,7 +73,7 @@
             $('#formUpdateMember button[type="submit"]').attr('disabled', true);
             let txt_id = $("#update_id").val();
             let txt_name = $("#update_name").val();
-            let txt_email = $("#update_email").val();
+            let txt_username = $("#update_username").val();
             let url = "{{ route('management.member.update') }}"
             $.ajax({
                 url: url,
@@ -81,7 +81,7 @@
                 data: {
                     id: txt_id,
                     name: txt_name,
-                    email: txt_email
+                    username: txt_username
                 },
                 success: function(result) {
                     $("#updateMember").modal("hide");

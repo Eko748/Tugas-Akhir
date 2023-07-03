@@ -3,7 +3,7 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title"><i class="fa fa-pencil"></i>  <strong>Member</strong></h5>
+                <h5 class="modal-title"><i class="fa fa-pencil"></i>  <strong>Update Member</strong></h5>
                 <button class="btn-close btn-outline-danger" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form id="formUpdateMember" class="theme-form" method="POST">

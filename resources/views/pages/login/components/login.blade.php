@@ -22,12 +22,12 @@
                     @csrf
                     <h4 class="text-dark mb-3">Login</h4>
                     <div class="form-group">
-                        <x-input-label class="text-dark" for="email" :value="__('Email')" />
-                        <div class="input-group"><span class="input-group-text"><i class="icon-email"></i></span>
-                            <x-text-input id="email" class="form-control block mt-1 w-full" type="email"
-                                name="email" :value="old('email')" placeholder="Masukkan Email Anda" required autofocus />
-                            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-                            <div class="invalid-tooltip">Please enter proper email.</div>
+                        <x-input-label class="text-dark" for="username" :value="__('Username')" />
+                        <div class="input-group"><span class="input-group-text"><i class="icon-user"></i></span>
+                            <x-text-input id="username" class="form-control block mt-1 w-full" type="text"
+                                name="username" :value="old('username')" placeholder="Masukkan username Anda" required autofocus />
+                            <x-input-error :messages="$errors->get('username')" class="mt-2" />
+                            <div class="invalid-tooltip">Please enter proper username.</div>
                         </div>
                     </div>
                     <div class="form-group">

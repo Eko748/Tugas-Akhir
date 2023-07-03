@@ -184,8 +184,8 @@
                     name: 'member'
                 },
                 {
-                    data: 'email',
-                    name: 'email'
+                    data: 'username',
+                    name: 'username'
                 },
                 {
                     data: 'info',

@@ -12,21 +12,23 @@
         </div>
         @if (Auth::user()->role_id == 1)
             <div class="form-group mb-3">
-                <x-input-label class="form-label" for="email" :value="__('Email')" />
-                <div class="input-group"><span class="input-group-text"><i class="icon-email"></i></span>
-                    <x-text-input id="email" name="email" type="email" class="form-control block w-full"
-                        :value="old('email', $user->email)" required autocomplete="username" />
-                    <x-input-error class="mt-2" :messages="$errors->updateProfile->get('email')" />
+                <x-input-label class="form-label" for="username" :value="__('Username')" />
+                <div class="input-group">
+                    <span class="input-group-text"><i class="icon-user"></i></span>
+                    <x-text-input id="username" name="username" type="text" class="form-control block w-full"
+                        :value="old('username', $user->username)" required autocomplete="username" />
                 </div>
+                <x-input-error class="mt-2 text-danger" :messages="$errors->get('username')" />
             </div>
         @elseif (Auth::user()->role_id == 2)
             <div class="form-group mb-3">
-                <x-input-label class="form-label" for="email" :value="__('Email')" />
-                <div class="input-group"><span class="input-group-text"><i class="icon-email"></i></span>
-                    <x-text-input class="form-control block w-full"
-                        :value="old('email', $user->email)" required autocomplete="username" readonly />
-                    <x-input-error class="mt-2" :messages="$errors->updateProfile->get('email')" />
+                <x-input-label class="form-label" for="username" :value="__('Username')" />
+                <div class="input-group">
+                    <span class="input-group-text"><i class="icon-user"></i></span>
+                    <x-text-input id="username" name="username" type="text" class="form-control block w-full"
+                        :value="old('username', $user->username)" required autocomplete="username" />
                 </div>
+                <x-input-error class="mt-2 text-danger" :messages="$errors->get('username')" />
             </div>
         @endif
         <div class="flex items-center gap-4">

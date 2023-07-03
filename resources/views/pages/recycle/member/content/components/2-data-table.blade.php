@@ -10,7 +10,7 @@
                         <tr>
                             <th class="align-baseline text-center">No</th>
                             <th id="email" class="align-baseline">Nama</th>
-                            <th id="email" class="align-baseline">Email</th>
+                            <th id="email" class="align-baseline">Username</th>
                             <th id="email" class="align-baseline">Deleted Info</th>
                             <th class="align-baseline text-center">
                                 <i class="fa fa-tags"></i>
