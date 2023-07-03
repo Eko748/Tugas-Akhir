@@ -120,11 +120,11 @@ class ProfileController extends Controller implements ValidationData
         $id = $leader[0]['id'];
         $users = User::where('created_by', $id)->get();
         foreach ($users as $user) {
-            $emailParts = explode('.', $user->email);
-            if (strtolower($emailParts[0]) === $instituteName) {
-                $emailParts[0] = $index;
-                $newEmail = implode('.', $emailParts);
-                $user->email = $newEmail;
+            $usernameParts = explode('.', $user->username);
+            if (strtolower($usernameParts[0]) === $instituteName) {
+                $usernameParts[0] = $index;
+                $newUsername = implode('.', $usernameParts);
+                $user->username = $newUsername;
                 $user->save();
             }
         }
