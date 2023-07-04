@@ -108,7 +108,7 @@
                     });
             },
             order: [
-                [6, 'desc']
+                [6, 'asc']
             ],
             processing: true,
             serverSide: true,

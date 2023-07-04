@@ -74,38 +74,56 @@
     <script src="{{ asset('assets/js/script.js') }}"></script>
     <script src="{{ asset('assets/js/theme-customizer/customizer.js') }}"></script>
     <script src="{{ asset('assets/js/popover-custom.js') }}"></script>
-    <!-- Letakkan ini di bagian bawah halaman sebelum penutup </body> -->
     <script>
-        const sidebarLinks = document.querySelectorAll(".sidebar-link");
-        sidebarLinks.forEach(link => {
-            link.addEventListener("click", function() {
-                sidebarLinks.forEach(link => link.classList.remove("active"));
-                this.classList.add("active");
-                const activeLinkId = this.getAttribute("id");
-                localStorage.setItem("activeLinkId", activeLinkId);
-            });
-        });
-    </script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const activeLinkId = localStorage.getItem("activeLinkId");
-            if (activeLinkId) {
-                const activeLink = document.getElementById(activeLinkId);
-                if (activeLink) {
-                    activeLink.classList.add("active");
-                    const activeSubMenu = activeLink.nextElementSibling;
-                    if (activeSubMenu.classList.contains("sidebar-submenu")) {
-                        activeSubMenu.style.display = "block";
-                    }
-                }
+        $(document).ready(function() {
+            var currentUrl = window.location.href;
+            var dashboardUrl = "{{ route('dashboard.index') }}";
+            var manageMUrl = "{{ route('management.member.index') }}";
+            var managePUrl = "{{ Auth::user()->role_id == 1 ? route('management.project.index') : route('project.index') }}";
+            var master = "{{ Auth::user()->role_id == 1 ? route('review.master.index') : route('master.index') }}";
+            var ieeeUrl = "{{ Auth::user()->role_id == 1 ? route('review.ieee.index') : route('ieee.index') }}";
+            var acm = "{{ Auth::user()->role_id == 1 ? route('review.acm.index') : route('acm.index') }}";
+            var springer = "{{ Auth::user()->role_id == 1 ? route('review.springer.index') : route('springer.index')}}";
+            var recycleMUrl = "{{ route('recycle.member') }}";
+            var recyclePUrl = "{{ route('recycle.project') }}";
+            var profileUrl = "{{ route('profile.index') }}";
+
+            if (currentUrl === dashboardUrl) {
+                $('#dash-lead').addClass('active');
+            } else if (currentUrl === manageMUrl) {
+                $('#manage').addClass('active');
+                $('.sidebar-submenu-m').css('display', 'block');
+            } else if (currentUrl === managePUrl) {
+                $('#manage').addClass('active');
+                $('.sidebar-submenu-m').css('display', 'block');
+            } else if (currentUrl === recycleMUrl) {
+                $('#recycles').addClass('active');
+                $('.sidebar-submenu-r').css('display', 'block');
+            } else if (currentUrl === recyclePUrl) {
+                $('#recycles').addClass('active');
+                $('.sidebar-submenu-r').css('display', 'block');
+            } else if (currentUrl === profileUrl) {
+                $('#pro-lead').addClass('active');
+            } else if (currentUrl === master) {
+                $('#scrape').addClass('active');
+                $('.sidebar-submenu-s').css('display', 'block');
+            } else if (currentUrl === ieeeUrl) {
+                $('#scrape').addClass('active');
+                $('.sidebar-submenu-s').css('display', 'block');
+                $('.sub-c').css('display', 'block');
+            } else if (currentUrl === acm) {
+                $('#scrape').addClass('active');
+                $('.sidebar-submenu-s').css('display', 'block');
+                $('.sub-c').css('display', 'block');
+            } else if (currentUrl === springer) {
+                $('#scrape').addClass('active');
+                $('.sidebar-submenu-s').css('display', 'block');
+                $('.sub-c').css('display', 'block');
             }
         });
     </script>
-
-
     @yield('darkLayoutScript')
     @stack('js')
-
 </body>
 
 </html>

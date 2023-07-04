@@ -1,5 +1,5 @@
 <li class="sidebar-list">
-    <a class="sidebar-link" href="{{ route('dashboard.index') }}" id="dash-lead">
+    <a class="sidebar-link sidebar-title link-nav" href="{{ route('dashboard.index') }}" id="dash-lead">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g>
                 <g>
@@ -10,7 +10,7 @@
                         stroke="#130F26" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
                 </g>
             </g>
-        </svg><span class="dashboard">Dashboard </span></a>
+        </svg><span>Dashboard </span></a>
 </li>
 <li class="sidebar-list">
     <a class="sidebar-link sidebar-title" href="#management" id="manage">
@@ -29,7 +29,7 @@
                 </g>
             </g>
         </svg><span class="management">Management</span></a>
-    <ul class="sidebar-submenu">
+    <ul class="sidebar-submenu sidebar-submenu-m">
         <li>
             <a href="{{ route('management.member.index') }}">Member</a>
         </li>
@@ -52,12 +52,12 @@
                 </g>
             </g>
         </svg><span class="">Scraping</span></a>
-    <ul class="sidebar-submenu">
+    <ul class="sidebar-submenu sidebar-submenu-s">
         <li><a href="{{ route('review.master.index') }}">Scraping Master</a></li>
         <li>
             <a class="submenu-title" href="#category">Category<span class="sub-arrow"><i
                         class="fa fa-angle-right"></i></span></a>
-            <ul class="nav-sub-childmenu submenu-content">
+            <ul class="nav-sub-childmenu submenu-content sub-c">
                 <li><a href="{{ route('review.ieee.index') }}">IEEE</a></li>
                 <li><a href="{{ route('review.acm.index') }}">ACM</a></li>
                 <li><a href="{{ route('review.springer.index') }}">Springer</a></li>
@@ -83,7 +83,7 @@
                 </g>
             </g>
         </svg><span class="recycle">Recycle</span></a>
-    <ul class="sidebar-submenu">
+    <ul class="sidebar-submenu sidebar-submenu-r">
         <li><a href="{{ route('recycle.member') }}">Member</a></li>
         <li><a href="{{ route('recycle.project') }}">Project Scraping</a></li>
     </ul>

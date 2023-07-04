@@ -1,5 +1,5 @@
 <li class="sidebar-list">
-    <a class="sidebar-link" href="{{ route('dashboard.index') }}" id="dash-m">
+    <a class="sidebar-link" href="{{ route('dashboard.index') }}" id="dash-lead">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g>
                 <g>
@@ -13,7 +13,7 @@
         </svg><span class="dashboard">Dashboard </span></a>
 </li>
 <li class="sidebar-list">
-    <a class="sidebar-link" href="{{ route('project.index') }}" id="manage-m">
+    <a class="sidebar-link" href="{{ route('project.index') }}" id="manage">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g>
                 <g>
@@ -31,7 +31,7 @@
         </svg><span class="management">Management </span></a>
 </li>
 <li class="sidebar-list">
-    <a class="sidebar-link sidebar-title" href="#scraping" id="scrape-m">
+    <a class="sidebar-link sidebar-title" href="#scraping" id="scrape">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g>
                 <g>
@@ -44,12 +44,12 @@
                 </g>
             </g>
         </svg><span class="">Scraping</span></a>
-    <ul class="sidebar-submenu">
+    <ul class="sidebar-submenu sidebar-submenu-s">
         <li><a href="{{ route('master.index') }}">Scraping Master</a></li>
         <li>
             <a class="submenu-title" href="#category">Category<span class="sub-arrow"><i
                         class="fa fa-angle-right"></i></span></a>
-            <ul class="nav-sub-childmenu submenu-content">
+            <ul class="nav-sub-childmenu submenu-content sub-c">
                 <li><a href="{{ route('ieee.index') }}">IEEE</a></li>
                 <li><a href="{{ route('acm.index') }}">ACM</a></li>
                 <li><a href="{{ route('springer.index') }}">Springer</a></li>
@@ -58,7 +58,7 @@
     </ul>
 </li>
 <li class="sidebar-list">
-    <a class="sidebar-link" href="{{ route('profile.index') }}" id="pro-m">
+    <a class="sidebar-link" href="{{ route('profile.index') }}" id="pro-lead">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g>
                 <g>
