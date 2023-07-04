@@ -1,5 +1,5 @@
 <li class="sidebar-list">
-    <a class="sidebar-link" href="{{ route('dashboard.index') }}">
+    <a class="sidebar-link" href="{{ route('dashboard.index') }}" id="dash-m">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g>
                 <g>
@@ -13,7 +13,7 @@
         </svg><span class="dashboard">Dashboard </span></a>
 </li>
 <li class="sidebar-list">
-    <a class="sidebar-link" href="{{ route('project.index') }}">
+    <a class="sidebar-link" href="{{ route('project.index') }}" id="manage-m">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g>
                 <g>
@@ -31,7 +31,7 @@
         </svg><span class="management">Management </span></a>
 </li>
 <li class="sidebar-list">
-    <a class="sidebar-link sidebar-title" href="#scraping">
+    <a class="sidebar-link sidebar-title" href="#scraping" id="scrape-m">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g>
                 <g>
@@ -58,7 +58,7 @@
     </ul>
 </li>
 <li class="sidebar-list">
-    <a class="sidebar-link" href="{{ route('profile.index') }}">
+    <a class="sidebar-link" href="{{ route('profile.index') }}" id="pro-m">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g>
                 <g>

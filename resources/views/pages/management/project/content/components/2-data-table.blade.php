@@ -15,9 +15,7 @@
                             <th class="align-baseline">Year</th>
                             <th class="align-baseline">Authors</th>
                             <th class="align-baseline">Created Info</th>
-                            <th class="align-baseline text-center">
-                                <i class="fa fa-tags"></i>
-                            </th>
+                            <th class="align-baseline text-center">Action</th>
                         </tr>
                     </thead>
                 </table>

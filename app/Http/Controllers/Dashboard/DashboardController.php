@@ -65,11 +65,11 @@ class DashboardController extends Controller
             $member = Member::whereHas('getLeader', function ($q) use ($leader) {
                 $q->where('created_by', $leader->id);
             })->count();
-            $user = $member + 1;
+            $user = $member;
         } elseif (Auth::user()->role_id == 2) {
             $members = Auth::user()->created_by;
             $member = User::where('created_by', $members)->count();
-            $user = $member + 1;
+            $user = $member;
         }
 
         $get = $this->getCountScraping();

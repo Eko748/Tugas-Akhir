@@ -91,13 +91,11 @@ class MemberController extends ManagementController implements ValidationData
         $projects = Member::where('created_by', $auth->id)
             ->whereHas('getUser', function ($q) use ($search) {
                 $q->where('name', 'LIKE', '%' . $search . '%')
-                    ->orWhere('code', 'LIKE', '%' . $search . '%')
-                    ->where('deleted_at', null);
+                    ->orWhere('code', 'LIKE', '%' . $search . '%');
+            })->whereHas('getUser', function ($q) use ($search) {
+                    $q->whereNull('deleted_by');
             })
-            ->whereHas('getUser', function ($q) use ($search) {
-                $q->where('deleted_at', null);
-            })->orderBy('created_at', 'ASC')->get();
-
+            ->orderBy('created_at', 'ASC')->get();
         $response = [];
         foreach ($projects as $project) {
             $response[] = [
@@ -106,7 +104,6 @@ class MemberController extends ManagementController implements ValidationData
                 'code' => $project->getUser->name
             ];
         }
-
         return response()->json($response);
     }
 

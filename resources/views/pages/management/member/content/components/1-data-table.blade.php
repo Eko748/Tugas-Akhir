@@ -7,9 +7,7 @@
                 <th class="align-baseline">Username</th>
                 <th class="align-baseline">Info</th>
                 <th class="align-baseline">Last Login</th>
-                <th class="align-baseline text-center">
-                    <i class="fa fa-tags"></i>
-                </th>
+                <th class="align-baseline text-center">Action</th>
             </tr>
         </thead>
     </table>

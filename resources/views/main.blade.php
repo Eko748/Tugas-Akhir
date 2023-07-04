@@ -74,6 +74,35 @@
     <script src="{{ asset('assets/js/script.js') }}"></script>
     <script src="{{ asset('assets/js/theme-customizer/customizer.js') }}"></script>
     <script src="{{ asset('assets/js/popover-custom.js') }}"></script>
+    <!-- Letakkan ini di bagian bawah halaman sebelum penutup </body> -->
+    <script>
+        const sidebarLinks = document.querySelectorAll(".sidebar-link");
+        sidebarLinks.forEach(link => {
+            link.addEventListener("click", function() {
+                sidebarLinks.forEach(link => link.classList.remove("active"));
+                this.classList.add("active");
+                const activeLinkId = this.getAttribute("id");
+                localStorage.setItem("activeLinkId", activeLinkId);
+            });
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const activeLinkId = localStorage.getItem("activeLinkId");
+            if (activeLinkId) {
+                const activeLink = document.getElementById(activeLinkId);
+                if (activeLink) {
+                    activeLink.classList.add("active");
+                    const activeSubMenu = activeLink.nextElementSibling;
+                    if (activeSubMenu.classList.contains("sidebar-submenu")) {
+                        activeSubMenu.style.display = "block";
+                    }
+                }
+            }
+        });
+    </script>
+
+
     @yield('darkLayoutScript')
     @stack('js')
 

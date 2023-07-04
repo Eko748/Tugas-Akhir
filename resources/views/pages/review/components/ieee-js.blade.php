@@ -89,7 +89,7 @@
                     var html =
                         '<hr>' +
                         '<span class="mb-3 text-center">Scraping Data Lain?</span>' + '<br><br>' +
-                        '<a class="ms-1 me-1 text-white review-go btn btn-sm btn-secondary btn-outline-primary" href="{{ route('management.project.index') }}" title="Lihat Hasil" id="button1">Lihat Hasil</a>' +
+                        '<a class="ms-1 me-1 text-white review-go btn btn-sm btn-secondary btn-outline-primary" href="{{ Auth::user()->role_id == 1 ? route('management.project.index') : route('project.index') }}" title="Lihat Hasil" id="button1">Lihat Hasil</a>' +
                         '<a class="ms-1 me-1 text-white review-go btn btn-sm btn-info btn-outline-primary" href="{{ Auth::user()->role_id == 1 ? route('review.ieee.index') : route('ieee.index') }}" title="Scraping data IEEE">IEEE</a>' +
                         '<a class="ms-1 me-1 text-white review-go btn btn-sm btn-success btn-outline-primary" href="{{ Auth::user()->role_id == 1 ? route('review.acm.index') : route('acm.index') }}" title="Scraping data ACM">ACM</a>' +
                         '<a class="ms-1 me-1 text-white review-go btn btn-sm btn-warning btn-outline-primary" href="{{ Auth::user()->role_id == 1 ? route('review.springer.index') : route('springer.index') }}" title="Scraping data Springer">Springer</a>' +

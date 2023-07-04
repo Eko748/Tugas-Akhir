@@ -12,9 +12,7 @@
                             <th id="email" class="align-baseline">Nama</th>
                             <th id="email" class="align-baseline">Username</th>
                             <th id="email" class="align-baseline">Deleted Info</th>
-                            <th class="align-baseline text-center">
-                                <i class="fa fa-tags"></i>
-                            </th>
+                            <th class="align-baseline text-center">Action</th>
                         </tr>
                     </thead>
                 </table>

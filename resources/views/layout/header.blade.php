@@ -145,13 +145,13 @@
                         </svg>
                     </div>
                     <ul class="profile-dropdown onhover-show-div">
-                        <li><a href="{{ route('profile.index') }}"><span><i class="fa fa-user"></i>  Profile</span></a></li>
                         <li>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
                                 <a href="{{ route('logout') }}"
                                     onclick="event.preventDefault();
-                    this.closest('form').submit();"><span><i class="fa fa-sign-out"></i> Log out</span>
+                    this.closest('form').submit();"><span><i
+                                            class="fa fa-sign-out"></i> Log out</span>
                                 </a>
                             </form>
                         </li>
@@ -173,61 +173,59 @@
 </div>
 
 @if (Auth::user()->role_id == 1)
-<script>
-    const form = document.getElementById('route-search-form');
-
-    form.addEventListener('submit', e => {
-        e.preventDefault();
-
-        const route = e.target.route.value;
-        if (route === 'Dashboard') {
-            window.location.href = '{{ route('dashboard.index') }}';
-            return;
-        } else if (route === 'Member') {
-            window.location.href = '{{ route('management.member.index') }}';
-            return;
-        } else if (route === 'Review') {
-            window.location.href = '{{ route('review.master.index') }}';
-            return;
-        } else if (route === 'IEEE') {
-            window.location.href = '{{ route('review.ieee.index') }}';
-            return;
-        } else if (route === 'ACM') {
-            window.location.href = '{{ route('review.acm.index') }}';
-            return;
-        } else if (route === 'Springer') {
-            window.location.href = '{{ route('review.springer.index') }}';
-            return;
-        }
-    });
-</script>
+    <script>
+        const form = document.getElementById('route-search-form');
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            const route = e.target.route.value;
+            if (route === 'Dashboard') {
+                window.location.href = '{{ route('dashboard.index') }}';
+                return;
+            } else if (route === 'Member') {
+                window.location.href = '{{ route('management.member.index') }}';
+                return;
+            } else if (route === 'Review') {
+                window.location.href = '{{ route('review.master.index') }}';
+                return;
+            } else if (route === 'IEEE') {
+                window.location.href = '{{ route('review.ieee.index') }}';
+                return;
+            } else if (route === 'ACM') {
+                window.location.href = '{{ route('review.acm.index') }}';
+                return;
+            } else if (route === 'Springer') {
+                window.location.href = '{{ route('review.springer.index') }}';
+                return;
+            }
+        });
+    </script>
 @elseif (Auth::user()->role_id == 2)
-<script>
-    const form = document.getElementById('route-search-form');
+    <script>
+        const form = document.getElementById('route-search-form');
 
-    form.addEventListener('submit', e => {
-        e.preventDefault();
+        form.addEventListener('submit', e => {
+            e.preventDefault();
 
-        const route = e.target.route.value;
-        if (route === 'Dashboard') {
-            window.location.href = '{{ route('dashboard.index') }}';
-            return;
-        } else if (route === 'Project') {
-            window.location.href = '{{ route('project.index') }}';
-            return;
-        } else if (route === 'Review') {
-            window.location.href = '{{ route('master.index') }}';
-            return;
-        } else if (route === 'IEEE') {
-            window.location.href = '{{ route('ieee.index') }}';
-            return;
-        } else if (route === 'ACM') {
-            window.location.href = '{{ route('acm.index') }}';
-            return;
-        } else if (route === 'Springer') {
-            window.location.href = '{{ route('springer.index') }}';
-            return;
-        }
-    });
-</script>
+            const route = e.target.route.value;
+            if (route === 'Dashboard') {
+                window.location.href = '{{ route('dashboard.index') }}';
+                return;
+            } else if (route === 'Project') {
+                window.location.href = '{{ route('project.index') }}';
+                return;
+            } else if (route === 'Review') {
+                window.location.href = '{{ route('master.index') }}';
+                return;
+            } else if (route === 'IEEE') {
+                window.location.href = '{{ route('ieee.index') }}';
+                return;
+            } else if (route === 'ACM') {
+                window.location.href = '{{ route('acm.index') }}';
+                return;
+            } else if (route === 'Springer') {
+                window.location.href = '{{ route('springer.index') }}';
+                return;
+            }
+        });
+    </script>
 @endif

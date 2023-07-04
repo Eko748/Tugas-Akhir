@@ -14,9 +14,7 @@
                             <th class="align-baseline">Abstract</th>
                             <th class="align-baseline">Authors</th>
                             <th class="align-baseline">Deleted Info</th>
-                            <th class="align-baseline text-center">
-                                <i class="fa fa-tags"></i>
-                            </th>
+                            <th class="align-baseline text-center">Action</th>
                         </tr>
                     </thead>
                 </table>
