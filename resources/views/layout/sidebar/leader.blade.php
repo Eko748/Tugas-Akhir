@@ -31,10 +31,10 @@
         </svg><span class="management">Management</span></a>
     <ul class="sidebar-submenu sidebar-submenu-m">
         <li>
-            <a href="{{ route('management.member.index') }}">Member</a>
+            <a href="{{ route('management.member.index') }}" id="m-member">Member</a>
         </li>
         <li>
-            <a href="{{ route('management.project.index') }}">Project Scraping</a>
+            <a href="{{ route('management.project.index') }}" id="m-project">Project Scraping</a>
         </li>
     </ul>
 </li>
@@ -53,14 +53,14 @@
             </g>
         </svg><span class="">Scraping</span></a>
     <ul class="sidebar-submenu sidebar-submenu-s">
-        <li><a href="{{ route('review.master.index') }}">Scraping Master</a></li>
+        <li><a href="{{ route('review.master.index') }}" id="s-master">Scraping Master</a></li>
         <li>
             <a class="submenu-title" href="#category">Category<span class="sub-arrow"><i
                         class="fa fa-angle-right"></i></span></a>
             <ul class="nav-sub-childmenu submenu-content sub-c">
-                <li><a href="{{ route('review.ieee.index') }}">IEEE</a></li>
-                <li><a href="{{ route('review.acm.index') }}">ACM</a></li>
-                <li><a href="{{ route('review.springer.index') }}">Springer</a></li>
+                <li><a href="{{ route('review.ieee.index') }}" id="s-ieee">IEEE</a></li>
+                <li><a href="{{ route('review.acm.index') }}" id="s-acm">ACM</a></li>
+                <li><a href="{{ route('review.springer.index') }}" id="s-springer">Springer</a></li>
             </ul>
         </li>
     </ul>
@@ -84,8 +84,8 @@
             </g>
         </svg><span class="recycle">Recycle</span></a>
     <ul class="sidebar-submenu sidebar-submenu-r">
-        <li><a href="{{ route('recycle.member') }}">Member</a></li>
-        <li><a href="{{ route('recycle.project') }}">Project Scraping</a></li>
+        <li><a href="{{ route('recycle.member') }}" id="r-member">Member</a></li>
+        <li><a href="{{ route('recycle.project') }}" id="r-project">Project Scraping</a></li>
     </ul>
 </li>
 <li class="sidebar-list">

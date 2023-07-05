@@ -93,32 +93,40 @@
             } else if (currentUrl === manageMUrl) {
                 $('#manage').addClass('active');
                 $('.sidebar-submenu-m').css('display', 'block');
+                $('#m-member').addClass('text-primary');
             } else if (currentUrl === managePUrl) {
                 $('#manage').addClass('active');
                 $('.sidebar-submenu-m').css('display', 'block');
+                $('#m-project').addClass('text-primary');
             } else if (currentUrl === recycleMUrl) {
                 $('#recycles').addClass('active');
                 $('.sidebar-submenu-r').css('display', 'block');
+                $('#r-member').addClass('text-primary');
             } else if (currentUrl === recyclePUrl) {
                 $('#recycles').addClass('active');
                 $('.sidebar-submenu-r').css('display', 'block');
+                $('#r-project').addClass('text-primary');
             } else if (currentUrl === profileUrl) {
                 $('#pro-lead').addClass('active');
             } else if (currentUrl === master) {
                 $('#scrape').addClass('active');
                 $('.sidebar-submenu-s').css('display', 'block');
+                $('#s-master').addClass('text-primary');
             } else if (currentUrl === ieeeUrl) {
                 $('#scrape').addClass('active');
                 $('.sidebar-submenu-s').css('display', 'block');
                 $('.sub-c').css('display', 'block');
+                $('#s-ieee').addClass('text-primary');
             } else if (currentUrl === acm) {
                 $('#scrape').addClass('active');
                 $('.sidebar-submenu-s').css('display', 'block');
                 $('.sub-c').css('display', 'block');
+                $('#s-acm').addClass('text-primary');
             } else if (currentUrl === springer) {
                 $('#scrape').addClass('active');
                 $('.sidebar-submenu-s').css('display', 'block');
                 $('.sub-c').css('display', 'block');
+                $('#s-springer').addClass('text-primary');
             }
         });
     </script>

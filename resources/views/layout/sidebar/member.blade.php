@@ -45,14 +45,14 @@
             </g>
         </svg><span class="">Scraping</span></a>
     <ul class="sidebar-submenu sidebar-submenu-s">
-        <li><a href="{{ route('master.index') }}">Scraping Master</a></li>
+        <li><a href="{{ route('master.index') }}" id="s-master">Scraping Master</a></li>
         <li>
             <a class="submenu-title" href="#category">Category<span class="sub-arrow"><i
                         class="fa fa-angle-right"></i></span></a>
             <ul class="nav-sub-childmenu submenu-content sub-c">
-                <li><a href="{{ route('ieee.index') }}">IEEE</a></li>
-                <li><a href="{{ route('acm.index') }}">ACM</a></li>
-                <li><a href="{{ route('springer.index') }}">Springer</a></li>
+                <li><a href="{{ route('ieee.index') }}" id="s-ieee">IEEE</a></li>
+                <li><a href="{{ route('acm.index') }}" id="s-acm">ACM</a></li>
+                <li><a href="{{ route('springer.index') }}" id="s-springer">Springer</a></li>
             </ul>
         </li>
     </ul>
@@ -78,3 +78,4 @@
             </g>
         </svg><span class="profile">Profile </span></a>
 </li>
+ 
