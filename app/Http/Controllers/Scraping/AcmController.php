@@ -30,27 +30,6 @@ class AcmController extends ScrapingMasterController implements ScrapingData
 
     public function requestScrapingData(Request $request)
     {
-        // $validator = Validation::createValidator();
-        // $constraint = new Url();
-        // $query = $request->input('search');
-        // $errors = $validator->validate($query, $constraint);
-        // $client = new Client();
-        // $request = Request::capture();
-        // $options = [
-        //     'headers' => [
-        //         'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3 Edg/91.0.864.59',
-        //         'Accept-Language' => 'en-US,en;q=0.9',
-        //         'Content-Type' => 'application/json',
-        //         'Accept' => 'application/json',
-        //         'X-Forwarded-For' => $request->ip(),
-        //         'X-Forwarded-Host' => $request->getHost(),
-        //         'X-Forwarded-Proto' => $request->getScheme(),
-        //     ]
-        // ];
-        // $response = $client->request('GET', $query, $options);
-        // $r = $response->html();
-        // return $r;
-        // die();
         try {
             $acm = $this->searchScrapingData($request);
             if (Auth::check()) {
@@ -62,9 +41,7 @@ class AcmController extends ScrapingMasterController implements ScrapingData
                 'key' => $acm['key'],
                 'exist' => $exist
             ];
-            // if ($request->ajax()) {
-                return view('pages.review.category.acm.content.components.2-data', $this->data)->render();
-            // }
+            return view('pages.review.category.acm.content.components.2-data', $this->data)->render();
         } catch (\Exception $e) {
             $this->data = [
                 'error' => 'Data ACM tidak ditemukan',
@@ -83,7 +60,6 @@ class AcmController extends ScrapingMasterController implements ScrapingData
         if (count($errors) > 0) {
             throw new \Exception('URL tidak valid');
         }
-
         try {
             $delay = 9000;
             $maxRequestsPerMinute = 30;
@@ -94,11 +70,6 @@ class AcmController extends ScrapingMasterController implements ScrapingData
                 'headers' => [
                     'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3 Edg/91.0.864.59',
                     'Accept-Language' => 'en-US,en;q=0.9',
-                    // 'Content-Type' => 'application/json',
-                    // 'Accept' => 'application/json',
-                    // 'X-Forwarded-For' => $request->ip(),
-                    // 'X-Forwarded-Host' => $request->getHost(),
-                    // 'X-Forwarded-Proto' => $request->getScheme(),
                 ]
             ];
             $requestCount = 0;

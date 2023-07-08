@@ -28,7 +28,7 @@
             @if (Auth::user()->role_id == '1')
                 <div class="col-sm-6 col-md-6 col-xl-6 col-lg-6">
                     <div class="card o-hidden">
-                        <a href="{{ route('management.member.index') }}" class="card-link">
+                        <a href="{{ route('management.member.index') }}" class="ds">
                             <div class="card-body">
                                 <div class="media static-widget">
                                     <div class="media-body">
@@ -61,7 +61,7 @@
                 </div>
                 <div class="col-sm-6 col-md-6 col-xl-6 col-lg-6">
                     <div class="card o-hidden">
-                        <a href="{{ route('management.project.index') }}" class="card-link">
+                        <a href="{{ route('management.project.index') }}" class="ds">
                             <div class="card-body">
                                 <div class="media static-widget">
                                     <div class="media-body">
@@ -92,7 +92,7 @@
             @else
                 <div class="col-sm-12 col-md-12 col-xl-12 col-lg-12">
                     <div class="card o-hidden">
-                        <a href="{{ route('project.index') }}" class="card-link">
+                        <a href="{{ route('project.index') }}" class="ds">
                             <div class="card-body">
                                 <div class="media static-widget">
                                     <div class="media-body">

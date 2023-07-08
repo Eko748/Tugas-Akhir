@@ -56,8 +56,11 @@
                 </div>
                 <datalist id="route">
                     <option value="Dashboard">
+                        @if (Auth::user()->role_id == '1')
                     <option value="Member">
+                        @endif
                     <option value="Project">
+                    <option value="Scraping">
                     <option value="IEEE">
                     <option value="ACM">
                     <option value="Springer">
@@ -93,7 +96,17 @@
                 <li class="d-md-none resp-serch-input">
                     <div class="resp-serch-box"><i data-feather="search"></i></div>
                     <div class="form-group search-form">
-                        <input type="text" placeholder="Search here...">
+                        <form class="route-search-form" style="background: transparent;">
+                            <input type="text" list="r-mobile" placeholder="Search hehe...">
+                            <datalist id="r-mobile">
+                                <option value="Dashboard">
+                                <option value="Member">
+                                <option value="Project">
+                                <option value="IEEE">
+                                <option value="ACM">
+                                <option value="Springer">
+                            </datalist>
+                        </form>
                     </div>
                 </li>
                 <li class="maximize"><a class="text-dark" href="#!" onclick="javascript:toggleFullScreen()">
@@ -184,7 +197,10 @@
             } else if (route === 'Member') {
                 window.location.href = '{{ route('management.member.index') }}';
                 return;
-            } else if (route === 'Review') {
+            } else if (route === 'Project') {
+                window.location.href = '{{ route('management.project.index') }}';
+                return;
+            } else if (route === 'Scraping') {
                 window.location.href = '{{ route('review.master.index') }}';
                 return;
             } else if (route === 'IEEE') {
@@ -213,7 +229,7 @@
             } else if (route === 'Project') {
                 window.location.href = '{{ route('project.index') }}';
                 return;
-            } else if (route === 'Review') {
+            } else if (route === 'Scraping') {
                 window.location.href = '{{ route('master.index') }}';
                 return;
             } else if (route === 'IEEE') {

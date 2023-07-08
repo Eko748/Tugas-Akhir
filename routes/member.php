@@ -1,7 +1,6 @@
 <?php
 
-use App\Http\Controllers\Auth\AuthController;
-use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\{Auth\AuthController, Exception\PageHandlingController};
 use App\Http\Controllers\Management\ProjectController;
 use App\Http\Controllers\Scraping\{ScrapingMasterController, IeeeController, AcmController, SpringerController};
 use Illuminate\Support\Facades\Route;
@@ -11,8 +10,6 @@ Route::middleware('auth')->group(function () {
     // Member
     Route::middleware(['2', 'auth'])->group(function () {
         Route::prefix("m")->group(function () {
-            // Dashboard
-            // Route::get('/dashboard', [DashboardController::class, 'showDashboard'])->name('dashboard.member');
             // Project
             Route::prefix("project-scraping")->group(function () {
                 Route::controller(ProjectController::class)->group(function () {
@@ -48,6 +45,6 @@ Route::middleware('auth')->group(function () {
                 });
             });
         });
-        // Route::fallback([PageHandlingController::class, 'showPage404']);
+        Route::fallback([PageHandlingController::class, 'showPage404']);
     });
 });

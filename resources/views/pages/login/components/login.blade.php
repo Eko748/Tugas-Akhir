@@ -22,26 +22,26 @@
                     @csrf
                     <h4 class="text-dark mb-3">Login</h4>
                     <div class="form-group">
-                        <x-input-label class="text-dark" for="username" :value="__('Username')" />
+                        <x-input-label class="text-dark" for="email" :value="__('Username')" />
                         <div class="input-group"><span class="input-group-text"><i class="icon-user"></i></span>
                             <x-text-input id="username" class="form-control block mt-1 w-full" type="text"
-                                name="username" :value="old('username')" placeholder="Masukkan username Anda" required autofocus />
-                            <x-input-error :messages="$errors->get('username')" class="mt-2" />
+                                name="username" placeholder="Input username.." required autofocus />
                             <div class="invalid-tooltip">Please enter proper username.</div>
                         </div>
+                        <x-input-error :messages="$errors->get('username')" class="mt-2 text-danger" />
                     </div>
                     <div class="form-group">
                         <x-input-label class="text-dark" for="password" :value="__('Password')" />
                         <div class="input-group"><span class="input-group-text"><i class="icon-lock"></i></span>
                             <x-text-input id="password" class="form-control block mt-1 w-full" type="password"
-                                name="password" placeholder="Masukkan Password Anda" required autocomplete="current-password" />
+                                name="password" placeholder="Input password.." required autocomplete="current-password" />
                             <x-input-error :messages="$errors->get('password')" class="mt-2" />
                             <div class="invalid-tooltip">Please enter password.</div>
                         </div>
                     </div>
                     <div class="flex items-center justify-end mt-4">
                         <x-primary-button class="ml-3 btn btn-sm btn-primary btn-block btn-outline-dark">
-                          <i class="fa fa-sign-in"></i> {{ __('Log in') }}
+                            <i class="fa fa-sign-in"></i> {{ __('Log in') }}
                         </x-primary-button>
                     </div>
                     <div class="login-social-title">
@@ -52,8 +52,8 @@
                         <a class="text-center rounded-circle btn-outline-dark"
                             style="background-color: #F2F2F2; width: 50px; height: 50px; position: absolute; left: 50%; transform: translateX(-50%);"
                             href="{{ route('auth.google', ['provider' => 'google']) }}">
-                            <img class="mt-2" style="width: 30px;"
-                                src="{{ asset('assets/images/logo/google.png') }}" alt="">
+                            <img class="mt-2" style="width: 30px;" src="{{ asset('assets/images/logo/google.png') }}"
+                                alt="">
                         </a>
                     </div>
                 </form>

@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\{Auth\AuthController, Dashboard\DashboardController, Exception\PageHandlingController};
+use App\Http\Controllers\{Auth\AuthController, Exception\PageHandlingController};
 use App\Http\Controllers\Management\{InstituteController, MemberController, ProjectController,};
 use App\Http\Controllers\Recycle\{RecycleMemberController, RecycleProjectController};
 use App\Http\Controllers\Scraping\{ScrapingMasterController, IeeeController, AcmController, SpringerController};
@@ -11,8 +11,6 @@ Route::middleware('auth')->group(function () {
     Route::post('/gettimelogin', [AuthController::class, 'getTimeLogging']);
     // Leader Route
     Route::middleware(['1', 'auth'])->group(function () {
-        // Dashboard
-        // Route::get('/dashboard', [DashboardController::class, 'showDashboard'])->name('dashboard.index');
         // Management
         Route::prefix("management")->group(function () {
             // Member

@@ -5,8 +5,8 @@
         <div class="form-group mb-3">
             <x-input-label class="form-label" for="name" :value="__('Nama')" />
             <div class="input-group"><span class="input-group-text"><i class="icon-user"></i></span>
-                <x-text-input id="name" name="name" type="text" class="form-control block w-full"
-                    :value="old('name', $user->name)" required autofocus autocomplete="name" />
+                <x-text-input id="name" placeholder="Input nama.." name="name" type="text" class="form-control block w-full"
+                    :value="old('name', Auth::user()->name)" required autofocus autocomplete="name" />
                 <x-input-error class="text-danger mt-2" :messages="$errors->updateProfile->get('name')" />
             </div>
         </div>
@@ -15,18 +15,18 @@
                 <x-input-label class="form-label" for="username" :value="__('Username')" />
                 <div class="input-group">
                     <span class="input-group-text"><i class="icon-user"></i></span>
-                    <x-text-input id="username" name="username" type="text" class="form-control block w-full"
-                        :value="old('username', $user->username)" required autocomplete="username" />
+                    <x-text-input id="username" placeholder="Input username.." name="username" type="text" class="form-control block w-full"
+                        :value="old('username', Auth::user()->username)" required autocomplete="username" />
                 </div>
                 <x-input-error class="mt-2 text-danger" :messages="$errors->get('username')" />
             </div>
         @elseif (Auth::user()->role_id == 2)
             <div class="form-group mb-3">
-                <x-input-label class="form-label" for="username" :value="__('Username')" />
+                <x-input-label class="form-label" for="username" :value="__('Username')" /><sup><i class="fa fa-question-circle hovering" title="Indeks tambahan awal untuk username: {{ $slug }}."></i></sup></label>
                 <div class="input-group">
-                    <span class="input-group-text"><i class="icon-user"></i></span>
-                    <x-text-input id="username" name="username" type="text" class="form-control block w-full"
-                        :value="old('username', $user->username)" required autocomplete="username" />
+                    <span class="input-group-text"><span>{{ $slug }}.</span></span>
+                    <x-text-input id="username" placeholder="Input username.." name="username" type="text" class="form-control block w-full"
+                        :value="old('username', explode('.', Auth::user()->username, 2)[1])" required autocomplete="username" />
                 </div>
                 <x-input-error class="mt-2 text-danger" :messages="$errors->get('username')" />
             </div>

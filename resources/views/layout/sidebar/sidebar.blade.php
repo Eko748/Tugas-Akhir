@@ -33,11 +33,6 @@
                         @endif
                     @endif
                 </ul>
-                {{-- <div class="sidebar-img-section mt-5">
-                    <div class="sidebar-img-content mt-5">
-                        <img class="img-fluid" src="{{ asset('assets/images/logo/slr-logo.png') }}" alt="" />
-                    </div>
-                </div> --}}
             </div>
         </nav>
     </div>

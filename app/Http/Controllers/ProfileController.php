@@ -3,14 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Interface\ValidationData;
-use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\Institute;
 use App\Models\User;
 use Illuminate\Http\{RedirectResponse, Request};
 use Illuminate\Support\Facades\{Auth, Redirect};
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rules\Password;
+use Illuminate\Support\Str;
 
 class ProfileController extends Controller implements ValidationData
 {
@@ -26,10 +25,12 @@ class ProfileController extends Controller implements ValidationData
     public function showProfile(Request $request): View
     {
         $this->label = Auth::user()->name;
+        $slug = $this->getInstitute();
         $this->data = [
             'parent' => $this->page,
             'child' => $this->label,
             'user' => $request->user(),
+            'slug' => $slug,
         ];
         return view('pages.profile.index', $this->data);
     }
@@ -50,9 +51,15 @@ class ProfileController extends Controller implements ValidationData
         $username = $request->username;
         $username = strtolower($username);
         $username = str_replace(' ', '', $username);
+        if (Auth::user()->role_id == 1) {
+            $output = $username;
+        } elseif (Auth::user()->role_id == 2) {
+            $slug = $this->getInstitute();
+            $output = $slug . '.' . $username;
+        }
         $request->user()->update([
             'name' => $request->name,
-            'username' => $username,
+            'username' => $output
         ]);
         return back()->with('status', 'profile-updated');
     }
@@ -86,6 +93,25 @@ class ProfileController extends Controller implements ValidationData
         );
 
         return $password;
+    }
+
+    private function getInstitute()
+    {
+        if (Auth::user()->role_id == '1') {
+            $institute = Institute::where('created_by', Auth::user()->id)->first();
+        } elseif (Auth::user()->role_id == '2') {
+            $institute = Institute::whereHas('getLeader', function ($q) {
+                $q->where('id', Auth::user()->created_by);
+            })->first();
+        }
+        if ($institute != null) {
+            $ins = $institute->institute_name;
+            $ins_array = explode(' ', $ins);
+            $slug = Str::of($ins_array[0])->slug('');
+        } elseif ($institute == null) {
+            $slug = null;
+        }
+        return $slug;
     }
 
     public function updateInstitute(Request $request): RedirectResponse

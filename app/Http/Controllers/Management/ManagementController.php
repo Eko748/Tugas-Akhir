@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Management;
 
 use App\Http\Controllers\Controller;
-use App\Models\{Institute, Leader, Member, Project, ScrapedData, User};
+use App\Models\{Institute, Leader, Project, ScrapedData, User};
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;

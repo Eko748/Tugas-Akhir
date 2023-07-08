@@ -47671,61 +47671,6 @@ body .for-dark {
     transition: all 0.3s ease;
 }
 
-/* Ketika .sidebar-link aktif */
-/* .page-wrapper.compact-wrapper .page-body-wrapper div.sidebar-wrapper .sidebar-main .sidebar-links .simplebar-wrapper .simplebar-mask .simplebar-content-wrapper .simplebar-content > li .sidebar-link.active svg {
-    fill: rgba(99, 98, 231, 0.2);
-    -webkit-transition: all 0.3s ease;
-    transition: all 0.3s ease;
-}
-
-.page-wrapper.compact-wrapper .page-body-wrapper div.sidebar-wrapper .sidebar-main .sidebar-links .simplebar-wrapper .simplebar-mask .simplebar-content-wrapper .simplebar-content > li .sidebar-link.active svg * {
-    -webkit-transition: all 0.3s ease;
-    transition: all 0.3s ease;
-    stroke: var(--theme-deafult);
-}
-
-.page-wrapper.compact-wrapper .page-body-wrapper div.sidebar-wrapper .sidebar-main .sidebar-links .simplebar-wrapper .simplebar-mask .simplebar-content-wrapper .simplebar-content > li .sidebar-link.active span {
-    color: var(--theme-deafult);
-    -webkit-transition: all 0.3s ease;
-    transition: all 0.3s ease;
-}
-
-.page-wrapper.compact-wrapper .page-body-wrapper div.sidebar-wrapper .sidebar-main .sidebar-links .simplebar-wrapper .simplebar-mask .simplebar-content-wrapper .simplebar-content > li .sidebar-link.active .according-menu i {
-    color: var(--theme-deafult);
-    -webkit-transition: all 0.3s ease;
-    transition: all 0.3s ease;
-}
-
-Ketika .sidebar-link tidak aktif dan dihover */
-/* .page-wrapper.compact-wrapper .page-body-wrapper div.sidebar-wrapper .sidebar-main .sidebar-links .simplebar-wrapper .simplebar-mask .simplebar-content-wrapper .simplebar-content > li .sidebar-link:not(.active):hover svg {
-    fill: rgba(99, 98, 231, 0.2);
-    -webkit-transition: all 0.3s ease;
-    transition: all 0.3s ease;
-} */
-
-/* .page-wrapper.compact-wrapper .page-body-wrapper div.sidebar-wrapper .sidebar-main .sidebar-links .simplebar-wrapper .simplebar-mask .simplebar-content-wrapper .simplebar-content > li .sidebar-link:not(.active):hover svg * {
-    -webkit-transition: all 0.3s ease;
-    transition: all 0.3s ease;
-    stroke: var(--theme-deafult);
-}
-
-.page-wrapper.compact-wrapper .page-body-wrapper div.sidebar-wrapper .sidebar-main .sidebar-links .simplebar-wrapper .simplebar-mask .simplebar-content-wrapper .simplebar-content > li .sidebar-link:not(.active):hover span {
-    color: var(--theme-deafult);
-    -webkit-transition: all 0.3s ease;
-    transition: all 0.3s ease;
-} */
-
-/* .page-wrapper.compact-wrapper .page-body-wrapper div.sidebar-wrapper .sidebar-main .sidebar-links .simplebar-wrapper .simplebar-mask .simplebar-content-wrapper .simplebar-content > li .sidebar-link:not(.active):hover .according-menu i {
-    color: var(--theme-deafult);
-    -webkit-transition: all 0.3s ease;
-    transition: all 0.3s ease;
-} */
-
-/* Tampilkan .sidebar-submenu saat .sidebar-link memiliki kelas .active */
-/* .page-wrapper.compact-wrapper .page-body-wrapper div.sidebar-wrapper .sidebar-main .sidebar-links .simplebar-wrapper .simplebar-mask .simplebar-content-wrapper .simplebar-content > li .sidebar-link.active + .sidebar-submenu {
-    display: block;
-} */
-
 .page-wrapper.compact-wrapper
     .page-body-wrapper
     div.sidebar-wrapper

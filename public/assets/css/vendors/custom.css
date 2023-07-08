@@ -1,19 +1,6 @@
-.card-body {
-    background-color: #f0f0f0;
-    padding: 10px;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.card-link {
-    text-decoration: none;
-    color: inherit;
-    cursor: pointer;
-    display: inline-block;
-}
-
-.card-link:hover .card-body {
-    background-color: #e0e0e0;
+.ds:hover {
+    background-color: rgba(205, 205, 205, 0.656);
+    box-shadow: 0px 2px 0px rgba(205, 205, 205, 0.656);
 }
 
 .cool {

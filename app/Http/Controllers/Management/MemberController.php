@@ -258,7 +258,7 @@ class MemberController extends ManagementController implements ValidationData
                 'string' => $string,
             ];
             return view('pages.management.member.content.components.4-edit-member', $data);
-        } catch (\Exception $e) {
+        } catch (\Exception) {
             return response()->json(['error' => 'Data tidak berhasil diubah'], 500);
         }
     }
