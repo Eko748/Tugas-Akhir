@@ -17,7 +17,7 @@
                                 $(api.column(colIdx).header()).index()
                             );
                             $(cell).html(
-                                '<button onclick="exportData()" title="Export Project Review" class="btn btn-success me-1 ms-1 btn-sm button cool btn-outline-dark hovering shadow-sm"><i class="fa fa-download"></i></button>'
+                                '<button onclick="exportData()" title="Export Project Scraping" class="btn btn-success me-1 ms-1 btn-sm button cool btn-outline-dark hovering shadow-sm"><i class="fa fa-download"></i></button>'
                             );
                         } else if (colIdx == 7) {
                             let cell = $('.filters th').eq(

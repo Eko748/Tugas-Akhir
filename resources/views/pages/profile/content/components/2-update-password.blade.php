@@ -7,7 +7,7 @@
             <x-input-label class="form-label" for="current_password" :value="__('Current Password')" />
             <div class="input-group"><span class="input-group-text"><i class="icon-lock"></i></span>
                 <x-text-input class="form-control block w-full" id="current_password" name="current_password"
-                    type="password" placeholder="Input password lama.." autocomplete="current-password" />
+                    type="password" placeholder="Password lama.." autocomplete="current-password" />
             </div>
             <small>
                 <x-input-error :messages="$errors->updatePassword->get('current_password')" class="mt-2 text-danger" />
