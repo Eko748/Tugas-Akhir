@@ -61,12 +61,11 @@ class ScrapingMasterController extends ScrapingController implements ValidationD
     {
         return $request->validate(
             [
-                'title' => 'required|string|unique:scraped_data'
+                'title' => 'required|string'
             ],
             [
                 'required' => 'Kolom :attribute harus diisi.',
                 'string' => 'Kolom :attribute harus berupa teks.',
-                'unique' => 'Kolom :attribute sudah tersimpan dalam proyek ini.',
             ]
         );
     }

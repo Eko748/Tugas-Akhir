@@ -3,7 +3,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title text-dark" id="title-review"><i class="fa fa-folder-open"></i> <strong>Detail
-                        Review</strong></h5>
+                        Scraping Springer</strong></h5>
                 <button class="btn-close text-dark btn-outline-danger" type="button" data-bs-dismiss="modal"
                     aria-label="Close"></button>
             </div>
@@ -13,14 +13,13 @@
                         <img class="img-fluid" style="width: 80px; height: 30px"
                             src="{{ asset('assets/images/logo/springer.png') }}" alt="">
                     </div>
-                    <div class="product-details col-lg-10 text-justify"><a href="product-page.html">
+                    <div class="product-details col-lg-10 text-justify">
                             <h4>Publisher: {{ $key['publisher'] }}</h4>
-                        </a>
                         <div class="product-price">
                             <span>Type: {{ $key['publicationType'] }}</span>
-                            {{-- <p class="pull-right">
-                                Cited: {{ $key['cited'] }}
-                            </p> --}}
+                            <p class="pull-right">
+                                Cited: 0
+                            </p>
                         </div>
                         <div class="product-price">
                             <span>Publication Title: {{ $key['publicationName'] }}</span>
@@ -28,6 +27,7 @@
                         <div class="product-price">
                             <span>Publication Date: {{ $key['publicationDate'] }}</span>
                         </div>
+                        <hr>
                         <div class="product-view mb-2">
                             <div class="product-price">
                                 <h2>{{ $key['title'] }}</h2>

@@ -76,8 +76,8 @@
                             <div class="mb-3 col-md-4">
                                 <x-input-label for="cited" :value="__('Cited')" />
                                 <div class="input-group">
-                                    <x-text-input placeholder="0" value="{{ $key['cited'] }}" id="cited"
-                                        class="create form-control" type="text" name="cited" :value="0"
+                                    <x-text-input placeholder="{{ $key['cited'] }}" value="{{ $key['cited'] }}" id="cited"
+                                        class="create form-control" type="text" name="cited" :value="$key['cited']"
                                         disabled />
                                     <x-input-error :messages="$errors->get('cited')" class="mt-2" />
                                     <div class="invalid-tooltip">Please enter

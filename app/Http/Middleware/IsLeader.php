@@ -18,9 +18,16 @@ class IsLeader
     public function handle(Request $request, Closure $next)
     {
         if (Auth::user()->role_id == "1") {
-            
+
             return $next($request);
         }
-        return abort(403);
+        $user = Auth::user();
+        $role_id = $user ? $user->role_id : null;
+        return response()->view('pages.error.404.index', ['role_id' => $role_id])->withHeaders([
+            'Cache-Control' => 'no-cache, no-store, must-revalidate',
+            'Pragma' => 'no-cache',
+            'Expires' => '0',
+        ]);
+        // return abort(403);
     }
 }

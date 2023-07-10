@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Scraping;
 use App\Http\Controllers\Interface\ScrapingData;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Auth;
 
 class SpringerController extends ScrapingMasterController implements ScrapingData
 {
@@ -29,12 +30,18 @@ class SpringerController extends ScrapingMasterController implements ScrapingDat
     {
         try {
             $springer = $this->searchScrapingData($request);
-            $exist = $this->getData()['exists'];
+            if (Auth::check()) {
+                $exist = $this->getData()['exists'];
+            } else {
+                $exist = 'Tidak ada';
+            }
             if (empty($springer['path']['records'])) {
                 $this->data = [
                     'error' => 'Data Springer tidak ditemukan'
                 ];
-                return view('pages.review.category.springer.content.components.2-data', $this->data)->render();
+                if ($request->ajax()) {
+                    return view('pages.review.category.springer.content.components.2-data', $this->data)->render();
+                }
             } else {
                 if (isset($springer['path']['records'])) {
                     $this->data = [
@@ -52,7 +59,6 @@ class SpringerController extends ScrapingMasterController implements ScrapingDat
                     return view('pages.review.category.springer.content.components.2-data', $this->data)->render();
                 }
             }
-            
         } catch (\Exception $e) {
             $this->data = [
                 'error' => 'Data Springer tidak ditemukan'

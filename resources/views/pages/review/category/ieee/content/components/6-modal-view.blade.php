@@ -3,7 +3,7 @@
     <div class="modal-dialog modal-xl modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title text-dark" id="title-review"><i class="fa fa-folder-open"></i> <strong>Detail Review</strong></h5>
+                <h5 class="modal-title text-dark" id="title-review"><i class="fa fa-folder-open"></i> <strong>Detail Scraping IEEE</strong></h5>
                 <button class="btn-close text-dark btn-outline-danger" type="button" data-bs-dismiss="modal"
                     aria-label="Close"></button>
             </div>
@@ -13,9 +13,8 @@
                         <img class="img-fluid" style="width: 90px; height: 60px"
                             src="{{ asset('assets/images/logo/ieee.png') }}" alt="">
                     </div>
-                    <div class="product-details col-lg-10 text-justify"><a href="product-page.html">
+                    <div class="product-details col-lg-10 text-justify">
                             <h4>Publisher: {{ $key['publisher'] }}</h4>
-                        </a>
                         <div class="product-price">
                             <span>Type: {{ $key['content_type'] }}</span>
                             <p class="pull-right">

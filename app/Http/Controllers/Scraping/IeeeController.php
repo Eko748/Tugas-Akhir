@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Scraping;
 use App\Http\Controllers\Interface\ScrapingData;
 use Goutte\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class IeeeController extends ScrapingMasterController implements ScrapingData
 {
@@ -29,7 +30,11 @@ class IeeeController extends ScrapingMasterController implements ScrapingData
     {
         try {
             $ieee = $this->searchScrapingData($request);
-            $exist = $this->getData()['exists'];
+            if (Auth::check()) {
+                $exist = $this->getData()['exists'];
+            } else {
+                $exist = 'Tidak ada';
+            }
             $this->data = [
                 'search' => $ieee['search'],
                 'path' => $ieee['path'],
@@ -37,15 +42,14 @@ class IeeeController extends ScrapingMasterController implements ScrapingData
                 'references' => $ieee['references'],
                 'exist' => $exist
             ];
-            if ($request->ajax()) {
-                return view('pages.review.category.ieee.content.components.2-data', $this->data)->render();
-            }
+            return view('pages.review.category.ieee.content.components.2-data', $this->data)->render();
         } catch (\Exception $e) {
             $this->data = [
                 'error' => 'Data IEEE tidak ditemukan'
             ];
             return view('pages.review.category.ieee.content.components.2-data', $this->data)->render();
         }
+        return view('pages.review.category.ieee.content.components.2-data', $this->data)->render();
     }
 
     public function searchScrapingData($request)

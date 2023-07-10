@@ -34,7 +34,7 @@
                 }
             });
             xhr.abort();
-        }, 60000);
+        }, 30000);
     });
 
     function cleanSearchQuery() {

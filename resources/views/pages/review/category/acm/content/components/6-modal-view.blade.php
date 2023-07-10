@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-xl modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title text-dark" id="title-review"><i class="fa fa-folder-open"></i> <strong>Detail Review</strong></h5>
+                <h5 class="modal-title text-dark" id="title-review"><i class="fa fa-folder-open"></i> <strong>Detail Scraping ACM</strong></h5>
                 <button class="btn-close text-dark btn-outline-danger" type="button" data-bs-dismiss="modal"
                     aria-label="Close"></button>
             </div>
@@ -12,9 +12,8 @@
                         <img class="img-fluid" style="width: 70px; height: 70px"
                             src="{{ asset('assets/images/logo/acm.png') }}" alt="">
                     </div>
-                    <div class="product-details col-lg-10 text-justify"><a href="product-page.html">
+                    <div class="product-details col-lg-10 text-justify">
                             <h4>Publisher: {{ $key['publisher'] }}</h4>
-                        </a>
                         <div class="product-price">
                             <span>Type: {{ $key['type'] }}</span>
                             <p class="pull-right">
@@ -27,6 +26,7 @@
                         <div class="product-price">
                             <span>Publication Date: {{ $key['year'] }}</span>
                         </div>
+                        <hr>
                         <div class="product-view mb-2">
                             <div class="product-price">
                                 <h2>{{ $key['title'] }}</h2>

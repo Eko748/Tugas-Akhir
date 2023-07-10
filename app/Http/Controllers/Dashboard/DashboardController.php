@@ -75,17 +75,13 @@ class DashboardController extends Controller
         $userCount = $get['reviews']->countBy('created_by');
         $userLabels = $userCount->keys()->map(function ($key) {
             return User::orderBy('code', 'asc')->find($key)->code;
-        })->sort();
+        })->sort(function ($a, $b) {
+            return strcmp($a, $b);
+        })->values()->toArray();
 
-        $userLabels = $userLabels->sort();
-        $indexA = $userLabels->search('A');
-        if ($indexA !== false && $indexA !== 0) {
-            $userLabels->prepend($userLabels->pull($indexA));
-        }
         $userData = $userCount->sortBy(function ($value, $key) use ($userLabels) {
-            return $userLabels->search(User::find($key)->code);
+            return array_search(User::find($key)->code, $userLabels);
         })->values();
-
 
         $data = [
             'userLabels' => $userLabels,

@@ -2,8 +2,10 @@
     <div class="row ms-1 me-1">
         @if (isset($search))
             @foreach ($path as $key)
-                @include('pages.review.category.springer.content.components.3-first-card')
-                @include('pages.review.category.springer.content.components.4-second-card')
+                @if (isset($key))
+                    @include('pages.review.category.springer.content.components.3-first-card')
+                    @include('pages.review.category.springer.content.components.4-second-card')
+                @endif
             @endforeach
             <center>
                 @if (isset($error))

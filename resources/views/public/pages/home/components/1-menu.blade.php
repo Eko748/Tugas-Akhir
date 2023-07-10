@@ -8,12 +8,12 @@
                             <button class="btn btn-outline-primary" type="button" id="submit-review"><i
                                     class="fa fa-search"></i></button>
                             <input id="search" type="text" class="form-control"
-                                value="https://dl.acm.org/doi/10.1145/2018567.2018569" aria-label="Example text with button addon"
+                                value="https://link.springer.com/chapter/10.1007/978-3-031-26281-4_3" aria-label="Example text with button addon"
                                 aria-describedby="button-addon1">
                             <button class="btn btn-outline-primary" data-bs-trigger="hover" data-container="body"
                                 data-bs-toggle="popover" data-bs-placement="right" data-offset="-5px -5px"
                                 title="Tutorial Scraping"
-                                data-bs-content="Terapkan format URL pada kolom pencarian seperti: (https://dl.acm.org/doi/10.1145/2018567.2018569)">
+                                data-bs-content="Terapkan format URL pada kolom pencarian seperti: (https://link.springer.com/chapter/10.1007/978-3-031-26281-4_3)">
                                 <i class="fa fa-question-circle"></i>
                             </button>
                         </div>

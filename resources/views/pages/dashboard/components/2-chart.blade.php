@@ -24,9 +24,7 @@
                                 <div class="media static-widget">
                                     <div class="media-body">
                                         <h6 class="font-roboto">Data Member</h6>
-                                        <a class="btn btn-sm btn-pill">
-                                            <h4 class="mb-0 counter">{{ $totalUser }}</h4>
-                                        </a>
+                                        <h4 class="mb-0 counter">{{ $totalUser }}</h4>
                                     </div>
                                     <svg class="fill-primary" width="41" height="46" viewBox="0 0 41 46"
                                         xmlns="http://www.w3.org/2000/svg">

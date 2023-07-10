@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\{Auth\AuthController, Exception\PageHandlingController};
+use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Management\ProjectController;
 use App\Http\Controllers\Scraping\{ScrapingMasterController, IeeeController, AcmController, SpringerController};
 use Illuminate\Support\Facades\Route;
@@ -45,6 +45,5 @@ Route::middleware('auth')->group(function () {
                 });
             });
         });
-        Route::fallback([PageHandlingController::class, 'showPage404']);
     });
 });

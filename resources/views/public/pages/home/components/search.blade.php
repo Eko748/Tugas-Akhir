@@ -33,14 +33,14 @@
                 <div class="demo-box">
                     <div class="mb-3 col-md-12">
                         <div class="row text-center mb-2">
-                            <strong class="ms-3 mb-3">
-                                @auth
+                            @auth
+                                <strong class="ms-3 mb-3">
                                     <strong class="mb-3"><i>Session Terdeteksi</i></strong>
                                     <br>
                                     <a href="{{ route('dashboard.index') }}" class="btn btn-sm btn-outline-primary">Back to
                                         Dashboard</a>
-                                @endauth
-                            </strong>
+                                </strong>
+                            @endauth
                         </div>
                         @guest
                             @include('public.pages.home.components.1-menu')
