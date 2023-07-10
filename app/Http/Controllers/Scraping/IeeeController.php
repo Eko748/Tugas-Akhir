@@ -58,8 +58,8 @@ class IeeeController extends ScrapingMasterController implements ScrapingData
         $article_number = str_ireplace('https://ieeexplore.ieee.org/abstract/document/', '', $search);
         $article_number = str_ireplace('https://ieeexplore.ieee.org/document/', '', $article_number);
         $client = new Client();
-        $token1 = '6gt3qk5zbgegvb9zb7epynjy';
-        $token2 = 'psqph6ps5ehvbrd2zgp4w6dq';
+        $token1 = config('services.scrape.ieee_key_1');
+        $token2 = config('services.scrape.ieee_key_2');
         $references = 'https://ieeexplore.ieee.org/xpl/dwnldReferences?arnumber=';
 
         $query = new XPLORE($token1);

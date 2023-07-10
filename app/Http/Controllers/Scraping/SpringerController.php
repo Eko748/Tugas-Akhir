@@ -70,9 +70,10 @@ class SpringerController extends ScrapingMasterController implements ScrapingDat
     public function searchScrapingData($request)
     {
         $query = $request->query('search');
+        $springer = config('services.scrape.springer_key');
         $query = str_ireplace('https://link.springer.com/article/', '', $query);
         $query = str_ireplace('https://link.springer.com/chapter/', '', $query);
-        $url = 'http://api.springernature.com/meta/v2/json?q=doi:' . urlencode($query) . '&api_key=' . 'f99e4740f3ccd28f81a8ea39ec4c3a79';
+        $url = 'http://api.springernature.com/meta/v2/json?q=doi:' . urlencode($query) . '&api_key=' . $springer;
         $client = new Client();
         $response = $client->request('GET', $url);
         $path = json_decode($response->getBody()->getContents(), true);

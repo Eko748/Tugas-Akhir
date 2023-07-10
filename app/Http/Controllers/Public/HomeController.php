@@ -1,7 +1,7 @@
 <?php
-  
+
 namespace App\Http\Controllers\Public;
-  
+
 use App\Http\Controllers\Controller;
 
 class HomeController extends Controller
@@ -10,5 +10,4 @@ class HomeController extends Controller
     {
         return view('public.pages.home.index');
     }
-
 }
