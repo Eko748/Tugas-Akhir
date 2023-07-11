@@ -7,6 +7,26 @@
                 <button class="btn-close text-dark btn-outline-danger" type="button" data-bs-dismiss="modal"
                     aria-label="Close"></button>
             </div>
+            @php
+                use Symfony\Component\DomCrawler\Crawler;
+                
+                $ref = $key['url'][0]['value'];
+                $response = $client->request('GET', $ref);
+                $html = (string) $response->getBody();
+                $crawler = new Crawler($html);
+                $counter = 0;
+                $cited = $crawler->evaluate('//*[@id="altmetric-container"]/div/ul/li[2]/p')->text();
+                
+                if (strpos($cited, 'Citations') === false) {
+                    $cited = 0;
+                } else {
+                    $cited = str_replace('Citations', '', $cited);
+                    $cited = trim($cited);
+                }
+                $items = $crawler->evaluate('//p[@class="c-article-references__text"]')->each(function ($node) use (&$counter) {
+                    return $node->text();
+                });
+            @endphp
             <div class="modal-body">
                 <div class="product-box row">
                     <div class="product-img col-lg-1">
@@ -14,11 +34,11 @@
                             src="{{ asset('assets/images/logo/springer.png') }}" alt="">
                     </div>
                     <div class="product-details col-lg-10 text-justify">
-                            <h4>Publisher: {{ $key['publisher'] }}</h4>
+                        <h4>Publisher: {{ $key['publisher'] }}</h4>
                         <div class="product-price">
                             <span>Type: {{ $key['publicationType'] }}</span>
                             <p class="pull-right">
-                                Cited: 0
+                                Cited: {{ $cited }}
                             </p>
                         </div>
                         <div class="product-price">
@@ -69,18 +89,6 @@
                             <div class="">
                                 <span><b>References:</b></span>
                             </div>
-                            @php
-                                use Symfony\Component\DomCrawler\Crawler;
-                                
-                                $ref = $key['url'][0]['value'];
-                                $response = $client->request('GET', $ref);
-                                $html = (string) $response->getBody();
-                                $crawler = new Crawler($html);
-                                $counter = 0;
-                                $items = $crawler->evaluate('//p[@class="c-article-references__text"]')->each(function ($node) use (&$counter) {
-                                    return $node->text();
-                                });
-                            @endphp
                             <div class="row">
                                 <div class="col-12">
                                     <span>

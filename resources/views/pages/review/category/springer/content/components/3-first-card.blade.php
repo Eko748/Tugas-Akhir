@@ -23,6 +23,23 @@
                     </h4>
                 </div>
                 <hr>
+                @php
+                    use Symfony\Component\DomCrawler\Crawler;
+                    
+                    $ref = $key['url'][0]['value'];
+                    $response = $client->request('GET', $ref);
+                    $html = (string) $response->getBody();
+                    $crawler = new Crawler($html);
+                    $counter = 0;
+                    $cited = $crawler->evaluate('//*[@id="altmetric-container"]/div/ul/li[2]/p')->text();
+                    
+                    if (strpos($cited, 'Citations') === false) {
+                        $cited = 0;
+                    } else {
+                        $cited = str_replace('Citations', '', $cited);
+                        $cited = trim($cited);
+                    }
+                @endphp
                 <div class="rating">
                     <strong class="text-primary">
                         Publisher: {{ $key['publisher'] }}
@@ -80,7 +97,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12 col-sm-12">
-                            <span><small class="text-primary">Cited: </small><small>0</small></span>
+                            <span><small class="text-primary">Cited: </small><small>{{ $cited }}</small></span>
                         </div>
                     </div>
                 </div>

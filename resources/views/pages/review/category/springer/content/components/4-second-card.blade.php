@@ -14,7 +14,7 @@
                         @else
                             @foreach ($key['keyword'] as $keywords)
                                 <div class="col-xl-4 col-sm-7 xl-5 mb-2">
-                                    <span class="btn btn-xs btn-outline-primary">
+                                    <span class="btn text-left btn-xs btn-outline-primary">
                                         <span>
                                             {{ $keywords }}
                                         </span>
