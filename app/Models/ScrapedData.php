@@ -12,7 +12,6 @@ class ScrapedData extends Model
     public $table = 'scraped_data';
     public $incrementing = false;
     protected $guarded = [];
-
     protected $hidden = [
         'id', 'uuid_scrape', 'project_id', 'category_id',
         'created_by', 'created_at', 'updated_by', 'updated_at',
@@ -21,27 +20,22 @@ class ScrapedData extends Model
 
     public function getProject()
     {
-        return $this->belongsTo(Project::class, 'project_id', 'id');
+        return $this->belongsTo(Project::class, 'project_id');
     }
 
     public function getCategory()
     {
-        return $this->belongsTo(Category::class, 'category_id', 'id');
+        return $this->belongsTo(Category::class, 'category_id');
     }
 
     public function getUser()
     {
-        return $this->belongsTo(User::class, 'created_by', 'id');
+        return $this->belongsTo(User::class, 'created_by');
     }
 
     public function getDeletedData()
     {
-        return $this->belongsTo(User::class, 'deleted_by', 'id');
-    }
-
-    public function getMember()
-    {
-        return $this->belongsTo(Member::class, 'created_by', 'id');
+        return $this->belongsTo(User::class, 'deleted_by');
     }
 
     public static function deleteOldRecycle()

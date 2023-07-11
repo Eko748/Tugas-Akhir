@@ -48,7 +48,6 @@ class AcmController extends ScrapingMasterController implements ScrapingData
             ];
             return view('pages.review.category.acm.content.components.2-data', $this->data)->render();
         }
-        return view('pages.review.category.acm.content.components.2-data', $this->data)->render();
     }
 
     public function searchScrapingData($request)

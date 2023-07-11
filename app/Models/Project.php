@@ -19,17 +19,16 @@ class Project extends Model
 
     public function getUser()
     {
-        return $this->belongsTo(User::class, 'created_by', 'id');
+        return $this->belongsTo(User::class, 'created_by');
     }
 
     public function getLeader()
     {
-        return $this->belongsTo(Leader::class, 'leader_id', 'id');
+        return $this->belongsTo(Leader::class, 'leader_id');
     }
 
     public function hasScrapedData()
     {
         return $this->hasMany(ScrapedData::class, 'project_id');
     }
-
 }

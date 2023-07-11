@@ -29,14 +29,17 @@ class ScrapingMasterController extends ScrapingController implements ValidationD
     public function createScraping(Request $request)
     {
         try {
+            $project_id = $this->getData()['project']->id;
+            $code = $this->getData()['code'];
+            $user = Auth::user()->code;
             $validate = $this->validateDataCreate($request);
             ScrapedData::create(
                 [
                     'id' => random_int(1000000, 9999999),
                     'uuid_scrape' => Str::uuid(),
-                    'project_id' => $this->getData()['project']->id,
+                    'project_id' => $project_id,
                     'category_id' => $request->category_id,
-                    'code' => $request->code . Auth::user()->code . $this->getData()['code'],
+                    'code' => $request->code . $user . $code,
                     'title' => $validate['title'],
                     'publisher' => $request->publisher,
                     'publication' => $request->publication,
@@ -51,9 +54,18 @@ class ScrapingMasterController extends ScrapingController implements ValidationD
                     'created_by' => Auth::user()->id,
                 ]
             );
-            return response()->json(['success' => 'Scraping berhasil ditambahkan ke Project']);
+            return response()->json(
+                [
+                    'success' => 'Scraping berhasil'
+                ]
+            );
         } catch (\Exception $e) {
-            return response()->json(['error' => 'Gagal, silahkan coba lagi', 'message' => $e->getMessage()]);
+            return response()->json(
+                [
+                    'error' => 'Gagal, silahkan coba lagi', 
+                    'message' => $e->getMessage()
+                ]
+            );
         }
     }
 
@@ -64,8 +76,8 @@ class ScrapingMasterController extends ScrapingController implements ValidationD
                 'title' => 'required|string'
             ],
             [
-                'required' => 'Kolom :attribute harus diisi.',
-                'string' => 'Kolom :attribute harus berupa teks.',
+                'required' => ':attribute harus diisi.',
+                'string' => ':attribute harus berupa teks.',
             ]
         );
     }

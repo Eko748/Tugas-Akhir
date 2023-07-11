@@ -17,15 +17,23 @@
                     </div>
                     <img id="img-scrap" class="text-center img-fluid" src="{{ asset('images/Search-Scraping.png') }}"
                         style="width:300px" alt="">
-                    <p>Klik untuk beralih ke halaman <a target="_blank"
-                            href="https://ieeexplore.ieee.org/document/6606614"><b class="text-primary"><u>IEEE
-                                    Xplore</u></b></a></p>
+                    <p>Klik untuk beralih ke halaman
+                        <a target="_blank" href="https://ieeexplore.ieee.org/document/6606614">
+                            <b class="text-primary">
+                                <u>IEEE Xplore</u>
+                            </b>
+                        </a>
+                    </p>
                 @else
                     <img id="img-scrap" class="text-center img-fluid" src="{{ asset('images/Search-Scraping.png') }}"
                         style="width:300px" alt="">
-                    <p>Klik untuk beralih ke halaman <a target="_blank"
-                            href="https://ieeexplore.ieee.org/document/6606614"><b class="text-primary"><u>IEEE
-                                    Xplore</u></b></a></p>
+                    <p>Klik untuk beralih ke halaman
+                        <a target="_blank" href="https://ieeexplore.ieee.org/document/6606614">
+                            <b class="text-primary">
+                                <u>IEEE Xplore</u>
+                            </b>
+                        </a>
+                    </p>
                 @endif
             </center>
         @endif

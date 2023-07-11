@@ -4,8 +4,7 @@ namespace App\Http\Controllers\Scraping;
 
 use App\Http\Controllers\Interface\ScrapingData;
 use Goutte\Client;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\{Http\Request, Support\Facades\Auth};
 
 class IeeeController extends ScrapingMasterController implements ScrapingData
 {
@@ -43,13 +42,12 @@ class IeeeController extends ScrapingMasterController implements ScrapingData
                 'exist' => $exist
             ];
             return view('pages.review.category.ieee.content.components.2-data', $this->data)->render();
-        } catch (\Exception $e) {
+        } catch (\Exception) {
             $this->data = [
                 'error' => 'Data IEEE tidak ditemukan'
             ];
             return view('pages.review.category.ieee.content.components.2-data', $this->data)->render();
         }
-        return view('pages.review.category.ieee.content.components.2-data', $this->data)->render();
     }
 
     public function searchScrapingData($request)
