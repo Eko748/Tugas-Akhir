@@ -41,7 +41,7 @@
         <div class="row text-center">
             <div class="mb-3 col-md-12">
                 <div class=""><img class="img-fluid" style="width: 90%; height: 90%"
-                        src="{{ asset('assets/images/logo/management.png') }}" alt=""></div>
+                        src="{{ asset('assets/images/logo/1-management.png') }}" alt=""></div>
             </div>
         </div>
     </div>

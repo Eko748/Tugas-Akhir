@@ -14,7 +14,7 @@
         }
 
         $("#empty-search-message").hide();
-        
+
         showLoading();
 
         let xhr = $.ajax({
@@ -43,13 +43,6 @@
             xhr.abort();
         }, 30000);
     });
-
-    function cleanSearchQuery() {
-        const searchInput = document.getElementById("search");
-        const query = searchInput.value;
-        const cleanedQuery = query.replace(/[^\w\s]/gi, "");
-        searchInput.value = cleanedQuery;
-    }
 
     document.getElementById("search").addEventListener("keyup", function(event) {
         if (event.keyCode === 13) {
@@ -122,9 +115,10 @@
 
 
     function enableInput() {
-        document.querySelectorAll('.create').forEach(function(el) {
-            el.disabled = false;
-        });
+        document.querySelectorAll('.create')
+            .forEach(function(el) {
+                el.disabled = false;
+            });
     }
 
     function showFullAbstract() {
