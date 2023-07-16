@@ -29,15 +29,14 @@ class ProjectsExport implements FromView
 
     private function exportProjectScraping()
     {
-        $user_id = Auth::user()->created_by;
-
         if (Auth::user()->role_id == '1') {
             $projects = ScrapedData::with('getProject', 'getUser', 'getCategory')
                 ->where('project_id', $this->project->id)
                 ->where('deleted_by', null)
                 ->orderBy('code', 'ASC')
                 ->get();
-        } else {
+        } elseif (Auth::user()->role_id == '2') {
+            $user_id = Auth::user()->created_by;
             $projects = ScrapedData::with('getProject.getLeader', 'getUser', 'getCategory')
                 ->where('project_id', $this->project->id)
                 ->whereHas('getProject', function ($q) use ($user_id) {
