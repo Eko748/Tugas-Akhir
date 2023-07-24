@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('email', 100)->unique()->nullable();
             $table->string('password');
             $table->rememberToken();
-            $table->string('last_seen_ip', 20)->nullable();
+            $table->string('last_seen_ip', 255)->nullable();
             $table->timestamp('last_seen')->nullable();
             $table->integer('created_by')->nullable();
             $table->timestamp('created_at')->nullable();

@@ -3,7 +3,7 @@
         <tr>
             <th style="text-align: center; vertical-align: middle;"><b>Code</b></th>
             <th style="text-align: center; vertical-align: middle;"><b>Nama</b></th>
-            <th style="text-align: center; vertical-align: middle;"><b>Email</b></th>
+            <th style="text-align: center; vertical-align: middle;"><b>Username</b></th>
         </tr>
     </thead>
     <tbody>
@@ -11,7 +11,7 @@
             <tr>
                 <td style="text-align: center; vertical-align: middle;">{{ $user->code }}</td>
                 <td style="text-align: center; vertical-align: middle;">{{ $user->name }}</td>
-                <td style="text-align: center; vertical-align: middle;">{{ $user->email }}</td>
+                <td style="text-align: center; vertical-align: middle;">{{ $user->username }}</td>
             </tr>
         @endforeach
     </tbody>
