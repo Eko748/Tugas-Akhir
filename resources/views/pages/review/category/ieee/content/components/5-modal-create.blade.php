@@ -150,13 +150,14 @@
                 <div class="mb-3 col-md-12">
                     @php
                         $crawler = $client->request('GET', $references . $key['article_number']);
-                        $text = $crawler->filterXPath('//body/text()[1]')->text();
+                        $text = $crawler->filter('body')->text();
+                        
                     @endphp
                     @if (isset($text))
                         <label for="keywords">References</label>
                         <div class="input-group">
                             <textarea class="create" value="ieee" name="references" id="references-{{ $key['article_number'] }}"
-                                cols="150" rows="6" disabled>{{ $text }}</textarea>
+                                cols="150" rows="6" disabled>{{ $text }} </textarea>
                         </div>
                     @endif
                 </div>
@@ -164,13 +165,12 @@
             <div class="row">
                 <div class="mb-3 col-md-12">
                     <label for="link">Link</label>
-                    <x-text-input placeholder="{{ $search }}"
-                            value="{{ $search }}" id="link" class="create form-control"
-                            type="text" name="link" :value="$search" disabled />
-                        <x-input-error :messages="$errors->get('link')" class="mt-2" />
-                        <div class="invalid-tooltip">Please enter
-                            link
-                        </div>
+                    <x-text-input placeholder="{{ $search }}" value="{{ $search }}" id="link"
+                        class="create form-control" type="text" name="link" :value="$search" disabled />
+                    <x-input-error :messages="$errors->get('link')" class="mt-2" />
+                    <div class="invalid-tooltip">Please enter
+                        link
+                    </div>
                 </div>
             </div>
         </div>
@@ -178,7 +178,8 @@
             <button class="btn btn-sm btn-outline-dark text-white btn-danger" type="button" data-bs-dismiss="modal">
                 <i class="fa fa-times-circle"></i> Close
             </button>
-            <button type="submit" class="c-data btn btn-sm btn-outline-dark text-white btn-success btn-load btn-block">
+            <button type="submit"
+                class="c-data btn btn-sm btn-outline-dark text-white btn-success btn-load btn-block">
                 <i class="fa fa-save"></i> Submit
             </button>
         </div>
