@@ -45,6 +45,7 @@ class SpringerController extends ScrapingMasterController implements ScrapingDat
             } else {
                 if (isset($springer['path']['records'])) {
                     $this->data = [
+                        'search_link' => $springer['search'],
                         'search' => $springer['query'],
                         'client' => $springer['client'],
                         'path' => $springer['path']['records'],
@@ -69,6 +70,7 @@ class SpringerController extends ScrapingMasterController implements ScrapingDat
 
     public function searchScrapingData($request)
     {
+        $search = $request->query('search');
         $query = $request->query('search');
         $springer = config('services.scrape.springer_key');
         $query = str_ireplace('https://link.springer.com/article/', '', $query);
@@ -79,6 +81,7 @@ class SpringerController extends ScrapingMasterController implements ScrapingDat
         $path = json_decode($response->getBody()->getContents(), true);
         if (isset($path)) {
             return [
+                'search' => $search,
                 'query' => $query,
                 'path' => $path,
                 'client' => $client,

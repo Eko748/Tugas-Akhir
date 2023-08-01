@@ -29,6 +29,7 @@ return new class extends Migration
             $table->text('abstracts');
             $table->text('keywords');
             $table->text('references')->nullable();
+            $table->text('link');
             // $table->enum('snowball', ['yes', 'no'])->default('no');
             $table->string('reference_source', 10)->nullable();
             $table->integer('created_by');

@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Management;
 
 use App\Exports\ProjectsExport;
+use App\Models\Category;
+use App\Models\Project;
 use App\Models\ScrapedData;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -24,6 +27,7 @@ class ProjectController extends ManagementController
     public function showProjectScraping()
     {
         $this->data = [
+            'subject' => $this->getProjectData(),
             'parent' => $this->page,
             'child' => $this->label,
         ];
@@ -134,5 +138,203 @@ class ProjectController extends ManagementController
         $fileName = $prefix . '-project-' . $currentDateTime . '.xlsx';
         $print = Excel::download(new ProjectsExport($this->getProjectData()), $fileName);
         return $print;
+    }
+
+    public function exportPDF(Request $request)
+    {
+        $request->validate([
+            'sort_by' => 'nullable|in:year,title,publisher,publication,category_name',
+            'category_name' => 'nullable|in:IEEE,ACM,Springer',
+            'start_year' => 'nullable|integer',
+            'end_year' => 'nullable|integer',
+        ]);
+
+        $scrapies = null;
+
+        if (Auth::user()->role_id == '1') {
+            $user = Auth::user()->id;
+            $query = ScrapedData::whereHas('getProject', function ($q) use ($user) {
+                $q->where('created_by', $user);
+            })
+                ->where('deleted_by', null);
+
+            if (!empty($request->input('category_name'))) {
+                $query->whereHas('getCategory', function ($q) use ($request) {
+                    $q->where('category_name', $request->input('category_name'));
+                });
+            }
+
+            if (!empty($request->input('sort_by'))) {
+                if ($request->input('sort_by') === 'category_name') {
+                    $query->join('category', 'scraped_data.category_id', '=', 'category.id')
+                        ->orderBy('category.category_name', 'desc');
+                } else {
+                    $query->orderBy($request->input('sort_by'), 'desc');
+                }
+            }
+
+            if (!empty($request->input('start_year')) && !empty($request->input('end_year'))) {
+                $query->whereBetween('year', [$request->input('start_year'), $request->input('end_year')]);
+            }
+
+            $scrapies = $query->orderBy('created_at', 'desc')->get();
+        } elseif (Auth::user()->role_id == '2') {
+            $user_id = Auth::user()->created_by;
+            $query = ScrapedData::whereHas('getProject', function ($q) use ($user_id) {
+                $q->whereHas('getLeader', function ($l) use ($user_id) {
+                    $l->where('id', $user_id);
+                });
+            })->where('deleted_by', null);
+
+            if (!empty($request->has('category_name'))) {
+                $query->whereHas('getProject', function ($q) use ($user_id) {
+                    $q->whereHas('getLeader', function ($l) use ($user_id) {
+                        $l->where('id', $user_id);
+                    });
+                })
+                    ->whereHas('getCategory', function ($q) use ($request) {
+                        $q->where('category_name', $request->category_name);
+                    })
+                    ->where('deleted_by', null)
+                    ->orderBy('created_at', 'desc');
+            }
+
+            if (!empty($request->input('sort_by'))) {
+                if ($request->input('sort_by') === 'category_name') {
+                    $query->join('category', 'scraped_data.category_id', '=', 'category.id')
+                        ->orderBy('category.category_name', 'desc');
+                } else {
+                    $query->orderBy($request->input('sort_by'), 'desc');
+                }
+            }
+
+            if (!empty($request->input('start_year')) && !empty($request->input('end_year'))) {
+                $query->whereBetween('year', [$request->input('start_year'), $request->input('end_year')]);
+            }
+
+            $scrapies = $query->get();
+        }
+        $project = $this->getProjectData();
+
+        $data = [
+            'scrapies' => $scrapies,
+            'project' => $project
+        ];
+
+        if (null !== $this->getInstituteData()['institute']) {
+            $ins = $this->getInstituteData()['institute'];
+            $institute = $ins['institute_name'];
+            $ins_array = explode(' ', $institute);
+            $prefix = Str::of($ins_array[0])->slug('');
+        } else {
+            $prefix = 'slr';
+        }
+
+        $currentDateTime = date('His-dmY');
+        $fileName = $prefix . '-project-' . $currentDateTime . '.pdf';
+
+        $pdf = Pdf::loadView('exports.pdf', $data);
+        return $pdf->download($fileName);
+    }
+
+    public function searchProjectScraping(Request $request)
+    {
+        $search = $request->q;
+        if (Auth::user()->role_id == '1') {
+            $user = Auth::user()->id;
+            $query = ScrapedData::whereHas('getProject', function ($q) use ($user) {
+                $q->where('created_by', $user);
+            })->where('deleted_by', null)
+                ->where('year', 'LIKE', '%' . $search . '%')
+                ->orderBy('year', 'desc')->get();
+        } elseif (Auth::user()->role_id == '2') {
+            $user_id = Auth::user()->created_by;
+            $query = ScrapedData::whereHas('getProject', function ($q) use ($user_id) {
+                $q->whereHas('getLeader', function ($l) use ($user_id) {
+                    $l->where('id', $user_id);
+                });
+            })->where('deleted_by', null)
+                ->where('year', 'LIKE', '%' . $search . '%')
+                ->orderBy('year', 'desc')->get();
+        }
+
+        $response = [];
+        foreach ($query as $data) {
+            $pattern = '/\b\d{4}\b/';
+
+            if (preg_match($pattern, $data->year, $matches)) {
+                $year = $matches[0];
+            } else {
+                $year = $data->year;
+            }
+
+            $response[] = [
+                'id' => $year,
+                'text' => $year,
+            ];
+        }
+        $uniqueYears = collect($response)->unique('text')->values();
+        $sortedYears = $uniqueYears->sortByDesc('text')->values()->all();
+
+        return response()->json($sortedYears);
+    }
+
+    public function searchCategory(Request $request)
+    {
+        $search = $request->q;
+        $query = Category::where('category_name', 'LIKE', '%' . $search . '%')
+            ->orderBy('id', 'asc')->get();
+
+        $response = [];
+
+        $emptyOption = ['id' => '', 'text' => ''];
+        $response[] = $emptyOption;
+
+        foreach ($query as $data) {
+            $response[] = [
+                'id' => $data->category_name,
+                'text' => $data->category_name,
+            ];
+        }
+
+        return response()->json($response);
+    }
+
+    public function searchSortProject(Request $request)
+    {
+        $column = [
+            "title" => "Title",
+            "year" => "Year",
+            "publisher" => "Publisher",
+            "publication" => "Publication",
+        ];
+
+        $response = [];
+        foreach ($column as $key => $value) {
+            $response[] = [
+                'id' => $key,
+                'text' => $value,
+            ];
+        }
+
+        return response()->json($response);
+    }
+
+    public function updateSubject(Request $request)
+    {
+        $request->validate(
+            [
+                'subject' => ['required']
+            ],
+            [
+                'required' => 'Kolom :attribute harus diisi.'
+            ]
+        );
+        $project = $this->getProjectData();
+        $project->update([
+            'subject' => $request->subject
+        ]);
+
+        return back()->with('status', 'subject-updated');
     }
 }

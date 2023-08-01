@@ -161,6 +161,18 @@
                     @endif
                 </div>
             </div>
+            <div class="row">
+                <div class="mb-3 col-md-12">
+                    <label for="link">Link</label>
+                    <x-text-input placeholder="{{ $search }}"
+                            value="{{ $search }}" id="link" class="create form-control"
+                            type="text" name="link" :value="$search" disabled />
+                        <x-input-error :messages="$errors->get('link')" class="mt-2" />
+                        <div class="invalid-tooltip">Please enter
+                            link
+                        </div>
+                </div>
+            </div>
         </div>
         <div class="modal-footer">
             <button class="btn btn-sm btn-outline-dark text-white btn-danger" type="button" data-bs-dismiss="modal">

@@ -33,9 +33,14 @@ Route::middleware('auth')->group(function () {
                     Route::get('/', 'showProjectScraping')->name('management.project.index');
                     Route::get('/request', 'requestProjectScraping')->name('management.project.getTable');
                     Route::get('/export', 'exportProjectScraping')->name('management.project.export');
+                    Route::get('/pdf', 'exportPDF')->name('management.project.pdf');
                     Route::get('/snowballing', 'getSnowballScraping')->name('management.project.snowBalling');
                     Route::get('/detail', 'getDetailScraping')->name('management.project.modalDetail');
                     Route::post('/delete', 'deleteProjectScraping')->name('management.projectSLR.delete');
+                    Route::get('/search-project', 'searchProjectScraping')->name('management.project.getProject');
+                    Route::get('/search-category', 'searchCategory')->name('management.project.getCategory');
+                    Route::get('/search-sort', 'searchSortProject')->name('management.project.getSort');
+                    Route::put('/subject', 'updateSubject')->name('management.project.update');
                 });
             });
             Route::controller(InstituteController::class)->group(function () {

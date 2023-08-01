@@ -92,10 +92,150 @@
             cancelButtonText: "Batalkan!",
             reverseButtons: true
         }).then((result) => {
-            if (result.dismiss || result.cancel) {
-            } else {
-                window.location = "{{ Auth::user()->role_id == 1 ? route('management.project.export') : route('project.export') }}";
+            if (result.dismiss || result.cancel) {} else {
+                window.location =
+                    "{{ Auth::user()->role_id == 1 ? route('management.project.export') : route('project.export') }}";
             }
         });
     }
+
+    $(function() {
+        $('#start_year').select2({
+            placeholder: 'Dari',
+            dropdownParent: '#viewPdf',
+            allowClear: true,
+            width: "200%",
+            ajax: {
+                url: '{{ Auth::user()->role_id == 1 ? route('management.project.getProject') : route('project.getProject') }}',
+                dataType: 'json',
+                delay: 220,
+                data: function(params) {
+                    return {
+                        q: params.term
+                    };
+                },
+                processResults: function(data) {
+                    return {
+                        results: data
+                    };
+                },
+                cache: true
+            },
+            minimumResultsForSearch: 0,
+        }).on('change', function(e) {
+            let data = e.params.data;
+            let year = data.year;
+            $('#start_year').val(year).trigger('change');
+        });
+
+        $('#end_year').select2({
+            placeholder: 'Sampai',
+            dropdownParent: '#viewPdf',
+            allowClear: true,
+            width: "200%",
+            ajax: {
+                url: '{{ Auth::user()->role_id == 1 ? route('management.project.getProject') : route('project.getProject') }}',
+                dataType: 'json',
+                delay: 220,
+                data: function(params) {
+                    return {
+                        q: params.term
+                    };
+                },
+                processResults: function(data) {
+                    return {
+                        results: data
+                    };
+                },
+                cache: true
+            },
+            minimumResultsForSearch: 0,
+        }).on('change', function(e) {
+            let data = e.params.data;
+            let year = data.year;
+            $('#end_year').val(year).trigger('change');
+        });
+
+        $('#category').select2({
+            placeholder: 'Filter Kategori',
+            dropdownParent: '#viewPdf',
+            allowClear: true,
+            width: "200%",
+            ajax: {
+                url: '{{ Auth::user()->role_id == 1 ? route('management.project.getCategory') : route('project.getCategory') }}',
+                dataType: 'json',
+                delay: 220,
+                data: function(params) {
+                    return {
+                        q: params.term
+                    };
+                },
+                processResults: function(data) {
+                    data.unshift({ id: '', text: '' });
+                    return {
+                        results: data
+                    };
+                },
+                cache: true
+            },
+            minimumResultsForSearch: 0,
+        }).on('change', function(e) {
+            let data = e.params.data;
+            let category_name = data.category_name;
+            $('#category').val(year).trigger('change');
+        });
+
+        $('#sort-project').select2({
+            placeholder: 'Sort Kolom',
+            dropdownParent: '#viewPdf',
+            allowClear: true,
+            width: "200%",
+            ajax: {
+                url: '{{ Auth::user()->role_id == 1 ? route('management.project.getSort') : route('project.getSort') }}',
+                dataType: 'json',
+                delay: 220,
+                data: function(params) {
+                    return {
+                        q: params.term
+                    };
+                },
+                processResults: function(data) {
+                    data.unshift({ id: '', text: '' });
+                    return {
+                        results: data
+                    };
+                },
+                cache: true
+            },
+            minimumResultsForSearch: 0,
+        }).on('change', function(e) {
+            let data = e.params.data;
+            let sort = data.sort;
+            $('#sort-project').val(year).trigger('change');
+        });
+    });
+
+
+    function fillYearOptions(startYear, endYear, selectElement) {
+        for (let year = startYear; year <= endYear; year++) {
+            const option = new Option(year, year);
+            selectElement.append(option);
+        }
+    }
+
+    $(document).ready(function() {
+        const startYear = 2010;
+        const currentYear = new Date().getFullYear();
+
+        const startYearSelect = $("#start_year");
+        const endYearSelect = $("#end_year");
+
+        fillYearOptions(startYear, currentYear, startYearSelect);
+        fillYearOptions(startYear, currentYear, endYearSelect);
+
+        const selectedStartYear = "{{ request('start_year') }}";
+        const selectedEndYear = "{{ request('end_year') }}";
+        startYearSelect.val(selectedStartYear);
+        endYearSelect.val(selectedEndYear);
+    });
 </script>

@@ -17,7 +17,9 @@
                                 $(api.column(colIdx).header()).index()
                             );
                             $(cell).html(
-                                '<button onclick="exportData()" title="Export Project Scraping" class="btn btn-success me-1 ms-1 btn-sm button cool btn-outline-dark hovering shadow-sm"><i class="fa fa-download"></i></button>'
+                                '@if (Auth::user()->role_id == 1)' +
+                                '<button class="btn btn-secondary btn-sm me-1 ms-1 button cool hovering shadow-sm btn-outline-dark" title="Edit Subject" data-bs-toggle="modal" data-bs-target="#viewSubject"><i class="fa fa-edit"></i></button>' +
+                                '@endif'
                             );
                         } else if (colIdx == 7) {
                             let cell = $('.filters th').eq(
@@ -108,7 +110,7 @@
                     });
             },
             order: [
-                [6, 'asc']
+                [0, 'asc']
             ],
             processing: true,
             serverSide: true,

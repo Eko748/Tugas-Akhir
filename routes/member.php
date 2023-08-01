@@ -16,9 +16,13 @@ Route::middleware('auth')->group(function () {
                     Route::get('/', 'showProjectScraping')->name('project.index');
                     Route::get('/request', 'requestProjectScraping')->name('project.getTable');
                     Route::get('/export', 'exportProjectScraping')->name('project.export');
+                    Route::get('/pdf', 'exportPDF')->name('project.pdf');
                     Route::get('/snowballing', 'getSnowballScraping')->name('project.snowBalling');
                     Route::get('/detail', 'getDetailScraping')->name('project.modalDetail');
                     Route::post('/delete', 'deleteProjectScraping')->name('projectSLR.delete');
+                    Route::get('/search-project', 'searchProjectScraping')->name('project.getProject');
+                    Route::get('/search-category', 'searchCategory')->name('project.getCategory');
+                    Route::get('/search-sort', 'searchSortProject')->name('project.getSort');
                 });
             });
             // Master

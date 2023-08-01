@@ -50,6 +50,7 @@ class ScrapingMasterController extends ScrapingController implements ValidationD
                     'authors' => $request->authors,
                     'keywords' => $request->keywords,
                     'references' => $request->references,
+                    'link' => $request->link,
                     'reference_source' => $request->reference_source,
                     'created_by' => Auth::user()->id,
                 ]
