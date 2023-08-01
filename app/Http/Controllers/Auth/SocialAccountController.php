@@ -81,6 +81,7 @@ class SocialAccountController extends Controller
                     [
                         'id' => random_int(1000000, 9999999),
                         'leader_id' => $leader->id,
+                        'subject' => 'Project Scraping',
                         'uuid_project' => Str::uuid(),
                         'created_by' => $user->id,
                         'created_at' => now()
