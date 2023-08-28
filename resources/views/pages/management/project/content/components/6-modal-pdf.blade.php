@@ -16,11 +16,11 @@
                             <div class="row g-2 mb-2">
                                 <div class="mb-3 col-md-12">
                                     <div class="row">
-                                        <div class="col-md-6 mb-2"> <label for="sort_by">Sort By</label>
+                                        <div class="col-md-6 mb-2"> <label for="sort_by">Sort By Kolom</label>
                                             <select id="sort-project" name="sort_by" class="form-control sort-by"
                                                 style="width: 100%;"></select>
                                         </div>
-                                        <div class="col-md-6 mb-2"> <label for="category_name">Filter By</label>
+                                        <div class="col-md-6 mb-2"> <label for="category_name">Filter Kategori</label>
                                             <select id="category" name="category_name" class="form-control category"
                                                 style="width: 100%;"></select>
                                         </div>
@@ -30,7 +30,7 @@
 
                             <div class="row mb-2">
                                 <div class="mb-3 col-md-12">
-                                    <label for="start_year">Pilih Tahun</label>
+                                    <label for="start_year">Filter Tahun Publikasi</label>
                                     <div class="row">
                                         <div class="col-md-6 mb-2">
                                             <select id="start_year" name="start_year" class="form-control start-year"

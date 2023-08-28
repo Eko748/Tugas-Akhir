@@ -157,7 +157,7 @@
         });
 
         $('#category').select2({
-            placeholder: 'Filter Kategori',
+            placeholder: 'Pilih Kategori',
             dropdownParent: '#viewPdf',
             allowClear: true,
             width: "200%",
@@ -186,7 +186,7 @@
         });
 
         $('#sort-project').select2({
-            placeholder: 'Sort Kolom',
+            placeholder: 'Pilih Kolom',
             dropdownParent: '#viewPdf',
             allowClear: true,
             width: "200%",

@@ -201,7 +201,7 @@
                     <td></td>
                     <td>Detail</td>
                     <td style="vertical-align: top; text-align: left;">:</td>
-                    <td><a href="{{ $scrapy->link }}">{{ $scrapy->link }}</a></td>
+                    <td><a target="_blank" href="{{ $scrapy->link }}">{{ $scrapy->link }}</a></td>
                 </tr>
             </table>
             @php

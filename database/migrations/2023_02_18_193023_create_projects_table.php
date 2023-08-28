@@ -28,7 +28,7 @@ return new class extends Migration
             $table->timestamp('created_at')->nullable();
             $table->foreign('leader_id')->references('id')->on('leader')->onDelete('cascade');
             // $table->timestamp('updated_at')->nullable();
-            // $table->integer('updated_by')->nullable();
+            // $table->integer('updated_by')->nullable(); 
             // $table->integer('deleted_by')->nullable();
             // $table->timestamp('deleted_at')->nullable();
         });

@@ -143,7 +143,7 @@ class ProjectController extends ManagementController
     public function exportPDF(Request $request)
     {
         $request->validate([
-            'sort_by' => 'nullable|in:year,title,publisher,publication,category_name',
+            'sort_by' => 'nullable|in:year,title,publisher,publication',
             'category_name' => 'nullable|in:IEEE,ACM,Springer',
             'start_year' => 'nullable|integer',
             'end_year' => 'nullable|integer',
@@ -155,29 +155,23 @@ class ProjectController extends ManagementController
             $user = Auth::user()->id;
             $query = ScrapedData::whereHas('getProject', function ($q) use ($user) {
                 $q->where('created_by', $user);
-            })
-                ->where('deleted_by', null);
-
-            if (!empty($request->input('category_name'))) {
-                $query->whereHas('getCategory', function ($q) use ($request) {
-                    $q->where('category_name', $request->input('category_name'));
-                });
-            }
+            })->where('deleted_by', null);
 
             if (!empty($request->input('sort_by'))) {
-                if ($request->input('sort_by') === 'category_name') {
-                    $query->join('category', 'scraped_data.category_id', '=', 'category.id')
-                        ->orderBy('category.category_name', 'desc');
-                } else {
-                    $query->orderBy($request->input('sort_by'), 'desc');
+                if (!empty($request->input('category_name'))) {
+                    $query->whereHas('getCategory', function ($q) use ($request) {
+                        $q->where('category_name', $request->input('category_name'));
+                    });
                 }
-            }
 
-            if (!empty($request->input('start_year')) && !empty($request->input('end_year'))) {
-                $query->whereBetween('year', [$request->input('start_year'), $request->input('end_year')]);
-            }
+                if (!empty($request->input('start_year')) && !empty($request->input('end_year'))) {
+                    $query->whereBetween('year', [$request->input('start_year'), $request->input('end_year')]);
+                }
 
-            $scrapies = $query->orderBy('created_at', 'desc')->get();
+                $scrapies = $query->orderBy($request->input('sort_by'), 'desc')->get();
+            } else {
+                $scrapies = $query->orderBy('created_at', 'desc')->get();
+            }
         } elseif (Auth::user()->role_id == '2') {
             $user_id = Auth::user()->created_by;
             $query = ScrapedData::whereHas('getProject', function ($q) use ($user_id) {
@@ -186,34 +180,27 @@ class ProjectController extends ManagementController
                 });
             })->where('deleted_by', null);
 
-            if (!empty($request->has('category_name'))) {
-                $query->whereHas('getProject', function ($q) use ($user_id) {
-                    $q->whereHas('getLeader', function ($l) use ($user_id) {
-                        $l->where('id', $user_id);
-                    });
-                })
-                    ->whereHas('getCategory', function ($q) use ($request) {
-                        $q->where('category_name', $request->category_name);
-                    })
-                    ->where('deleted_by', null)
-                    ->orderBy('created_at', 'desc');
-            }
-
             if (!empty($request->input('sort_by'))) {
-                if ($request->input('sort_by') === 'category_name') {
-                    $query->join('category', 'scraped_data.category_id', '=', 'category.id')
-                        ->orderBy('category.category_name', 'desc');
-                } else {
-                    $query->orderBy($request->input('sort_by'), 'desc');
+                if (!empty($request->has('category_name'))) {
+                    $query->whereHas('getProject', function ($q) use ($user_id) {
+                        $q->whereHas('getLeader', function ($l) use ($user_id) {
+                            $l->where('id', $user_id);
+                        });
+                    })->whereHas('getCategory', function ($q) use ($request) {
+                        $q->where('category_name', $request->category_name);
+                    });
                 }
-            }
 
-            if (!empty($request->input('start_year')) && !empty($request->input('end_year'))) {
-                $query->whereBetween('year', [$request->input('start_year'), $request->input('end_year')]);
-            }
+                if (!empty($request->input('start_year')) && !empty($request->input('end_year'))) {
+                    $query->whereBetween('year', [$request->input('start_year'), $request->input('end_year')]);
+                }
 
-            $scrapies = $query->get();
+                $scrapies = $query->where('deleted_by', null)->orderBy($request->input('sort_by'), 'desc')->get();
+            } else {
+                $scrapies = $query->where('deleted_by', null)->orderBy('created_at', 'desc')->get();
+            }
         }
+
         $project = $this->getProjectData();
 
         $data = [
@@ -286,9 +273,6 @@ class ProjectController extends ManagementController
             ->orderBy('id', 'asc')->get();
 
         $response = [];
-
-        $emptyOption = ['id' => '', 'text' => ''];
-        $response[] = $emptyOption;
 
         foreach ($query as $data) {
             $response[] = [
